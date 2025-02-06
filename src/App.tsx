@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { ConfigProvider } from "antd";
 import Cabecalho from "./componentes/cabecalho/cabecalho";
 import EscolherEscola from "./componentes/escolherEscola/escolherEscola";
+import Conteudo from "./componentes/conteudo/conteudo";
 import { store } from "./redux/store";
 import "./main.css";
 
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <div className="app-container">
           <Cabecalho />
           <EscolherEscola />
+          <Conteudo />
         </div>
       </ConfigProvider>
     </Provider>
