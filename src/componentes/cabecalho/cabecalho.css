@@ -2,6 +2,7 @@
   width: 100%;
   padding: 0;
   background: #fcfcfc;
+  z-index: 1000;
 }
 
 .linha-superior {
@@ -54,4 +55,7 @@
   color: #fff;
   margin-top: 10px;
   font-size: 30px;
+}
+.ant-breadcrumb-separator {
+  color: #fff !important;
 }

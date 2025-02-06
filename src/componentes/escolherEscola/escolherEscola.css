@@ -1,0 +1,90 @@
+.escolher-escola {
+  padding-top: 150px;
+  margin-left: 35px;
+}
+
+.nome-escola {
+  font-size: 20px;
+  color: #595959;
+  font-weight: 700;
+}
+
+.texto-filtrar {
+  color: #5a94d8;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 28px;
+  margin-right: 38px;
+}
+
+.icone-filtrar {
+  font-size: 20px;
+  color: #5a94d8;
+}
+
+.custom-drawer .ant-drawer-body {
+  background-color: #5a94d8;
+  color: white;
+}
+
+.custom-drawer .ant-drawer-header {
+  background-color: #5a94d8;
+  color: white;
+}
+
+.custom-drawer .ant-drawer-title {
+  color: white;
+  text-transform: uppercase;
+}
+
+.custom-drawer .ant-drawer-close {
+  color: white;
+}
+
+.custom-drawer .ant-drawer-header {
+  background-color: #5f90d9;
+  color: white;
+  border-bottom: none;
+}
+
+.custom-drawer .ant-drawer-title {
+  color: white;
+  font-weight: bold;
+}
+
+.custom-drawer .ant-checkbox-wrapper {
+  display: flex;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.filtro-secao {
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.filtro-titulo {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.filtro-botoes {
+}
+
+.botao-remover {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.botao-filtrar {
+  background-color: white !important;
+  color: #5f90d9 !important;
+}
+
+.separador {
+  background-color: #fff;
+}
