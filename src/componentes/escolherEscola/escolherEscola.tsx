@@ -27,7 +27,7 @@ const EscolherEscola: React.FC = () => {
   );
 
   const handleChange = (value: string) => {
-    dispatch(selecionarEscola(value)); // Salva a escola no Redux
+    dispatch(selecionarEscola(value));
   };
 
   const abrirFiltro = () => {
@@ -109,10 +109,11 @@ const EscolherEscola: React.FC = () => {
       <div className="conteudo-principal">
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <Card
-              title="Você pode filtrar por Unidade Educacional (UE) ou por Diretoria Regional de Educação (DRE)."
-              bordered={false}
-            >
+            <Card title="" bordered={false}>
+              <div className="card-escolher-escolas">
+                Você pode filtrar por Unidade Educacional (UE) ou por Diretoria
+                Regional de Educação (DRE).
+              </div>
               <Select
                 showSearch
                 placeholder="Selecione ou digite a DRE ou UE..."

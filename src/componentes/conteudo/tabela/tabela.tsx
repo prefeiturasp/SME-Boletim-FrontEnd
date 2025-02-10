@@ -50,6 +50,7 @@ const columns: ColumnsType<DataType> = [
     title: "Média de proficiência",
     dataIndex: "mediaProficiencia",
     key: "mediaProficiencia",
+    className: "col-proficiencia",
   },
 ];
 

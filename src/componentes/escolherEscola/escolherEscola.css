@@ -93,3 +93,9 @@
 .separador {
   background-color: #fff;
 }
+
+.card-escolher-escolas {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}

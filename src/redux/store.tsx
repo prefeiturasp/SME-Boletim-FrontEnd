@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import escolaReducer from "./slices/escolaSlice";
+import authReducer from "./slices/authSlice";
 
 export const store = configureStore({
   reducer: {
-    escola: escolaReducer, // Adiciona o reducer da escola ao store
+    escola: escolaReducer,
+    auth: authReducer,
   },
 });
 
