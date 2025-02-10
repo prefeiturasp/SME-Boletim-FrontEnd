@@ -21,6 +21,11 @@
 .icone-filtrar {
   font-size: 20px;
   color: #5a94d8;
+  height: 16px;
+}
+
+.icone-filtrar-drawer {
+  height: 12px;
 }
 
 .custom-drawer .ant-drawer-body {

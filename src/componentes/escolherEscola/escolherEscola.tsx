@@ -44,7 +44,12 @@ const EscolherEscola: React.FC = () => {
           </span>
         </Col>
         <Col>
-          <FilterOutlined className="icone-filtrar" onClick={abrirFiltro} />
+          <img
+            src="/icon_filter_default.svg"
+            alt="Filtrar"
+            className="icone-filtrar"
+            onClick={abrirFiltro}
+          />
           <span className="texto-filtrar" onClick={abrirFiltro}>
             {" "}
             Filtrar{" "}
@@ -59,7 +64,12 @@ const EscolherEscola: React.FC = () => {
         title={
           <p>
             {" "}
-            <FilterOutlined /> <span>Filtrar</span>
+            <img
+              src="/icon_filter_white.svg"
+              alt="Filtrar"
+              className="icone-filtrar-drawer"
+            />{" "}
+            <span>Filtrar</span>
           </p>
         }
         placement="right"
