@@ -115,8 +115,8 @@ const EscolherEscola: React.FC = () => {
           <Col span={24}>
             <Card title="" bordered={false}>
               <div className="card-escolher-escolas">
-                Você pode filtrar por Unidade Educacional (UE) ou por Diretoria
-                Regional de Educação (DRE).
+                Você pode filtrar por Diretoria Regional de Educação (DRE) ou
+                Unidade Educacional (UE).
               </div>
               <Select
                 showSearch
@@ -124,6 +124,7 @@ const EscolherEscola: React.FC = () => {
                 style={{ width: "100%" }}
                 onChange={handleChange}
                 value={escolaSelecionada}
+                notFoundContent="Não encontramos nenhuma DRE ou UE com o nome digitado..."
                 filterOption={(input, option) =>
                   (option?.label ?? "")
                     .toLowerCase()
