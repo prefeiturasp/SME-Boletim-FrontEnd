@@ -11,6 +11,7 @@ import {
   Button,
   Checkbox,
   Select,
+  Badge,
 } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import "./escolherEscola.css";
@@ -44,16 +45,19 @@ const EscolherEscola: React.FC = () => {
           </span>
         </Col>
         <Col>
-          <img
-            src="/icon_filter_default.svg"
-            alt="Filtrar"
-            className="icone-filtrar"
-            onClick={abrirFiltro}
-          />
-          <span className="texto-filtrar" onClick={abrirFiltro}>
-            {" "}
-            Filtrar{" "}
-          </span>
+          <Badge count={5} className="badge-notificacoes">
+            <img
+              src="/icon_filter_default.svg"
+              alt="Filtrar"
+              className="icone-filtrar"
+              onClick={abrirFiltro}
+            />
+
+            <span className="texto-filtrar" onClick={abrirFiltro}>
+              {" "}
+              Filtrar{" "}
+            </span>
+          </Badge>
         </Col>
       </Row>
 
@@ -127,8 +131,8 @@ const EscolherEscola: React.FC = () => {
                 }
                 options={[
                   { value: "1", label: "EMEF Bartolomeu Lourenço de Gusmão" },
-                  { value: "2", label: "EMEF Batista" },
-                  { value: "3", label: "EMEF Teste" },
+                  { value: "2", label: "EMEF Maria Joaquina" },
+                  { value: "3", label: "EMEF Osasco" },
                 ]}
               />
             </Card>

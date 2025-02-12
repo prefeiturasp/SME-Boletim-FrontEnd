@@ -8,9 +8,20 @@
 .linha-superior {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0px 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  position: relative;
+}
+
+.titulo-principal {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #5a94d8;
+  font-size: 24px;
 }
 
 .retornar {
@@ -28,14 +39,6 @@
 .texto-retorno {
   color: #5a94d8;
   font-size: 14px;
-}
-
-.titulo-principal {
-  flex-grow: 1;
-  text-align: center;
-  margin: 0;
-  color: #5a94d8;
-  font-size: 24px;
 }
 
 .barra-azul {
