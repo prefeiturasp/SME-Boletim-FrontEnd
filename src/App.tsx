@@ -15,13 +15,16 @@ import Auth from "./pages/auth";
 import SemAcesso from "./pages/semAcesso";
 import { RootState } from "./redux/store";
 import "./main.css";
+import DesempenhoAno from "./componentes/grafico/desempenhoAno";
+
 
 const AppLayout: React.FC = () => {
   return (
     <div className="app-container">
       <Cabecalho />
-      <EscolherEscola />
+      <EscolherEscola />      
       <Conteudo />
+      <DesempenhoAno />
     </div>
   );
 };
