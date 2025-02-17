@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "antd";
 import "./principal.css";
 import Tabela from "../tabela/tabela";
+import DesempenhoAno from "../../grafico/desempenhoAno";
 
 const Principal: React.FC = () => {
   return (
@@ -36,7 +37,8 @@ const Principal: React.FC = () => {
         </Row>
       </div>
 
-      <Tabela />
+      <Tabela />      
+      <DesempenhoAno />
     </>
   );
 };

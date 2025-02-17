@@ -1,0 +1,30 @@
+.legenda-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    background-color: white;
+}
+
+.legenda-titulo { 
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.legenda-itens { 
+    display: flex; gap: 15px
+}
+
+.legenda-item {
+    display: inline-flex; align-items: center 
+}
+
+.legenda-cor-caixa{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 4px;
+    margin-right:5px;
+}
