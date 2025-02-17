@@ -14,7 +14,7 @@ COPY --from=build /app/dist .
 
 COPY configuracoes/default.conf /etc/nginx/conf.d/default.conf
 
-COPY docker/startup.sh /
+COPY startup.sh /
 
 RUN chmod +x /startup.sh
 
