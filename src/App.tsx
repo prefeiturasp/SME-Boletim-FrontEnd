@@ -15,7 +15,6 @@ import Auth from "./pages/auth";
 import SemAcesso from "./pages/semAcesso";
 import { RootState } from "./redux/store";
 import "./main.css";
-import DesempenhoAno from "./componentes/grafico/desempenhoAno";
 
 
 const AppLayout: React.FC = () => {
@@ -24,7 +23,6 @@ const AppLayout: React.FC = () => {
       <Cabecalho />
       <EscolherEscola />      
       <Conteudo />
-      <DesempenhoAno />
     </div>
   );
 };

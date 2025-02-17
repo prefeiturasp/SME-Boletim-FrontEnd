@@ -61,12 +61,12 @@ const DesempenhoAno: React.FC = () => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" />
             
-            <YAxis dataKey="name" type="category" width={200} interval={0} tickFormatter={(value) => value}>
+            <YAxis dataKey="name" type="category" width={140} interval={0} tickFormatter={(value) => value}>
               <Label
                 value="Componente por ano de escolaridade"
                 angle={-90}
                 position="insideLeft"
-                offset={-30}
+                offset={-20}
                 style={{ textAnchor: "middle", fontSize: 14, fontWeight: "bold" }}
               />
             </YAxis>
