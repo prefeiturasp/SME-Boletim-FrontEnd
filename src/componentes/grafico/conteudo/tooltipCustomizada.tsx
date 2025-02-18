@@ -1,5 +1,5 @@
 import React from "react";
-import "./tooltipCustomizada.css"; // Make sure to create a CSS file for styles
+import "./tooltipCustomizada.css"; 
 
 interface TooltipProps {
   active?: boolean;
