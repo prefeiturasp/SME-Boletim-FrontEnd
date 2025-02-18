@@ -15,8 +15,8 @@ import "./desempenhoAno.css";
 import { RootState } from "../../redux/store";
 import { setDesempenhoData } from "../../redux/slices/desempenhoSlice";
 import { useDispatch, useSelector } from "react-redux";
-import TooltipCustomizada from "./conteudo/TooltipCustomizada";
-import LegendaCustomizada from "./conteudo/LegendaCustomizada";
+import TooltipCustomizada from "./conteudo/tooltipCustomizada";
+import LegendaCustomizada from "./conteudo/legendaCustomizada";
 
 
 interface DataPoint {
