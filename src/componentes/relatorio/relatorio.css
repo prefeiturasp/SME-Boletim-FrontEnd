@@ -1,0 +1,31 @@
+.download-section {
+  width: auto;
+  height: 92px;
+  background-color: #ededed;
+  display: flex;
+  justify-content: center;
+}
+
+.download-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+}
+
+.school-text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.button-col {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
