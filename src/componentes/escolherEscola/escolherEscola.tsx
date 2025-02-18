@@ -35,7 +35,7 @@ const EscolherEscola = () => {
   };
 
   return (
-    <>
+    <div className="conteudo-fixo">
       <Row className="escolher-escola" justify="space-between" align="middle">
         <Col>
           <span className="nome-escola">
@@ -138,7 +138,7 @@ const EscolherEscola = () => {
           </Col>
         </Row>
       </div>
-    </>
+    </div>
   );
 };
 
