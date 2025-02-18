@@ -12,7 +12,7 @@ const Principal: React.FC = () => {
         de estudantes por ano escolar e faixa de classificação em cada nível.
       </span>
 
-      <div className="legenda-container">
+      <div className="legenda-container-fundo">
         <Row gutter={16}>
           <Col>
             <span className="legenda-item">
