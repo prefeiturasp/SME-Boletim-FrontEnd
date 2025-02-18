@@ -1,18 +1,23 @@
-# Usar Node.js 22 como base
-FROM node:22
-
-# Definir diretório de trabalho
+FROM node:22 as build
 WORKDIR /app
 
-# Copiar package.json e instalar dependências
 COPY package*.json ./
 RUN npm install
 
-# Copiar todo o código para dentro do contêiner
 COPY . .
+RUN npm run build
 
-# Expor a porta do Vite
-EXPOSE 5173
+FROM nginx:1.21-alpine
+WORKDIR /usr/share/nginx/html
 
-# Comando padrão ao iniciar o contêiner
-CMD ["npm", "run", "dev", "--", "--host"]
+COPY --from=build /app/dist .
+
+COPY configuracoes/default.conf /etc/nginx/conf.d/default.conf
+
+COPY startup.sh /
+
+RUN chmod +x /startup.sh
+
+EXPOSE 80
+
+ENTRYPOINT ["/startup.sh"]

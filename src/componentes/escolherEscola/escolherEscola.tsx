@@ -1,11 +1,10 @@
 import React from "react";
-import { Layout, Breadcrumb, Typography, Flex } from "antd";
+import { Flex } from "antd";
 
 import {
   Col,
   Divider,
   Row,
-  Space,
   Card,
   Drawer,
   Button,
@@ -13,7 +12,6 @@ import {
   Select,
   Badge,
 } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
 import "./escolherEscola.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selecionarEscola } from "../../redux/slices/escolaSlice";
