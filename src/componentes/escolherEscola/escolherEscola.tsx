@@ -16,7 +16,7 @@ import "./escolherEscola.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selecionarEscola } from "../../redux/slices/escolaSlice";
 import { RootState } from "../../redux/store";
-const EscolherEscola: React.FC = () => {
+const EscolherEscola = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
 
