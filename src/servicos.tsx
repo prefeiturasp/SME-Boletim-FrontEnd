@@ -1,0 +1,42 @@
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
+const api = axios.create({
+  baseURL: apiUrl,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("Erro na API:", error.response || error.message);
+    return Promise.reject(error);
+  }
+);
+
+export const servicos = {
+  async get(endpoint: string, params = {}) {
+    const response = await api.get(endpoint, { params });
+    return response.data;
+  },
+
+  async post(endpoint: string, data: any) {
+    const response = await api.post(endpoint, data);
+    return response.data;
+  },
+
+  async put(endpoint: string, data: any) {
+    const response = await api.put(endpoint, data);
+    return response.data;
+  },
+
+  async delete(endpoint: string) {
+    const response = await api.delete(endpoint);
+    return response.data;
+  },
+};
+
+export default api;
