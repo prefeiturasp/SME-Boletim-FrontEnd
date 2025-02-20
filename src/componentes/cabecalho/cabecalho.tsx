@@ -4,16 +4,19 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./cabecalho.css";
 import { Row } from "antd";
 const { Header } = Layout;
+import { Link } from "react-router-dom";
+
+const linkRetorno = import.meta.env.VITE_SERAP_URL || "/";
 
 const Cabecalho: React.FC = () => {
   return (
     <Row>
       <Header className="cabecalho">
         <div className="linha-superior">
-          <div className="retornar">
+          <Link to={linkRetorno} className="retornar">
             <ArrowLeftOutlined className="icone-retorno" />
             <span className="texto-retorno">Retornar à tela inicial</span>
-          </div>
+          </Link>
           <span className="titulo-principal">Boletim de Provas</span>
         </div>
         <div className="barra-azul">

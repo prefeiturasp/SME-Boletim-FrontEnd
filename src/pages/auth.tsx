@@ -17,12 +17,12 @@ const Auth: React.FC = () => {
     const fetchData = async () => {
       if (codigo) {
         try {
-          const data = { codigo: codigo };
-          const resposta = await servicos.post(
-            "/v1/autenticacao/validar",
-            data
-          );
-          console.log(resposta);
+          // const data = { codigo: codigo };
+          // const resposta = await servicos.post(
+          //   "/v1/autenticacao/validar",
+          //   data
+          // );
+          // console.log(resposta);
 
           dispatch(setUserLogged(true));
           navigate("/");

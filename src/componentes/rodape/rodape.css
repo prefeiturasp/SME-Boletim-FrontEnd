@@ -4,3 +4,23 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.rodape-versao {
+  margin-right: 35px;
+  margin-left: 35px;
+  color: #b3b3b3;
+  font-size: 10px !important;
+}
+
+.versao-secao {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
