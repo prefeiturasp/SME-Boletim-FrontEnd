@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { setUserLogged } from "../redux/slices/authSlice";
+import { setUserLogged, logout } from "../redux/slices/authSlice";
 import { servicos } from "../servicos";
 
 const Auth: React.FC = () => {
@@ -10,31 +10,46 @@ const Auth: React.FC = () => {
   const [searchParams] = useSearchParams();
   const codigo = searchParams.get("codigo");
 
-  const apiUrl = import.meta.env.VITE_API_URL;
-  console.log(apiUrl);
-
   useEffect(() => {
-    const fetchData = async () => {
+    const verificarToken = async () => {
+      const storedToken = localStorage.getItem("authToken");
+      const dataHoraExpiracao = localStorage.getItem("authExpiresAt");
+
+      if (storedToken && dataHoraExpiracao) {
+        const expiraEm = new Date(dataHoraExpiracao);
+        if (expiraEm > new Date()) {
+          dispatch(
+            setUserLogged({
+              token: storedToken,
+              dataHoraExpiracao: dataHoraExpiracao,
+            })
+          );
+          navigate("/");
+          return;
+        } else {
+          dispatch(logout());
+        }
+      }
+
       if (codigo) {
         try {
-          const data = { codigo: codigo };
-          const resposta = await servicos.post(
-            "/v1/autenticacao/validar",
-            data
-          );
-          console.log(resposta);
+          const resposta = await servicos.post("/v1/autenticacao/validar", {
+            codigo,
+          });
+          const { token, dataHoraExpiracao } = resposta;
 
-          dispatch(setUserLogged(true));
+          dispatch(setUserLogged({ token, dataHoraExpiracao }));
           navigate("/");
         } catch (error) {
           console.error("Erro ao autenticar:", error);
+          navigate("/sem-acesso");
         }
       } else {
         navigate("/sem-acesso");
       }
     };
 
-    fetchData();
+    verificarToken();
   }, [codigo, dispatch, navigate]);
 
   return <div>Autenticando...</div>;

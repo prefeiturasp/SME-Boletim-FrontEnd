@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { ConfigProvider } from "antd";
 import {
@@ -32,6 +32,14 @@ const PrivateRoute: React.FC<{ element: React.ReactNode }> = ({ element }) => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 100);
+  }, []);
+
+  if (isLoading) return <div>Carregando...</div>;
+
   return isAuthenticated ? <>{element}</> : <Navigate to="/sem-acesso" />;
 };
 
