@@ -10,18 +10,21 @@ const Conteudo: React.FC = () => {
     <div className="conteudo-principal">
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card title="Saberes e aprendizagens (agosto 2024)" bordered={false}>
+          <Card
+            title="Saberes e aprendizagens (agosto 2024)"
+            variant="borderless"
+          >
             <Tabs defaultActiveKey="1">
               <Tabs.TabPane tab="Principal" key="1">
                 <Principal />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Turma" key="2">
+              <Tabs.TabPane tab="Turma" key="2" disabled>
                 <Turma />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Estudantes" key="3">
+              <Tabs.TabPane tab="Estudantes" key="3" disabled>
                 <Estudantes />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Resultado por Probabilidade" key="4">
+              <Tabs.TabPane tab="Resultado por Probabilidade" key="4" disabled>
                 <Resultado />
               </Tabs.TabPane>
             </Tabs>
