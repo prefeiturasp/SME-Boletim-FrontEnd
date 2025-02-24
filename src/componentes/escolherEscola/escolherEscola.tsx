@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Flex } from "antd";
-
 import {
   Col,
   Divider,
@@ -16,17 +15,51 @@ import "./escolherEscola.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selecionarEscola } from "../../redux/slices/escolaSlice";
 import { RootState } from "../../redux/store";
+import { servicos } from "../../servicos";
+
 const EscolherEscola = () => {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [abrangencia, setAbrangencia] = useState<any[]>([]);
 
   const dispatch = useDispatch();
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
   );
 
-  const handleChange = (value: string) => {
-    dispatch(selecionarEscola(value));
+  const buscarAbrangencias = async () => {
+    try {
+      const resposta = await servicos.get("/abrangencia", {});
+
+      const escolasValidas = resposta.filter(
+        (item: any) => item && item.ueId && item.descricao
+      );
+
+      setAbrangencia(escolasValidas);
+    } catch (error) {
+      console.error("Erro ao buscar escolas:", error);
+    }
+  };
+
+  useEffect(() => {
+    buscarAbrangencias();
+  }, []);
+
+  useEffect(() => {
+    if (abrangencia.length > 0 && escolaSelecionada.ueId == null) {
+      const primeiraEscola = abrangencia[0];
+
+      dispatch(
+        selecionarEscola({
+          ueId: primeiraEscola.ueId,
+          descricao: primeiraEscola.descricao,
+        })
+      );
+    }
+  }, [abrangencia, escolaSelecionada, dispatch]);
+
+  const handleChange = (value: string, option: any) => {
+    dispatch(selecionarEscola({ ueId: value, descricao: option.label }));
   };
 
   const abrirFiltro = () => {
@@ -34,13 +67,16 @@ const EscolherEscola = () => {
     setLoading(false);
   };
 
+  const opcoes = abrangencia.map((item) => ({
+    value: `${item.ueId}`,
+    label: item.descricao,
+  }));
+
   return (
     <div className="conteudo-fixo">
       <Row className="escolher-escola" justify="space-between" align="middle">
         <Col>
-          <span className="nome-escola">
-            EMEF Bartolomeu Lourenço de Gusmão
-          </span>
+          <span className="nome-escola">{escolaSelecionada?.descricao}</span>
         </Col>
         <Col>
           <Badge count={5} className="badge-notificacoes">
@@ -121,18 +157,16 @@ const EscolherEscola = () => {
                 placeholder="Selecione ou digite a DRE ou UE..."
                 style={{ width: "100%" }}
                 onChange={handleChange}
-                value={escolaSelecionada}
+                value={
+                  escolaSelecionada ? escolaSelecionada.descricao : undefined
+                }
                 notFoundContent="Não encontramos nenhuma DRE ou UE com o nome digitado..."
                 filterOption={(input, option) =>
-                  (option?.label ?? "")
+                  String(option?.label ?? "")
                     .toLowerCase()
                     .includes(input.toLowerCase())
                 }
-                options={[
-                  { value: "1", label: "EMEF Bartolomeu Lourenço de Gusmão" },
-                  { value: "2", label: "EMEF Maria Joaquina" },
-                  { value: "3", label: "EMEF Osasco" },
-                ]}
+                options={opcoes}
               />
             </Card>
           </Col>

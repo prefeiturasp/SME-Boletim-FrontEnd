@@ -1,18 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface EscolaState {
-  escolaSelecionada: string | null;
+  escolaSelecionada: {
+    ueId: string | null;
+    descricao: string | null;
+  };
 }
 
 const initialState: EscolaState = {
-  escolaSelecionada: null,
+  escolaSelecionada: { ueId: null, descricao: null },
 };
 
 const escolaSlice = createSlice({
   name: "escola",
   initialState,
   reducers: {
-    selecionarEscola: (state, action: PayloadAction<string>) => {
+    selecionarEscola: (
+      state,
+      action: PayloadAction<{ ueId: string; descricao: string }>
+    ) => {
       state.escolaSelecionada = action.payload;
     },
   },
