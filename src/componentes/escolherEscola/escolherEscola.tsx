@@ -147,7 +147,7 @@ const EscolherEscola = () => {
       <div className="conteudo-principal">
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <Card title="" bordered={false}>
+            <Card title="" variant="borderless">
               <div className="card-escolher-escolas">
                 Você pode filtrar por Diretoria Regional de Educação (DRE) ou
                 Unidade Educacional (UE).
