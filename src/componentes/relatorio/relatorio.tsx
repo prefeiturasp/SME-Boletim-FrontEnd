@@ -3,7 +3,7 @@ import "./relatorio.css";
 import { DownloadOutlined } from "@ant-design/icons";
 
 interface DownloadRelatorioProps {
-  nomeEscola: string;
+  nomeEscola: string | null;
   downloadUrl: string;
 }
 

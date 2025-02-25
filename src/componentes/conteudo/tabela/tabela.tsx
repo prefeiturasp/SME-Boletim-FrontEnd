@@ -14,11 +14,11 @@ interface DataType {
   mediaProficiencia: number;
 }
 
-const columns: ColumnsType<DataType> = [
+const colunasPrincipal: ColumnsType<DataType> = [
   {
     title: "Componente curricular",
-    dataIndex: "componente",
-    key: "componente",
+    dataIndex: "componenteCurricular",
+    key: "componenteCurricular",
   },
   {
     title: "Abaixo do básico",
@@ -54,53 +54,26 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: "1",
-    componente: "Língua portuguesa (5º ano)",
-    abaixoBasico: "24 (32,4%)",
-    basico: "34 (45,9%)",
-    adequado: "16 (21,6%)",
-    avancado: "0 (0%)",
-    total: 74,
-    mediaProficiencia: 168.7,
-  },
-  {
-    key: "2",
-    componente: "Língua portuguesa (9º ano)",
-    abaixoBasico: "60 (73,2%)",
-    basico: "20 (24,4%)",
-    adequado: "2 (2,4%)",
-    avancado: "0 (0%)",
-    total: 82,
-    mediaProficiencia: 180.2,
-  },
-  {
-    key: "3",
-    componente: "Matemática (5º ano)",
-    abaixoBasico: "41 (55,4%)",
-    basico: "25 (33,8%)",
-    adequado: "8 (10,8%)",
-    avancado: "0 (0%)",
-    total: 74,
-    mediaProficiencia: 169.9,
-  },
-  {
-    key: "4",
-    componente: "Matemática (9º ano)",
-    abaixoBasico: "68 (82,9%)",
-    basico: "14 (17,1%)",
-    adequado: "0 (0%)",
-    avancado: "0 (0%)",
-    total: 82,
-    mediaProficiencia: 197.2,
-  },
-];
+interface TabelaProps {
+  dados: any;
+  origem: string;
+  estaCarregando: boolean;
+}
 
-const Tabela: React.FC = () => {
+const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
+  let colunas;
+  if (origem == "principal") {
+    colunas = colunasPrincipal;
+  }
+
   return (
     <div className="tabela-container">
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table
+        columns={colunas}
+        dataSource={dados}
+        pagination={false}
+        loading={estaCarregando}
+      />
     </div>
   );
 };

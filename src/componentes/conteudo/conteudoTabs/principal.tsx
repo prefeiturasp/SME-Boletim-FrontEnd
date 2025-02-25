@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import "./principal.css";
 import Tabela from "../tabela/tabela";
 import DesempenhoAno from "../../grafico/desempenhoAno";
 import DownloadRelatorio from "../../relatorio/relatorio";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { servicos } from "../../../servicos";
 
 const Principal: React.FC = () => {
+  const [dados, setDados] = useState<any[]>([]);
+  const [estaCarregando, setEstaCarregando] = useState(false);
+
+  const escolaSelecionada = useSelector(
+    (state: RootState) => state.escola.escolaSelecionada
+  );
+
+  const buscarAbrangencias = async () => {
+    try {
+      const resposta = await servicos.get(
+        `/boletimescolar/${escolaSelecionada.ueId}`,
+        {}
+      );
+
+      setDados(resposta);
+    } catch (error) {
+      console.error(
+        "Erro ao buscar os dados da tabela (aba principal):",
+        error
+      );
+      setEstaCarregando(false);
+    }
+  };
+
+  useEffect(() => {
+    setEstaCarregando(true);
+    buscarAbrangencias();
+    setEstaCarregando(false);
+  }, [escolaSelecionada]);
+
   return (
     <>
       <span>
@@ -38,9 +71,16 @@ const Principal: React.FC = () => {
         </Row>
       </div>
 
-      <Tabela />
+      <Tabela
+        dados={dados}
+        origem="principal"
+        estaCarregando={estaCarregando}
+      />
       <DesempenhoAno />
-      <DownloadRelatorio nomeEscola="Escola 123" downloadUrl="/principal" />
+      <DownloadRelatorio
+        nomeEscola={escolaSelecionada?.descricao}
+        downloadUrl="/principal"
+      />
     </>
   );
 };
