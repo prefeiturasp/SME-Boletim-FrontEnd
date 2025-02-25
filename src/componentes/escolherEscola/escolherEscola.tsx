@@ -16,11 +16,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { selecionarEscola } from "../../redux/slices/escolaSlice";
 import { RootState } from "../../redux/store";
 import { servicos } from "../../servicos";
+import { setFilters, resetFilters } from "../../redux/slices/filtrosSlice";
 
 const EscolherEscola = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [abrangencia, setAbrangencia] = useState<any[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<{
+    niveis: string[];
+    anoLetivo: string[];
+    componentesCurriculares: string[];
+  }>({
+    niveis: [],
+    anoLetivo: [],
+    componentesCurriculares: [],
+  });
 
   const dispatch = useDispatch();
   const escolaSelecionada = useSelector(
@@ -72,6 +82,43 @@ const EscolherEscola = () => {
     label: item.descricao,
   }));
 
+  const handleResetFilters = () => {
+    setSelectedFilters({
+      niveis: [],
+      anoLetivo: [],
+      componentesCurriculares: [],
+    });
+  };
+
+  const handleApplyFilters = () => {
+    dispatch(setFilters(selectedFilters));
+    setOpen(false);
+  };
+
+  const handleFilterChange = (
+    filterType: keyof typeof selectedFilters,
+    value: string
+  ) => {
+    setSelectedFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+
+      if (newFilters[filterType].includes(value)) {
+        newFilters[filterType] = newFilters[filterType].filter(
+          (item) => item !== value
+        );
+      } else {
+        newFilters[filterType] = [...newFilters[filterType], value];
+      }
+
+      return newFilters;
+    });
+  };
+
+  const totalFiltrosSelecionados =
+    selectedFilters.niveis.length +
+    selectedFilters.anoLetivo.length +
+    selectedFilters.componentesCurriculares.length;
+
   return (
     <div className="conteudo-fixo">
       <Row className="escolher-escola" justify="space-between" align="middle">
@@ -79,7 +126,10 @@ const EscolherEscola = () => {
           <span className="nome-escola">{escolaSelecionada?.descricao}</span>
         </Col>
         <Col>
-          <Badge count={5} className="badge-notificacoes">
+          <Badge
+            count={totalFiltrosSelecionados}
+            className="badge-notificacoes"
+          >
             <img
               src="/icon_filter_default.svg"
               alt="Filtrar"
@@ -101,44 +151,71 @@ const EscolherEscola = () => {
         destroyOnClose
         title={
           <p>
-            {" "}
             <img
               src="/icon_filter_white.svg"
               alt="Filtrar"
               className="icone-filtrar-drawer"
-            />{" "}
+            />
             <span>Filtrar</span>
           </p>
         }
         placement="right"
         open={open}
-        loading={loading}
         onClose={() => setOpen(false)}
       >
         <Divider className="separador" />
         <div className="filtro-secao">
           <h3 className="filtro-titulo">Níveis</h3>
-          <Checkbox>Abaixo do básico</Checkbox>
-          <Checkbox>Básico</Checkbox>
-          <Checkbox>Adequado</Checkbox>
-          <Checkbox>Avançado</Checkbox>
+          {["Abaixo do básico", "Básico", "Adequado", "Avançado"].map(
+            (nivel) => (
+              <Checkbox
+                key={nivel}
+                checked={selectedFilters.niveis.includes(nivel)}
+                onChange={() => handleFilterChange("niveis", nivel)}
+              >
+                {nivel}
+              </Checkbox>
+            )
+          )}
         </div>
         <Divider className="separador" />
         <div className="filtro-secao">
           <h3 className="filtro-titulo">Ano letivo</h3>
-          <Checkbox>5º ano</Checkbox>
-          <Checkbox>9º ano</Checkbox>
+          {["5º ano", "9º ano"].map((ano) => (
+            <Checkbox
+              key={ano}
+              checked={selectedFilters.anoLetivo.includes(ano)}
+              onChange={() => handleFilterChange("anoLetivo", ano)}
+            >
+              {ano}
+            </Checkbox>
+          ))}
         </div>
         <Divider className="separador" />
         <div className="filtro-secao">
           <h3 className="filtro-titulo">Componente curricular</h3>
-          <Checkbox>Língua Portuguesa</Checkbox>
-          <Checkbox>Matemática</Checkbox>
+          {["Língua Portuguesa", "Matemática"].map((comp) => (
+            <Checkbox
+              key={comp}
+              checked={selectedFilters.componentesCurriculares.includes(comp)}
+              onChange={() =>
+                handleFilterChange("componentesCurriculares", comp)
+              }
+            >
+              {comp}
+            </Checkbox>
+          ))}
         </div>
         <Divider className="separador" />
         <Flex gap="small" wrap>
-          <Button className="botao-remover">Remover Filtros</Button>
-          <Button type="primary" className="botao-filtrar">
+          <Button className="botao-remover" onClick={handleResetFilters}>
+            Remover Filtros
+          </Button>
+          <Button
+            type="primary"
+            className="botao-filtrar"
+            onClick={handleApplyFilters}
+          >
             Filtrar
           </Button>
         </Flex>
