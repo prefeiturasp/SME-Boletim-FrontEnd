@@ -73,6 +73,7 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
         dataSource={dados}
         pagination={false}
         loading={estaCarregando}
+        locale={{ emptyText: "Não encontramos dados para a UE selecionada" }}
       />
     </div>
   );
