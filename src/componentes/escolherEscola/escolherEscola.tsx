@@ -39,7 +39,7 @@ const EscolherEscola = () => {
 
   const buscarAbrangencias = async () => {
     try {
-      const resposta = await servicos.get("/abrangencia", {});
+      const resposta = await servicos.get("/api/abrangencia", {});
 
       const escolasValidas = resposta.filter(
         (item: any) => item && item.ueId && item.descricao

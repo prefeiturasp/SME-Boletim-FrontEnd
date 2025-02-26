@@ -55,7 +55,7 @@ const Principal: React.FC = () => {
         };
       }
       const resposta = await servicos.get(
-        `/boletimescolar/${escolaSelecionada.ueId}`,
+        `/api/boletimescolar/${escolaSelecionada.ueId}`,
         { filtros }
       );
 
@@ -112,7 +112,7 @@ const Principal: React.FC = () => {
         origem="principal"
         estaCarregando={estaCarregando}
       />
-      <DesempenhoAno dados={dados}/>
+      <DesempenhoAno dados={dados} />
       <DownloadRelatorio
         nomeEscola={escolaSelecionada?.descricao}
         downloadUrl="/principal"

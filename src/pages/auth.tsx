@@ -33,7 +33,7 @@ const Auth: React.FC = () => {
 
       if (codigo) {
         try {
-          const resposta = await servicos.post("/v1/autenticacao/validar", {
+          const resposta = await servicos.post("/api/v1/autenticacao/validar", {
             codigo,
           });
           const { token, dataHoraExpiracao } = resposta;
