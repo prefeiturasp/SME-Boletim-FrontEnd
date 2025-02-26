@@ -26,42 +26,26 @@ interface DataPoint {
   avancado: number;
 }
 
-const DesempenhoAno: React.FC = () => {
+interface TabelaProps {
+  dados: any;
+}
+
+const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.desempenho.data);
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiData: DataPoint[] = [
-        {
-          name: "Língua Portuguesa 5º ano",
-          abaixoDoBasico: 60.5,
-          basico: 40,
-          adequado: 20,
-          avancado: 20,
-        },
-        {
-          name: "Língua Portuguesa 9º ano",
-          abaixoDoBasico: 70.5,
-          basico: 80,
-          adequado: 55,
-          avancado: 20,
-        },
-        {
-          name: "Matemática 5º ano",
-          abaixoDoBasico: 44.5,
-          basico: 67,
-          adequado: 25,
-          avancado: 20,
-        },
-        {
-          name: "Matemática 9º ano",
-          abaixoDoBasico: 24.5,
-          basico: 33,
-          adequado: 50,
-          avancado: 20,
-        },
-      ];
+      const apiData: DataPoint[] = []
+      dados.map((item: any) => {
+        apiData.push({
+          name: item.componenteCurricular,
+          abaixoDoBasico: item.abaixoBasico.split(' ')[1].replace('(','').replace(')','').replace('%',''),
+          basico: item.basico.split(' ')[1].replace('(','').replace(')','').replace('%',''),
+          adequado: item.adequado.split(' ')[1].replace('(','').replace(')','').replace('%',''),
+          avancado: item.avancado.split(' ')[1].replace('(','').replace(')','').replace('%',''),
+        });
+      });
       dispatch(setDesempenhoData(apiData));
     };
 
@@ -71,11 +55,11 @@ const DesempenhoAno: React.FC = () => {
   return (
     <div className="conteudo-principal">
       <Card variant="borderless">
-        <ResponsiveContainer width="100%" height={600}>
+        <ResponsiveContainer width="100%" height={800}>
           <BarChart
             layout="vertical"
             data={data}
-            margin={{ top: 0, right: 50, left: 40, bottom: 0 }}
+            margin={{ top: 30, right: 5, left: 20, bottom: 0 }}
             barCategoryGap="0%"
             barGap={0}
           >
@@ -85,7 +69,7 @@ const DesempenhoAno: React.FC = () => {
             <YAxis
               dataKey="name"
               type="category"
-              width={140}
+              width={160}
               interval={0}
               tickFormatter={(value) => value}
             >
@@ -93,7 +77,7 @@ const DesempenhoAno: React.FC = () => {
                 value="Componente por ano de escolaridade"
                 angle={-90}
                 position="insideLeft"
-                offset={-20}
+                offset={-15}
                 style={{
                   textAnchor: "middle",
                   fontSize: 14,
