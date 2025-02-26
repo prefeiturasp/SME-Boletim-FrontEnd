@@ -16,11 +16,47 @@ const Principal: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+
   const buscarAbrangencias = async () => {
     try {
+      let filtros;
+      if (
+        filtrosSelecionados.anoLetivo.length > 0 ||
+        filtrosSelecionados.componentesCurriculares.length > 0 ||
+        filtrosSelecionados.niveis.length > 0
+      ) {
+        const anoLetivoMap = {
+          "5º ano": 5,
+          "9º ano": 9,
+        };
+
+        const componentesMap = {
+          "Língua Portuguesa": "linguaPortuguesa",
+          Matemática: "matematica",
+        };
+
+        const niveisMap = {
+          "Abaixo do básico": "abaixoDoBasico",
+          Básico: "basico",
+          Adequado: "adequado",
+          Avançado: "avancado",
+        };
+
+        filtros = {
+          anoLetivo: filtrosSelecionados.anoLetivo.map(
+            (ano) => anoLetivoMap[ano]
+          ),
+          componentesCurriculares:
+            filtrosSelecionados.componentesCurriculares.map(
+              (cc) => componentesMap[cc]
+            ),
+          niveis: filtrosSelecionados.niveis.map((nivel) => niveisMap[nivel]),
+        };
+      }
       const resposta = await servicos.get(
         `/boletimescolar/${escolaSelecionada.ueId}`,
-        {}
+        { filtros }
       );
 
       setDados(resposta);
@@ -37,7 +73,7 @@ const Principal: React.FC = () => {
     setEstaCarregando(true);
     buscarAbrangencias();
     setEstaCarregando(false);
-  }, [escolaSelecionada]);
+  }, [escolaSelecionada, filtrosSelecionados]);
 
   return (
     <>
