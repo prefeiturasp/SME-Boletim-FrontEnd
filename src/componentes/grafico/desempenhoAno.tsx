@@ -36,21 +36,39 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiData: DataPoint[] = []
-      dados.map((item: any) => {
+      const apiData: DataPoint[] = [];
+      for (let i = 0; i < dados.length; i++) {
+        const item = dados[i];
         apiData.push({
           name: item.componenteCurricular,
-          abaixoDoBasico: item.abaixoBasico.split(' ')[1].replace('(','').replace(')','').replace('%',''),
-          basico: item.basico.split(' ')[1].replace('(','').replace(')','').replace('%',''),
-          adequado: item.adequado.split(' ')[1].replace('(','').replace(')','').replace('%',''),
-          avancado: item.avancado.split(' ')[1].replace('(','').replace(')','').replace('%',''),
+          abaixoDoBasico: item.abaixoBasico
+            .split(" ")[1]
+            .replace("(", "")
+            .replace(")", "")
+            .replace("%", ""),
+          basico: item.basico
+            .split(" ")[1]
+            .replace("(", "")
+            .replace(")", "")
+            .replace("%", ""),
+          adequado: item.adequado
+            .split(" ")[1]
+            .replace("(", "")
+            .replace(")", "")
+            .replace("%", ""),
+          avancado: item.avancado
+            .split(" ")[1]
+            .replace("(", "")
+            .replace(")", "")
+            .replace("%", ""),
         });
-      });
+      }
+
       dispatch(setDesempenhoData(apiData));
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, dados]);
 
   return (
     <div className="conteudo-principal">
