@@ -76,7 +76,7 @@ const Principal: React.FC = () => {
         origem="principal"
         estaCarregando={estaCarregando}
       />
-      <DesempenhoAno />
+      <DesempenhoAno dados={dados}/>
       <DownloadRelatorio
         nomeEscola={escolaSelecionada?.descricao}
         downloadUrl="/principal"
