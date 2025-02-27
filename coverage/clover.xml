@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1740656342747" clover="3.2.0">
-  <project timestamp="1740656342747" name="All files">
-    <metrics statements="216" coveredstatements="0" conditionals="53" coveredconditionals="0" methods="72" coveredmethods="0" elements="341" coveredelements="0" complexity="0" loc="216" ncloc="216" packages="13" files="24" classes="24"/>
+<coverage generated="1740677962597" clover="3.2.0">
+  <project timestamp="1740677962598" name="All files">
+    <metrics statements="216" coveredstatements="82" conditionals="53" coveredconditionals="13" methods="72" coveredmethods="21" elements="341" coveredelements="116" complexity="0" loc="216" ncloc="216" packages="13" files="24" classes="24"/>
     <package name="src">
       <metrics statements="34" coveredstatements="0" conditionals="9" coveredconditionals="0" methods="14" coveredmethods="0"/>
       <file name="App.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\App.tsx">
@@ -70,23 +70,23 @@
       </file>
     </package>
     <package name="src.componentes.conteudo.conteudoTabs">
-      <metrics statements="31" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="11" coveredmethods="0"/>
+      <metrics statements="31" coveredstatements="16" conditionals="5" coveredconditionals="4" methods="11" coveredmethods="5"/>
       <file name="estudantes.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\estudantes.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="3" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
       </file>
       <file name="principal.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\principal.tsx">
-        <metrics statements="25" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="8" coveredmethods="0"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="25" coveredstatements="16" conditionals="5" coveredconditionals="4" methods="8" coveredmethods="5"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="29" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
@@ -94,15 +94,15 @@
         <line num="48" count="0" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
       </file>
       <file name="probabilidade.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\probabilidade.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -116,53 +116,53 @@
       </file>
     </package>
     <package name="src.componentes.conteudo.tabela">
-      <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="tabela.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\tabela\tabela.tsx">
-        <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="65" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="65" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="66" count="3" type="stmt"/>
+        <line num="69" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.escolherEscola">
-      <metrics statements="50" coveredstatements="0" conditionals="13" coveredconditionals="0" methods="22" coveredmethods="0"/>
+      <metrics statements="50" coveredstatements="30" conditionals="13" coveredconditionals="3" methods="22" coveredmethods="9"/>
       <file name="escolherEscola.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\escolherEscola\escolherEscola.tsx">
-        <metrics statements="50" coveredstatements="0" conditionals="13" coveredconditionals="0" methods="22" coveredmethods="0"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
+        <metrics statements="50" coveredstatements="30" conditionals="13" coveredconditionals="3" methods="22" coveredmethods="9"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
+        <line num="35" count="5" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="37" count="7" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="44" count="2" type="stmt"/>
         <line num="45" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="48" count="0" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="54" count="5" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="58" count="5" type="stmt"/>
+        <line num="59" count="4" type="cond" truecount="2" falsecount="2"/>
         <line num="60" count="0" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
+        <line num="71" count="5" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
+        <line num="75" count="5" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="80" count="5" type="stmt"/>
+        <line num="85" count="5" type="stmt"/>
         <line num="86" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
+        <line num="93" count="5" type="stmt"/>
         <line num="94" count="0" type="stmt"/>
         <line num="95" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
+        <line num="98" count="5" type="stmt"/>
         <line num="102" count="0" type="stmt"/>
         <line num="103" count="0" type="stmt"/>
         <line num="105" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -170,49 +170,49 @@
         <line num="107" count="0" type="stmt"/>
         <line num="110" count="0" type="stmt"/>
         <line num="113" count="0" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
+        <line num="118" count="5" type="stmt"/>
+        <line num="122" count="5" type="stmt"/>
         <line num="164" count="0" type="stmt"/>
-        <line num="171" count="0" type="stmt"/>
+        <line num="171" count="20" type="stmt"/>
         <line num="174" count="0" type="stmt"/>
-        <line num="185" count="0" type="stmt"/>
+        <line num="185" count="10" type="stmt"/>
         <line num="188" count="0" type="stmt"/>
-        <line num="198" count="0" type="stmt"/>
+        <line num="198" count="10" type="stmt"/>
         <line num="202" count="0" type="stmt"/>
         <line num="242" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
     </package>
     <package name="src.componentes.grafico">
-      <metrics statements="13" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
       <file name="desempenhoAno.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoAno.tsx">
-        <metrics statements="13" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
+        <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
         <line num="92" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.grafico.conteudo">
-      <metrics statements="9" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="2" conditionals="7" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="legendaCustomizada.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\conteudo\legendaCustomizada.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="4" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
         <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="6" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
       </file>
       <file name="tooltipCustomizada.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\conteudo\tooltipCustomizada.tsx">
-        <metrics statements="5" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="1" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="10" count="1" type="stmt"/>
         <line num="11" count="0" type="cond" truecount="0" falsecount="5"/>
         <line num="12" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
@@ -220,11 +220,11 @@
       </file>
     </package>
     <package name="src.componentes.relatorio">
-      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="relatorio.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\relatorio\relatorio.tsx">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.rodape">
@@ -278,21 +278,21 @@
       </file>
     </package>
     <package name="src.redux">
-      <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="store.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\redux\store.tsx">
-        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="7" count="0" type="stmt"/>
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.redux.slices">
-      <metrics statements="30" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="6" coveredmethods="0"/>
+      <metrics statements="30" coveredstatements="16" conditionals="7" coveredconditionals="5" methods="6" coveredmethods="1"/>
       <file name="authSlice.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\redux\slices\authSlice.tsx">
-        <metrics statements="17" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="6" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
+        <metrics statements="17" coveredstatements="6" conditionals="7" coveredconditionals="5" methods="2" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
@@ -304,29 +304,29 @@
         <line num="29" count="0" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
       </file>
       <file name="desempenhoSlice.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\redux\slices\desempenhoSlice.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
       </file>
       <file name="escolaSlice.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\redux\slices\escolaSlice.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
       </file>
       <file name="filtrosSlice.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\redux\slices\filtrosSlice.tsx">
-        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
       </file>
     </package>
   </project>
