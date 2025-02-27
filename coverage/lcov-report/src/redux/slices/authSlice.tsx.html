@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -81,17 +81,55 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -101,8 +139,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice } from "@reduxjs/toolkit";
 &nbsp;
+const storedToken = <span class="cstat-no" title="statement not covered" >localStorage.getItem("authToken");</span>
+const storedExpiresAt = <span class="cstat-no" title="statement not covered" >localStorage.getItem("authExpiresAt");</span>
+const isTokenValid =
+<span class="cstat-no" title="statement not covered" >  storedToken &amp;&amp; storedExpiresAt &amp;&amp; new Date(storedExpiresAt) &gt; new Date();</span>
+&nbsp;
 const initialState = <span class="cstat-no" title="statement not covered" >{</span>
-  isAuthenticated: false,
+  isAuthenticated: isTokenValid,
+  token: storedToken || null,
+  dataHoraExpiracao: storedExpiresAt || null,
 };
 &nbsp;
 const authSlice = <span class="cstat-no" title="statement not covered" >createSlice({</span>
@@ -110,12 +155,24 @@ const authSlice = <span class="cstat-no" title="statement not covered" >createSl
   initialState,
   reducers: {
     setUserLogged: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >      state.isAuthenticated = action.payload;</span>
+      const { token, dataHoraExpiracao } = <span class="cstat-no" title="statement not covered" >action.payload;</span>
+<span class="cstat-no" title="statement not covered" >      state.isAuthenticated = true;</span>
+<span class="cstat-no" title="statement not covered" >      state.token = token;</span>
+<span class="cstat-no" title="statement not covered" >      state.dataHoraExpiracao = dataHoraExpiracao;</span>
+<span class="cstat-no" title="statement not covered" >      localStorage.setItem("authToken", token);</span>
+<span class="cstat-no" title="statement not covered" >      localStorage.setItem("authExpiresAt", dataHoraExpiracao);</span>
+    },
+    logout: <span class="fstat-no" title="function not covered" >(s</span>tate) =&gt; {
+<span class="cstat-no" title="statement not covered" >      state.isAuthenticated = false;</span>
+<span class="cstat-no" title="statement not covered" >      state.token = null;</span>
+<span class="cstat-no" title="statement not covered" >      state.dataHoraExpiracao = null;</span>
+<span class="cstat-no" title="statement not covered" >      localStorage.removeItem("authToken");</span>
+<span class="cstat-no" title="statement not covered" >      localStorage.removeItem("authExpiresAt");</span>
     },
   },
 });
 &nbsp;
-export const { setUserLogged } = <span class="cstat-no" title="statement not covered" >authSlice.actions;</span>
+export const { setUserLogged, logout } = <span class="cstat-no" title="statement not covered" >authSlice.actions;</span>
 export default authSlice.reducer;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -124,7 +181,7 @@ export default authSlice.reducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-18T13:12:39.855Z
+                at 2025-02-27T11:39:02.685Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

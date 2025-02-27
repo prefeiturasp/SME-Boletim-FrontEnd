@@ -6,3 +6,5 @@ global.matchMedia = jest.fn().mockImplementation((query) => ({
   addListener: jest.fn(),
   removeListener: jest.fn(),
 }));
+
+process.env.VITE_API_URL = "http://localhost:3000";
