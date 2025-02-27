@@ -9,9 +9,7 @@ const Rodape: React.FC = () => {
   };
 
   const versao = import.meta.env.VITE_BOLETIM_VERSAO;
-  const teste = import.meta.env.VITE_HELLO;
-  console.log(versao);
-  console.log(teste);
+
   return (
     <>
       <div className="rodape">
