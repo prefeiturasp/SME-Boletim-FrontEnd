@@ -7,7 +7,7 @@ echo "VITE_SERAP_URL=${VITE_SERAP_URL}"
 cd /usr/share/nginx/html/assets
 for file in $(ls); do
   cp "$file" "/tmp/$file"
-  envsubst < "/tmp/$file" > "$file"
+  envsubst '${VITE_API_URL} ${VITE_BOLETIM_VERSAO} ${VITE_SERAP_URL}' < "/tmp/$file" > "$file"
   rm "/tmp/$file"
 done
 
