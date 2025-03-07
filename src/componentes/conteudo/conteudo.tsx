@@ -18,7 +18,7 @@ const Conteudo: React.FC = () => {
               <Tabs.TabPane tab="Principal" key="1">
                 <Principal />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Turma" key="2" disabled>
+              <Tabs.TabPane tab="Turma" key="2">
                 <Turma />
               </Tabs.TabPane>
               <Tabs.TabPane tab="Estudantes" key="3" disabled>

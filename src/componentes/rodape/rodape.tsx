@@ -8,7 +8,7 @@ const Rodape: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const versao = import.meta.env.VITE_BOLETIM_VERSAO;
+  const versao = "1.0";
 
   return (
     <>
