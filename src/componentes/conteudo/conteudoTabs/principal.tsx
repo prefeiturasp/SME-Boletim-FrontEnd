@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button, notification } from "antd";
 import "./principal.css";
 import Tabela from "../tabela/tabela";
 import DesempenhoAno from "../../grafico/desempenhoAno";
-import DownloadRelatorio from "../../relatorio/relatorio";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
+import { DownloadOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 const Principal: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
   const [estaCarregando, setEstaCarregando] = useState(false);
+  const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
 
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
@@ -75,6 +76,27 @@ const Principal: React.FC = () => {
     setEstaCarregando(false);
   }, [escolaSelecionada, filtrosSelecionados]);
 
+  const iniciarDownloadRelatorioPrincipal = async () => {
+    setEstaCarregandoRelatorio(true);
+
+    notification.open({
+      key: "relatorioPrincipal",
+      message: "Os dados estão em processamento",
+      description: `Não atualize a tela! Assim que os dados forem processados, o seu documento "Dados da ${escolaSelecionada?.descricao}" será baixado automaticamente.`,
+      placement: "bottomLeft",
+      icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
+      duration: 8,
+      pauseOnHover: true,
+      closeIcon: false,
+    });
+
+    setEstaCarregandoRelatorio(false);
+
+    // setTimeout(() => {
+    //   notification.destroy("relatorioPrincipal");
+    // }, 4000);
+  };
+
   return (
     <>
       <span>
@@ -113,10 +135,30 @@ const Principal: React.FC = () => {
         estaCarregando={estaCarregando}
       />
       <DesempenhoAno dados={dados} />
-      <DownloadRelatorio
-        nomeEscola={escolaSelecionada?.descricao}
-        downloadUrl="/principal"
-      />
+
+      <div className="download-section">
+        <Row gutter={16} align="middle" justify="center">
+          <Col>
+            <div className="download-wrapper">
+              <p className="school-text">
+                Você pode baixar os dados da{" "}
+                <b>{escolaSelecionada?.descricao}</b>, clicando no botão ao lado
+              </p>
+
+              <Button
+                type="primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={iniciarDownloadRelatorioPrincipal}
+                icon={<DownloadOutlined />}
+                disabled={estaCarregandoRelatorio}
+              >
+                Baixar os dados
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 };
