@@ -74,6 +74,7 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
         pagination={false}
         loading={estaCarregando}
         locale={{ emptyText: "Não encontramos dados para a UE selecionada" }}
+        scroll={{ x: "max-content" }}
       />
     </div>
   );
