@@ -11,7 +11,11 @@ const Conteudo: React.FC = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card
-            title="Saberes e aprendizagens (agosto 2024)"
+            title={
+              <span style={{ color: "#595959" }}>
+                Saberes e aprendizagens (agosto 2024)
+              </span>
+            }
             variant="borderless"
           >
             <Tabs defaultActiveKey="1">
