@@ -82,7 +82,11 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
             barGap={0}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
+            <XAxis
+              type="number"
+              stroke="#EDEDED"
+              tick={{ fill: "#595959" }} // Keeps the font color red
+            />
 
             <YAxis
               dataKey="name"
@@ -90,6 +94,8 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
               width={160}
               interval={0}
               tickFormatter={(value) => value}
+              tick={{ fill: "#595959" }}
+              stroke="#EDEDED" // Change axis color
             >
               <Label
                 value="Componente por ano de escolaridade"
@@ -100,11 +106,19 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
                   textAnchor: "middle",
                   fontSize: 14,
                   fontWeight: "bold",
+                  fill: "#595959",
                 }}
               />
             </YAxis>
 
-            <Tooltip content={<TooltipCustomizada />} />
+            <Tooltip
+              content={<TooltipCustomizada />}
+              wrapperStyle={{
+                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                borderRadius: "5px",
+                color: "#fff",
+              }}
+            />
             <Legend
               verticalAlign="top"
               align="center"
