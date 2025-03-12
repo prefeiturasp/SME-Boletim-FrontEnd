@@ -163,7 +163,7 @@ const EscolherEscola = () => {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <Divider className="separador" />
+        {/* <Divider className="separador" />
         <div className="filtro-secao">
           <h3 className="filtro-titulo">Níveis</h3>
           {["Abaixo do básico", "Básico", "Adequado", "Avançado"].map(
@@ -177,7 +177,7 @@ const EscolherEscola = () => {
               </Checkbox>
             )
           )}
-        </div>
+        </div> */}
         <Divider className="separador" />
         <div className="filtro-secao">
           <h3 className="filtro-titulo">Ano letivo</h3>

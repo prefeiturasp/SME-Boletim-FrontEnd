@@ -46,3 +46,7 @@ th.ant-table-cell.col-total {
 .ant-table-tbody tr:hover td {
   font-weight: bold !important;
 }
+
+.drop-settings-btn {
+  margin-bottom: 15px;
+}

@@ -1,10 +1,10 @@
 .tooltip-customizada {
-    background-color: #d3d3d3;
-    color: black;
+    background-color: #EDEDED;
+    color: #595959;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #999;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border: 0px solid #EDEDED;  
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);  
 }
   
 .tooltip-label {
