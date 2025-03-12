@@ -11,14 +11,20 @@
     font-weight: bold;
     flex-grow: 1;
     text-align: left;
+    color: #595959 !important;
+    padding-right: 20px;
 }
 
 .legenda-itens { 
-    display: flex; gap: 15px
+    display: flex; 
+    gap: 15px;
+    color: #595959;
 }
 
 .legenda-item {
-    display: inline-flex; align-items: center 
+    padding-left: 0px;
+    display: inline-flex; 
+    align-items: center;
 }
 
 .legenda-cor-caixa{
@@ -27,4 +33,10 @@
     display: inline-block;
     border-radius: 4px;
     margin-right:5px;
+    
+}
+
+.legenda-texto { 
+    font-size:13px;
+    color: #595959;
 }
