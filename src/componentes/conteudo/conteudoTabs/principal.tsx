@@ -21,11 +21,10 @@ const Principal: React.FC = () => {
 
   const buscarAbrangencias = async () => {
     try {
-      let filtros;
+      let filtros = "";
       if (
         filtrosSelecionados.anoLetivo.length > 0 ||
-        filtrosSelecionados.componentesCurriculares.length > 0 ||
-        filtrosSelecionados.niveis.length > 0
+        filtrosSelecionados.componentesCurriculares.length > 0
       ) {
         const anoLetivoMap = {
           "5º ano": 5,
@@ -37,27 +36,20 @@ const Principal: React.FC = () => {
           Matemática: "matematica",
         };
 
-        const niveisMap = {
-          "Abaixo do básico": "abaixoDoBasico",
-          Básico: "basico",
-          Adequado: "adequado",
-          Avançado: "avancado",
-        };
+        const params = new URLSearchParams();
 
-        filtros = {
-          anoLetivo: filtrosSelecionados.anoLetivo.map(
-            (ano) => anoLetivoMap[ano]
-          ),
-          componentesCurriculares:
-            filtrosSelecionados.componentesCurriculares.map(
-              (cc) => componentesMap[cc]
-            ),
-          niveis: filtrosSelecionados.niveis.map((nivel) => niveisMap[nivel]),
-        };
+        filtrosSelecionados.anoLetivo.forEach((ano) => {
+          params.append("Ano", anoLetivoMap[ano]);
+        });
+
+        filtrosSelecionados.componentesCurriculares.forEach((cc) => {
+          params.append("ComponentesCurriculares", componentesMap[cc]);
+        });
+
+        filtros = `?${params.toString()}`;
       }
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}`,
-        { filtros }
+        `/api/boletimescolar/${escolaSelecionada.ueId}${filtros}`
       );
 
       setDados(resposta);
