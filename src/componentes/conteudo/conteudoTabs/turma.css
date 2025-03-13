@@ -1,0 +1,54 @@
+.titulo-prova-turmas {
+  color: #595959;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.secao-sobre-turmas {
+  padding-bottom: 10px;
+  color: #595959;
+}
+
+.subtitulo-prova-turmas {
+  color: #595959;
+  font-size: 14px;
+}
+
+.tabela-niveis-turmas .ant-table {
+  background-color: #ededed;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.tabela-niveis-turmas .ant-table-thead > tr > th {
+  background-color: #ededed !important;
+  font-weight: bold;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.tabela-niveis-turmas .ant-table-tbody > tr > td {
+  background-color: #ededed !important;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.dados-turmas {
+  color: #595959;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+th.ant-table-cell.col-proficiencia {
+  background-color: #ededed !important;
+  border-bottom: 1px solid #d5d5d5 !important;
+  border-left: none !important;
+}
+
+th.ant-table-cell.col-total {
+  background-color: #4c8bf5 !important;
+  border-bottom: 1px solid #d5d5d5 !important;
+  color: white !important;
+  border-right: none !important;
+}
+
+.ant-table-thead th {
+  color: #595959 !important;
+}
