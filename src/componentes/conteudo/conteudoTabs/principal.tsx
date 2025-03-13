@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Button, notification } from "antd";
+import { Row, Col, Button, notification, Spin } from "antd";
 import "./principal.css";
 import Tabela from "../tabela/tabela";
 import DesempenhoAno from "../../grafico/desempenhoAno";
@@ -21,6 +21,7 @@ const Principal: React.FC = () => {
 
   const buscarAbrangencias = async () => {
     try {
+      setEstaCarregando(true);
       let filtros = "";
       if (
         filtrosSelecionados.anoLetivo.length > 0 ||
@@ -59,13 +60,15 @@ const Principal: React.FC = () => {
         error
       );
       setEstaCarregando(false);
+    } finally {
+      setEstaCarregando(false);
     }
   };
 
   useEffect(() => {
-    setEstaCarregando(true);
-    buscarAbrangencias();
-    setEstaCarregando(false);
+    if (escolaSelecionada) {
+      buscarAbrangencias();
+    }
   }, [escolaSelecionada, filtrosSelecionados]);
 
   const iniciarDownloadRelatorioPrincipal = async () => {
@@ -90,7 +93,7 @@ const Principal: React.FC = () => {
   };
 
   return (
-    <>
+    <Spin spinning={estaCarregando} tip="Carregando...">
       <span>
         Esta seção apresenta uma tabela e um gráfico que ilustram a quantidade
         de estudantes por ano escolar e faixa de classificação em cada nível.
@@ -151,7 +154,7 @@ const Principal: React.FC = () => {
           </Col>
         </Row>
       </div>
-    </>
+    </Spin>
   );
 };
 
