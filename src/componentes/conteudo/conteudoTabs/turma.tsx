@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
 import "./turma.css";
+import DesempenhoTurma from "../../grafico/desempenhoTurma";
 
 const Turma: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
@@ -106,7 +107,7 @@ const Turma: React.FC = () => {
             <p className="dados-turmas">
               Média de proficiência em {prova.descricao} por turma
             </p>
-            {/* TODO - Grafico  */}
+            <DesempenhoTurma dados={prova.turmas} />
           </div>
         ))}
       </div>
