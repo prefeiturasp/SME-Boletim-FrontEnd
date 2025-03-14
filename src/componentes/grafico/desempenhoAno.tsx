@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
   Label,
 } from "recharts";
-import { Card } from "antd";
 import "./desempenhoAno.css";
 import { RootState } from "../../redux/store";
 import { setDesempenhoData } from "../../redux/slices/desempenhoSlice";
@@ -71,8 +70,7 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
   }, [dispatch, dados]);
 
   return (
-    <div className="conteudo-principal">
-      <Card variant="borderless">
+    
         <ResponsiveContainer width="100%" height={800}>
           <BarChart
             layout="vertical"
@@ -85,7 +83,7 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
             <XAxis
               type="number"
               stroke="#EDEDED"
-              tick={{ fill: "#595959" }} // Keeps the font color red
+              tick={{ fill: "#595959" }}
             />
 
             <YAxis
@@ -95,7 +93,7 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
               interval={0}
               tickFormatter={(value) => value}
               tick={{ fill: "#595959" }}
-              stroke="#EDEDED" // Change axis color
+              stroke="#EDEDED"
             >
               <Label
                 value="Componente por ano de escolaridade"
@@ -135,8 +133,7 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
             <Bar dataKey="" fill="#ffffff" name="" />
           </BarChart>
         </ResponsiveContainer>
-      </Card>
-    </div>
+      
   );
 };
 

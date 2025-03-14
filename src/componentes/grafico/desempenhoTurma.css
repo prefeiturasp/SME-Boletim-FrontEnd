@@ -1,0 +1,37 @@
+.legenda-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.legenda-titulo {
+  color: #595959;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.legenda-caixa {
+  width: 16px;
+  height: 16px;
+  margin: 10px;
+  border: 0px solid #000;
+}
+
+.legenda-texto {
+  color: #595959;
+}
+
+.label-proficiencia {
+  text-anchor: middle;
+  font-size: 14px;
+  font-weight: bold;
+  fill: #595959;
+  font-family: "Segoe UI", sans-serif;
+}
