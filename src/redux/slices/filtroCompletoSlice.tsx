@@ -1,0 +1,37 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+const initialState: Filtro = {
+  niveis: [
+    { valor: 1, texto: "abaixoBasico" },
+    { valor: 4, texto: "avançado" },
+  ],
+  anosEscolares: [
+    { valor: 5, texto: "5" },
+    { valor: 9, texto: "9" },
+  ],
+  componentesCurriculares: [
+    { valor: 5, texto: "Lingua Portuguesa" },
+    { valor: 4, texto: "Matemática" },
+  ],
+  nivelMinimo: 50,
+  nivelMaximo: 275,
+  turmas: [
+    { valor: "A", texto: "A" },
+    { valor: "A", texto: "A" },
+    { valor: "A", texto: "A" },
+    { valor: "A", texto: "A" },
+  ],
+};
+
+const filtroCompletoSlice = createSlice({
+  name: "filtro",
+  initialState,
+  reducers: {
+    setFiltroDados: (state, action: PayloadAction<Filtro>) => {
+      return { ...state, ...action.payload };
+    },
+  },
+});
+
+export const { setFiltroDados } = filtroCompletoSlice.actions;
+export default filtroCompletoSlice.reducer;
