@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.5.1",
     "antd": "^5.23.3",
     "axios": "^1.7.9",
+    "json-2-csv": "^5.5.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",

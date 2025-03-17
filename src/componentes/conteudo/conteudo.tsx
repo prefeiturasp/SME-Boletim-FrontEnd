@@ -25,7 +25,7 @@ const Conteudo: React.FC = () => {
               <Tabs.TabPane tab="Turma" key="2">
                 <Turma />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Estudantes" key="3" disabled>
+              <Tabs.TabPane tab="Estudantes" key="3">
                 <Estudantes />
               </Tabs.TabPane>
               <Tabs.TabPane tab="Resultado por Probabilidade" key="4" disabled>
