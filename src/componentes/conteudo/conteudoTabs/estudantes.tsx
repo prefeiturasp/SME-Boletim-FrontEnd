@@ -23,7 +23,7 @@ const Estudantes: React.FC = () => {
       setCarregando(true);
       const resposta = await servicos.get(
         `/api/boletimescolar/095532/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
-      );
+      ); //deixando fixo a escola para testes
       setDados(resposta.estudantes.itens || []);
       setDadosDisciplinas(resposta.disciplinas || []);
       setTotalRegistros(resposta.estudantes.totalRegistros || 0);
@@ -71,7 +71,17 @@ const Estudantes: React.FC = () => {
       dataIndex: "nivelDescricao",
       key: "nivelDescricao",
       render: (text: string) => (
-        <span style={{ color: getNivelColor(text) }}>{text}</span>
+        <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span
+            style={{
+              width: "10px",
+              height: "10px",
+              borderRadius: "50%",
+              backgroundColor: getNivelColor(text),
+            }}
+          ></span>
+          {text}
+        </span>
       ),
     },
   ];
