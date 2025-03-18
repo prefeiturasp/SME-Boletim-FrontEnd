@@ -86,6 +86,19 @@
   color: white;
 }
 
+.filtro-input {
+  background-color: #5a94d8 !important;
+  border-top: #5a94d8;
+  border-right: #5a94d8;
+  border-left: #5a94d8;
+  border-radius:0%;
+  color: white;  
+}
+
+.filtro-input::placeholder {
+  color: #C0D6EB;
+}
+
 .filtro-botoes {
 }
 

@@ -70,70 +70,75 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
   }, [dispatch, dados]);
 
   return (
-    
-        <ResponsiveContainer width="100%" height={800}>
-          <BarChart
-            layout="vertical"
-            data={data}
-            margin={{ top: 30, right: 5, left: 20, bottom: 0 }}
-            barCategoryGap="0%"
-            barGap={0}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              type="number"
-              stroke="#EDEDED"
-              tick={{ fill: "#595959" }}
-            />
+    <ResponsiveContainer width="100%" height={700}>
+      <BarChart
+        layout="vertical"
+        data={data}
+        margin={{ top: 30, right: 5, left: 20, bottom: 0 }}
+        barCategoryGap="0%"
+        barGap={0}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis type="number" stroke="#EDEDED" tick={{ fill: "#595959" }} />
 
-            <YAxis
-              dataKey="name"
-              type="category"
-              width={160}
-              interval={0}
-              tickFormatter={(value) => value}
-              tick={{ fill: "#595959" }}
-              stroke="#EDEDED"
-            >
-              <Label
-                value="Componente por ano de escolaridade"
-                angle={-90}
-                position="insideLeft"
-                offset={-15}
-                style={{
-                  textAnchor: "middle",
-                  fontSize: 14,
-                  fontWeight: "bold",
-                  fill: "#595959",
-                }}
-              />
-            </YAxis>
+        <YAxis
+          dataKey="name"
+          type="category"
+          width={160}
+          interval={0}
+          tickFormatter={(value) => value}
+          tick={{ fill: "#595959" }}
+          stroke="#EDEDED"
+        >
+          <Label
+            value="Componente por ano de escolaridade"
+            angle={-90}
+            position="insideLeft"
+            offset={-15}
+            style={{
+              textAnchor: "middle",
+              fontSize: 14,
+              fontWeight: "bold",
+              fill: "#595959",
+            }}
+          />
+        </YAxis>
 
-            <Tooltip
-              content={<TooltipCustomizada />}
-              wrapperStyle={{
-                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                borderRadius: "5px",
-                color: "#fff",
-              }}
-            />
-            <Legend
-              verticalAlign="top"
-              align="center"
-              content={<LegendaCustomizada />}
-            />
-            <Bar
-              dataKey="abaixoDoBasico"
-              fill="#FF5959"
-              name="1 - Abaixo do Básico"
-            />
-            <Bar dataKey="basico" fill="#FEDE99" name="2 - Básico" />
-            <Bar dataKey="adequado" fill="#9999FF" name="3 - Adequado" />
-            <Bar dataKey="avancado" fill="#99FF99" name="4 - Avançado" />
-            <Bar dataKey="" fill="#ffffff" name="" />
-          </BarChart>
-        </ResponsiveContainer>
-      
+        <Tooltip
+          content={<TooltipCustomizada />}
+          wrapperStyle={{
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            borderRadius: "5px",
+            color: "#fff",
+          }}
+        />
+        <Legend
+          verticalAlign="top"
+          align="center"
+          content={<LegendaCustomizada />}
+        />
+        <Bar
+          dataKey="abaixoDoBasico"
+          barSize={70}
+          fill="#FF5959"
+          name="1 - Abaixo do Básico"
+        />
+        <Bar dataKey="basico" barSize={70} fill="#FEDE99" name="2 - Básico" />
+        <Bar
+          dataKey="adequado"
+          barSize={70}
+          fill="#9999FF"
+          name="3 - Adequado"
+        />
+        <Bar
+          dataKey="avancado"
+          barSize={70}
+          fill="#99FF99"
+          name="4 - Avançado"
+        />
+        <Bar dataKey="" barSize={70} fill="#ffffff" name="" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 

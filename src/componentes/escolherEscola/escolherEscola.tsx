@@ -17,10 +17,14 @@ const EscolherEscola = () => {
     niveis: string[];
     anoLetivo: string[];
     componentesCurriculares: string[];
+    nomeEstudante: string;
+    eolEstudante: string;
   }>({
     niveis: [],
     anoLetivo: [],
     componentesCurriculares: [],
+    nomeEstudante: "",
+    eolEstudante: "",
   });
 
   const dispatch = useDispatch();
@@ -78,6 +82,8 @@ const EscolherEscola = () => {
       niveis: [],
       anoLetivo: [],
       componentesCurriculares: [],
+      nomeEstudante: "",
+      eolEstudante: "",
     });
   };
 
@@ -93,12 +99,23 @@ const EscolherEscola = () => {
     setSelectedFilters((prevFilters) => {
       const newFilters = { ...prevFilters };
 
-      if (newFilters[filterType].includes(value)) {
-        newFilters[filterType] = newFilters[filterType].filter(
-          (item) => item !== value
-        );
-      } else {
-        newFilters[filterType] = [...newFilters[filterType], value];
+      if (
+        filterType === "niveis" ||
+        filterType === "anoLetivo" ||
+        filterType === "componentesCurriculares"
+      ) {
+        if (newFilters[filterType].includes(value)) {
+          newFilters[filterType] = newFilters[filterType].filter(
+            (item) => item !== value
+          );
+        } else {
+          newFilters[filterType] = [...newFilters[filterType], value];
+        }
+      } else if (
+        filterType === "nomeEstudante" ||
+        filterType === "eolEstudante"
+      ) {
+        newFilters[filterType] = value;
       }
 
       return newFilters;
