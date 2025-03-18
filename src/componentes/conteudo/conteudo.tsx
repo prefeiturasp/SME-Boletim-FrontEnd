@@ -4,8 +4,14 @@ import Principal from "./conteudoTabs/principal";
 import Turma from "./conteudoTabs/turma";
 import Estudantes from "./conteudoTabs/estudantes";
 import Resultado from "./conteudoTabs/probabilidade";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { setActiveTab } from "../../redux/slices/tabSlice";
 
 const Conteudo: React.FC = () => {
+  const dispatch = useDispatch();
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+
   return (
     <div className="conteudo-principal">
       <Row gutter={[16, 16]}>
@@ -13,19 +19,22 @@ const Conteudo: React.FC = () => {
           <Card
             title={
               <span style={{ color: "#595959" }}>
-                Saberes e aprendizagens (agosto 2024)
+                Saberes e aprendizagens (abril 2025)
               </span>
             }
             variant="borderless"
           >
-            <Tabs defaultActiveKey="1">
+            <Tabs
+              activeKey={activeTab}
+              onChange={(key) => dispatch(setActiveTab(key))}
+            >
               <Tabs.TabPane tab="Principal" key="1">
                 <Principal />
               </Tabs.TabPane>
               <Tabs.TabPane tab="Turma" key="2">
                 <Turma />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Estudantes" key="3" disabled>
+              <Tabs.TabPane tab="Estudantes" key="3">
                 <Estudantes />
               </Tabs.TabPane>
               <Tabs.TabPane tab="Resultado por Probabilidade" key="4" disabled>

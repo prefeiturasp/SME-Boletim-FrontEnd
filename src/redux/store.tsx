@@ -3,6 +3,8 @@ import escolaReducer from "./slices/escolaSlice";
 import authReducer from "./slices/authSlice";
 import desempenhoReducer from "./slices/desempenhoSlice";
 import filtrosReducer from "./slices/filtrosSlice";
+import filtroCompletoReducer from "./slices/filtroCompletoSlice";
+import tabReducer from "./slices/tabSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     auth: authReducer,
     desempenho: desempenhoReducer,
     filtros: filtrosReducer,
+    filtroCompleto: filtroCompletoReducer,
+    tab: tabReducer,
   },
 });
 
