@@ -19,7 +19,7 @@ const Conteudo: React.FC = () => {
           <Card
             title={
               <span style={{ color: "#595959" }}>
-                Saberes e aprendizagens (agosto 2024)
+                Saberes e aprendizagens (abril 2025)
               </span>
             }
             variant="borderless"
