@@ -1,9 +1,13 @@
-import { Button, Checkbox, Divider, Drawer, Flex } from "antd";
+import { Button, Checkbox, Divider, Drawer, Flex, Input } from "antd";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface selectedFilters {
   niveis: string[];
   anoLetivo: string[];
   componentesCurriculares: string[];
+  nomeEstudante: string;
+  eolEstudante: string;
 }
 
 interface FilterDrawerProps {
@@ -30,6 +34,8 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
   handleApplyFilters,
   filtroDados,
 }) => {
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  console.log("activeTab", activeTab);
   console.log(aba);
   return (
     <>
@@ -44,13 +50,45 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
               alt="Filtrar"
               className="icone-filtrar-drawer"
             />
-            <span>Filtrar</span>
+            <span> Filtrar</span>
           </p>
         }
         placement="right"
         open={open}
         onClose={() => setOpen(false)}
       >
+        {activeTab == "3" && (
+          <>
+            <Divider className="separador" />
+
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Nome do estudante</h3>
+              <Input
+                className="filtro-input"
+                placeholder="Digite o nome do estudante"
+                value={selectedFilters.nomeEstudante}
+                onChange={(e) =>
+                  handleFilterChange("nomeEstudante", e.target.value)
+                }
+              />
+            </div>
+
+            <Divider className="separador" />
+
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">EOL do estudante</h3>
+              <Input
+                className="filtro-input"
+                placeholder="Digite o EOL do estudante"
+                value={selectedFilters.eolEstudante}
+                onChange={(e) =>
+                  handleFilterChange("eolEstudante", e.target.value)
+                }
+              />
+            </div>
+          </>
+        )}
+
         <Divider className="separador" />
         <div className="filtro-secao">
           <h3 className="filtro-titulo">Ano letivo</h3>
@@ -68,7 +106,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
         </div>
         <Divider className="separador" />
         <div className="filtro-secao">
-          <h3 className="filtro-titulo">Componente curricularjjji</h3>
+          <h3 className="filtro-titulo">Componente curricular</h3>
           {filtroDados.componentesCurriculares.map((comp) => (
             <Checkbox
               key={comp.texto}
