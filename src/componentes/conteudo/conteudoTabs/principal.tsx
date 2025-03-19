@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Button, notification, Spin } from "antd";
+import { Row, Col, Button, notification, Spin, Modal } from "antd";
 import "./principal.css";
 import Tabela from "../tabela/tabela";
 import DesempenhoAno from "../../grafico/desempenhoAno";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
-import { DownloadOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import {
+  DownloadOutlined,
+  InfoCircleOutlined,
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 
 const Principal: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
@@ -71,6 +76,49 @@ const Principal: React.FC = () => {
     }
   }, [escolaSelecionada, filtrosSelecionados]);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (estaCarregandoRelatorio) {
+        event.preventDefault();
+        event.returnValue = "";
+
+        Modal.confirm({
+          title: "Seu documento está sendo processado!",
+          icon: <ExclamationCircleOutlined style={{ color: "#faad14" }} />,
+          content:
+            "Se você atualizar a página agora, o progresso será perdido e será necessário recomeçar. Tem certeza de que deseja atualizar?",
+          okText: "Atualizar",
+          cancelText: "Voltar",
+          onOk: () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            window.location.reload();
+          },
+          onCancel: () => {
+            notification.open({
+              key: "reloadCancelado",
+              message: "Operação cancelada",
+              description:
+                "O recarregamento foi cancelado e o relatório continua sendo processado.",
+              placement: "top",
+              icon: <ExclamationCircleOutlined style={{ color: "#faad14" }} />,
+              duration: 5,
+            });
+          },
+        });
+      }
+    };
+
+    if (estaCarregandoRelatorio) {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    } else {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    }
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [estaCarregandoRelatorio]);
+
   const iniciarDownloadRelatorioPrincipal = async () => {
     setEstaCarregandoRelatorio(true);
 
@@ -85,11 +133,41 @@ const Principal: React.FC = () => {
       closeIcon: false,
     });
 
-    setEstaCarregandoRelatorio(false);
+    try {
+      const resposta = await servicos.get(
+        `/api/boletimescolar/download/${escolaSelecionada.ueId}`,
+        { responseType: "blob" }
+      );
 
-    // setTimeout(() => {
-    //   notification.destroy("relatorioPrincipal");
-    // }, 4000);
+      const blob = new Blob([resposta], {
+        type: "application/vnd.ms-excel",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `boletim-resultados-principais-${escolaSelecionada.descricao}.xls`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+
+      notification.open({
+        key: "relatorioPrincipalSuccess",
+        message: "Tudo certo por aqui!",
+        description: `Seu documento "${escolaSelecionada.descricao}" foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
+        placement: "bottomLeft",
+        icon: <CheckCircleOutlined style={{ color: "#108ee9" }} />,
+        duration: 8,
+        pauseOnHover: true,
+        closeIcon: false,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar os dados da tabela:", error);
+      setEstaCarregandoRelatorio(false);
+    } finally {
+      setEstaCarregandoRelatorio(false);
+    }
   };
 
   return (
