@@ -22,8 +22,8 @@ const Estudantes: React.FC = () => {
     try {
       setCarregando(true);
       const resposta = await servicos.get(
-        `/api/boletimescolar/095532/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
-      ); //deixando fixo a escola para testes
+        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
+      );
       setDados(resposta.estudantes.itens || []);
       setDadosDisciplinas(resposta.disciplinas || []);
       setTotalRegistros(resposta.estudantes.totalRegistros || 0);
