@@ -7,6 +7,7 @@ import { RootState } from "../../redux/store";
 import { servicos } from "../../servicos";
 import { setFilters } from "../../redux/slices/filtrosSlice";
 import FiltroLateral from "../filtro/filtroLateral";
+import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
 
 const EscolherEscola = () => {
   const filtroDados = useSelector((state: RootState) => state.filtroCompleto);
@@ -45,6 +46,30 @@ const EscolherEscola = () => {
       console.error("Erro ao buscar escolas:", error);
     }
   };
+
+  const buscarFiltros = async (escolaSelecionada: { ueId: string | null; descricao: string | null; }) => {
+    try {
+
+      const resposta2: Filtro = await servicos.get(
+        `/api/boletimescolar/${escolaSelecionada.ueId}/filtros`
+      );
+
+      // Dispatch the action to update Redux store
+      dispatch(setFiltroDados(resposta2));
+
+    } catch (error) {
+      console.error(
+        "Erro ao buscar os filtros laterais:",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    buscarFiltros(escolaSelecionada);
+  }, [escolaSelecionada]);
+
+  
 
   useEffect(() => {
     buscarAbrangencias();

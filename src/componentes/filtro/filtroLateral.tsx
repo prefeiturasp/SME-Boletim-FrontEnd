@@ -35,8 +35,6 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
   filtroDados,
 }) => {
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
-  console.log("activeTab", activeTab);
-  console.log(aba);
   return (
     <>
       <Drawer
