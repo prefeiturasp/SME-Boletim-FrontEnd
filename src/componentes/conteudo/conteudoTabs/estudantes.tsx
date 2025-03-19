@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
 import "./estudantes.css";
+import EstudantesPorMateria from "../../grafico/estudantePorMateria";
 
 const Estudantes: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
   const [disciplinas, setDadosDisciplinas] = useState<any[]>([]);
+  const [dadosGrafico, setDadosGrafico] = useState<Turma[]>([]);
 
   const [carregando, setCarregando] = useState(false);
   const [pagina, setPagina] = useState(1);
@@ -34,11 +36,31 @@ const Estudantes: React.FC = () => {
     }
   };
 
+  const buscarDadosGraficos = async () => {
+    try {
+      setCarregando(true);
+      const resposta: Turma[] = await servicos.get(
+        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes-grafico`
+      );
+      setDadosGrafico(resposta || []);
+    } catch (error) {
+      console.error("Erro ao buscar os dados da tabela:", error);
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   useEffect(() => {
     if (escolaSelecionada) {
       buscarDadosEstudantes(pagina, pageSize);
     }
   }, [escolaSelecionada, pagina, pageSize]);
+
+  useEffect(() => {
+    if (escolaSelecionada) {
+      buscarDadosGraficos();
+    }
+  }, [escolaSelecionada]);
 
   const getNivelColor = (nivel: string) => {
     switch (nivel) {
@@ -131,6 +153,10 @@ const Estudantes: React.FC = () => {
           }}
         />
       </div>
+
+      {dadosGrafico.map((item) => (
+        <EstudantesPorMateria dados={item} />
+      ))}
     </Spin>
   );
 };
