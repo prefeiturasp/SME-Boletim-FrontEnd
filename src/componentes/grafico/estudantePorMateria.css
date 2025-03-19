@@ -1,0 +1,24 @@
+.titulo-grafico {
+  font-weight: bold;
+  color: #595959;
+  font-size: 14px;
+  fill: #595959;
+  font-family: "Segoe UI", sans-serif;
+  text-anchor: middle;
+}
+
+.bar-texto-preto {
+  margin-left: 10px;
+  color: #000000;
+  font-size: 14px;
+  fill: #000000;
+  font-weight: 700;
+}
+
+.bar-texto-branco {
+  margin-left: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  fill: #ffffff;
+  font-weight: 700;
+}
