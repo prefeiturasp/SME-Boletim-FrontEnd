@@ -1,9 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Filtro {
-    niveis: chaveValorFiltro[],
-    anosEscolares: chaveValorFiltro[],
-    componentesCurriculares: chaveValorFiltro[],
+    niveis: FiltroChaveValor[],
+    anosEscolares: FiltroChaveValor[],
+    componentesCurriculares: FiltroChaveValor[],
     nivelMinimo: number,
     nivelMaximo: number,
-    turmas: chaveValorFiltro[]
+    nivelMinimoEscolhido: number,
+    nivelMaximoEscolhido: number,
+    turmas: FiltroChaveValor[]
+    nomeEstudante: string,
+    eolEstudante: string,
   }

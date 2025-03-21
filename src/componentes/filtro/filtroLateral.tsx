@@ -1,23 +1,15 @@
-import { Button, Checkbox, Divider, Drawer, Flex, Input } from "antd";
+import { Button, Checkbox, Divider, Drawer, Flex, Input, Select } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-
-interface selectedFilters {
-  niveis: string[];
-  anoLetivo: string[];
-  componentesCurriculares: string[];
-  nomeEstudante: string;
-  eolEstudante: string;
-}
+import "./filtroLateral.css";
 
 interface FilterDrawerProps {
-  aba: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedFilters: selectedFilters;
+  selectedFilters: Filtro;
   handleFilterChange: (
-    filterType: keyof selectedFilters,
-    value: string
+    filterType: keyof Filtro,
+    value: number | string | FiltroChaveValor
   ) => void;
   handleResetFilters: () => void;
   handleApplyFilters: () => void;
@@ -25,7 +17,6 @@ interface FilterDrawerProps {
 }
 
 const FiltroLateral: React.FC<FilterDrawerProps> = ({
-  aba,
   open,
   setOpen,
   selectedFilters,
@@ -35,6 +26,16 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
   filtroDados,
 }) => {
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  const initialValue: number = filtroDados.nivelMinimo;
+  const limit: number = filtroDados.nivelMaximo;
+  const generateOptions = () => {
+    const options = [];
+    for (let i = initialValue; i <= limit; i += 25) {
+      options.push(i);
+    }
+    return options;
+  };
+
   return (
     <>
       <Drawer
@@ -92,11 +93,11 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           <h3 className="filtro-titulo">Ano letivo</h3>
           {filtroDados.anosEscolares.map((ano) => (
             <Checkbox
-              key={ano.texto + "º ano"}
-              checked={selectedFilters.anoLetivo.includes(ano.texto + "º ano")}
-              onChange={() =>
-                handleFilterChange("anoLetivo", ano.texto + "º ano")
-              }
+              key={ano.valor}
+              checked={selectedFilters.anosEscolares.some(
+                (item) => item.valor === ano.valor
+              )}
+              onChange={() => handleFilterChange("anosEscolares", ano.valor)}
             >
               {ano.texto + "º ano"}
             </Checkbox>
@@ -107,18 +108,85 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           <h3 className="filtro-titulo">Componente curricular</h3>
           {filtroDados.componentesCurriculares.map((comp) => (
             <Checkbox
-              key={comp.texto}
-              checked={selectedFilters.componentesCurriculares.includes(
-                comp.texto
+              key={comp.valor}
+              checked={selectedFilters.componentesCurriculares.some(
+                (item) => item.valor === comp.valor
               )}
               onChange={() =>
-                handleFilterChange("componentesCurriculares", comp.texto)
+                handleFilterChange("componentesCurriculares", comp.valor)
               }
             >
               {comp.texto}
             </Checkbox>
           ))}
         </div>
+
+        {activeTab == "3" && (
+          <>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Nível</h3>
+              {filtroDados.niveis.map((nivel) => (
+                <Checkbox
+                  key={nivel.valor}
+                  checked={selectedFilters.niveis.some(
+                    (item) => item.valor === nivel.valor
+                  )}
+                  onChange={() => handleFilterChange("niveis", nivel.valor)}
+                >
+                  {nivel.texto}
+                </Checkbox>
+              ))}
+            </div>
+          </>
+        )}
+
+        {activeTab == "3" && (
+          <>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Proficiência</h3>
+              Selecione um intervalo de proficiência.
+              <div className="select-caixa">
+                <span className="label">Nível inicial:</span>
+                <Select
+                  defaultValue={initialValue}
+                  className="select"
+                  value={selectedFilters.nivelMinimoEscolhido}
+                  onChange={(value) =>
+                    handleFilterChange("nivelMinimoEscolhido", value)
+                  }
+                >
+                  {generateOptions().map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+            <div>
+              <div className="select-caixa">
+                <span className="label">Nível final:</span>
+                <Select
+                  defaultValue={limit}
+                  className="select"
+                  value={selectedFilters.nivelMaximoEscolhido}
+                  onChange={(value) =>
+                    handleFilterChange("nivelMaximoEscolhido", value)
+                  }
+                >
+                  {generateOptions().map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+          </>
+        )}
+
         <Divider className="separador" />
         <Flex gap="small" wrap>
           <Button className="botao-remover" onClick={handleResetFilters}>
