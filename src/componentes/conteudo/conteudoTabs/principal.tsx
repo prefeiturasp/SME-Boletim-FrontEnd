@@ -22,6 +22,7 @@ const Principal: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
 
   const buscarAbrangencias = async () => {
@@ -29,27 +30,17 @@ const Principal: React.FC = () => {
       setEstaCarregando(true);
       let filtros = "";
       if (
-        filtrosSelecionados.anoLetivo.length > 0 ||
+        filtrosSelecionados.anosEscolares.length > 0 ||
         filtrosSelecionados.componentesCurriculares.length > 0
       ) {
-        const anoLetivoMap = {
-          "5º ano": 5,
-          "9º ano": 9,
-        };
-
-        const componentesMap = {
-          "Língua Portuguesa": "linguaPortuguesa",
-          Matemática: "matematica",
-        };
-
         const params = new URLSearchParams();
 
-        filtrosSelecionados.anoLetivo.forEach((ano) => {
-          params.append("Ano", anoLetivoMap[ano]);
+        filtrosSelecionados.anosEscolares.forEach((item) => {
+          params.append("Ano", item.valor.toString());
         });
 
-        filtrosSelecionados.componentesCurriculares.forEach((cc) => {
-          params.append("ComponentesCurriculares", componentesMap[cc]);
+        filtrosSelecionados.componentesCurriculares.forEach((item) => {
+          params.append("ComponentesCurriculares", item.valor.toString());
         });
 
         filtros = `?${params.toString()}`;
@@ -71,10 +62,10 @@ const Principal: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada) {
+    if (escolaSelecionada && activeTab == "1") {
       buscarAbrangencias();
     }
-  }, [escolaSelecionada, filtrosSelecionados]);
+  }, [escolaSelecionada, filtrosSelecionados, activeTab]);
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {

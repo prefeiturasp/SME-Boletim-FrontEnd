@@ -14,11 +14,32 @@ const Turma: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+
   const buscarDadosTurmas = async () => {
     try {
       setEstaCarregando(true);
+      let filtros = "";
+      if (
+        filtrosSelecionados.anosEscolares.length > 0 ||
+        filtrosSelecionados.componentesCurriculares.length > 0
+      ) {
+        const params = new URLSearchParams();
+
+        filtrosSelecionados.anosEscolares.forEach((item) => {
+          params.append("Ano", item.valor.toString());
+        });
+
+        filtrosSelecionados.componentesCurriculares.forEach((item) => {
+          params.append("ComponentesCurriculares", item.valor.toString());
+        });
+
+        filtros = `?${params.toString()}`;
+      }
+
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/turmas`
+        `/api/boletimescolar/${escolaSelecionada.ueId}/turmas${filtros}`
       );
       setDados(resposta.provas || []);
     } catch (error) {
@@ -29,10 +50,10 @@ const Turma: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada) {
+    if (escolaSelecionada && activeTab == "2") {
       buscarDadosTurmas();
     }
-  }, [escolaSelecionada]);
+  }, [escolaSelecionada, filtrosSelecionados, activeTab]);
 
   const colunasNiveis = [
     { title: "Ano Escolar", dataIndex: "anoEscolar", key: "anoEscolar" },

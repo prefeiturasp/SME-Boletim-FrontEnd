@@ -10,20 +10,18 @@ import FiltroLateral from "../filtro/filtroLateral";
 import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
 
 const EscolherEscola = () => {
-  const filtroDados = useSelector((state: RootState) => state.filtroCompleto);
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [abrangencia, setAbrangencia] = useState<any[]>([]);
-  const [selectedFilters, setSelectedFilters] = useState<{
-    niveis: string[];
-    anoLetivo: string[];
-    componentesCurriculares: string[];
-    nomeEstudante: string;
-    eolEstudante: string;
-  }>({
+  const [selectedFilters, setSelectedFilters] = useState<Filtro>({
     niveis: [],
-    anoLetivo: [],
+    anosEscolares: [],
     componentesCurriculares: [],
+    nivelMinimo: 0,
+    nivelMinimoEscolhido: 0,
+    nivelMaximo: 0,
+    nivelMaximoEscolhido: 0,
+    turmas: [],
     nomeEstudante: "",
     eolEstudante: "",
   });
@@ -32,6 +30,7 @@ const EscolherEscola = () => {
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
   );
+  const filtroDados = useSelector((state: RootState) => state.filtroCompleto);
 
   const buscarAbrangencias = async () => {
     try {
@@ -47,29 +46,28 @@ const EscolherEscola = () => {
     }
   };
 
-  const buscarFiltros = async (escolaSelecionada: { ueId: string | null; descricao: string | null; }) => {
+  const buscarFiltros = async (escolaSelecionada: {
+    ueId: string | null;
+    descricao: string | null;
+  }) => {
     try {
-
-      const resposta2: Filtro = await servicos.get(
+      const resposta: Filtro = await servicos.get(
         `/api/boletimescolar/${escolaSelecionada.ueId}/filtros`
       );
 
-      // Dispatch the action to update Redux store
-      dispatch(setFiltroDados(resposta2));
+      resposta.nivelMaximoEscolhido = resposta.nivelMaximo;
+      resposta.nivelMinimoEscolhido = resposta.nivelMinimo;
 
+      // Dispatch the action to update Redux store
+      dispatch(setFiltroDados(resposta));
     } catch (error) {
-      console.error(
-        "Erro ao buscar os filtros laterais:",
-        error
-      );
+      console.error("Erro ao buscar os filtros laterais:", error);
     }
   };
 
   useEffect(() => {
     buscarFiltros(escolaSelecionada);
   }, [escolaSelecionada]);
-
-  
 
   useEffect(() => {
     buscarAbrangencias();
@@ -105,10 +103,15 @@ const EscolherEscola = () => {
   const handleResetFilters = () => {
     setSelectedFilters({
       niveis: [],
-      anoLetivo: [],
+      anosEscolares: [],
       componentesCurriculares: [],
       nomeEstudante: "",
       eolEstudante: "",
+      nivelMinimo: 0,
+      nivelMinimoEscolhido: 0,
+      nivelMaximo: 0,
+      nivelMaximoEscolhido: 0,
+      turmas: [],
     });
   };
 
@@ -118,29 +121,51 @@ const EscolherEscola = () => {
   };
 
   const handleFilterChange = (
-    filterType: keyof typeof selectedFilters,
-    value: string
+    filterType: keyof Filtro,
+    value: number | string | FiltroChaveValor
   ) => {
-    setSelectedFilters((prevFilters) => {
+    setSelectedFilters((prevFilters: Filtro) => {
       const newFilters = { ...prevFilters };
+
+      console.log(filterType);
+      console.log(value);
+      console.log(newFilters[filterType]);
 
       if (
         filterType === "niveis" ||
-        filterType === "anoLetivo" ||
-        filterType === "componentesCurriculares"
+        filterType === "anosEscolares" ||
+        filterType === "componentesCurriculares" ||
+        filterType === "turmas"
       ) {
-        if (newFilters[filterType].includes(value)) {
-          newFilters[filterType] = newFilters[filterType].filter(
-            (item) => item !== value
-          );
-        } else {
-          newFilters[filterType] = [...newFilters[filterType], value];
+        // Ensure value is of type chaveValorFiltro
+        if (typeof value === "string" || typeof value === "number") {
+          const existingIndex = (
+            newFilters[filterType] as FiltroChaveValor[]
+          ).findIndex((item) => item.valor === value);
+
+          if (existingIndex !== -1) {
+            newFilters[filterType] = (
+              newFilters[filterType] as FiltroChaveValor[]
+            ).filter((item) => item.valor !== value);
+          } else {
+            newFilters[filterType] = [
+              ...(newFilters[filterType] as FiltroChaveValor[]),
+              { valor: value, texto: String(value) }, // Construct `chaveValorFiltro`
+            ];
+          }
         }
       } else if (
         filterType === "nomeEstudante" ||
         filterType === "eolEstudante"
       ) {
-        newFilters[filterType] = value;
+        newFilters[filterType] = value as string;
+      } else if (
+        filterType === "nivelMinimo" ||
+        filterType === "nivelMinimoEscolhido" ||
+        filterType === "nivelMaximo" ||
+        filterType === "nivelMaximoEscolhido"
+      ) {
+        newFilters[filterType] = value as number;
       }
 
       return newFilters;
@@ -149,7 +174,7 @@ const EscolherEscola = () => {
 
   const totalFiltrosSelecionados =
     selectedFilters.niveis.length +
-    selectedFilters.anoLetivo.length +
+    selectedFilters.anosEscolares.length +
     selectedFilters.componentesCurriculares.length;
 
   return (
@@ -179,7 +204,6 @@ const EscolherEscola = () => {
       </Row>
 
       <FiltroLateral
-        aba="Principal"
         open={open}
         setOpen={setOpen}
         selectedFilters={selectedFilters}

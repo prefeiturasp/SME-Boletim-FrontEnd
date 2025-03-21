@@ -20,12 +20,62 @@ const Estudantes: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+
   const buscarDadosEstudantes = async (paginaAtual = 1, tamanhoPagina = 10) => {
     try {
       setCarregando(true);
+
+      let filtros = "";
+      if (
+        filtrosSelecionados.nomeEstudante ||
+        filtrosSelecionados.eolEstudante ||
+        filtrosSelecionados.anosEscolares.length > 0 ||
+        filtrosSelecionados.componentesCurriculares.length > 0 ||
+        filtrosSelecionados.niveis.length > 0 ||
+        filtrosSelecionados.nivelMinimoEscolhido > 0 ||
+        filtrosSelecionados.nivelMaximoEscolhido > 0
+      ) {
+        const params = new URLSearchParams();
+
+        if (filtrosSelecionados.nomeEstudante)
+          params.append("NomeEstudante", filtrosSelecionados.nomeEstudante);
+
+        if (filtrosSelecionados.eolEstudante)
+          params.append("EolEstudante", filtrosSelecionados.eolEstudante);
+
+        filtrosSelecionados.anosEscolares.forEach((item) => {
+          params.append("Ano", item.valor.toString());
+        });
+
+        filtrosSelecionados.componentesCurriculares.forEach((item) => {
+          params.append("ComponentesCurriculares", item.valor.toString());
+        });
+
+        filtrosSelecionados.niveis.forEach((item) => {
+          params.append("NivelProficiencia", item.valor.toString());
+        });
+
+        if (filtrosSelecionados.nivelMinimoEscolhido)
+          params.append(
+            "NivelMinimo",
+            filtrosSelecionados.nivelMinimoEscolhido.toString()
+          );
+
+        if (filtrosSelecionados.nivelMaximoEscolhido)
+          params.append(
+            "NivelMaximo",
+            filtrosSelecionados.nivelMaximoEscolhido.toString()
+          );
+
+        filtros = `&${params.toString()}`;
+      }
+
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
+        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}${filtros}`
       );
+
       setDados(resposta.estudantes.itens || []);
       setDadosDisciplinas(resposta.disciplinas || []);
       setTotalRegistros(resposta.estudantes.totalRegistros || 0);
@@ -39,8 +89,54 @@ const Estudantes: React.FC = () => {
   const buscarDadosGraficos = async () => {
     try {
       setCarregando(true);
+
+      let filtros = "";
+      if (
+        filtrosSelecionados.nomeEstudante ||
+        filtrosSelecionados.eolEstudante ||
+        filtrosSelecionados.anosEscolares.length > 0 ||
+        filtrosSelecionados.componentesCurriculares.length > 0 ||
+        filtrosSelecionados.niveis.length > 0 ||
+        filtrosSelecionados.nivelMinimoEscolhido > 0 ||
+        filtrosSelecionados.nivelMaximoEscolhido > 0
+      ) {
+        const params = new URLSearchParams();
+
+        if (filtrosSelecionados.nomeEstudante)
+          params.append("NomeEstudante", filtrosSelecionados.nomeEstudante);
+
+        if (filtrosSelecionados.eolEstudante)
+          params.append("EolEstudante", filtrosSelecionados.eolEstudante);
+
+        filtrosSelecionados.anosEscolares.forEach((item) => {
+          params.append("Ano", item.valor.toString());
+        });
+
+        filtrosSelecionados.componentesCurriculares.forEach((item) => {
+          params.append("ComponentesCurriculares", item.valor.toString());
+        });
+
+        filtrosSelecionados.niveis.forEach((item) => {
+          params.append("NivelProficiencia", item.valor.toString());
+        });
+
+        if (filtrosSelecionados.nivelMinimoEscolhido)
+          params.append(
+            "NivelMinimo",
+            filtrosSelecionados.nivelMinimoEscolhido.toString()
+          );
+
+        if (filtrosSelecionados.nivelMaximoEscolhido)
+          params.append(
+            "NivelMaximo",
+            filtrosSelecionados.nivelMaximoEscolhido.toString()
+          );
+
+        filtros = `?${params.toString()}`;
+      }
+
       const resposta: Turma[] = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes-grafico`
+        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes-grafico${filtros}`
       );
       setDadosGrafico(resposta || []);
     } catch (error) {
@@ -51,16 +147,17 @@ const Estudantes: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada) {
+    if (escolaSelecionada && activeTab == "3") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [escolaSelecionada, pagina, pageSize]);
+  }, [pagina, pageSize, activeTab]);
 
   useEffect(() => {
-    if (escolaSelecionada) {
+    if (escolaSelecionada && activeTab == "3") {
+      buscarDadosEstudantes();
       buscarDadosGraficos();
     }
-  }, [escolaSelecionada]);
+  }, [escolaSelecionada, filtrosSelecionados, activeTab]);
 
   const getNivelColor = (nivel: string) => {
     switch (nivel) {
@@ -131,7 +228,7 @@ const Estudantes: React.FC = () => {
         <Table
           columns={colunas}
           dataSource={dados}
-          rowKey="alunoRa"
+          //rowKey="alunoRa"
           locale={{ emptyText: "Não encontramos dados" }}
           pagination={{
             current: pagina,
@@ -153,7 +250,6 @@ const Estudantes: React.FC = () => {
           }}
         />
       </div>
-
       {dadosGrafico.map((item) => (
         <EstudantesPorMateria dados={item} />
       ))}
