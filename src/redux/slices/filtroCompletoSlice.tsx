@@ -21,6 +21,10 @@ const initialState: Filtro = {
     { valor: "A", texto: "A" },
     { valor: "A", texto: "A" },
   ],
+  nivelMinimoEscolhido: 0,
+  nivelMaximoEscolhido: 0,
+  nomeEstudante: "",
+  eolEstudante: "",
 };
 
 const filtroCompletoSlice = createSlice({
