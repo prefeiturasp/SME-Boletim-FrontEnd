@@ -1,0 +1,40 @@
+.select-caixa {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.select {
+  width: 100%;
+  flex-grow: 1;
+  background-color: #5a94d8 !important;
+  color: white !important;
+  border-top: #5a94d8;
+  border-right: #5a94d8;
+  border-left: #5a94d8;
+  border-radius: 0% !important;
+  border-width: 0px !important;
+}
+
+.select .ant-select-selector {
+  background-color: #5a94d8 !important;
+  color: white !important;
+  border: none;
+  border-radius: 0% !important;
+  border-width: 0px !important;
+  border-bottom-width: 1px !important;
+}
+
+.select .ant-select-arrow {
+  color: white !important;
+}
+
+.select .ant-select-selector ::placeholder {
+  color: #c0d6eb !important;
+}
