@@ -156,6 +156,17 @@ const Principal: React.FC = () => {
     } catch (error) {
       console.error("Erro ao buscar os dados da tabela:", error);
       setEstaCarregandoRelatorio(false);
+
+      notification.open({
+        key: "relatorioPrincipalErro",
+        message: "Não conseguimos baixar seu documento",
+        description: `Ocorreu um erro no download do seu documento “${escolaSelecionada?.descricao}”. Você pode tentar novamente. `,
+        placement: "bottomLeft",
+        icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
+        duration: 8,
+        pauseOnHover: true,
+        closeIcon: false,
+      });
     } finally {
       setEstaCarregandoRelatorio(false);
     }
