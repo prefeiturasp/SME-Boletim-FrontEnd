@@ -155,13 +155,13 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
           toggleColumnVisibility2("adequado", true);
         else if (
           item.key === "avancado" &&
-          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 3)
+          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 4)
         )
           toggleColumnVisibility2("avancado", false);
         else if (
           item.key === "avancado" &&
           !filtrosSelecionados.niveisAbaPrincipal.some(
-            (item) => item.valor == 3
+            (item) => item.valor == 4
           )
         )
           toggleColumnVisibility2("avancado", true);
@@ -194,16 +194,6 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
 
   return (
     <div className="tabela-container">
-      <Dropdown
-        overlay={<Menu {...menu} />}
-        trigger={["click"]}
-        className="drop-settings-btn"
-      >
-        <Button icon={<FilterOutlined />} className="column-settings-btn">
-          Ocultar ou reposicionar colunas
-        </Button>
-      </Dropdown>
-
       <Table
         columns={colunas.filter((col) => !col.hidden)}
         dataSource={dados}
