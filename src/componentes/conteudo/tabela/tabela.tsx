@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Dropdown, Menu, Button, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { MenuProps } from "antd";
 import "./tabela.css";
 import { FilterOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface DataType {
   key: string;
@@ -66,6 +68,9 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
   const [colunas, setColunas] = useState<ColumnsType<DataType>>(colunasInicial);
   const [draggedColumn, setDraggedColumn] = useState<string | null>(null);
 
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+
   const onDragStart = (e: React.DragEvent, key: string) => {
     setDraggedColumn(key);
     e.dataTransfer.effectAllowed = "move";
@@ -95,6 +100,74 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
       )
     );
   };
+
+  const toggleColumnVisibility2 = (key: string, value: boolean) => {
+    setColunas((prevColunas) =>
+      prevColunas.map((col) =>
+        col.key === key ? { ...col, hidden: value } : col
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (activeTab == "1") {
+      colunas.map((item) => {
+        console.log(
+          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 1)
+        );
+        console.log(item);
+
+        if (
+          item.key === "abaixoBasico" &&
+          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 1)
+        )
+          toggleColumnVisibility2("abaixoBasico", false);
+        else if (
+          item.key === "abaixoBasico" &&
+          !filtrosSelecionados.niveisAbaPrincipal.some(
+            (item) => item.valor == 1
+          )
+        )
+          toggleColumnVisibility2("abaixoBasico", true);
+        else if (
+          item.key === "basico" &&
+          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 2)
+        )
+          toggleColumnVisibility2("basico", false);
+        else if (
+          item.key === "basico" &&
+          !filtrosSelecionados.niveisAbaPrincipal.some(
+            (item) => item.valor == 2
+          )
+        )
+          toggleColumnVisibility2("basico", true);
+        else if (
+          item.key === "adequado" &&
+          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 3)
+        )
+          toggleColumnVisibility2("adequado", false);
+        else if (
+          item.key === "adequado" &&
+          !filtrosSelecionados.niveisAbaPrincipal.some(
+            (item) => item.valor == 3
+          )
+        )
+          toggleColumnVisibility2("adequado", true);
+        else if (
+          item.key === "avancado" &&
+          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 3)
+        )
+          toggleColumnVisibility2("avancado", false);
+        else if (
+          item.key === "avancado" &&
+          !filtrosSelecionados.niveisAbaPrincipal.some(
+            (item) => item.valor == 3
+          )
+        )
+          toggleColumnVisibility2("avancado", true);
+      });
+    }
+  }, [filtrosSelecionados, activeTab]);
 
   const menu: MenuProps = {
     items: colunas.map((col) => ({

@@ -56,6 +56,29 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
         open={open}
         onClose={() => setOpen(false)}
       >
+        {activeTab == "1" && (
+          <>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Níveis</h3>
+              {filtroDados.niveis.map((nivel) => (
+                <Checkbox
+                  defaultChecked={true}
+                  key={nivel.valor}
+                  checked={selectedFilters.niveisAbaPrincipal.some(
+                    (item) => item.valor === nivel.valor
+                  )}
+                  onChange={() =>
+                    handleFilterChange("niveisAbaPrincipal", nivel)
+                  }
+                >
+                  {nivel.texto}
+                </Checkbox>
+              ))}
+            </div>
+          </>
+        )}
+
         {activeTab == "3" && (
           <>
             <Divider className="separador" />

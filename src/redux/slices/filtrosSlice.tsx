@@ -2,6 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: Filtro = {
   niveis: [],
+  niveisAbaPrincipal: [
+    {
+      texto: "Abaixo do Básico",
+      valor: 1,
+    },
+    {
+      texto: "Básico",
+      valor: 2,
+    },
+    {
+      texto: "Adequado",
+      valor: 3,
+    },
+    {
+      texto: "Avançado",
+      valor: 4,
+    },
+  ],
   anosEscolares: [],
   componentesCurriculares: [],
   nivelMinimo: 0,
