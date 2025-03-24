@@ -8,6 +8,7 @@ import { servicos } from "../../servicos";
 import { setFilters } from "../../redux/slices/filtrosSlice";
 import FiltroLateral from "../filtro/filtroLateral";
 import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
+import { setNomeAplicacao } from "../../redux/slices/nomeAplicacaoSlice";
 
 const EscolherEscola = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -70,8 +71,21 @@ const EscolherEscola = () => {
     }
   };
 
+  const buscarNomeAplicacao = async () => {
+    try {
+      const resposta: NomeAplicacao = await servicos.get(
+        `/api/boletimescolar/nome-aplicacao`
+      );      
+      dispatch(setNomeAplicacao(resposta));
+
+    } catch (error) {
+      console.error("Erro ao buscar o nome da:", error);
+    }
+  };
+
   useEffect(() => {
     buscarFiltros(escolaSelecionada);
+    buscarNomeAplicacao();
   }, [escolaSelecionada]);
 
   useEffect(() => {
@@ -108,7 +122,24 @@ const EscolherEscola = () => {
   const handleResetFilters = () => {
     setSelectedFilters({
       niveis: [],
-      niveisAbaPrincipal: [],
+      niveisAbaPrincipal: [
+        {
+          texto: "Abaixo do Básico",
+          valor: 1,
+        },
+        {
+          texto: "Básico",
+          valor: 2,
+        },
+        {
+          texto: "Adequado",
+          valor: 3,
+        },
+        {
+          texto: "Avançado",
+          valor: 4,
+        },
+      ],
       anosEscolares: [],
       componentesCurriculares: [],
       nomeEstudante: "",

@@ -11,19 +11,13 @@ import { setActiveTab } from "../../redux/slices/tabSlice";
 const Conteudo: React.FC = () => {
   const dispatch = useDispatch();
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
 
   return (
     <div className="conteudo-principal">
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card
-            title={
-              <span style={{ color: "#595959" }}>
-                Saberes e aprendizagens (abril 2025)
-              </span>
-            }
-            variant="borderless"
-          >
+          <Card title={nomeAplicacao.nome} variant="borderless">
             <Tabs
               activeKey={activeTab}
               onChange={(key) => dispatch(setActiveTab(key))}
