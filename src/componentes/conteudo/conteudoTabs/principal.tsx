@@ -209,7 +209,13 @@ const Principal: React.FC = () => {
         origem="principal"
         estaCarregando={estaCarregando}
       />
-      <DesempenhoAno dados={dados} />
+
+      {dados.length > 0 && (
+        <DesempenhoAno
+          dados={dados}
+          filtrosSelecionados={filtrosSelecionados}
+        />
+      )}
 
       <div className="download-section">
         <Row gutter={16} align="middle" justify="center">

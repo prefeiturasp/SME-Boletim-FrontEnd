@@ -27,9 +27,13 @@ interface DataPoint {
 
 interface TabelaProps {
   dados: any;
+  filtrosSelecionados: Filtro;
 }
 
-const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
+const DesempenhoAno: React.FC<TabelaProps> = ({
+  dados,
+  filtrosSelecionados,
+}) => {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.desempenho.data);
 
@@ -67,7 +71,9 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
     };
 
     fetchData();
-  }, [dispatch, dados]);
+  }, [dispatch, dados, filtrosSelecionados]);
+
+  if (!data || data.length === 0) return null;
 
   return (
     <ResponsiveContainer width="100%" height={700}>
@@ -117,26 +123,42 @@ const DesempenhoAno: React.FC<TabelaProps> = ({ dados }) => {
           align="center"
           content={<LegendaCustomizada />}
         />
-        <Bar
-          dataKey="abaixoDoBasico"
-          barSize={70}
-          fill="#FF5959"
-          name="1 - Abaixo do Básico"
-        />
-        <Bar dataKey="basico" barSize={70} fill="#FEDE99" name="2 - Básico" />
-        <Bar
-          dataKey="adequado"
-          barSize={70}
-          fill="#9999FF"
-          name="3 - Adequado"
-        />
-        <Bar
-          dataKey="avancado"
-          barSize={70}
-          fill="#99FF99"
-          name="4 - Avançado"
-        />
-        <Bar dataKey="" barSize={70} fill="#ffffff" name="" />
+        {filtrosSelecionados.niveisAbaPrincipal.some(
+          (item) => item.valor === 1
+        ) && (
+          <Bar
+            dataKey="abaixoDoBasico"
+            barSize={70}
+            fill="#FF5959"
+            name="1 - Abaixo do Básico"
+          />
+        )}
+        {filtrosSelecionados.niveisAbaPrincipal.some(
+          (item) => item.valor === 2
+        ) && (
+          <Bar dataKey="basico" barSize={70} fill="#FEDE99" name="2 - Básico" />
+        )}
+        {filtrosSelecionados.niveisAbaPrincipal.some(
+          (item) => item.valor === 3
+        ) && (
+          <Bar
+            dataKey="adequado"
+            barSize={70}
+            fill="#9999FF"
+            name="3 - Adequado"
+          />
+        )}
+        {filtrosSelecionados.niveisAbaPrincipal.some(
+          (item) => item.valor === 4
+        ) && (
+          <Bar
+            dataKey="avancado"
+            barSize={70}
+            fill="#99FF99"
+            name="4 - Avançado"
+          />
+        )}
+        <Bar dataKey="" barSize={5} fill="#ffffff" name="" />
       </BarChart>
     </ResponsiveContainer>
   );

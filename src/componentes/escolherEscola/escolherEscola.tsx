@@ -15,6 +15,7 @@ const EscolherEscola = () => {
   const [abrangencia, setAbrangencia] = useState<any[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<Filtro>({
     niveis: [],
+    niveisAbaPrincipal: [],
     anosEscolares: [],
     componentesCurriculares: [],
     nivelMinimo: 0,
@@ -57,6 +58,10 @@ const EscolherEscola = () => {
 
       resposta.nivelMaximoEscolhido = resposta.nivelMaximo;
       resposta.nivelMinimoEscolhido = resposta.nivelMinimo;
+      resposta.niveisAbaPrincipal = resposta.niveis;
+      resposta.niveisAbaPrincipal.map((item) => {
+        handleFilterChange("niveisAbaPrincipal", item);
+      });
 
       // Dispatch the action to update Redux store
       dispatch(setFiltroDados(resposta));
@@ -103,6 +108,7 @@ const EscolherEscola = () => {
   const handleResetFilters = () => {
     setSelectedFilters({
       niveis: [],
+      niveisAbaPrincipal: [],
       anosEscolares: [],
       componentesCurriculares: [],
       nomeEstudante: "",
@@ -127,12 +133,9 @@ const EscolherEscola = () => {
     setSelectedFilters((prevFilters: Filtro) => {
       const newFilters = { ...prevFilters };
 
-      console.log(filterType);
-      console.log(value);
-      console.log(newFilters[filterType]);
-
       if (
         filterType === "niveis" ||
+        filterType === "niveisAbaPrincipal" ||
         filterType === "anosEscolares" ||
         filterType === "componentesCurriculares" ||
         filterType === "turmas"
@@ -151,6 +154,22 @@ const EscolherEscola = () => {
             newFilters[filterType] = [
               ...(newFilters[filterType] as FiltroChaveValor[]),
               { valor: value, texto: String(value) }, // Construct `chaveValorFiltro`
+            ];
+          }
+        } else {
+          const chaveValor: FiltroChaveValor = value as FiltroChaveValor;
+          const existingIndex = (
+            newFilters[filterType] as FiltroChaveValor[]
+          ).findIndex((item) => item.valor === chaveValor.valor);
+
+          if (existingIndex !== -1) {
+            newFilters[filterType] = (
+              newFilters[filterType] as FiltroChaveValor[]
+            ).filter((item) => item.valor !== chaveValor.valor);
+          } else {
+            newFilters[filterType] = [
+              ...(newFilters[filterType] as FiltroChaveValor[]),
+              { valor: chaveValor.valor, texto: chaveValor.texto },
             ];
           }
         }
