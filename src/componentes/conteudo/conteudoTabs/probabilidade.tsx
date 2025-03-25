@@ -128,6 +128,14 @@ const Probabilidade: React.FC = () => {
             ></Select>
           </Space>
         </div>
+        <br />
+        <p className="secao-sobre-probabilidade">
+          Tabela dos alunos do 5º ano com os percentuais por habilidade em cada
+          um dos cortes: Abaixo do Básico (AB), Básico (B), Adequado (AD)
+          e Avançado (AV). Utilize os campos de busca para encontrar o que você
+          precisa mais rápido.
+        </p>
+        <br />
 
         <Table
           columns={colunas}
