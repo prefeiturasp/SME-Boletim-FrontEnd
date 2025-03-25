@@ -21,6 +21,13 @@ const Probabilidade: React.FC = () => {
   const filtroCompleto = useSelector(
     (state: RootState) => state.filtroCompleto
   );
+  const [componentesCurricularSelecionado, setComponentesCurricular] = useState(
+    filtroCompleto.componentesCurriculares[0]?.texto
+  );
+  const [anosEscolarSelecionado, setAnoEscolar] = useState(
+    filtroCompleto.anosEscolares[0]?.texto
+  );
+
   //const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
@@ -105,6 +112,8 @@ const Probabilidade: React.FC = () => {
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
               placeholder="Selecione"
+              value={componentesCurricularSelecionado}
+              onChange={(value) => setComponentesCurricular(value)}
             >
               {filtroCompleto.componentesCurriculares.map((item) => (
                 <option key={item.valor} value={item.texto}>
@@ -125,6 +134,8 @@ const Probabilidade: React.FC = () => {
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
               placeholder="Selecione"
+              value={anosEscolarSelecionado}
+              onChange={(value) => setAnoEscolar(value)}
             >
               {filtroCompleto.anosEscolares.map((item) => (
                 <option key={item.valor} value={item.texto}>
