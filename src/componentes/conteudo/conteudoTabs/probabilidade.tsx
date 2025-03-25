@@ -18,7 +18,10 @@ const Probabilidade: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
-  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+  const filtroCompleto = useSelector(
+    (state: RootState) => state.filtroCompleto
+  );
+  //const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
   const buscarDadosEstudantes = async (paginaAtual = 1, tamanhoPagina = 10) => {
@@ -102,12 +105,13 @@ const Probabilidade: React.FC = () => {
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
               placeholder="Selecione"
-              options={[
-                { value: "matematica", label: "Matemática" },
-                { value: "portugues", label: "Português" },
-                { value: "ciencias", label: "Ciências" },
-              ]}
-            ></Select>
+            >
+              {filtroCompleto.componentesCurriculares.map((item) => (
+                <option key={item.valor} value={item.texto}>
+                  {item.texto}
+                </option>
+              ))}
+            </Select>
 
             <span>Ano:</span>
             <Select
@@ -120,12 +124,13 @@ const Probabilidade: React.FC = () => {
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
               placeholder="Selecione"
-              options={[
-                { value: "2023", label: "2023" },
-                { value: "2024", label: "2024" },
-                { value: "2025", label: "2025" },
-              ]}
-            ></Select>
+            >
+              {filtroCompleto.anosEscolares.map((item) => (
+                <option key={item.valor} value={item.texto}>
+                  {item.texto + "º ano"}
+                </option>
+              ))}
+            </Select>
           </Space>
         </div>
         <br />
