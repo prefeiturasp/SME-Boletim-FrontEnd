@@ -31,6 +31,7 @@ const Probabilidade: React.FC = () => {
   const [totalRegistros, setTotalRegistros] = useState(0);
   const [filtroTexto, setFiltroTexto] = useState("");
   const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
+  const [disciplinaIdSelecionada, setDisciplinaId] = useState();
 
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
@@ -193,7 +194,7 @@ const Probabilidade: React.FC = () => {
               style={{
                 border: "none",
                 borderBottom: "1px solid white",
-                width: 150,
+                width: 170,
                 backgroundColor: "transparent",
                 color: "white",
               }}
