@@ -189,6 +189,7 @@ const Probabilidade: React.FC = () => {
           <Space style={{ display: "flex", alignItems: "center" }}>
             <span>Componente curricular:</span>
             <Select
+              className="custom-select-color"
               style={{
                 border: "none",
                 borderBottom: "1px solid white",
@@ -211,6 +212,7 @@ const Probabilidade: React.FC = () => {
 
             <span>Ano:</span>
             <Select
+              className="custom-select-color"
               style={{
                 border: "none",
                 borderBottom: "1px solid white",
@@ -234,10 +236,11 @@ const Probabilidade: React.FC = () => {
         </div>
         <br />
         <p className="secao-sobre-probabilidade">
-          Tabela dos alunos do 5º ano com os percentuais por habilidade em cada
-          um dos cortes: Abaixo do Básico (AB), Básico (B), Adequado (AD)
-          e Avançado (AV). Utilize os campos de busca para encontrar o que você
-          precisa mais rápido.
+          Tabela dos alunos do {anosEscolarSelecionado}º ano em{" "}
+          {componentesCurricularSelecionado} com os percentuais por habilidade
+          em cada um dos cortes: Abaixo do
+          Básico (AB), Básico (B), Adequado (AD) e Avançado (AV). Utilize os
+          campos de busca para encontrar o que você precisa mais rápido.
         </p>
 
         <div style={{ marginBottom: 16 }}>
