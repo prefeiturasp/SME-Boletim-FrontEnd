@@ -1,0 +1,15 @@
+.secao-sobre-probabilidade {
+  padding-bottom: 10px;
+  color: #595959;
+}
+
+.secao-escolher-disciplina {
+  color: #ffffff;
+  font-size: 14px;
+  background-color: #5a94d8;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+}
