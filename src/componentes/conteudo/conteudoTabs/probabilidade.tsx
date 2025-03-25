@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Table, Spin, Select, Space } from "antd";
+import {
+  Table,
+  Spin,
+  Select,
+  Space,
+  Input,
+  Col,
+  Button,
+  Row,
+  notification,
+} from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
 import "./probabilidade.css";
+import {
+  CheckCircleOutlined,
+  DownloadOutlined,
+  InfoCircleOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 
 const Probabilidade: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
@@ -13,6 +29,8 @@ const Probabilidade: React.FC = () => {
   const [pagina, setPagina] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalRegistros, setTotalRegistros] = useState(0);
+  const [filtroTexto, setFiltroTexto] = useState("");
+  const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
 
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
@@ -28,7 +46,6 @@ const Probabilidade: React.FC = () => {
     filtroCompleto.anosEscolares[0]?.texto
   );
 
-  //const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
   const buscarDadosEstudantes = async (paginaAtual = 1, tamanhoPagina = 10) => {
@@ -55,21 +72,91 @@ const Probabilidade: React.FC = () => {
     }
   }, [pagina, pageSize, activeTab]);
 
+  const iniciarDownloadRelatorioProbabilidade = async () => {
+    setEstaCarregandoRelatorio(true);
+
+    notification.open({
+      key: "relatorioProbabilidade",
+      message: "Os dados estão em processamento",
+      description: `Não atualize a tela! Assim que processamento for finalizado, o seu documento “resultado por probabilidades” será baixado automaticamente.`,
+      placement: "bottomLeft",
+      icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
+      duration: 8,
+      pauseOnHover: true,
+      closeIcon: false,
+    });
+
+    try {
+      const resposta = await servicos.get(
+        `/api/boletimescolar/download/${escolaSelecionada.ueId}`,
+        { responseType: "blob" }
+      );
+
+      const blob = new Blob([resposta], {
+        type: "application/vnd.ms-excel",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `boletim-resultados-probabilidades-${escolaSelecionada.descricao}.xls`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+
+      notification.open({
+        key: "relatorioProbabilidadeSuccess",
+        message: "Tudo certo por aqui!",
+        description: `Seu documento "resultados por probabilidades" foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
+        placement: "bottomLeft",
+        icon: <CheckCircleOutlined style={{ color: "#108ee9" }} />,
+        duration: 8,
+        pauseOnHover: true,
+        closeIcon: false,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar os dados da tabela:", error);
+      setEstaCarregandoRelatorio(false);
+
+      notification.open({
+        key: "relatorioProbabilidadeErro",
+        message: "Não conseguimos baixar seu documento",
+        description: `Ocorreu um erro no download do seu documento “resultados por probabilidades”. Você pode tentar novamente. `,
+        placement: "bottomLeft",
+        icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
+        duration: 8,
+        pauseOnHover: true,
+        closeIcon: false,
+      });
+    } finally {
+      setEstaCarregandoRelatorio(false);
+    }
+  };
+
   const colunas = [
     {
-      title: "Componente curricular",
-      dataIndex: "disciplina",
-      key: "disciplina",
+      title: "Código",
+      dataIndex: "codigoHabilidade",
+      key: "codigoHabilidade",
     },
-    { title: "Ano", dataIndex: "anoEscolar", key: "anoEscolar" },
-    { title: "Turma", dataIndex: "turma", key: "turma" },
-    { title: "EOL do estudante", dataIndex: "alunoRa", key: "alunoRa" },
-    { title: "Nome do estudante", dataIndex: "alunoNome", key: "alunoNome" },
-    { title: "Proficiência", dataIndex: "proficiencia", key: "proficiencia" },
     {
-      title: "Nível",
-      dataIndex: "nivelDescricao",
-      key: "nivelDescricao",
+      title: "Habilidades",
+      dataIndex: "habilidadeDescricao",
+      key: "habilidadeDescricao",
+    },
+    { title: "Turma", dataIndex: "turmaDescricao", key: "turmaDescricao" },
+    {
+      title: "Abaixo do básico",
+      dataIndex: "abaixoDoBasico",
+      key: "abaixoDoBasico",
+    },
+    { title: "Básico", dataIndex: "basico", key: "basico" },
+    { title: "Adequado", dataIndex: "adequado", key: "adequado" },
+    {
+      title: "Avançado",
+      dataIndex: "avancado",
+      key: "avancado",
     },
   ];
 
@@ -152,7 +239,25 @@ const Probabilidade: React.FC = () => {
           e Avançado (AV). Utilize os campos de busca para encontrar o que você
           precisa mais rápido.
         </p>
-        <br />
+
+        <div style={{ marginBottom: 16 }}>
+          <p className="secao-sobre-probabilidade">
+            Utilize o campo de busca para encontrar códigos ou habilidades
+            específicas:
+          </p>{" "}
+          <Input
+            placeholder="Digite o código ou habilidade"
+            onChange={(e) => setFiltroTexto(e.target.value)}
+            style={{
+              width: 400,
+              border: "none",
+              borderBottom: "1px solid #d9d9d9",
+              backgroundColor: "transparent",
+              paddingRight: 30,
+            }}
+            suffix={<SearchOutlined style={{ color: "#999" }} />}
+          />
+        </div>
 
         <Table
           columns={colunas}
@@ -164,7 +269,7 @@ const Probabilidade: React.FC = () => {
             pageSize,
             showSizeChanger: true,
             showTotal: (total, range) =>
-              `${range[0]}-${range[1]} de ${total} alunos`,
+              `${range[0]}-${range[1]} de ${total} temas`,
             pageSizeOptions: ["10", "20", "30", "40", "50", "100"],
             onShowSizeChange: (_, newSize) => setPageSize(newSize),
             onChange: (page, newSize) => {
@@ -177,6 +282,33 @@ const Probabilidade: React.FC = () => {
             },
           }}
         />
+      </div>
+
+      <br />
+      <div className="download-section">
+        <Row gutter={16} align="middle" justify="center">
+          <Col>
+            <div className="download-wrapper">
+              <p className="school-text">
+                Você pode baixar os dados das habilidades do{" "}
+                <b>{anosEscolarSelecionado}º ano</b> em{" "}
+                <b>{componentesCurricularSelecionado}</b>, clicando no botão ao
+                lado
+              </p>
+
+              <Button
+                type="primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={iniciarDownloadRelatorioProbabilidade}
+                icon={<DownloadOutlined />}
+                disabled={estaCarregandoRelatorio}
+              >
+                Baixar os dados
+              </Button>
+            </div>
+          </Col>
+        </Row>
       </div>
     </Spin>
   );
