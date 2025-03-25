@@ -117,9 +117,10 @@ const Probabilidade: React.FC = () => {
             <Select
               style={{
                 border: "none",
-                borderBottom: "1px solid black",
-                width: 100,
+                borderBottom: "1px solid white",
+                width: 110,
                 backgroundColor: "transparent",
+                color: "white",
               }}
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
