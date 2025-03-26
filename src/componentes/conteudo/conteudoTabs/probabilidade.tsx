@@ -23,6 +23,7 @@ import {
 
 const Probabilidade: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
+  const [dadosFormatados, setDadosFormatados] = useState<any[]>([]);
   const [disciplinas, setDadosDisciplinas] = useState<any[]>([]);
 
   const [carregando, setCarregando] = useState(false);
@@ -66,28 +67,21 @@ const Probabilidade: React.FC = () => {
         `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
       );
 
-      const tempListaProbabilidade:Probabilidade[] = []
-      
-      resposta.map((x: ProbabilidadeTEMP) => {
-        x.turmas.map((y: ProbabilidadeTurmas)=> {
-
-          const tempItemProbabilidade:Probabilidade = {
-            codigoHabilidade: x.codigoHabilidade,
-            habilidadeDescricao: x.habilidadeDescricao,
-            turmaDescricao: y.turmaDescricao,
-            abaixoDoBasico: y.abaixoDoBasico,
-            basico: y.basico,
-            adequado: y.adequado,
-            avancado: y.avancado
-          }
-          tempListaProbabilidade.push(tempItemProbabilidade)
-
-        })
-      })
-      
-      setDados(tempListaProbabilidade || []);
       setDadosDisciplinas(resposta.disciplinas || []);
-      setTotalRegistros(tempListaProbabilidade.length || 0);
+
+      const dadosAgrupados: any[] = [];
+      resposta.resultados.forEach((habilidade: any) => {
+        habilidade.turmas.forEach((turma: any, index: number) => {
+          dadosAgrupados.push({
+            ...turma,
+            codigoHabilidade: index === 0 ? habilidade.codigoHabilidade : "",
+            habilidadeDescricao:
+              index === 0 ? habilidade.habilidadeDescricao : "",
+            rowSpan: index === 0 ? habilidade.turmas.length : 0,
+          });
+        });
+      });
+      setDadosFormatados(dadosAgrupados);
     } catch (error) {
       console.error("Erro ao buscar os dados da tabela:", error);
     } finally {
@@ -99,7 +93,13 @@ const Probabilidade: React.FC = () => {
     if (escolaSelecionada && activeTab == "4") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [pagina, pageSize, activeTab, anosEscolarSelecionado, componentesCurricularSelecionado]);
+  }, [
+    pagina,
+    pageSize,
+    activeTab,
+    anosEscolarSelecionado,
+    componentesCurricularSelecionado,
+  ]);
 
   const iniciarDownloadRelatorioProbabilidade = async () => {
     setEstaCarregandoRelatorio(true);
@@ -107,7 +107,7 @@ const Probabilidade: React.FC = () => {
     notification.open({
       key: "relatorioProbabilidade",
       message: "Os dados estão em processamento",
-      description: `Não atualize a tela! Assim que processamento for finalizado, o seu documento “resultado por probabilidades” será baixado automaticamente.`,
+      description: `Não atualize a tela! Assim que processamento for finalizado, o seu documento "resultado por probabilidades" será baixado automaticamente.`,
       placement: "bottomLeft",
       icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
       duration: 8,
@@ -151,7 +151,7 @@ const Probabilidade: React.FC = () => {
       notification.open({
         key: "relatorioProbabilidadeErro",
         message: "Não conseguimos baixar seu documento",
-        description: `Ocorreu um erro no download do seu documento “resultados por probabilidades”. Você pode tentar novamente. `,
+        description: `Ocorreu um erro no download do seu documento "resultados por probabilidades". Você pode tentar novamente. `,
         placement: "bottomLeft",
         icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
         duration: 8,
@@ -168,11 +168,35 @@ const Probabilidade: React.FC = () => {
       title: "Código",
       dataIndex: "codigoHabilidade",
       key: "codigoHabilidade",
+      render: (value: any, record: any, index: number) => {
+        const obj = {
+          children: value,
+          props: {} as any,
+        };
+        if (record.rowSpan) {
+          obj.props.rowSpan = record.rowSpan;
+        } else {
+          obj.props.rowSpan = 0;
+        }
+        return obj;
+      },
     },
     {
       title: "Habilidades",
       dataIndex: "habilidadeDescricao",
       key: "habilidadeDescricao",
+      render: (value: any, record: any, index: number) => {
+        const obj = {
+          children: value,
+          props: {} as any,
+        };
+        if (record.rowSpan) {
+          obj.props.rowSpan = record.rowSpan;
+        } else {
+          obj.props.rowSpan = 0;
+        }
+        return obj;
+      },
     },
     { title: "Turma", dataIndex: "turmaDescricao", key: "turmaDescricao" },
     {
@@ -188,8 +212,6 @@ const Probabilidade: React.FC = () => {
       key: "avancado",
     },
   ];
-
-  
 
   return (
     <Spin spinning={carregando} tip="Carregando...">
@@ -269,9 +291,9 @@ const Probabilidade: React.FC = () => {
         <p className="secao-sobre-probabilidade">
           Tabela dos alunos do {anosEscolarSelecionado}º ano em{" "}
           {componentesCurricularSelecionado} com os percentuais por habilidade
-          em cada um dos cortes: Abaixo do
-          Básico (AB), Básico (B), Adequado (AD) e Avançado (AV). Utilize os
-          campos de busca para encontrar o que você precisa mais rápido.
+          em cada um dos cortes: Abaixo do Básico (AB), Básico (B), Adequado
+          (AD) e Avançado (AV). Utilize os campos de busca para encontrar o que
+          você precisa mais rápido.
         </p>
 
         <div style={{ marginBottom: 16 }}>
@@ -295,7 +317,15 @@ const Probabilidade: React.FC = () => {
 
         <Table
           columns={colunas}
-          dataSource={dados}
+          dataSource={dadosFormatados.filter(
+            (item) =>
+              item.habilidadeDescricao
+                .toLowerCase()
+                .includes(filtroTexto.toLowerCase()) ||
+              item.codigoHabilidade
+                .toLowerCase()
+                .includes(filtroTexto.toLowerCase())
+          )}
           locale={{ emptyText: "Não encontramos dados" }}
           pagination={{
             current: pagina,
