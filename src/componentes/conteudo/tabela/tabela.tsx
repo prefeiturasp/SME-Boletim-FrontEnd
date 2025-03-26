@@ -112,11 +112,6 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
   useEffect(() => {
     if (activeTab == "1") {
       colunas.map((item) => {
-        console.log(
-          filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 1)
-        );
-        console.log(item);
-
         if (
           item.key === "abaixoBasico" &&
           filtrosSelecionados.niveisAbaPrincipal.some((item) => item.valor == 1)

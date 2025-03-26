@@ -65,10 +65,29 @@ const Probabilidade: React.FC = () => {
       const resposta = await servicos.get(
         `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
       );
+
+      const tempListaProbabilidade:Probabilidade[] = []
       
-      setDados(resposta || []);
+      resposta.map((x: ProbabilidadeTEMP) => {
+        x.turmas.map((y: ProbabilidadeTurmas)=> {
+
+          const tempItemProbabilidade:Probabilidade = {
+            codigoHabilidade: x.codigoHabilidade,
+            habilidadeDescricao: x.habilidadeDescricao,
+            turmaDescricao: y.turmaDescricao,
+            abaixoDoBasico: y.abaixoDoBasico,
+            basico: y.basico,
+            adequado: y.adequado,
+            avancado: y.avancado
+          }
+          tempListaProbabilidade.push(tempItemProbabilidade)
+
+        })
+      })
+      
+      setDados(tempListaProbabilidade || []);
       setDadosDisciplinas(resposta.disciplinas || []);
-      setTotalRegistros(resposta.length || 0);
+      setTotalRegistros(tempListaProbabilidade.length || 0);
     } catch (error) {
       console.error("Erro ao buscar os dados da tabela:", error);
     } finally {
@@ -169,6 +188,8 @@ const Probabilidade: React.FC = () => {
       key: "avancado",
     },
   ];
+
+  
 
   return (
     <Spin spinning={carregando} tip="Carregando...">
