@@ -53,13 +53,41 @@ const Probabilidade: React.FC = () => {
     try {
       setCarregando(true);
 
+      const idComponentesCurriculares =
+        filtroCompleto.componentesCurriculares.find(
+          (item) => item.texto === componentesCurricularSelecionado
+        )?.valor;
+
+      const idAnosEscolares = filtroCompleto.anosEscolares.find(
+        (item) => item.texto === anosEscolarSelecionado
+      )?.valor;
+
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
+        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
       );
 
-      setDados(resposta.estudantes.itens || []);
+      const tempListaProbabilidade:Probabilidade[] = []
+      
+      resposta.map((x: ProbabilidadeTEMP) => {
+        x.turmas.map((y: ProbabilidadeTurmas)=> {
+
+          const tempItemProbabilidade:Probabilidade = {
+            codigoHabilidade: x.codigoHabilidade,
+            habilidadeDescricao: x.habilidadeDescricao,
+            turmaDescricao: y.turmaDescricao,
+            abaixoDoBasico: y.abaixoDoBasico,
+            basico: y.basico,
+            adequado: y.adequado,
+            avancado: y.avancado
+          }
+          tempListaProbabilidade.push(tempItemProbabilidade)
+
+        })
+      })
+      
+      setDados(tempListaProbabilidade || []);
       setDadosDisciplinas(resposta.disciplinas || []);
-      setTotalRegistros(resposta.estudantes.totalRegistros || 0);
+      setTotalRegistros(tempListaProbabilidade.length || 0);
     } catch (error) {
       console.error("Erro ao buscar os dados da tabela:", error);
     } finally {
@@ -68,10 +96,10 @@ const Probabilidade: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada && activeTab == "3") {
+    if (escolaSelecionada && activeTab == "4") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [pagina, pageSize, activeTab]);
+  }, [pagina, pageSize, activeTab, anosEscolarSelecionado, componentesCurricularSelecionado]);
 
   const iniciarDownloadRelatorioProbabilidade = async () => {
     setEstaCarregandoRelatorio(true);
@@ -160,6 +188,8 @@ const Probabilidade: React.FC = () => {
       key: "avancado",
     },
   ];
+
+  
 
   return (
     <Spin spinning={carregando} tip="Carregando...">
