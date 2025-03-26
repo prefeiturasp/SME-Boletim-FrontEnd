@@ -53,13 +53,22 @@ const Probabilidade: React.FC = () => {
     try {
       setCarregando(true);
 
-      const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
-      );
+      const idComponentesCurriculares =
+        filtroCompleto.componentesCurriculares.find(
+          (item) => item.texto === componentesCurricularSelecionado
+        )?.valor;
 
-      setDados(resposta.estudantes.itens || []);
+      const idAnosEscolares = filtroCompleto.anosEscolares.find(
+        (item) => item.texto === anosEscolarSelecionado
+      )?.valor;
+
+      const resposta = await servicos.get(
+        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
+      );
+      
+      setDados(resposta || []);
       setDadosDisciplinas(resposta.disciplinas || []);
-      setTotalRegistros(resposta.estudantes.totalRegistros || 0);
+      setTotalRegistros(resposta.length || 0);
     } catch (error) {
       console.error("Erro ao buscar os dados da tabela:", error);
     } finally {
@@ -68,10 +77,10 @@ const Probabilidade: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada && activeTab == "3") {
+    if (escolaSelecionada && activeTab == "4") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [pagina, pageSize, activeTab]);
+  }, [pagina, pageSize, activeTab, anosEscolarSelecionado, componentesCurricularSelecionado]);
 
   const iniciarDownloadRelatorioProbabilidade = async () => {
     setEstaCarregandoRelatorio(true);
