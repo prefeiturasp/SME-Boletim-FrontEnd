@@ -17,7 +17,7 @@ const Conteudo: React.FC = () => {
     <div className="conteudo-principal">
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card title={nomeAplicacao.nome} variant="borderless">
+          <Card title={<h2 style={{ fontSize: '20px' }}>{nomeAplicacao.nome}</h2>} variant="borderless">
             <Tabs
               activeKey={activeTab}
               onChange={(key) => dispatch(setActiveTab(key))}
