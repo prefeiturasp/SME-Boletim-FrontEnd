@@ -5,8 +5,49 @@ import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
 import "./turma.css";
 import DesempenhoTurma from "../../grafico/desempenhoTurma";
+import { ColumnsType } from "antd/es/table";
+
+const colunasTurmaInicial = [
+  { title: "Turma", dataIndex: "turma", key: "turma" },
+  {
+    title: "Abaixo do Básico",
+    dataIndex: "abaixoBasico",
+    key: "abaixoBasico",
+  },
+  { title: "Básico", dataIndex: "basico", key: "basico" },
+  { title: "Adequado", dataIndex: "adequado", key: "adequado" },
+  { title: "Avançado", dataIndex: "avancado", key: "avancado" },
+  {
+    title: "Total de Alunos",
+    dataIndex: "total",
+    key: "total",
+    className: "col-total",
+  },
+  {
+    title: "Média de Proficiência",
+    dataIndex: "mediaProficiencia",
+    key: "mediaProficiencia",
+    className: "col-proficiencia",
+  },
+];
+
+const colunasNiveisInicial = [
+  { title: "Ano Escolar", dataIndex: "anoEscolar", key: "anoEscolar" },
+  {
+    title: "Abaixo do Básico",
+    dataIndex: "abaixoBasico",
+    key: "abaixoBasico",
+  },
+  { title: "Básico", dataIndex: "basico", key: "basico" },
+  { title: "Adequado", dataIndex: "adequado", key: "adequado" },
+  { title: "Avançado", dataIndex: "avancado", key: "avancado" },
+];
 
 const Turma: React.FC = () => {
+  const [colunasTurmas, setColunasTurmas] =
+    useState<any[]>(colunasTurmaInicial);
+  const [colunasNiveis, setColunasNiveis] =
+    useState<any[]>(colunasNiveisInicial);
   const [dados, setDados] = useState<any[]>([]);
   const [estaCarregando, setEstaCarregando] = useState(false);
 
@@ -55,41 +96,37 @@ const Turma: React.FC = () => {
     }
   }, [escolaSelecionada, filtrosSelecionados, activeTab]);
 
-  const colunasNiveis = [
-    { title: "Ano Escolar", dataIndex: "anoEscolar", key: "anoEscolar" },
-    {
-      title: "Abaixo do Básico",
-      dataIndex: "abaixoBasico",
-      key: "abaixoBasico",
-    },
-    { title: "Básico", dataIndex: "basico", key: "basico" },
-    { title: "Adequado", dataIndex: "adequado", key: "adequado" },
-    { title: "Avançado", dataIndex: "avancado", key: "avancado" },
-  ];
+  const toggleColumnVisibility = (
+    columnsSetter: React.Dispatch<React.SetStateAction<any[]>>,
+    key: string,
+    value: boolean
+  ) => {
+    columnsSetter((prevColumns) =>
+      prevColumns.map((col) =>
+        col.key === key ? { ...col, hidden: value } : col
+      )
+    );
+  };
 
-  const colunasTurmas = [
-    { title: "Turma", dataIndex: "turma", key: "turma" },
-    {
-      title: "Abaixo do Básico",
-      dataIndex: "abaixoBasico",
-      key: "abaixoBasico",
-    },
-    { title: "Básico", dataIndex: "basico", key: "basico" },
-    { title: "Adequado", dataIndex: "adequado", key: "adequado" },
-    { title: "Avançado", dataIndex: "avancado", key: "avancado" },
-    {
-      title: "Total de Alunos",
-      dataIndex: "total",
-      key: "total",
-      className: "col-total",
-    },
-    {
-      title: "Média de Proficiência",
-      dataIndex: "mediaProficiencia",
-      key: "mediaProficiencia",
-      className: "col-proficiencia",
-    },
-  ];
+  useEffect(() => {
+    if (activeTab !== "2") return;
+
+    const keys = [
+      { key: "abaixoBasico", valor: 1 },
+      { key: "basico", valor: 2 },
+      { key: "adequado", valor: 3 },
+      { key: "avancado", valor: 4 },
+    ];
+
+    keys.forEach(({ key, valor }) => {
+      const isVisible = filtrosSelecionados.niveisAbaPrincipal.some(
+        (item) => item.valor === valor
+      );
+
+      toggleColumnVisibility(setColunasTurmas, key, !isVisible);
+      toggleColumnVisibility(setColunasNiveis, key, !isVisible);
+    });
+  }, [filtrosSelecionados, activeTab]);
 
   return (
     <Spin spinning={estaCarregando} tip="Carregando...">

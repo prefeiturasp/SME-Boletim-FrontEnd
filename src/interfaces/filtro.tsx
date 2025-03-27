@@ -2,8 +2,10 @@
 interface Filtro {
   niveis: FiltroChaveValor[],
   niveisAbaPrincipal: FiltroChaveValor[],
-  anosEscolares: FiltroChaveValor[],
-  componentesCurriculares: FiltroChaveValor[],
+  anosEscolares: FiltroChaveValor[],  
+  anosEscolaresRadio: FiltroChaveValor[],
+  componentesCurriculares: FiltroChaveValor[],  
+  componentesCurricularesRadio: FiltroChaveValor[],
   nivelMinimo: number,
   nivelMaximo: number,
   nivelMinimoEscolhido: number,
