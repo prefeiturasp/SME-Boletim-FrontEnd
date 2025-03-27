@@ -38,3 +38,17 @@
 .select .ant-select-selector ::placeholder {
   color: #c0d6eb !important;
 }
+
+.ant-radio-wrapper {
+  color: white;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.ant-radio-inner {
+  border-color: white;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background-color: white;
+}

@@ -31,6 +31,8 @@ const initialState: Filtro = {
     { valor: 5, texto: "Lingua Portuguesa" },
     { valor: 4, texto: "Matemática" },
   ],
+  anosEscolaresRadio: [],
+  componentesCurricularesRadio: [],
   nivelMinimo: 50,
   nivelMaximo: 275,
   turmas: [

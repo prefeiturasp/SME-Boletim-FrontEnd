@@ -22,6 +22,8 @@ const initialState: Filtro = {
   ],
   anosEscolares: [],
   componentesCurriculares: [],
+  anosEscolaresRadio: [],
+  componentesCurricularesRadio: [],
   nivelMinimo: 0,
   nivelMinimoEscolhido: 0,
   nivelMaximo: 0,

@@ -1,31 +1,44 @@
-import { Button, Checkbox, Divider, Drawer, Flex, Input, Select } from "antd";
-import { useSelector } from "react-redux";
+import {
+  Button,
+  Checkbox,
+  Divider,
+  Drawer,
+  Flex,
+  Input,
+  Radio,
+  Select,
+} from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import "./filtroLateral.css";
+import { useEffect, useState } from "react";
+import { setFilters } from "../../redux/slices/filtrosSlice";
 
 interface FilterDrawerProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedFilters: Filtro;
-  handleFilterChange: (
-    filterType: keyof Filtro,
-    value: number | string | FiltroChaveValor
-  ) => void;
-  handleResetFilters: () => void;
-  handleApplyFilters: () => void;
   filtroDados: Filtro;
 }
 
 const FiltroLateral: React.FC<FilterDrawerProps> = ({
   open,
   setOpen,
-  selectedFilters,
-  handleFilterChange,
-  handleResetFilters,
-  handleApplyFilters,
   filtroDados,
 }) => {
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+
+  const dispatch = useDispatch();
+
+  const [selectedFilters, setSelectedFilters] =
+    useState<Filtro>(filtrosSelecionados);
+
+  useEffect(() => {
+    if (open) {
+      setSelectedFilters(filtrosSelecionados);
+    }
+  }, [open]);
+
   const initialValue: number = filtroDados.nivelMinimo;
   const limit: number = filtroDados.nivelMaximo;
   const generateOptions = () => {
@@ -34,6 +47,86 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
       options.push(i);
     }
     return options;
+  };
+
+  const handleResetFilters = () => {
+    setSelectedFilters({
+      niveis: [],
+      niveisAbaPrincipal: [
+        { texto: "Abaixo do Básico", valor: 1 },
+        { texto: "Básico", valor: 2 },
+        { texto: "Adequado", valor: 3 },
+        { texto: "Avançado", valor: 4 },
+      ],
+      anosEscolares: [],
+      componentesCurriculares: [],
+      anosEscolaresRadio: [filtroDados.anosEscolares[0]],
+      componentesCurricularesRadio: [filtroDados.componentesCurriculares[0]],
+      nomeEstudante: "",
+      eolEstudante: "",
+      nivelMinimo: filtroDados.nivelMinimo,
+      nivelMinimoEscolhido: filtroDados.nivelMinimo,
+      nivelMaximo: filtroDados.nivelMaximo,
+      nivelMaximoEscolhido: filtroDados.nivelMaximo,
+      turmas: [],
+    });
+  };
+
+  const handleApplyFilters = () => {
+    dispatch(setFilters(selectedFilters));
+    setOpen(false);
+  };
+
+  const handleFilterChange = (
+    filterType: keyof Filtro,
+    value: number | string | FiltroChaveValor,
+    type: TipoComponente = "checkbox"
+  ) => {
+    setSelectedFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+
+      if (
+        filterType === "niveis" ||
+        filterType === "niveisAbaPrincipal" ||
+        filterType === "anosEscolares" ||
+        filterType === "componentesCurriculares" ||
+        filterType === "turmas" ||
+        filterType === "anosEscolaresRadio" ||
+        filterType === "componentesCurricularesRadio"
+      ) {
+        const arrayFiltro = newFilters[filterType] as FiltroChaveValor[];
+
+        let item: FiltroChaveValor;
+        if (typeof value === "object") {
+          item = value;
+        } else {
+          item = { valor: value, texto: String(value) };
+        }
+
+        if (type === "radio") {
+          newFilters[filterType] = [item];
+        } else {
+          const exists = arrayFiltro.some((f) => f.valor === item.valor);
+          newFilters[filterType] = exists
+            ? arrayFiltro.filter((f) => f.valor !== item.valor)
+            : [...arrayFiltro, item];
+        }
+      } else if (
+        filterType === "nomeEstudante" ||
+        filterType === "eolEstudante"
+      ) {
+        newFilters[filterType] = value as string;
+      } else if (
+        filterType === "nivelMinimo" ||
+        filterType === "nivelMinimoEscolhido" ||
+        filterType === "nivelMaximo" ||
+        filterType === "nivelMaximoEscolhido"
+      ) {
+        newFilters[filterType] = value as number;
+      }
+
+      return newFilters;
+    });
   };
 
   return (
@@ -56,7 +149,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
         open={open}
         onClose={() => setOpen(false)}
       >
-        {activeTab == "1" && (
+        {(activeTab == "1" || activeTab == "2" || activeTab == "4") && (
           <>
             <Divider className="separador" />
             <div className="filtro-secao">
@@ -111,38 +204,87 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           </>
         )}
 
-        <Divider className="separador" />
-        <div className="filtro-secao">
-          <h3 className="filtro-titulo">Ano letivo</h3>
-          {filtroDados.anosEscolares.map((ano) => (
-            <Checkbox
-              key={ano.valor}
-              checked={selectedFilters.anosEscolares.some(
-                (item) => item.valor === ano.valor
-              )}
-              onChange={() => handleFilterChange("anosEscolares", ano.valor)}
-            >
-              {ano.texto + "º ano"}
-            </Checkbox>
-          ))}
-        </div>
-        <Divider className="separador" />
-        <div className="filtro-secao">
-          <h3 className="filtro-titulo">Componente curricular</h3>
-          {filtroDados.componentesCurriculares.map((comp) => (
-            <Checkbox
-              key={comp.valor}
-              checked={selectedFilters.componentesCurriculares.some(
-                (item) => item.valor === comp.valor
-              )}
-              onChange={() =>
-                handleFilterChange("componentesCurriculares", comp.valor)
-              }
-            >
-              {comp.texto}
-            </Checkbox>
-          ))}
-        </div>
+        {activeTab != "4" && (
+          <>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Ano letivo</h3>
+              {filtroDados.anosEscolares.map((ano) => (
+                <Checkbox
+                  key={ano.valor}
+                  checked={selectedFilters.anosEscolares.some(
+                    (item) => item.valor === ano.valor
+                  )}
+                  onChange={() =>
+                    handleFilterChange("anosEscolares", ano.valor)
+                  }
+                >
+                  {ano.texto + "º ano"}
+                </Checkbox>
+              ))}
+            </div>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Componente curricular</h3>
+              {filtroDados.componentesCurriculares.map((comp) => (
+                <Checkbox
+                  key={comp.valor}
+                  checked={selectedFilters.componentesCurriculares.some(
+                    (item) => item.valor === comp.valor
+                  )}
+                  onChange={() =>
+                    handleFilterChange("componentesCurriculares", comp.valor)
+                  }
+                >
+                  {comp.texto}
+                </Checkbox>
+              ))}
+            </div>
+          </>
+        )}
+
+        {activeTab == "4" && (
+          <>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Ano letivo</h3>
+              {filtroDados.anosEscolares.map((ano) => (
+                <Radio
+                  key={ano.valor}
+                  checked={selectedFilters.anosEscolaresRadio.some(
+                    (item) => item.valor === ano.valor
+                  )}
+                  onChange={() =>
+                    handleFilterChange("anosEscolaresRadio", ano, "radio")
+                  }
+                >
+                  {ano.texto + "º ano"}
+                </Radio>
+              ))}
+            </div>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Componente curricular</h3>
+              {filtroDados.componentesCurriculares.map((comp) => (
+                <Radio
+                  key={comp.valor}
+                  checked={selectedFilters.componentesCurricularesRadio.some(
+                    (item) => item.valor === comp.valor
+                  )}
+                  onChange={() =>
+                    handleFilterChange(
+                      "componentesCurricularesRadio",
+                      comp,
+                      "radio"
+                    )
+                  }
+                >
+                  {comp.texto}
+                </Radio>
+              ))}
+            </div>
+          </>
+        )}
 
         {activeTab == "3" && (
           <>
