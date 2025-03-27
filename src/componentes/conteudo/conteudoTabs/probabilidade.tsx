@@ -10,7 +10,7 @@ import {
   Row,
   notification,
 } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
 import "./probabilidade.css";
@@ -20,6 +20,57 @@ import {
   InfoCircleOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { setFilters } from "../../../redux/slices/filtrosSlice";
+
+const colunasInicial = [
+  {
+    title: "Código",
+    dataIndex: "codigoHabilidade",
+    key: "codigoHabilidade",
+    render: (value: any, record: any, index: number) => {
+      const obj = {
+        children: value,
+        props: {} as any,
+      };
+      if (record.rowSpan) {
+        obj.props.rowSpan = record.rowSpan;
+      } else {
+        obj.props.rowSpan = 0;
+      }
+      return obj;
+    },
+  },
+  {
+    title: "Habilidades",
+    dataIndex: "habilidadeDescricao",
+    key: "habilidadeDescricao",
+    render: (value: any, record: any, index: number) => {
+      const obj = {
+        children: value,
+        props: {} as any,
+      };
+      if (record.rowSpan) {
+        obj.props.rowSpan = record.rowSpan;
+      } else {
+        obj.props.rowSpan = 0;
+      }
+      return obj;
+    },
+  },
+  { title: "Turma", dataIndex: "turmaDescricao", key: "turmaDescricao" },
+  {
+    title: "Abaixo do básico",
+    dataIndex: "abaixoDoBasico",
+    key: "abaixoDoBasico",
+  },
+  { title: "Básico", dataIndex: "basico", key: "basico" },
+  { title: "Adequado", dataIndex: "adequado", key: "adequado" },
+  {
+    title: "Avançado",
+    dataIndex: "avancado",
+    key: "avancado",
+  },
+];
 
 const Probabilidade: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
@@ -33,6 +84,24 @@ const Probabilidade: React.FC = () => {
   const [filtroTexto, setFiltroTexto] = useState("");
   const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
   const [disciplinaIdSelecionada, setDisciplinaId] = useState();
+  const dispatch = useDispatch();
+  const [selectedFilters, setSelectedFilters] = useState<Filtro>({
+    niveis: [],
+    niveisAbaPrincipal: [],
+    anosEscolares: [],
+    componentesCurriculares: [],
+    anosEscolaresRadio: [],
+    componentesCurricularesRadio: [],
+    nivelMinimo: 0,
+    nivelMinimoEscolhido: 0,
+    nivelMaximo: 0,
+    nivelMaximoEscolhido: 0,
+    turmas: [],
+    nomeEstudante: "",
+    eolEstudante: "",
+  });
+
+  const [colunas, setColunas] = useState<any[]>(colunasInicial);
 
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
@@ -56,23 +125,33 @@ const Probabilidade: React.FC = () => {
     filtroCompleto.anosEscolares[0]?.valor
   );
 
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
   const buscarDadosEstudantes = async (paginaAtual = 1, tamanhoPagina = 10) => {
     try {
       setCarregando(true);
 
+      let filtros = "";
+
+      if (filtroTexto.length >= 3) {
+        const params = new URLSearchParams();
+        params.append("Habilidade", filtroTexto);
+        filtros = params.toString();
+      }
+
       const idComponentesCurriculares =
         filtroCompleto.componentesCurriculares.find(
           (item) => item.texto === componentesCurricularSelecionado
-        )?.valor;
+        )?.valor ?? 0;
 
-      const idAnosEscolares = filtroCompleto.anosEscolares.find(
-        (item) => item.texto === anosEscolarSelecionado
-      )?.valor;
+      const idAnosEscolares =
+        filtroCompleto.anosEscolares.find(
+          (item) => item.texto === anosEscolarSelecionado
+        )?.valor ?? 0;
 
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}`
+        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
       );
 
       setDadosDisciplinas(resposta.disciplinas || []);
@@ -108,6 +187,79 @@ const Probabilidade: React.FC = () => {
     anosEscolarSelecionado,
     componentesCurricularSelecionado,
   ]);
+
+  useEffect(() => {
+    if (activeTab == "4") {
+      console.log(componentesCurricularSelecionado);
+      setComponentesCurricular(
+        filtrosSelecionados.componentesCurricularesRadio[0].texto
+      );
+      console.log(componentesCurricularSelecionado);
+
+      setAnoEscolar(filtrosSelecionados.anosEscolaresRadio[0].texto);
+    }
+  }, [filtrosSelecionados]);
+
+  const toggleColumnVisibility = (
+    columnsSetter: React.Dispatch<React.SetStateAction<any[]>>,
+    key: string,
+    value: boolean
+  ) => {
+    columnsSetter((prevColumns) =>
+      prevColumns.map((col) =>
+        col.key === key ? { ...col, hidden: value } : col
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (activeTab !== "2" && activeTab !== "4") return;
+
+    const keys = [
+      { key: "abaixoBasico", valor: 1 },
+      { key: "basico", valor: 2 },
+      { key: "adequado", valor: 3 },
+      { key: "avancado", valor: 4 },
+    ];
+
+    keys.forEach(({ key, valor }) => {
+      const isVisible = filtrosSelecionados.niveisAbaPrincipal.some(
+        (item) => item.valor === valor
+      );
+
+      toggleColumnVisibility(setColunas, key, !isVisible);
+    });
+  }, [filtrosSelecionados, activeTab]);
+
+  const alteraRadio = (valor: string, tipo: TipoFiltro) => {
+    if (tipo === "componentesCurriculares") {
+      setComponentesCurricular(valor); // <- atualiza estado local para refletir na tela
+      const item = filtroCompleto.componentesCurriculares.find(
+        (item) => item.texto === valor
+      );
+      const novosFiltros = {
+        ...filtrosSelecionados,
+        componentesCurricularesRadio: [item],
+      };
+      dispatch(setFilters(novosFiltros));
+    } else if (tipo === "anosEscolares") {
+      setComponentesCurricular(valor); // <- atualiza estado local para refletir na tela
+      const item = filtroCompleto.anosEscolares.find(
+        (item) => item.texto === valor
+      );
+      const novosFiltros = {
+        ...filtrosSelecionados,
+        anosEscolaresRadio: [item],
+      };
+      dispatch(setFilters(novosFiltros));
+    }
+  };
+
+  useEffect(() => {
+    if (escolaSelecionada && activeTab == "4" && filtroTexto.length > 3) {
+      buscarDadosEstudantes(pagina, pageSize);
+    }
+  }, [filtroTexto]);
 
   const iniciarDownloadRelatorioProbabilidade = async () => {
     setEstaCarregandoRelatorio(true);
@@ -171,56 +323,6 @@ const Probabilidade: React.FC = () => {
     }
   };
 
-  const colunas = [
-    {
-      title: "Código",
-      dataIndex: "codigoHabilidade",
-      key: "codigoHabilidade",
-      render: (value: any, record: any, index: number) => {
-        const obj = {
-          children: value,
-          props: {} as any,
-        };
-        if (record.rowSpan) {
-          obj.props.rowSpan = record.rowSpan;
-        } else {
-          obj.props.rowSpan = 0;
-        }
-        return obj;
-      },
-    },
-    {
-      title: "Habilidades",
-      dataIndex: "habilidadeDescricao",
-      key: "habilidadeDescricao",
-      render: (value: any, record: any, index: number) => {
-        const obj = {
-          children: value,
-          props: {} as any,
-        };
-        if (record.rowSpan) {
-          obj.props.rowSpan = record.rowSpan;
-        } else {
-          obj.props.rowSpan = 0;
-        }
-        return obj;
-      },
-    },
-    { title: "Turma", dataIndex: "turmaDescricao", key: "turmaDescricao" },
-    {
-      title: "Abaixo do básico",
-      dataIndex: "abaixoDoBasico",
-      key: "abaixoDoBasico",
-    },
-    { title: "Básico", dataIndex: "basico", key: "basico" },
-    { title: "Adequado", dataIndex: "adequado", key: "adequado" },
-    {
-      title: "Avançado",
-      dataIndex: "avancado",
-      key: "avancado",
-    },
-  ];
-
   return (
     <Spin spinning={carregando} tip="Carregando...">
       <div>
@@ -261,16 +363,17 @@ const Probabilidade: React.FC = () => {
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
               placeholder="Selecione"
-              value={componentesCurricularSelecionado}
               onChange={(value) => {
                 setComponentesCurricular(value);
                 setComponentesCurricularId(value);
+                alteraRadio(value, "componentesCurriculares");
               }}
+              value={filtrosSelecionados.componentesCurricularesRadio[0].texto}
             >
               {filtroCompleto.componentesCurriculares.map((item) => (
-                <option key={item.valor} value={item.texto}>
+                <Select.Option key={item.valor} value={item.texto}>
                   {item.texto}
-                </option>
+                </Select.Option>
               ))}
             </Select>
 
@@ -287,16 +390,17 @@ const Probabilidade: React.FC = () => {
               dropdownStyle={{ borderRadius: 8 }}
               bordered={false}
               placeholder="Selecione"
-              value={anosEscolarSelecionado}
               onChange={(value) => {
                 setAnoEscolar(value);
                 setAnoEscolarId(value);
+                alteraRadio(value, "anosEscolares");
               }}
+              value={filtrosSelecionados.anosEscolaresRadio[0].texto}
             >
               {filtroCompleto.anosEscolares.map((item) => (
-                <option key={item.valor} value={item.texto}>
+                <Select.Option key={item.valor} value={item.texto}>
                   {item.texto + "º ano"}
-                </option>
+                </Select.Option>
               ))}
             </Select>
           </Space>
