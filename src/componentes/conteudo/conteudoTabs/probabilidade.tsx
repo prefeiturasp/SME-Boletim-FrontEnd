@@ -44,8 +44,16 @@ const Probabilidade: React.FC = () => {
   const [componentesCurricularSelecionado, setComponentesCurricular] = useState(
     filtroCompleto.componentesCurriculares[0]?.texto
   );
+
+  const [componentesCurricularSelecionadoId, setComponentesCurricularId] =
+    useState(filtroCompleto.componentesCurriculares[0]?.valor);
+
   const [anosEscolarSelecionado, setAnoEscolar] = useState(
     filtroCompleto.anosEscolares[0]?.texto
+  );
+
+  const [anosEscolarSelecionadoId, setAnoEscolarId] = useState(
+    filtroCompleto.anosEscolares[0]?.valor
   );
 
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
@@ -117,7 +125,7 @@ const Probabilidade: React.FC = () => {
 
     try {
       const resposta = await servicos.get(
-        `/api/boletimescolar/download/${escolaSelecionada.ueId}`,
+        `/api/BoletimEscolar/download-probabilidade/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
         { responseType: "blob" }
       );
 
@@ -254,7 +262,10 @@ const Probabilidade: React.FC = () => {
               bordered={false}
               placeholder="Selecione"
               value={componentesCurricularSelecionado}
-              onChange={(value) => setComponentesCurricular(value)}
+              onChange={(value) => {
+                setComponentesCurricular(value);
+                setComponentesCurricularId(value);
+              }}
             >
               {filtroCompleto.componentesCurriculares.map((item) => (
                 <option key={item.valor} value={item.texto}>
@@ -277,7 +288,10 @@ const Probabilidade: React.FC = () => {
               bordered={false}
               placeholder="Selecione"
               value={anosEscolarSelecionado}
-              onChange={(value) => setAnoEscolar(value)}
+              onChange={(value) => {
+                setAnoEscolar(value);
+                setAnoEscolarId(value);
+              }}
             >
               {filtroCompleto.anosEscolares.map((item) => (
                 <option key={item.valor} value={item.texto}>
