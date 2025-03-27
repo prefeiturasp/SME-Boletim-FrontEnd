@@ -133,12 +133,16 @@ const Probabilidade: React.FC = () => {
       setCarregando(true);
 
       let filtros = "";
-
-      if (filtroTexto.length >= 3) {
-        const params = new URLSearchParams();
+      const params = new URLSearchParams();
+      if (filtroTexto.trim().length > 0) {        
         params.append("Habilidade", filtroTexto);
-        filtros = params.toString();
+      }      
+      if (filtrosSelecionados.turmas.length > 0) {
+        filtrosSelecionados.turmas.forEach((item) => {
+          params.append("Turma", item.valor.toString());
+        });
       }
+      filtros = params.toString();
 
       const idComponentesCurriculares =
         filtroCompleto.componentesCurriculares.find(
@@ -154,7 +158,7 @@ const Probabilidade: React.FC = () => {
         `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
       );
 
-      setDadosDisciplinas(resposta.disciplinas || []);
+      //setDadosDisciplinas(resposta.disciplinas || []);
 
       const dadosAgrupados: any[] = [];
       resposta.resultados.forEach((habilidade: any) => {
@@ -186,6 +190,7 @@ const Probabilidade: React.FC = () => {
     activeTab,
     anosEscolarSelecionado,
     componentesCurricularSelecionado,
+    filtrosSelecionados,
   ]);
 
   useEffect(() => {
@@ -256,7 +261,7 @@ const Probabilidade: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada && activeTab == "4" && filtroTexto.length > 3) {
+    if (escolaSelecionada && activeTab == "4" ) {
       buscarDadosEstudantes(pagina, pageSize);
     }
   }, [filtroTexto]);

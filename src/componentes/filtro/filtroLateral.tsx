@@ -149,11 +149,31 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
         open={open}
         onClose={() => setOpen(false)}
       >
+        {activeTab == "4" && (
+          <>
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Turmas</h3>
+              {filtroDados.turmas.map((turma) => (
+                <Checkbox
+                  key={turma.valor}
+                  checked={selectedFilters.turmas.some(
+                    (item) => item.valor === turma.valor
+                  )}
+                  onChange={() => handleFilterChange("turmas", turma.valor)}
+                >
+                  {turma.texto}
+                </Checkbox>
+              ))}
+            </div>
+          </>
+        )}
+
         {(activeTab == "1" || activeTab == "2" || activeTab == "4") && (
           <>
             <Divider className="separador" />
             <div className="filtro-secao">
-              <h3 className="filtro-titulo">Níveis</h3>
+              <h3 className="filtro-titulo">Nível</h3>
               {filtroDados.niveis.map((nivel) => (
                 <Checkbox
                   defaultChecked={true}
@@ -208,7 +228,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           <>
             <Divider className="separador" />
             <div className="filtro-secao">
-              <h3 className="filtro-titulo">Ano letivo</h3>
+              <h3 className="filtro-titulo">Ano</h3>
               {filtroDados.anosEscolares.map((ano) => (
                 <Checkbox
                   key={ano.valor}
@@ -243,11 +263,11 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           </>
         )}
 
-        {activeTab == "4" && (
+        {activeTab == "9" && (
           <>
             <Divider className="separador" />
             <div className="filtro-secao">
-              <h3 className="filtro-titulo">Ano letivo</h3>
+              <h3 className="filtro-titulo">Ano</h3>
               {filtroDados.anosEscolares.map((ano) => (
                 <Radio
                   key={ano.valor}
