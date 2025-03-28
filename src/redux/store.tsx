@@ -11,7 +11,6 @@ export const store = configureStore({
   reducer: {
     escola: escolaReducer,
     auth: authReducer,
-    desempenho: desempenhoReducer,
     filtros: filtrosReducer,
     filtroCompleto: filtroCompletoReducer,
     tab: tabReducer,
