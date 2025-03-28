@@ -17,3 +17,7 @@
 .custom-select-color .ant-select-selection-item {
   color: white !important;
 }
+
+.custom-select-color .ant-select-arrow {
+  color: white !important;
+}
