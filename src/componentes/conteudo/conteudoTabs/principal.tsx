@@ -62,7 +62,7 @@ const Principal: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada && activeTab == "1") {
+    if (escolaSelecionada.ueId !== null && activeTab == "1") {
       buscarAbrangencias();
     }
   }, [escolaSelecionada, filtrosSelecionados, activeTab]);

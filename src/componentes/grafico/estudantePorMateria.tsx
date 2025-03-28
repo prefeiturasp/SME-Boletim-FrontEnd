@@ -14,7 +14,6 @@ interface TabelaProps {
 }
 
 const EstudantesPorMateria: React.FC<TabelaProps> = ({ dados }) => {
-  console.log(dados);
 
   let altura = dados.alunos.length * 50;
   const cor = dados.disciplina == "Matemática" ? "#EDEDED" : "#5A94D8";

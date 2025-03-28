@@ -195,11 +195,9 @@ const Probabilidade: React.FC = () => {
 
   useEffect(() => {
     if (activeTab == "4") {
-      console.log(componentesCurricularSelecionado);
       setComponentesCurricular(
         filtrosSelecionados.componentesCurricularesRadio[0].texto
       );
-      console.log(componentesCurricularSelecionado);
 
       setAnoEscolar(filtrosSelecionados.anosEscolaresRadio[0].texto);
     }

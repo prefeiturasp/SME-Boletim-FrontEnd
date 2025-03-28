@@ -91,8 +91,10 @@ const EscolherEscola = () => {
   };
 
   useEffect(() => {
-    buscarFiltros(escolaSelecionada);
-    buscarNomeAplicacao();
+    if(escolaSelecionada.ueId != null) {  
+      buscarNomeAplicacao();
+      buscarFiltros(escolaSelecionada);
+    }    
   }, [escolaSelecionada]);
 
   useEffect(() => {

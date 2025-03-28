@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -11,9 +10,6 @@ import {
   Label,
 } from "recharts";
 import "./desempenhoAno.css";
-import { RootState } from "../../redux/store";
-import { setDesempenhoData } from "../../redux/slices/desempenhoSlice";
-import { useDispatch, useSelector } from "react-redux";
 import TooltipCustomizada from "./conteudo/tooltipCustomizada";
 import LegendaCustomizada from "./conteudo/legendaCustomizada";
 
@@ -34,52 +30,40 @@ const DesempenhoAno: React.FC<TabelaProps> = ({
   dados,
   filtrosSelecionados,
 }) => {
-  const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.desempenho.data);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const apiData: DataPoint[] = [];
-      for (let i = 0; i < dados.length; i++) {
-        const item = dados[i];
-        apiData.push({
-          name: item.componenteCurricular,
-          abaixoDoBasico: item.abaixoBasico
-            .split(" ")[1]
-            .replace("(", "")
-            .replace(")", "")
-            .replace("%", ""),
-          basico: item.basico
-            .split(" ")[1]
-            .replace("(", "")
-            .replace(")", "")
-            .replace("%", ""),
-          adequado: item.adequado
-            .split(" ")[1]
-            .replace("(", "")
-            .replace(")", "")
-            .replace("%", ""),
-          avancado: item.avancado
-            .split(" ")[1]
-            .replace("(", "")
-            .replace(")", "")
-            .replace("%", ""),
-        });
-      }
-
-      dispatch(setDesempenhoData(apiData));
-    };
-
-    fetchData();
-  }, [dispatch, dados, filtrosSelecionados]);
-
-  if (!data || data.length === 0) return null;
+  
+  const apiData: DataPoint[] = [];
+  for (let i = 0; i < dados.length; i++) {
+    const item = dados[i];
+    apiData.push({
+      name: item.componenteCurricular,
+      abaixoDoBasico: item.abaixoBasico
+        .split(" ")[1]
+        .replace("(", "")
+        .replace(")", "")
+        .replace("%", ""),
+      basico: item.basico
+        .split(" ")[1]
+        .replace("(", "")
+        .replace(")", "")
+        .replace("%", ""),
+      adequado: item.adequado
+        .split(" ")[1]
+        .replace("(", "")
+        .replace(")", "")
+        .replace("%", ""),
+      avancado: item.avancado
+        .split(" ")[1]
+        .replace("(", "")
+        .replace(")", "")
+        .replace("%", ""),
+    });
+  }
 
   return (
     <ResponsiveContainer width="100%" height={700}>
       <BarChart
         layout="vertical"
-        data={data}
+        data={apiData}
         margin={{ top: 30, right: 5, left: 20, bottom: 0 }}
         barCategoryGap="0%"
         barGap={0}

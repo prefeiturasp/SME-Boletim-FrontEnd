@@ -4,7 +4,7 @@ const initialState: NomeAplicacao = {
   id: 0,
   nome: "-",
   tipoTai: true,
-  dataInicioLote: new Date(),
+  dataInicioLote: new Date().toISOString(),
 };
 
 const nomeAplicacaoSlice = createSlice({
