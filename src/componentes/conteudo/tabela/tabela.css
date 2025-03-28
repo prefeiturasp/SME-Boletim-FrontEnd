@@ -50,3 +50,7 @@ th.ant-table-cell.col-total {
 .drop-settings-btn {
   margin-bottom: 15px;
 }
+
+th.ant-table-cell.col-total::before {
+  background-color: #4c8bf5 !important;
+}
