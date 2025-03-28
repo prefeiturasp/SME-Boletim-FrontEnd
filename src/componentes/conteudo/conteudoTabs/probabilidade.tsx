@@ -27,35 +27,11 @@ const colunasInicial = [
     title: "Código",
     dataIndex: "codigoHabilidade",
     key: "codigoHabilidade",
-    render: (value: any, record: any, index: number) => {
-      const obj = {
-        children: value,
-        props: {} as any,
-      };
-      if (record.rowSpan) {
-        obj.props.rowSpan = record.rowSpan;
-      } else {
-        obj.props.rowSpan = 0;
-      }
-      return obj;
-    },
   },
   {
     title: "Habilidades",
     dataIndex: "habilidadeDescricao",
     key: "habilidadeDescricao",
-    render: (value: any, record: any, index: number) => {
-      const obj = {
-        children: value,
-        props: {} as any,
-      };
-      if (record.rowSpan) {
-        obj.props.rowSpan = record.rowSpan;
-      } else {
-        obj.props.rowSpan = 0;
-      }
-      return obj;
-    },
   },
   { title: "Turma", dataIndex: "turmaDescricao", key: "turmaDescricao" },
   {
@@ -134,9 +110,9 @@ const Probabilidade: React.FC = () => {
 
       let filtros = "";
       const params = new URLSearchParams();
-      if (filtroTexto.trim().length > 0) {        
+      if (filtroTexto.trim().length > 0) {
         params.append("Habilidade", filtroTexto);
-      }      
+      }
       if (filtrosSelecionados.turmas.length > 0) {
         filtrosSelecionados.turmas.forEach((item) => {
           params.append("Turma", item.valor.toString());
@@ -155,24 +131,11 @@ const Probabilidade: React.FC = () => {
         )?.valor ?? 0;
 
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
+        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade/lista?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
       );
 
-      //setDadosDisciplinas(resposta.disciplinas || []);
-
-      const dadosAgrupados: any[] = [];
-      resposta.resultados.forEach((habilidade: any) => {
-        habilidade.turmas.forEach((turma: any, index: number) => {
-          dadosAgrupados.push({
-            ...turma,
-            codigoHabilidade: index === 0 ? habilidade.codigoHabilidade : "",
-            habilidadeDescricao:
-              index === 0 ? habilidade.habilidadeDescricao : "",
-            rowSpan: index === 0 ? habilidade.turmas.length : 0,
-          });
-        });
-      });
-      setDadosFormatados(dadosAgrupados);
+      setDadosFormatados(resposta.resultados);
+      setTotalRegistros(resposta.totalRegistros);
     } catch (error) {
       console.error("Erro ao buscar os dados da tabela:", error);
     } finally {
@@ -259,7 +222,7 @@ const Probabilidade: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada && activeTab == "4" ) {
+    if (escolaSelecionada && activeTab == "4") {
       buscarDadosEstudantes(pagina, pageSize);
     }
   }, [filtroTexto]);
