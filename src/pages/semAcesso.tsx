@@ -20,7 +20,12 @@ const SemAcesso: React.FC = () => {
           senha.
         </p>
 
-        <Button type="primary" size="large" style={styles.button}>
+        <Button
+          type="primary"
+          size="large"
+          style={styles.button}
+          href="https://hom-serap.sme.prefeitura.sp.gov.br/"
+        >
           Fazer login
         </Button>
       </Card>
