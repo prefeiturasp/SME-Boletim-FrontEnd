@@ -35,6 +35,8 @@ const EscolherEscola = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
   const filtroDados = useSelector((state: RootState) => state.filtroCompleto);
+  const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
+  const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
   const buscarAbrangencias = async () => {
     try {
@@ -59,12 +61,15 @@ const EscolherEscola = () => {
         `/api/boletimescolar/${escolaSelecionada.ueId}/filtros`
       );
 
-      resposta.nivelMaximoEscolhido = resposta.nivelMaximo;
-      resposta.nivelMinimoEscolhido = resposta.nivelMinimo;
       resposta.niveisAbaPrincipal = resposta.niveis;
       resposta.niveisAbaPrincipal.map((item) => {
         selectedFilters.niveisAbaPrincipal.push(item);
       });
+
+      selectedFilters.nivelMaximoEscolhido = resposta.nivelMaximo;
+      selectedFilters.nivelMinimoEscolhido = resposta.nivelMinimo;
+      selectedFilters.nivelMaximo = resposta.nivelMaximo;
+      selectedFilters.nivelMinimo = resposta.nivelMinimo;
 
       selectedFilters.anosEscolaresRadio = [resposta.anosEscolares[0]];
       selectedFilters.componentesCurricularesRadio = [
@@ -91,10 +96,10 @@ const EscolherEscola = () => {
   };
 
   useEffect(() => {
-    if(escolaSelecionada.ueId != null) {  
+    if (escolaSelecionada.ueId != null) {
       buscarNomeAplicacao();
       buscarFiltros(escolaSelecionada);
-    }    
+    }
   }, [escolaSelecionada]);
 
   useEffect(() => {
@@ -128,10 +133,37 @@ const EscolherEscola = () => {
     label: item.descricao,
   }));
 
-  const totalFiltrosSelecionados =
-    selectedFilters.niveis.length +
-    selectedFilters.anosEscolares.length +
-    selectedFilters.componentesCurriculares.length;
+  let totalFiltrosSelecionados = 0;
+
+  if (activeTab === "1" || activeTab === "2") {
+    totalFiltrosSelecionados =
+      filtrosSelecionados.niveisAbaPrincipal.length +
+      filtrosSelecionados.anosEscolares.length +
+      filtrosSelecionados.componentesCurriculares.length;
+  }
+
+  if (activeTab === "3") {
+    totalFiltrosSelecionados =
+      filtrosSelecionados.anosEscolares.length +
+      filtrosSelecionados.componentesCurriculares.length +
+      filtrosSelecionados.niveis.length +
+      (filtrosSelecionados.nomeEstudante.length > 0 ? 1 : 0) +
+      (filtrosSelecionados.eolEstudante.length > 0 ? 1 : 0) +
+      (filtrosSelecionados.nivelMinimoEscolhido !=
+      filtrosSelecionados.nivelMinimo
+        ? 1
+        : 0) +
+      (filtrosSelecionados.nivelMaximoEscolhido !=
+      filtrosSelecionados.nivelMaximo
+        ? 1
+        : 0);
+  }
+
+  if (activeTab === "4") {
+    totalFiltrosSelecionados =
+      filtrosSelecionados.niveisAbaPrincipal.length +
+      filtrosSelecionados.turmas.length;
+  }
 
   return (
     <div className="conteudo-fixo">
@@ -159,11 +191,7 @@ const EscolherEscola = () => {
         </Col>
       </Row>
 
-      <FiltroLateral
-        open={open}
-        setOpen={setOpen}
-        filtroDados={filtroDados}
-      />
+      <FiltroLateral open={open} setOpen={setOpen} filtroDados={filtroDados} />
 
       <div className="conteudo-principal">
         <Row gutter={[16, 16]}>
