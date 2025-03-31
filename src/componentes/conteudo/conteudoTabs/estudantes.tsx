@@ -154,6 +154,7 @@ const Estudantes: React.FC = () => {
 
   useEffect(() => {
     if (escolaSelecionada && activeTab == "3") {
+      setPagina(1);
       buscarDadosEstudantes();
       buscarDadosGraficos();
     }

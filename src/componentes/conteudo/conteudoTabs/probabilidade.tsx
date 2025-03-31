@@ -147,14 +147,7 @@ const Probabilidade: React.FC = () => {
     if (escolaSelecionada && activeTab == "4") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [
-    pagina,
-    pageSize,
-    activeTab,
-    anosEscolarSelecionado,
-    componentesCurricularSelecionado,
-    filtrosSelecionados,
-  ]);
+  }, [pagina, pageSize, activeTab]);
 
   useEffect(() => {
     if (activeTab == "4") {
@@ -164,7 +157,7 @@ const Probabilidade: React.FC = () => {
 
       setAnoEscolar(filtrosSelecionados.anosEscolaresRadio[0].texto);
     }
-  }, [filtrosSelecionados]);
+  }, [filtrosSelecionados, activeTab]);
 
   const toggleColumnVisibility = (
     columnsSetter: React.Dispatch<React.SetStateAction<any[]>>,
@@ -223,9 +216,16 @@ const Probabilidade: React.FC = () => {
 
   useEffect(() => {
     if (escolaSelecionada && activeTab == "4") {
-      buscarDadosEstudantes(pagina, pageSize);
+      setPagina(1);
+      buscarDadosEstudantes(1, 10);
     }
-  }, [filtroTexto]);
+  }, [
+    filtroTexto,
+    anosEscolarSelecionado,
+    componentesCurricularSelecionado,
+    filtrosSelecionados,
+    activeTab,
+  ]);
 
   const iniciarDownloadRelatorioProbabilidade = async () => {
     setEstaCarregandoRelatorio(true);
