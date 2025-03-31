@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/componentes/cabecalho/cabecalho.tsx</title>
+    <title>Code coverage report for src/redux/slices/nomeAplicacaoSlice.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/componentes/cabecalho</a> cabecalho.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/redux/slices</a> nomeAplicacaoSlice.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -84,21 +84,16 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -106,68 +101,31 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import { Layout, Breadcrumb } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import "./cabecalho.css";
-import { Row } from "antd";
-const { Header } = <span class="cstat-no" title="statement not covered" >Layout;</span>
-import { Link } from "react-router-dom";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 &nbsp;
-const linkRetorno = <span class="cstat-no" title="statement not covered" >"https://hom-serap.sme.prefeitura.sp.gov.br/";</span>
-&nbsp;
-const Cabecalho: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Row&gt;
-      &lt;Header className="cabecalho"&gt;
-        &lt;div className="linha-superior"&gt;
-          &lt;Link to={linkRetorno} className="retornar"&gt;
-            &lt;ArrowLeftOutlined className="icone-retorno" /&gt;
-            &lt;span className="texto-retorno"&gt;Retornar à tela inicial&lt;/span&gt;
-          &lt;/Link&gt;
-          &lt;span className="titulo-principal"&gt;Boletim de Provas&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div className="barra-azul"&gt;
-          &lt;Breadcrumb className="breadcrumb"&gt;
-            &lt;Breadcrumb.Item&gt;Home&lt;/Breadcrumb.Item&gt;
-            &lt;Breadcrumb.Item&gt;Provas&lt;/Breadcrumb.Item&gt;
-            &lt;Breadcrumb.Item&gt;Boletim de provas&lt;/Breadcrumb.Item&gt;
-          &lt;/Breadcrumb&gt;
-          &lt;span className="titulo-secundario"&gt;Boletim de provas&lt;/span&gt;
-        &lt;/div&gt;
-      &lt;/Header&gt;
-    &lt;/Row&gt;
-  );
+const initialState: NomeAplicacao = {
+  id: 0,
+  nome: "-",
+  tipoTai: true,
+  dataInicioLote: new Date().toISOString(),
 };
 &nbsp;
-export default Cabecalho;
+const nomeAplicacaoSlice = createSlice({
+  name: "nomeAplicacao",
+  initialState,
+  reducers: {
+    setNomeAplicacao: <span class="fstat-no" title="function not covered" >(s</span>tate, action: PayloadAction&lt;NomeAplicacao&gt;) =&gt; {
+<span class="cstat-no" title="statement not covered" >      return action.payload;</span>
+    },
+  },
+});
+&nbsp;
+export const { setNomeAplicacao } = nomeAplicacaoSlice.actions;
+export default nomeAplicacaoSlice.reducer;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
