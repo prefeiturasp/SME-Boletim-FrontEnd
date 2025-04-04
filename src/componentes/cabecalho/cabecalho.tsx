@@ -6,7 +6,7 @@ import { Row } from "antd";
 const { Header } = Layout;
 import { Link } from "react-router-dom";
 
-const linkRetorno = "https://hom-serap.sme.prefeitura.sp.gov.br/";
+const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 
 const Cabecalho: React.FC = () => {
   return (

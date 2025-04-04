@@ -24,7 +24,7 @@ const SemAcesso: React.FC = () => {
           type="primary"
           size="large"
           style={styles.button}
-          href="https://hom-serap.sme.prefeitura.sp.gov.br/"
+          href="https://serap.sme.prefeitura.sp.gov.br/"
         >
           Fazer login
         </Button>
