@@ -192,7 +192,8 @@ const Probabilidade: React.FC = () => {
 
   const alteraRadio = (valor: string, tipo: TipoFiltro) => {
     if (tipo === "componentesCurriculares") {
-      setComponentesCurricular(valor); // <- atualiza estado local para refletir na tela
+      setComponentesCurricular(valor);
+      setComponentesCurricularId(valor);
       const item = filtroCompleto.componentesCurriculares.find(
         (item) => item.texto === valor
       );
@@ -202,7 +203,8 @@ const Probabilidade: React.FC = () => {
       };
       dispatch(setFilters(novosFiltros));
     } else if (tipo === "anosEscolares") {
-      setComponentesCurricular(valor); // <- atualiza estado local para refletir na tela
+      setAnoEscolar(valor);
+      setAnoEscolarId(valor);
       const item = filtroCompleto.anosEscolares.find(
         (item) => item.texto === valor
       );
@@ -215,7 +217,7 @@ const Probabilidade: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada && activeTab == "4") {
+    if (escolaSelecionada && activeTab == "4" && filtrosSelecionados) {
       setPagina(1);
       buscarDadosEstudantes(1, 10);
     }

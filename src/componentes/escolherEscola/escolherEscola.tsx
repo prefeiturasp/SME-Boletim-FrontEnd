@@ -9,6 +9,7 @@ import { setFilters } from "../../redux/slices/filtrosSlice";
 import FiltroLateral from "../filtro/filtroLateral";
 import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
 import { setNomeAplicacao } from "../../redux/slices/nomeAplicacaoSlice";
+import { filtroCarregado } from "../../redux/slices/filtroCarregado";
 
 const EscolherEscola = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -79,6 +80,7 @@ const EscolherEscola = () => {
       dispatch(setFilters(selectedFilters));
 
       dispatch(setFiltroDados(resposta));
+      dispatch(filtroCarregado(true));
     } catch (error) {
       console.error("Erro ao buscar os filtros laterais:", error);
     }

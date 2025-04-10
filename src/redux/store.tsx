@@ -5,6 +5,7 @@ import filtrosReducer from "./slices/filtrosSlice";
 import filtroCompletoReducer from "./slices/filtroCompletoSlice";
 import tabReducer from "./slices/tabSlice";
 import nomeAplicacaoReducer from "./slices/nomeAplicacaoSlice";
+import filtroCarregadoReducer from "./slices/filtroCarregado";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     filtroCompleto: filtroCompletoReducer,
     tab: tabReducer,
     nomeAplicacao: nomeAplicacaoReducer,
+    filtroCarregado: filtroCarregadoReducer,
   },
 });
 
