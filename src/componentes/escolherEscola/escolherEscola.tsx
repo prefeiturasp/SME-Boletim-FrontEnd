@@ -58,6 +58,22 @@ const EscolherEscola = () => {
     descricao: string | null;
   }) => {
     try {
+      const selectedFilters: Filtro = {
+        niveis: [],
+        niveisAbaPrincipal: [],
+        anosEscolares: [],
+        componentesCurriculares: [],
+        anosEscolaresRadio: [],
+        componentesCurricularesRadio: [],
+        nivelMinimo: 0,
+        nivelMinimoEscolhido: 0,
+        nivelMaximo: 0,
+        nivelMaximoEscolhido: 0,
+        turmas: [],
+        nomeEstudante: "",
+        eolEstudante: "",
+      };
+
       const resposta: Filtro = await servicos.get(
         `/api/boletimescolar/${escolaSelecionada.ueId}/filtros`
       );
