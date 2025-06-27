@@ -101,6 +101,10 @@ const Probabilidade: React.FC = () => {
     filtroCompleto.anosEscolares[0]?.valor
   );
 
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
@@ -131,7 +135,7 @@ const Probabilidade: React.FC = () => {
         )?.valor ?? 0;
 
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade/lista?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade/lista?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
       );
 
       setDadosFormatados(resposta.resultados);
@@ -147,17 +151,26 @@ const Probabilidade: React.FC = () => {
     if (escolaSelecionada && activeTab == "4") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [pagina, pageSize, activeTab]);
+  }, [pagina, pageSize, activeTab, aplicacaoSelecionada]);
 
   useEffect(() => {
-    if (activeTab == "4") {
-      setComponentesCurricular(
-        filtrosSelecionados.componentesCurricularesRadio[0].texto
-      );
+    if (
+      activeTab === "4" &&
+      filtrosSelecionados.componentesCurricularesRadio.length > 0 &&
+      filtrosSelecionados.anosEscolaresRadio.length > 0
+    ) {
+      const componente = filtrosSelecionados.componentesCurricularesRadio[0];
+      const ano = filtrosSelecionados.anosEscolaresRadio[0];
 
-      setAnoEscolar(filtrosSelecionados.anosEscolaresRadio[0].texto);
+      if (componente && componente.texto) {
+        setComponentesCurricular(componente.texto);
+      }
+
+      if (ano && ano.texto) {
+        setAnoEscolar(ano.texto);
+      }
     }
-  }, [filtrosSelecionados, activeTab]);
+  }, [filtrosSelecionados, activeTab, aplicacaoSelecionada]);
 
   const toggleColumnVisibility = (
     columnsSetter: React.Dispatch<React.SetStateAction<any[]>>,
@@ -188,7 +201,7 @@ const Probabilidade: React.FC = () => {
 
       toggleColumnVisibility(setColunas, key, !isVisible);
     });
-  }, [filtrosSelecionados, activeTab]);
+  }, [filtrosSelecionados, activeTab, aplicacaoSelecionada]);
 
   const alteraRadio = (valor: string, tipo: TipoFiltro) => {
     if (tipo === "componentesCurriculares") {
@@ -227,6 +240,7 @@ const Probabilidade: React.FC = () => {
     componentesCurricularSelecionado,
     filtrosSelecionados,
     activeTab,
+    aplicacaoSelecionada,
   ]);
 
   const iniciarDownloadRelatorioProbabilidade = async () => {
@@ -245,7 +259,7 @@ const Probabilidade: React.FC = () => {
 
     try {
       const resposta = await servicos.get(
-        `/api/BoletimEscolar/download-probabilidade/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
+        `/api/BoletimEscolar/download-probabilidade/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
         { responseType: "blob" }
       );
 
@@ -336,7 +350,14 @@ const Probabilidade: React.FC = () => {
                 setComponentesCurricularId(value);
                 alteraRadio(value, "componentesCurriculares");
               }}
-              value={filtrosSelecionados.componentesCurricularesRadio[0].texto}
+              value={
+                filtrosSelecionados &&
+                filtrosSelecionados.componentesCurricularesRadio.length > 0 &&
+                filtrosSelecionados.componentesCurricularesRadio[0] &&
+                filtrosSelecionados.componentesCurricularesRadio[0].texto
+                  ? filtrosSelecionados.componentesCurricularesRadio[0].texto
+                  : undefined
+              }
             >
               {filtroCompleto.componentesCurriculares.map((item) => (
                 <Select.Option key={item.valor} value={item.texto}>
@@ -363,7 +384,14 @@ const Probabilidade: React.FC = () => {
                 setAnoEscolarId(value);
                 alteraRadio(value, "anosEscolares");
               }}
-              value={filtrosSelecionados.anosEscolaresRadio[0].texto}
+              value={
+                filtrosSelecionados &&
+                filtrosSelecionados.anosEscolaresRadio.length > 0 &&
+                filtrosSelecionados.anosEscolaresRadio[0] &&
+                filtrosSelecionados.anosEscolaresRadio[0].texto
+                  ? filtrosSelecionados.anosEscolaresRadio[0].texto
+                  : undefined
+              }
             >
               {filtroCompleto.anosEscolares.map((item) => (
                 <Select.Option key={item.valor} value={item.texto}>

@@ -22,6 +22,10 @@ const Principal: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
 
@@ -46,7 +50,7 @@ const Principal: React.FC = () => {
         filtros = `?${params.toString()}`;
       }
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}${filtros}`
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}${filtros}`
       );
 
       setDados(resposta);
@@ -62,10 +66,14 @@ const Principal: React.FC = () => {
   };
 
   useEffect(() => {
-    if (escolaSelecionada.ueId !== null && activeTab == "1") {
+    if (
+      escolaSelecionada.ueId !== null &&
+      activeTab == "1" &&
+      aplicacaoSelecionada
+    ) {
       buscarAbrangencias();
     }
-  }, [escolaSelecionada, filtrosSelecionados, activeTab]);
+  }, [escolaSelecionada, filtrosSelecionados, activeTab, aplicacaoSelecionada]);
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -126,7 +134,7 @@ const Principal: React.FC = () => {
 
     try {
       const resposta = await servicos.get(
-        `/api/boletimescolar/download/${escolaSelecionada.ueId}`,
+        `/api/boletimescolar/download/${aplicacaoSelecionada}/${escolaSelecionada.ueId}`,
         { responseType: "blob" }
       );
 
