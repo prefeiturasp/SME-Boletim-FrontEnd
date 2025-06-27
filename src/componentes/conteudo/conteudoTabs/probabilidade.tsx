@@ -257,6 +257,11 @@ const Probabilidade: React.FC = () => {
       closeIcon: false,
     });
 
+    const idComponentesCurriculares =
+      filtroCompleto.componentesCurriculares.find(
+        (item) => item.texto === componentesCurricularSelecionado
+      )?.valor ?? 0;
+
     try {
       const resposta = await servicos.get(
         `/api/BoletimEscolar/download-probabilidade/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
