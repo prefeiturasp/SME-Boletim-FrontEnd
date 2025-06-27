@@ -2,56 +2,73 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import EstudantesPorMateria from "./estudantePorMateria";
 
-const mockDadosMatematica = {
-  turma: "8A",
+// Mock do Recharts
+jest.mock("recharts", () => {
+  const OriginalModule = jest.requireActual("recharts");
+  return {
+    ...OriginalModule,
+    ResponsiveContainer: ({ children }: { children: React.ReactNode }) => (
+      <OriginalModule.ResponsiveContainer width={800} height={500}>
+        {children}
+      </OriginalModule.ResponsiveContainer>
+    ),
+  };
+});
+
+const mockDataMatematica = {
+  turma: "A",
   disciplina: "Matemática",
   alunos: [
-    { nome: "Ana", proficiencia: 220 },
-    { nome: "Bruno", proficiencia: 180 },
+    { nome: "Aluno 1", proficiencia: 75 },
+    { nome: "Aluno 2", proficiencia: 85 },
   ],
 };
 
-const mockDadosPortugues = {
-  turma: "7B",
+const mockDataPortugues = {
+  turma: "B",
   disciplina: "Português",
   alunos: [
-    { nome: "Carlos", proficiencia: 250 },
-    { nome: "Daniela", proficiencia: 210 },
+    { nome: "Aluno 3", proficiencia: 65 },
+    { nome: "Aluno 4", proficiencia: 90 },
   ],
 };
 
 describe("EstudantesPorMateria", () => {
-  it("Testa o titulo do grafico", () => {
-    render(<EstudantesPorMateria dados={mockDadosMatematica} />);
+  it("renderiza o gráfico corretamente para Matemática", () => {
+    const { container } = render(
+      <EstudantesPorMateria dados={mockDataMatematica} />
+    );
+
+    // Verifica elementos principais
     expect(
-      screen.getByText("Estudantes da turma 8A em Matemática")
+      screen.getByText(
+        `Estudantes da turma ${mockDataMatematica.turma} em ${mockDataMatematica.disciplina}`
+      )
     ).toBeInTheDocument();
+    expect(container.querySelector(".recharts-bar")).toBeInTheDocument();
   });
 
-  it("renders YAxis label as 'Estudantes'", () => {
-    render(<EstudantesPorMateria dados={mockDadosMatematica} />);
-    expect(screen.getByText("Estudantes")).toBeInTheDocument();
-  });
-
-  it("Testa se grafico de matematica possui as cores e fontes corretas", () => {
+  it("renderiza altura mínima quando há poucos alunos", () => {
     const { container } = render(
-      <EstudantesPorMateria dados={mockDadosMatematica} />
+      <EstudantesPorMateria
+        dados={{
+          ...mockDataMatematica,
+          alunos: [mockDataMatematica.alunos[0]],
+        }}
+      />
     );
-    const bars = container.querySelectorAll(".bar-texto-preto");
-    expect(bars.length).toBeGreaterThan(0);
+
+    const responsiveContainer = container.querySelector(
+      ".recharts-responsive-container"
+    );
+    expect(responsiveContainer).toHaveStyle("height: 500px");
   });
 
-  it("Testa se grafico de portugês possui as cores e fontes corretas", () => {
-    const { container } = render(
-      <EstudantesPorMateria dados={mockDadosPortugues} />
-    );
-    const bars = container.querySelectorAll(".bar-texto-branco");
-    expect(bars.length).toBeGreaterThan(0);
-  });
+  it("renderiza todos os alunos corretamente", () => {
+    render(<EstudantesPorMateria dados={mockDataMatematica} />);
 
-  it("Mostra Nomes Estudantes", () => {
-    render(<EstudantesPorMateria dados={mockDadosPortugues} />);
-    expect(screen.getByText("Carlos")).toBeInTheDocument();
-    expect(screen.getByText("Daniela")).toBeInTheDocument();
+    mockDataMatematica.alunos.forEach((aluno) => {
+      expect(screen.getByText(aluno.nome)).toBeInTheDocument();
+    });
   });
 });

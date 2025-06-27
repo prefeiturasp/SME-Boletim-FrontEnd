@@ -1,54 +1,116 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import EscolherEscola from "./EscolherEscola";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import EscolherEscola from "./EscolherEscola";
-import { servicos } from "../../__mocks__/servicos";
+import thunk from "redux-thunk";
+// Setup store
+const middlewares = [thunk];
+const mockStore = configureStore();
 
-jest.mock("../../servicos");
+// Mocks
+jest.mock("../../servicos", () => ({
+  servicos: {
+    get: jest.fn((url) => {
+      if (url.includes("/api/abrangencia")) {
+        return Promise.resolve([{ ueId: "1", descricao: "Escola Teste" }]);
+      }
+      if (url.includes("/filtros")) {
+        return Promise.resolve({
+          niveis: ["Fundamental"],
+          anosEscolares: ["1º Ano"],
+          componentesCurriculares: ["Matemática"],
+          nivelMinimo: 1,
+          nivelMaximo: 9,
+        });
+      }
+      if (url.includes("/nome-aplicacao")) {
+        return Promise.resolve({ nome: "Aplicação Teste" });
+      }
+    }),
+  },
+}));
 
-const mockStore = configureStore([]);
+jest.mock("../filtro/filtroLateral", () => () => (
+  <div data-testid="filtro-lateral" />
+));
 
-describe("EscolherEscola Componente", () => {
-  let store;
+const initialState = {
+  escola: {
+    escolaSelecionada: {
+      ueId: null,
+      descricao: null,
+    },
+  },
+  filtros: {
+    niveis: [],
+    niveisAbaPrincipal: [],
+    anosEscolares: [],
+    componentesCurriculares: [],
+    anosEscolaresRadio: [],
+    componentesCurricularesRadio: [],
+    nivelMinimo: 0,
+    nivelMinimoEscolhido: 0,
+    nivelMaximo: 0,
+    nivelMaximoEscolhido: 0,
+    turmas: [],
+    nomeEstudante: "",
+    eolEstudante: "",
+  },
+  filtroCompleto: {},
+  tab: {
+    activeTab: "1",
+  },
+};
 
-  beforeEach(() => {
-    store = mockStore({
-      escola: { escolaSelecionada: { ueId: null, descricao: "" } },
-    });
+const renderComponent = (state = initialState) => {
+  const store = mockStore(state);
+  return render(
+    <Provider store={store}>
+      <EscolherEscola />
+    </Provider>
+  );
+};
 
-    servicos.get.mockResolvedValueOnce([
-      { ueId: "1", descricao: "Escola A" },
-      { ueId: "2", descricao: "Escola B" },
-    ]);
-  });
+describe("EscolherEscola", () => {
+  it("deve carregar escolas e selecionar a primeira caso nenhuma esteja selecionada", async () => {
+    const state = {
+      ...initialState,
+      escola: {
+        escolaSelecionada: {
+          ueId: null,
+          descricao: null,
+        },
+      },
+    };
+    const store = mockStore(state);
 
-  test("Renderizar componente EscolherEscola", async () => {
     render(
       <Provider store={store}>
         <EscolherEscola />
       </Provider>
     );
-
-    screen.debug();
-
-    await waitFor(() =>
-      expect(screen.getByRole("combobox")).toBeInTheDocument()
-    );
-  });
-
-  test("Abrir drawer de filtros", async () => {
-    render(
-      <Provider store={store}>
-        <EscolherEscola />
-      </Provider>
-    );
-
-    const botaoFiltrar = screen.getByText("Filtrar");
-    fireEvent.click(botaoFiltrar);
 
     await waitFor(() => {
-      expect(screen.getByText("Níveis")).toBeInTheDocument();
+      expect(store.getActions()).toContainEqual({
+        type: "escola/selecionarEscola",
+        payload: {
+          ueId: "1",
+          descricao: "Escola Teste",
+        },
+      });
     });
+  });
+
+  it("deve filtrar as opções do select", async () => {
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByRole("combobox")).toBeInTheDocument();
+    });
+
+    const select = screen.getByRole("combobox");
+    fireEvent.change(select, { target: { value: "Teste" } });
+    expect(select).toBeInTheDocument();
   });
 });

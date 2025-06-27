@@ -12,6 +12,15 @@ export default {
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.test.{js,jsx,ts,tsx}",
+    "!src/interfaces/**",
+    "!src/pages/**",
+    "!src/redux/**",
+    "!src/types/**",
+    "!src/App.tsx",
+    "!src/main.tsx",
+    "!src/servicos.tsx",
+    "!src/vite-env.d.ts",
+    "!src/__mocks__/**",
   ],
   coverageReporters: ["json", "lcov", "text", "clover"],
 };

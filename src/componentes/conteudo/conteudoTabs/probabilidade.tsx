@@ -329,7 +329,7 @@ const Probabilidade: React.FC = () => {
                 color: "white",
               }}
               dropdownStyle={{ borderRadius: 8 }}
-              bordered={false}
+              variant="borderless"
               placeholder="Selecione"
               onChange={(value) => {
                 setComponentesCurricular(value);
@@ -356,7 +356,7 @@ const Probabilidade: React.FC = () => {
                 color: "white",
               }}
               dropdownStyle={{ borderRadius: 8 }}
-              bordered={false}
+              variant="borderless"
               placeholder="Selecione"
               onChange={(value) => {
                 setAnoEscolar(value);
