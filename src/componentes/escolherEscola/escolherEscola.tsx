@@ -8,7 +8,6 @@ import { servicos } from "../../servicos";
 import { setFilters } from "../../redux/slices/filtrosSlice";
 import FiltroLateral from "../filtro/filtroLateral";
 import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
-import { setNomeAplicacao } from "../../redux/slices/nomeAplicacaoSlice";
 import { filtroCarregado } from "../../redux/slices/filtroCarregado";
 
 const EscolherEscola = () => {
@@ -35,6 +34,11 @@ const EscolherEscola = () => {
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
   );
+
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+
   const filtroDados = useSelector((state: RootState) => state.filtroCompleto);
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
@@ -58,43 +62,31 @@ const EscolherEscola = () => {
     descricao: string | null;
   }) => {
     try {
-      const selectedFilters: Filtro = {
+      const resposta: any = await servicos.get(
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/filtros`
+      );
+
+      const novosFiltros = {
         niveis: [],
-        niveisAbaPrincipal: [],
+        niveisAbaPrincipal: resposta.niveis || [],
         anosEscolares: [],
         componentesCurriculares: [],
-        anosEscolaresRadio: [],
-        componentesCurricularesRadio: [],
-        nivelMinimo: 0,
-        nivelMinimoEscolhido: 0,
-        nivelMaximo: 0,
-        nivelMaximoEscolhido: 0,
+        anosEscolaresRadio:
+          resposta.anosEscolares?.length > 0 ? [resposta.anosEscolares[0]] : [],
+        componentesCurricularesRadio:
+          resposta.componentesCurriculares?.length > 0
+            ? [resposta.componentesCurriculares[0]]
+            : [],
+        nivelMinimo: resposta.nivelMinimo || 0,
+        nivelMinimoEscolhido: resposta.nivelMinimo || 0,
+        nivelMaximo: resposta.nivelMaximo || 0,
+        nivelMaximoEscolhido: resposta.nivelMaximo || 0,
         turmas: [],
         nomeEstudante: "",
         eolEstudante: "",
       };
 
-      const resposta: Filtro = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/filtros`
-      );
-
-      resposta.niveisAbaPrincipal = resposta.niveis;
-      resposta.niveisAbaPrincipal.map((item) => {
-        selectedFilters.niveisAbaPrincipal.push(item);
-      });
-
-      selectedFilters.nivelMaximoEscolhido = resposta.nivelMaximo;
-      selectedFilters.nivelMinimoEscolhido = resposta.nivelMinimo;
-      selectedFilters.nivelMaximo = resposta.nivelMaximo;
-      selectedFilters.nivelMinimo = resposta.nivelMinimo;
-
-      selectedFilters.anosEscolaresRadio = [resposta.anosEscolares[0]];
-      selectedFilters.componentesCurricularesRadio = [
-        resposta.componentesCurriculares[0],
-      ];
-      setSelectedFilters(selectedFilters);
-      dispatch(setFilters(selectedFilters));
-
+      dispatch(setFilters(novosFiltros));
       dispatch(setFiltroDados(resposta));
       dispatch(filtroCarregado(true));
     } catch (error) {
@@ -102,27 +94,15 @@ const EscolherEscola = () => {
     }
   };
 
-  const buscarNomeAplicacao = async () => {
-    try {
-      const resposta: NomeAplicacao = await servicos.get(
-        `/api/boletimescolar/nome-aplicacao`
-      );
-      dispatch(setNomeAplicacao(resposta));
-    } catch (error) {
-      console.error("Erro ao buscar o nome da:", error);
-    }
-  };
-
   useEffect(() => {
-    if (escolaSelecionada.ueId != null) {
-      buscarNomeAplicacao();
+    if (escolaSelecionada.ueId != null && aplicacaoSelecionada) {
       buscarFiltros(escolaSelecionada);
     }
-  }, [escolaSelecionada]);
+  }, [escolaSelecionada, aplicacaoSelecionada]);
 
   useEffect(() => {
     buscarAbrangencias();
-  }, []);
+  }, [aplicacaoSelecionada]);
 
   useEffect(() => {
     if (abrangencia.length > 0 && escolaSelecionada.ueId == null) {

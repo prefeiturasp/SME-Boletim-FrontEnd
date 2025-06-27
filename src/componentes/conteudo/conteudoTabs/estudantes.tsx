@@ -20,6 +20,10 @@ const Estudantes: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
@@ -73,7 +77,7 @@ const Estudantes: React.FC = () => {
       }
 
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}${filtros}`
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/estudantes?pageNumber=${paginaAtual}&pageSize=${tamanhoPagina}${filtros}`
       );
 
       setDados(resposta.estudantes.itens || []);
@@ -136,7 +140,7 @@ const Estudantes: React.FC = () => {
       }
 
       const resposta: Turma[] = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/estudantes-grafico${filtros}`
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/estudantes-grafico${filtros}`
       );
       setDadosGrafico(resposta || []);
     } catch (error) {
@@ -150,7 +154,7 @@ const Estudantes: React.FC = () => {
     if (escolaSelecionada && activeTab == "3") {
       buscarDadosEstudantes(pagina, pageSize);
     }
-  }, [pagina, pageSize, activeTab]);
+  }, [pagina, pageSize, activeTab, aplicacaoSelecionada]);
 
   useEffect(() => {
     if (escolaSelecionada && activeTab == "3") {
@@ -158,7 +162,7 @@ const Estudantes: React.FC = () => {
       buscarDadosEstudantes();
       buscarDadosGraficos();
     }
-  }, [escolaSelecionada, filtrosSelecionados, activeTab]);
+  }, [escolaSelecionada, filtrosSelecionados, activeTab, aplicacaoSelecionada]);
 
   const getNivelColor = (nivel: string) => {
     switch (nivel) {

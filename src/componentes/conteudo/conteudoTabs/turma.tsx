@@ -55,6 +55,10 @@ const Turma: React.FC = () => {
     (state: RootState) => state.escola.escolaSelecionada
   );
 
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
 
@@ -80,7 +84,7 @@ const Turma: React.FC = () => {
       }
 
       const resposta = await servicos.get(
-        `/api/boletimescolar/${escolaSelecionada.ueId}/turmas${filtros}`
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/turmas${filtros}`
       );
       setDados(resposta.provas || []);
     } catch (error) {
@@ -94,7 +98,7 @@ const Turma: React.FC = () => {
     if (escolaSelecionada && activeTab == "2") {
       buscarDadosTurmas();
     }
-  }, [escolaSelecionada, filtrosSelecionados, activeTab]);
+  }, [escolaSelecionada, filtrosSelecionados, activeTab, aplicacaoSelecionada]);
 
   const toggleColumnVisibility = (
     columnsSetter: React.Dispatch<React.SetStateAction<any[]>>,
