@@ -85,6 +85,19 @@ const Conteudo: React.FC = () => {
           <Card
             title={
               <div>
+                <span
+                  style={{
+                    display: "block",
+                    marginBottom: 8,
+                    marginTop: 8,
+                    fontWeight: "normal",
+                    fontSize: "14px",
+                  }}
+                >
+                  Você pode consultar as informações de todas as provas já
+                  aplicadas. Basta selecionar a aplicação que deseja visualizar
+                </span>
+
                 <Select
                   showSearch
                   placeholder="Selecione uma aplicação..."
