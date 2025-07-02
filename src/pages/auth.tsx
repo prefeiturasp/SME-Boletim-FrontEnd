@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setUserLogged, logout } from "../redux/slices/authSlice";
@@ -10,10 +10,17 @@ const Auth: React.FC = () => {
   const [searchParams] = useSearchParams();
   const codigo = searchParams.get("codigo");
 
+  const isExecuting = useRef(false);
+
   useEffect(() => {
     const verificarToken = async () => {
+      if (isExecuting.current) return;
+      isExecuting.current = true;
+
       const storedToken = localStorage.getItem("authToken");
       const dataHoraExpiracao = localStorage.getItem("authExpiresAt");
+      const tipoPerfil = localStorage.getItem("tipoPerfil");
+      const tipoPerfilNum = tipoPerfil ? Number(tipoPerfil) : null;
 
       if (storedToken && dataHoraExpiracao) {
         const expiraEm = new Date(dataHoraExpiracao);
@@ -22,8 +29,17 @@ const Auth: React.FC = () => {
             setUserLogged({
               token: storedToken,
               dataHoraExpiracao: dataHoraExpiracao,
+              tipoPerfil: tipoPerfil,
             })
           );
+
+          // if (tipoPerfilNum === 1 || tipoPerfilNum === 2 || tipoPerfilNum === 3) {
+          //   navigate("/");
+          // } else if (tipoPerfilNum === 4) {
+          //   navigate("/ues");
+          // } else if (tipoPerfilNum === 5) {
+          //   navigate("/dres");
+          // }
           navigate("/");
           return;
         } else {
@@ -36,9 +52,18 @@ const Auth: React.FC = () => {
           const resposta = await servicos.post("/api/v1/autenticacao/validar", {
             codigo,
           });
-          const { token, dataHoraExpiracao } = resposta;
 
-          dispatch(setUserLogged({ token, dataHoraExpiracao }));
+          const { token, dataHoraExpiracao, tipoPerfil } = resposta;
+
+          dispatch(setUserLogged({ token, dataHoraExpiracao, tipoPerfil }));
+
+          // if (tipoPerfil === 1 || tipoPerfil === 2 || tipoPerfil === 3) {
+          //   navigate("/");
+          // } else if (tipoPerfil === 4) {
+          //   navigate("/ues");
+          // } else if (tipoPerfil === 5) {
+          //   navigate("/dres");
+          // }
           navigate("/");
         } catch (error) {
           console.error("Erro ao autenticar:", error);
