@@ -11,6 +11,7 @@ import Auth from "./pages/auth";
 import SemAcesso from "./pages/semAcesso";
 import "./main.css";
 import Rodape from "./componentes/rodape/rodape";
+import UesPage from "./pages/ues";
 const AppLayout = () => {
     return (_jsxs("div", { className: "app-container", children: [_jsx(Cabecalho, {}), _jsx(EscolherEscola, {}), _jsx(Conteudo, {}), _jsx(Rodape, {})] }));
 };
@@ -25,6 +26,6 @@ const PrivateRoute = ({ element }) => {
     return isAuthenticated ? _jsx(_Fragment, { children: element }) : _jsx(Navigate, { to: "/sem-acesso" });
 };
 const App = () => {
-    return (_jsx(Provider, { store: store, children: _jsx(ConfigProvider, { children: _jsx(Router, { children: _jsxs(Routes, { children: [_jsx(Route, { path: "/validar", element: _jsx(Auth, {}) }), _jsx(Route, { path: "/sem-acesso", element: _jsx(SemAcesso, {}) }), _jsx(Route, { path: "/", element: _jsx(PrivateRoute, { element: _jsx(AppLayout, {}) }) })] }) }) }) }));
+    return (_jsx(Provider, { store: store, children: _jsx(ConfigProvider, { children: _jsx(Router, { children: _jsxs(Routes, { children: [_jsx(Route, { path: "/validar", element: _jsx(Auth, {}) }), _jsx(Route, { path: "/sem-acesso", element: _jsx(SemAcesso, {}) }), _jsx(Route, { path: "/", element: _jsx(PrivateRoute, { element: _jsx(AppLayout, {}) }) }), _jsx(Route, { path: "/ues", element: _jsx(PrivateRoute, { element: _jsx(UesPage, {}) }) })] }) }) }) }));
 };
 export default App;

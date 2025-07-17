@@ -16,6 +16,7 @@ import SemAcesso from "./pages/semAcesso";
 import { RootState } from "./redux/store";
 import "./main.css";
 import Rodape from "./componentes/rodape/rodape";
+import UesPage from "./pages/ues";
 
 const AppLayout: React.FC = () => {
   return (
@@ -54,6 +55,10 @@ const App: React.FC = () => {
             <Route
               path="/"
               element={<PrivateRoute element={<AppLayout />} />}
+            />
+            <Route
+              path="/ues"
+              element={<PrivateRoute element={<UesPage />} />}
             />
           </Routes>
         </Router>
