@@ -14,6 +14,8 @@ const UesPage: React.FC = () => {
   const dispatch = useDispatch();
   const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
   const [aplicacoes, setAplicacoes] = useState<any[]>([]);
+  const [anos, setAnos] = useState([]);
+  const [anoSelecionado, setAnoSelecionado] = useState();
 
   const buscarAplicacoes = async () => {
     try {
@@ -43,6 +45,39 @@ const UesPage: React.FC = () => {
   useEffect(() => {
     buscarAplicacoes();
   }, []);
+
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+  console.log(aplicacaoSelecionada);
+
+  const buscarAnos = async () => {
+    try {
+      const resposta = await servicos.get(
+        `/api/boletimescolar/${aplicacaoSelecionada}/anos-escolares`
+      );
+
+      const opcoes = (resposta ?? []).map(
+        (item: { ano: any; descricao: any }) => ({
+          value: item.ano,
+          label: item.descricao,
+        })
+      );
+      setAnos(opcoes);
+
+      if (opcoes.length > 0) {
+        setAnoSelecionado(opcoes[0].value);
+      } else {
+        setAnoSelecionado(undefined);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar aplicações:", error);
+    }
+  };
+
+  useEffect(() => {
+    buscarAnos();
+  }, [aplicacaoSelecionada]);
 
   const opcoes = aplicacoes.map((item: any) => ({
     value: item.id,
@@ -140,9 +175,20 @@ const UesPage: React.FC = () => {
                   }
                   options={opcoes}
                 />
-                <select>
-                  <option>5º ano</option>
-                </select>
+                <Select
+                  showSearch
+                  placeholder="Ano escolar"
+                  style={{ width: "20%" }}
+                  onChange={(value) => {
+                    setAnoSelecionado(value);
+                  }}
+                  value={anoSelecionado || undefined}
+                  notFoundContent="Nenhum ano encontrado"
+                  filterOption={(input, option) =>
+                    option?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                  options={anos}
+                />
               </div>
             </Card>
             <br></br>
