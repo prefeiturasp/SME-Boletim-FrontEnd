@@ -47,8 +47,9 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
     return (
       <>
         <Card>
-          Confira a quantidade de <b>Unidades Educacionais (UEs)</b> classificadas
-          dentro de cada um dos niveis de proficiência (AB, B, AD, AV).
+          Confira a quantidade de <b>Unidades Educacionais (UEs) </b>
+          classificadas dentro de cada um dos niveis de proficiência (AB, B, AD,
+          AV).
           <div className="legendas">
             <div className="texto">
               <b>Niveis:</b>
@@ -102,6 +103,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                         position="center"
                         fill="white"
                         fontSize={14}
+                        fontWeight={500}
                         formatter={(value: unknown) => `AB: ${value}`}
                       />
                     </Bar>
@@ -113,6 +115,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                         position="center"
                         fill="black"
                         fontSize={14}
+                        fontWeight={500}
                         formatter={(value: unknown) => `B: ${value}`}
                       />
                     </Bar>
@@ -124,6 +127,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                         position="center"
                         fill="white"
                         fontSize={14}
+                        fontWeight={500}
                         formatter={(value: unknown) => `AD: ${value}`}
                       />
                     </Bar>
@@ -135,6 +139,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                         position="center"
                         fill="black"
                         fontSize={14}
+                        fontWeight={500}
                         formatter={(value: unknown) => `AV: ${value}`}
                       />
                     </Bar>
