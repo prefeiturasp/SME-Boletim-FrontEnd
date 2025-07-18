@@ -1,5 +1,47 @@
-.desempenho-por-materia {
-    width: 100% !important;
-    margin: 0;
-    padding: 0;
+.legendas {
+    background: #F5F5F5;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center; /* ✅ this aligns boxes and text vertically */
+    flex-wrap: wrap; /* optional if you want them to wrap on smaller screens */
+    gap: 10px;
+}
+
+.texto {
+    margin-right: 30px;
+    display: flex;
+    align-items: center; /* ensures text stays centered if multi-line */
+}
+
+.caixa-vermelha {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #FF5959;
+    margin-right: 5px;
+}
+
+.caixa-amarela {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #FEDE99;
+    margin-right: 5px;
+}
+
+.caixa-azul {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #9999FF;
+    margin-right: 5px;
+}
+
+.caixa-verde {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #99FF99;
+    margin-right: 5px;
 }
