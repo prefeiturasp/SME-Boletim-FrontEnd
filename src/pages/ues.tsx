@@ -184,9 +184,9 @@ const UesPage: React.FC = () => {
         `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ues-por-dre`
       );
       const opcoesUe = (resposta ?? []).map(
-        (item: { ueId: any; ueNome: any }) => ({
+        (item: { ueId: any; descricao: any }) => ({
           value: item.ueId,
-          label: item.ueNome,
+          label: item.descricao,
         })
       );
       setUes(opcoesUe);
