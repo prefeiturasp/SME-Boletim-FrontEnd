@@ -28,3 +28,7 @@
 .ues-dre-title {
   font-size: 20px;
 }
+
+.ant-select-item-option-selected .ant-select-item-option-state {
+  display: none !important;
+}
