@@ -95,42 +95,50 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                     tickLine={false}
                     tick={false}
                   />
-                  <Bar dataKey="abaixoDoBasico" stackId="a" fill="#FF5959">
-                    <LabelList
-                      dataKey="abaixoDoBasico"
-                      position="center"
-                      fill="white"
-                      fontSize={14}
-                      formatter={(value: unknown) => `AB: ${value}`}
-                    />
-                  </Bar>
-                  <Bar dataKey="basico" stackId="a" fill="#FEDE99">
-                    <LabelList
-                      dataKey="basico"
-                      position="center"
-                      fill="black"
-                      fontSize={14}
-                      formatter={(value: unknown) => `B: ${value}`}
-                    />
-                  </Bar>
-                  <Bar dataKey="adequado" stackId="a" fill="#9999FF">
-                    <LabelList
-                      dataKey="adequado"
-                      position="center"
-                      fill="white"
-                      fontSize={14}
-                      formatter={(value: unknown) => `AD: ${value}`}
-                    />
-                  </Bar>
-                  <Bar dataKey="avancado" stackId="a" fill="#99FF99">
-                    <LabelList
-                      dataKey="avancado"
-                      position="center"
-                      fill="black"
-                      fontSize={14}
-                      formatter={(value: unknown) => `AV: ${value}`}
-                    />
-                  </Bar>
+                  {item.abaixoDoBasico > 0 && (
+                    <Bar dataKey="abaixoDoBasico" stackId="a" fill="#FF5959">
+                      <LabelList
+                        dataKey="abaixoDoBasico"
+                        position="center"
+                        fill="white"
+                        fontSize={14}
+                        formatter={(value: unknown) => `AB: ${value}`}
+                      />
+                    </Bar>
+                  )}
+                  {item.basico > 0 && (
+                    <Bar dataKey="basico" stackId="a" fill="#FEDE99">
+                      <LabelList
+                        dataKey="basico"
+                        position="center"
+                        fill="black"
+                        fontSize={14}
+                        formatter={(value: unknown) => `B: ${value}`}
+                      />
+                    </Bar>
+                  )}
+                  {item.adequado > 0 && (
+                    <Bar dataKey="adequado" stackId="a" fill="#9999FF">
+                      <LabelList
+                        dataKey="adequado"
+                        position="center"
+                        fill="white"
+                        fontSize={14}
+                        formatter={(value: unknown) => `AD: ${value}`}
+                      />
+                    </Bar>
+                  )}
+                  {item.avancado > 0 && (
+                    <Bar dataKey="avancado" stackId="a" fill="#99FF99">
+                      <LabelList
+                        dataKey="avancado"
+                        position="center"
+                        fill="black"
+                        fontSize={14}
+                        formatter={(value: unknown) => `AV: ${value}`}
+                      />
+                    </Bar>
+                  )}
                 </BarChart>
               </ResponsiveContainer>
             </div>
