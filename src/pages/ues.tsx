@@ -10,7 +10,7 @@ import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
-
+import "./UesPage.css";
 const UesPage: React.FC = () => {
   const dispatch = useDispatch();
   const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
@@ -18,11 +18,14 @@ const UesPage: React.FC = () => {
   const [anos, setAnos] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState();
   const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
-
+  const [dres, setDres] = useState([]);
+  const [dreSelecionada, setDreSelecionada] = useState();
+  const [dreSelecionadaNome, setDreSeleciondaNome] = useState();
+  const [resumoDre, setResumoDre] = useState<any | null>(null);
   const buscaDesempenhoPorMateria = async () => {
     try {
       const respostas = await servicos.get(
-        `/api/boletimescolar/${aplicacaoSelecionada}/dre/11/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
+        `/api/boletimescolar/${aplicacaoSelecionada}/dre/${dreSelecionada}/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
       );
       setNiveisProficiencia([]);
 
@@ -110,13 +113,6 @@ const UesPage: React.FC = () => {
     aplicacao: item,
   }));
 
-  const cards = [
-    { valor: "58", descricao: "Unidades Educacionais" },
-    { valor: "62.458", descricao: "Estudantes" },
-    { valor: "180,5", descricao: "Média de proficiência Língua Portuguesa" },
-    { valor: "150,4", descricao: "Média de proficiência Matemática" },
-  ];
-
   const handleChange = (value: number, option: any) => {
     const aplicacaoSelecionada = aplicacoes.find((app) => app.id === value);
 
@@ -132,6 +128,52 @@ const UesPage: React.FC = () => {
       );
     }
   };
+
+  const buscarDres = async () => {
+    try {
+      const resposta = await servicos.get(`/api/Abrangencia/dres`);
+      const opcoesDre = (resposta ?? []).map(
+        (item: { id: any; nome: any }) => ({
+          value: item.id,
+          label: item.nome,
+        })
+      );
+
+      setDres(opcoesDre);
+
+      if (opcoesDre.length > 0) {
+        setDreSelecionada(opcoesDre[0].value);
+        setDreSeleciondaNome(opcoesDre[0].label);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar DREs:", error);
+    }
+  };
+  useEffect(() => {
+    buscarDres();
+  }, []);
+
+  const buscarResumoDre = async () => {
+    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
+
+    try {
+      const resposta = await servicos.get(
+        `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/resumo-dre`
+      );
+      setResumoDre(resposta);
+    } catch (error) {
+      console.error("Erro ao buscar resumo da DRE:", error);
+      setResumoDre(null);
+    }
+  };
+
+  useEffect(() => {
+    if (aplicacaoSelecionada && dreSelecionada && anoSelecionado) {
+      buscarResumoDre();
+    }
+  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
+
+  console.log(dreSelecionada);
   return (
     <div className="app-container">
       <Row>
@@ -168,7 +210,8 @@ const UesPage: React.FC = () => {
       <div className="conteudo-principal-ues">
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <h2>DRE Capela do Socorro</h2>
+            <h2>{dreSelecionadaNome}</h2>
+
             <Card title="" variant="borderless">
               {/* <button
               style={{
@@ -183,6 +226,32 @@ const UesPage: React.FC = () => {
               <ArrowLeftOutlined /> Voltar à tela anterior 
             </button> */}
 
+              <p>
+                Você pode filtrar outra Diretoria Regional de Educação (DRE).
+              </p>
+              <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
+                <Select
+                  showSearch
+                  placeholder="Selecione uma DRE..."
+                  style={{ width: "100%" }}
+                  onChange={(value) => {
+                    setDreSelecionada(value);
+                    console.log("DRE selecionada:", value);
+                  }}
+                  value={dreSelecionada || undefined}
+                  notFoundContent="Nenhuma DRE encontrada"
+                  filterOption={(input, option) =>
+                    String(option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={dres}
+                />
+              </div>
+            </Card>
+            <br></br>
+
+            <Card title="" variant="borderless">
               <p>
                 Você pode consultar as informações de todas as provas já
                 aplicadas. Basta selecionar a aplicação que deseja visualizar.
@@ -217,30 +286,37 @@ const UesPage: React.FC = () => {
               </div>
             </Card>
             <br></br>
-            <Row gutter={[16, 16]}>
-              {cards.map((card, idx) => (
-                <Col xs={24} sm={12} md={6} key={idx}>
-                  <Card
-                    style={{
-                      textAlign: "center",
-                      padding: 0,
-                      borderRadius: 8,
-                      height: 90,
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      color: " #595959",
-                    }}
-                    bodyStyle={{ padding: 0 }}
-                  >
-                    <div style={{ fontSize: 32, fontWeight: "bold" }}>
-                      {card.valor}
-                    </div>
-                    <div style={{ fontSize: 14 }}>{card.descricao}</div>
-                  </Card>
-                </Col>
-              ))}
+            <Row gutter={[16, 16]} className="cards-container">
+              <Col xs={24} sm={12} md={6}>
+                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                  <div className="valor">{resumoDre?.totalUes ?? "-"}</div>
+                  <div className="descricao">Unidades Educacionais</div>
+                </Card>
+              </Col>
+
+              <Col xs={24} sm={12} md={6}>
+                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                  <div className="valor">{resumoDre?.totalAlunos ?? "-"}</div>
+                  <div className="descricao">Estudantes</div>
+                </Card>
+              </Col>
+
+              {resumoDre?.proficienciaDisciplina?.map(
+                (disciplina: any, idx: number) => (
+                  <Col xs={24} sm={12} md={6} key={idx}>
+                    <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                      <div className="valor">
+                        {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
+                      </div>
+                      <div className="descricao">
+                        Média de proficiência {disciplina.disciplinaNome}
+                      </div>
+                    </Card>
+                  </Col>
+                )
+              )}
             </Row>
+            <br></br>
             <div
               style={{
                 background: "#428bca",
@@ -258,10 +334,12 @@ const UesPage: React.FC = () => {
             <br></br>
 
             <Card title="" variant="borderless">
-              <p>Unidades Educacionais (UEs) - DRE Capela do Socorro</p>
+              <p className="ues-dre-title">
+                <b> Unidades Educacionais (UEs) - {dreSelecionadaNome} </b>
+              </p>
               <p>
                 {" "}
-                Confira as informações de todas as UEs da DRE Capela do Socorro.
+                Confira as informações de todas as UEs da {dreSelecionadaNome}.
               </p>
               <div>
                 <DesempenhoPorMateria dados={niveisProficiencia} />
