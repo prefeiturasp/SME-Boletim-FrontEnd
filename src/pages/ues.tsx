@@ -22,6 +22,9 @@ const UesPage: React.FC = () => {
   const [dreSelecionada, setDreSelecionada] = useState();
   const [dreSelecionadaNome, setDreSeleciondaNome] = useState();
   const [resumoDre, setResumoDre] = useState<any | null>(null);
+  const [ues, setUes] = useState([]);
+  const [uesSelecionadas, setUesSelecionadas] = useState([]);
+
   const buscaDesempenhoPorMateria = async () => {
     try {
       const respostas = await servicos.get(
@@ -32,8 +35,6 @@ const UesPage: React.FC = () => {
       if (respostas) {
         setNiveisProficiencia(respostas.disciplinas);
       }
-
-      console.log(respostas);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +45,7 @@ const UesPage: React.FC = () => {
       const resposta = await servicos.get(
         `/api/boletimescolar/aplicacoes-prova`
       );
-      console.log(resposta);
+
       setAplicacoes(resposta || []);
 
       if (resposta.length > 0) {
@@ -71,7 +72,6 @@ const UesPage: React.FC = () => {
   const aplicacaoSelecionada = useSelector(
     (state: RootState) => state.nomeAplicacao.id
   );
-  console.log(aplicacaoSelecionada);
 
   const buscarAnos = async () => {
     try {
@@ -173,7 +173,34 @@ const UesPage: React.FC = () => {
     }
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
-  console.log(dreSelecionada);
+  const buscarUes = async () => {
+    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) {
+      setUes([]);
+      return;
+    }
+
+    try {
+      const resposta = await servicos.get(
+        `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ues-por-dre`
+      );
+      const opcoesUe = (resposta ?? []).map(
+        (item: { ueId: any; ueNome: any }) => ({
+          value: item.ueId,
+          label: item.ueNome,
+        })
+      );
+      setUes(opcoesUe);
+    } catch (error) {
+      setUes([]);
+      console.error("Erro ao buscar UEs:", error);
+    }
+  };
+
+  useEffect(() => {
+    buscarUes();
+    setUesSelecionadas([]);
+  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
+
   return (
     <div className="app-container">
       <Row>
@@ -236,7 +263,6 @@ const UesPage: React.FC = () => {
                   style={{ width: "100%" }}
                   onChange={(value) => {
                     setDreSelecionada(value);
-                    console.log("DRE selecionada:", value);
                   }}
                   value={dreSelecionada || undefined}
                   notFoundContent="Nenhuma DRE encontrada"
@@ -345,7 +371,24 @@ const UesPage: React.FC = () => {
                 <DesempenhoPorMateria dados={niveisProficiencia} />
               </div>
               <br></br>
-              Você pode filtrar por Unidade Educacional (UE)
+              <p> Você pode filtrar por Unidade Educacional (UE)</p>
+              <Select
+                mode="multiple"
+                allowClear
+                showSearch
+                placeholder="Selecione ou digite a UE..."
+                style={{ width: "100%" }}
+                value={uesSelecionadas}
+                onChange={setUesSelecionadas}
+                notFoundContent="Nenhuma escola encontrada"
+                filterOption={(input, option) =>
+                  (option?.label ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={ues}
+              />
+              <br></br>
             </Card>
           </Col>
         </Row>
