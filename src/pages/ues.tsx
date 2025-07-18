@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
+import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
 
 const UesPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,24 @@ const UesPage: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<any[]>([]);
   const [anos, setAnos] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState();
+  const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
+
+  const buscaDesempenhoPorMateria = async () => {
+    try {
+      const respostas = await servicos.get(
+        `/api/boletimescolar/16/dre/11/ano-escolar/5/grafico/niveis-proficiencia-disciplina`
+      );
+      setNiveisProficiencia([]);
+
+      if (respostas) {
+        setNiveisProficiencia(respostas.disciplinas);
+      }
+
+      console.log(respostas);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const buscarAplicacoes = async () => {
     try {
@@ -77,6 +96,12 @@ const UesPage: React.FC = () => {
 
   useEffect(() => {
     buscarAnos();
+  }, [aplicacaoSelecionada]);
+
+  useEffect(() => {
+    if (aplicacoes.length > 0) {
+      buscaDesempenhoPorMateria();
+    }
   }, [aplicacaoSelecionada]);
 
   const opcoes = aplicacoes.map((item: any) => ({
@@ -238,8 +263,8 @@ const UesPage: React.FC = () => {
                 {" "}
                 Confira as informações de todas as UEs da DRE Capela do Socorro.
               </p>
-              <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
-                {/* Grafico aqui */}
+              <div>
+                <DesempenhoPorMateria dados={niveisProficiencia} />
               </div>
               <br></br>
               Você pode filtrar por Unidade Educacional (UE)
