@@ -22,7 +22,7 @@ const UesPage: React.FC = () => {
   const buscaDesempenhoPorMateria = async () => {
     try {
       const respostas = await servicos.get(
-        `/api/boletimescolar/16/dre/11/ano-escolar/5/grafico/niveis-proficiencia-disciplina`
+        `/api/boletimescolar/${aplicacaoSelecionada}/dre/11/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
       );
       setNiveisProficiencia([]);
 
@@ -102,7 +102,7 @@ const UesPage: React.FC = () => {
     if (aplicacoes.length > 0) {
       buscaDesempenhoPorMateria();
     }
-  }, [aplicacaoSelecionada]);
+  }, [aplicacaoSelecionada, anoSelecionado]);
 
   const opcoes = aplicacoes.map((item: any) => ({
     value: item.id,
