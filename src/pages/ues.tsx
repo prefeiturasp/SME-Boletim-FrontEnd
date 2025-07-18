@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Row, Col, Breadcrumb, Card, Select } from "antd";
+import { Row, Col, Breadcrumb, Card, Select, Checkbox } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE.jpg";
@@ -372,6 +372,7 @@ const UesPage: React.FC = () => {
               </div>
               <br></br>
               <p> Você pode filtrar por Unidade Educacional (UE)</p>
+
               <Select
                 mode="multiple"
                 allowClear
@@ -387,6 +388,15 @@ const UesPage: React.FC = () => {
                     .includes(input.toLowerCase())
                 }
                 options={ues}
+                optionRender={(option) => (
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Checkbox
+                      checked={uesSelecionadas.includes(option.value)}
+                      style={{ marginRight: 8 }}
+                    />
+                    {option.label}
+                  </div>
+                )}
               />
               <br></br>
             </Card>
