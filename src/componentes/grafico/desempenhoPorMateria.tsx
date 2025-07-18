@@ -47,7 +47,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
     return (
       <>
         <Card>
-          Confira a quantidade de <b>Unidades Regionais (DRE)</b> classificadas
+          Confira a quantidade de <b>Unidades Educacionais (Ues)</b> classificadas
           dentro de cada um dos niveis de proficiência (AB, B, AD, AV).
           <div className="legendas">
             <div className="texto">
