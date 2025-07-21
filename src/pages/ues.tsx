@@ -11,6 +11,7 @@ import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
 import "./UesPage.css";
+import RelatorioAlunosPorUes from "../componentes/relatorio/relatorioAlunosPorUes";
 const UesPage: React.FC = () => {
   const dispatch = useDispatch();
   const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
@@ -399,6 +400,15 @@ const UesPage: React.FC = () => {
                 )}
               />
               <br></br>
+            </Card>
+
+            <br></br>
+
+            <Card title="" variant="borderless">
+              <RelatorioAlunosPorUes
+                aplicacaoSelecionada={aplicacaoSelecionada}
+                dreSelecionada={dreSelecionada}
+              ></RelatorioAlunosPorUes>
             </Card>
           </Col>
         </Row>

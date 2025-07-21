@@ -1,0 +1,9 @@
+.elementos {
+  display: flex;
+  justify-content: center;
+}
+
+.elementos button {
+  padding: 20px;
+  
+}
