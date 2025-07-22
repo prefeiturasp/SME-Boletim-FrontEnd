@@ -32,3 +32,73 @@
 .ant-select-item-option-selected .ant-select-item-option-state {
   display: none !important;
 }
+
+.imagem-header {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imagem-header img {
+  width: 100%;
+  height: 100%;
+}
+
+.filtros-card {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.select-full {
+  width: 100%;
+}
+
+.select-ano {
+  width: 20%;
+}
+
+.informacao-blue {
+  background: #428bca;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.select-option-multiview {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-ue {
+  margin-right: 8px;
+}
+
+.rodape {
+  bottom: 0;
+  padding: 15px 35px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rodape-versao {
+  margin-right: 35px;
+  margin-left: 35px;
+  color: #b3b3b3;
+  font-size: 10px !important;
+}
+
+.versao-secao {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}

@@ -1,17 +1,22 @@
+// UesPage.tsx
+
 import React, { useEffect, useState } from "react";
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Row, Col, Breadcrumb, Card, Select, Checkbox } from "antd";
+import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
+import { Row, Col, Breadcrumb, Card, Select, Checkbox, Button } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE.jpg";
-const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
-import "./UesPage.css";
 import RelatorioAlunosPorUes from "../componentes/relatorio/relatorioAlunosPorUes";
+import "./UesPage.css";
+
+const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
+const versao = "1.0";
+
 const UesPage: React.FC = () => {
   const dispatch = useDispatch();
   const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
@@ -31,13 +36,9 @@ const UesPage: React.FC = () => {
       const respostas = await servicos.get(
         `/api/boletimescolar/${aplicacaoSelecionada}/dre/${dreSelecionada}/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
       );
-      setNiveisProficiencia([]);
-
-      if (respostas) {
-        setNiveisProficiencia(respostas.disciplinas);
-      }
+      setNiveisProficiencia(respostas?.disciplinas || []);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -46,9 +47,7 @@ const UesPage: React.FC = () => {
       const resposta = await servicos.get(
         `/api/boletimescolar/aplicacoes-prova`
       );
-
       setAplicacoes(resposta || []);
-
       if (resposta.length > 0) {
         const primeiraAplicacao = resposta[0];
         dispatch(
@@ -79,7 +78,6 @@ const UesPage: React.FC = () => {
       const resposta = await servicos.get(
         `/api/boletimescolar/${aplicacaoSelecionada}/anos-escolares`
       );
-
       const opcoes = (resposta ?? []).map(
         (item: { ano: any; descricao: any }) => ({
           value: item.ano,
@@ -87,14 +85,9 @@ const UesPage: React.FC = () => {
         })
       );
       setAnos(opcoes);
-
-      if (opcoes.length > 0) {
-        setAnoSelecionado(opcoes[0].value);
-      } else {
-        setAnoSelecionado(undefined);
-      }
+      setAnoSelecionado(opcoes[0]?.value || undefined);
     } catch (error) {
-      console.error("Erro ao buscar aplicações:", error);
+      console.error("Erro ao buscar anos:", error);
     }
   };
 
@@ -114,9 +107,8 @@ const UesPage: React.FC = () => {
     aplicacao: item,
   }));
 
-  const handleChange = (value: number, option: any) => {
+  const handleChange = (value: number) => {
     const aplicacaoSelecionada = aplicacoes.find((app) => app.id === value);
-
     if (aplicacaoSelecionada) {
       dispatch(
         setNomeAplicacao({
@@ -139,9 +131,7 @@ const UesPage: React.FC = () => {
           label: item.nome,
         })
       );
-
       setDres(opcoesDre);
-
       if (opcoesDre.length > 0) {
         setDreSelecionada(opcoesDre[0].value);
         setDreSeleciondaNome(opcoesDre[0].label);
@@ -150,13 +140,13 @@ const UesPage: React.FC = () => {
       console.error("Erro ao buscar DREs:", error);
     }
   };
+
   useEffect(() => {
     buscarDres();
   }, []);
 
   const buscarResumoDre = async () => {
     if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
-
     try {
       const resposta = await servicos.get(
         `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/resumo-dre`
@@ -179,7 +169,6 @@ const UesPage: React.FC = () => {
       setUes([]);
       return;
     }
-
     try {
       const resposta = await servicos.get(
         `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ues-por-dre`
@@ -202,6 +191,10 @@ const UesPage: React.FC = () => {
     setUesSelecionadas([]);
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
+  const voltarAoInicio = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="app-container">
       <Row>
@@ -221,16 +214,8 @@ const UesPage: React.FC = () => {
             </Breadcrumb>
             <span className="titulo-secundario">Boletim de provas</span>
           </div>
-
-          <div style={{ width: "100%", height: "200px", overflow: "hidden" }}>
-            <img
-              src={imagemFluxoDRE}
-              alt="Fluxo DRE"
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-            />
+          <div className="imagem-header">
+            <img src={imagemFluxoDRE} alt="Fluxo DRE" />
           </div>
         </Header>
       </Row>
@@ -241,27 +226,14 @@ const UesPage: React.FC = () => {
             <h2>{dreSelecionadaNome}</h2>
 
             <Card title="" variant="borderless">
-              {/* <button
-              style={{
-                background: "none",
-                border: "none",
-                color: "#1976d2",
-                cursor: "pointer",
-                marginBottom: 10,
-              }}
-              onClick={() => window.history.back()}
-            >
-              <ArrowLeftOutlined /> Voltar à tela anterior 
-            </button> */}
-
               <p>
                 Você pode filtrar outra Diretoria Regional de Educação (DRE).
               </p>
-              <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
+              <div className="filtros-card">
                 <Select
                   showSearch
                   placeholder="Selecione uma DRE..."
-                  style={{ width: "100%" }}
+                  className="select-full"
                   onChange={(value) => {
                     setDreSelecionada(value);
                   }}
@@ -277,17 +249,16 @@ const UesPage: React.FC = () => {
               </div>
             </Card>
             <br></br>
-
             <Card title="" variant="borderless">
               <p>
                 Você pode consultar as informações de todas as provas já
                 aplicadas. Basta selecionar a aplicação que deseja visualizar.
               </p>
-              <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
+              <div className="filtros-card">
                 <Select
                   showSearch
                   placeholder="Selecione uma aplicação..."
-                  style={{ width: "100%" }}
+                  className="select-full"
                   onChange={handleChange}
                   value={nomeAplicacao.id || undefined}
                   notFoundContent="Nenhuma aplicação encontrada"
@@ -299,7 +270,7 @@ const UesPage: React.FC = () => {
                 <Select
                   showSearch
                   placeholder="Ano escolar"
-                  style={{ width: "20%" }}
+                  className="select-ano"
                   onChange={(value) => {
                     setAnoSelecionado(value);
                   }}
@@ -320,14 +291,12 @@ const UesPage: React.FC = () => {
                   <div className="descricao">Unidades Educacionais</div>
                 </Card>
               </Col>
-
               <Col xs={24} sm={12} md={6}>
                 <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalAlunos ?? "-"}</div>
                   <div className="descricao">Estudantes</div>
                 </Card>
               </Col>
-
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
                   <Col xs={24} sm={12} md={6} key={idx}>
@@ -344,42 +313,30 @@ const UesPage: React.FC = () => {
               )}
             </Row>
             <br></br>
-            <div
-              style={{
-                background: "#428bca",
-                color: "white",
-                padding: "8px 16px",
-                borderRadius: 4,
-                fontSize: 14,
-                textAlign: "left",
-              }}
-            >
-              As informações são das Unidades Educacionais que realizaram a
-              prova Saberes e Aprendizagens (4ª aplicação)
+            <div className="informacao-blue">
+              As informações são das Unidades Educacionais que realizam a prova{" "}
+              {nomeAplicacao.nome}
             </div>
-
             <br></br>
-
             <Card title="" variant="borderless">
               <p className="ues-dre-title">
-                <b> Unidades Educacionais (UEs) - {dreSelecionadaNome} </b>
+                <b>Unidades Educacionais (UEs) - {dreSelecionadaNome}</b>
               </p>
               <p>
-                {" "}
                 Confira as informações de todas as UEs da {dreSelecionadaNome}.
               </p>
-              <div>
-                <DesempenhoPorMateria dados={niveisProficiencia} />
-              </div>
-              <br></br>
-              <p> Você pode filtrar por Unidade Educacional (UE)</p>
+
+              <DesempenhoPorMateria dados={niveisProficiencia} />
+
+              <br />
+              <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
               <Select
                 mode="multiple"
                 allowClear
                 showSearch
                 placeholder="Selecione ou digite a UE..."
-                style={{ width: "100%" }}
+                className="select-full"
                 value={uesSelecionadas}
                 onChange={setUesSelecionadas}
                 notFoundContent="Nenhuma escola encontrada"
@@ -390,26 +347,40 @@ const UesPage: React.FC = () => {
                 }
                 options={ues}
                 optionRender={(option) => (
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div className="select-option-multiview">
                     <Checkbox
                       checked={uesSelecionadas.includes(option.value)}
-                      style={{ marginRight: 8 }}
+                      className="checkbox-ue"
                     />
                     {option.label}
                   </div>
                 )}
               />
-              <br></br>
+              <br />
             </Card>
-
             <br></br>
-
             <Card title="" variant="borderless">
               <RelatorioAlunosPorUes
                 aplicacaoSelecionada={aplicacaoSelecionada}
                 dreSelecionada={dreSelecionada}
-              ></RelatorioAlunosPorUes>
+              />
             </Card>
+          </Col>
+        </Row>
+      </div>
+
+      <div className="rodape">
+        <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio}>
+          Voltar para o Início
+        </Button>
+      </div>
+      <div className="rodape-versao">
+        <Row className="versao-secao">
+          <Col span={12} className="text-left">
+            <p>Boletim: Versão {versao}</p>
+          </Col>
+          <Col span={12} className="text-right">
+            <p>Todos os direitos reservados</p>
           </Col>
         </Row>
       </div>
