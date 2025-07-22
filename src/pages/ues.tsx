@@ -1,6 +1,6 @@
 // UesPage.tsx
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
 import { Row, Col, Breadcrumb, Card, Select, Checkbox, Button } from "antd";
 import { Header } from "antd/es/layout/layout";
@@ -13,6 +13,7 @@ import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
 import RelatorioAlunosPorUes from "../componentes/relatorio/relatorioAlunosPorUes";
 import "./UesPage.css";
+import { DefaultOptionType } from "antd/es/select";
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 const versao = "1.0";
@@ -29,8 +30,10 @@ const UesPage: React.FC = () => {
   const [dreSelecionadaNome, setDreSeleciondaNome] = useState();
   const [resumoDre, setResumoDre] = useState<any | null>(null);
   const [ues, setUes] = useState([]);
-  const [uesSelecionadas, setUesSelecionadas] = useState([]);
 
+  const [uesSelecionadas, setUesSelecionadas] = useState<
+    { value: number; label: string }[]
+  >([]);
   const buscaDesempenhoPorMateria = async () => {
     try {
       const respostas = await servicos.get(
@@ -195,6 +198,13 @@ const UesPage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const uesOptions = useMemo(() => {
+    return ues.map((ue: any) => ({
+      value: ue.value,
+      label: ue.label,
+    }));
+  }, [ues]);
+
   return (
     <div className="app-container">
       <Row>
@@ -239,8 +249,8 @@ const UesPage: React.FC = () => {
                   }}
                   value={dreSelecionada || undefined}
                   notFoundContent="Nenhuma DRE encontrada"
-                  filterOption={(input, option) =>
-                    String(option?.label ?? "")
+                  filterOption={(input, option: any) =>
+                    (option?.label ?? "")
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
@@ -276,8 +286,10 @@ const UesPage: React.FC = () => {
                   }}
                   value={anoSelecionado || undefined}
                   notFoundContent="Nenhum ano encontrado"
-                  filterOption={(input, option) =>
-                    option?.label.toLowerCase().includes(input.toLowerCase())
+                  filterOption={(input, option: any) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
                   }
                   options={anos}
                 />
@@ -335,27 +347,32 @@ const UesPage: React.FC = () => {
                 mode="multiple"
                 allowClear
                 showSearch
-                placeholder="Selecione ou digite a UE..."
-                className="select-full"
+                labelInValue
                 value={uesSelecionadas}
-                onChange={setUesSelecionadas}
+                onChange={(values) => setUesSelecionadas(values)}
+                className="select-full"
+                placeholder="Selecione ou digite a UE..."
                 notFoundContent="Nenhuma escola encontrada"
                 filterOption={(input, option) =>
                   (option?.label ?? "")
+                    .toString()
                     .toLowerCase()
                     .includes(input.toLowerCase())
                 }
-                options={ues}
-                optionRender={(option) => (
-                  <div className="select-option-multiview">
-                    <Checkbox
-                      checked={uesSelecionadas.includes(option.value)}
-                      className="checkbox-ue"
-                    />
-                    {option.label}
-                  </div>
-                )}
+                options={uesOptions}
+                optionRender={(option) => {
+                  const selected = uesSelecionadas.some(
+                    (ue) => ue.value === option.value
+                  );
+                  return (
+                    <div className="select-option-multiview">
+                      <Checkbox checked={selected} className="checkbox-ue" />
+                      {option.label}
+                    </div>
+                  );
+                }}
               />
+
               <br />
             </Card>
             <br></br>
