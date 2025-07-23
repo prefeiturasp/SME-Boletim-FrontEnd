@@ -11,11 +11,13 @@ import {
 interface DownloadRelatorioProps {
   aplicacaoSelecionada: number;
   dreSelecionada: unknown;
+  dreSelecionadaNome: unknown;
 }
 
 const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
   aplicacaoSelecionada,
   dreSelecionada,
+  dreSelecionadaNome
 }) => {
   const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
   const downloadDadosUesArquivo = async () => {
@@ -44,7 +46,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = `dados-ue-${aplicacaoSelecionada}-${dreSelecionada}.xls`;
+      link.download = `dados-ue-${dreSelecionadaNome}.xls`;
 
       document.body.appendChild(link);
       link.click();
