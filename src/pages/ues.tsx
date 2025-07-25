@@ -615,6 +615,7 @@ const UesPage: React.FC = () => {
             <br />
             <Card title="" variant="borderless">
               <RelatorioAlunosPorUes
+                dreSelecionadaNome={dreSelecionadaNome}
                 aplicacaoSelecionada={aplicacaoSelecionada}
                 dreSelecionada={dreSelecionada}
               />
