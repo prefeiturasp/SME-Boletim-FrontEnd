@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Row, Card, Select, Badge, Checkbox, Radio } from "antd";
 import "./escolherEscola.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { setFilters } from "../../redux/slices/filtrosSlice";
 import FiltroLateral from "../filtro/filtroLateral";
 import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
 import { filtroCarregado } from "../../redux/slices/filtroCarregado";
+import { useLocation } from "react-router-dom";
 
 const EscolherEscola = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -30,6 +31,8 @@ const EscolherEscola = () => {
     eolEstudante: "",
   });
 
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
@@ -42,6 +45,7 @@ const EscolherEscola = () => {
   const filtroDados = useSelector((state: RootState) => state.filtroCompleto);
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
+  const filtroUrlJaAplicado = useRef(false);
 
   const buscarAbrangencias = async () => {
     try {
@@ -105,17 +109,42 @@ const EscolherEscola = () => {
   }, [aplicacaoSelecionada]);
 
   useEffect(() => {
-    if (abrangencia.length > 0 && escolaSelecionada.ueId == null) {
-      const primeiraEscola = abrangencia[0];
+    const params = new URLSearchParams(location.search);
+    const ueIdDaUrl = params.get("ueSelecionada");
 
-      dispatch(
-        selecionarEscola({
-          ueId: primeiraEscola.ueId,
-          descricao: primeiraEscola.descricao,
-        })
-      );
+    if (abrangencia.length > 0) {
+      if (
+        ueIdDaUrl &&
+        abrangencia.some((a) => String(a.ueId) === ueIdDaUrl) &&
+        !filtroUrlJaAplicado.current
+      ) {
+        const escolaDaUrl = abrangencia.find(
+          (a) => String(a.ueId) === ueIdDaUrl
+        );
+        if (escolaSelecionada?.ueId !== escolaDaUrl.ueId) {
+          dispatch(
+            selecionarEscola({
+              ueId: escolaDaUrl.ueId,
+              descricao: escolaDaUrl.descricao,
+            })
+          );
+        }
+        filtroUrlJaAplicado.current = true;
+      } else if (
+        (!ueIdDaUrl ||
+          !abrangencia.some((a) => String(a.ueId) === ueIdDaUrl)) &&
+        (!escolaSelecionada || escolaSelecionada.ueId == null)
+      ) {
+        const primeiraEscola = abrangencia[0];
+        dispatch(
+          selecionarEscola({
+            ueId: primeiraEscola.ueId,
+            descricao: primeiraEscola.descricao,
+          })
+        );
+      }
     }
-  }, [abrangencia, escolaSelecionada, dispatch]);
+  }, [abrangencia, location.search, dispatch, escolaSelecionada]);
 
   const handleChange = (value: string, option: any) => {
     dispatch(selecionarEscola({ ueId: value, descricao: option.label }));
@@ -205,7 +234,7 @@ const EscolherEscola = () => {
                 style={{ width: "100%" }}
                 onChange={handleChange}
                 value={
-                  escolaSelecionada ? escolaSelecionada.descricao : undefined
+                  escolaSelecionada ? String(escolaSelecionada.ueId) : undefined
                 }
                 notFoundContent="Não encontramos nenhuma DRE ou UE com o nome digitado..."
                 filterOption={(input, option) =>

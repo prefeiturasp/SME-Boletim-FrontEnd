@@ -1,8 +1,16 @@
-// UesPage.tsx
-
 import React, { useEffect, useMemo, useState } from "react";
 import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
-import { Row, Col, Breadcrumb, Card, Select, Checkbox, Button } from "antd";
+import {
+  Row,
+  Col,
+  Breadcrumb,
+  Card,
+  Select,
+  Checkbox,
+  Button,
+  Pagination,
+  Tooltip,
+} from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE.jpg";
@@ -13,14 +21,38 @@ import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
 import RelatorioAlunosPorUes from "../componentes/relatorio/relatorioAlunosPorUes";
 import "./UesPage.css";
-import { DefaultOptionType } from "antd/es/select";
+import iconePort from "../assets/icon-port.svg";
+import iconeMat from "../assets/icon-mat.svg";
+import iconeAlunos from "../assets/icon-alunos.svg";
+import iconeDados from "../assets/icon-dados.svg";
+import iconeMais from "../assets/icon-mais.svg";
+import { useNavigate } from "react-router-dom";
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 const versao = "1.0";
+const PAGE_SIZE = 12;
+
+function estiloNivel(nivel: string) {
+  if (!nivel) return { background: "#f0f0f0", color: "#8c8c8c" };
+  const n = nivel
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  if (n === "adequado")
+    return { background: "rgba(153,153,255,0.5)", color: "#232323" };
+  if (n === "basico")
+    return { background: "rgba(254,222,153,0.5)", color: "#232323" };
+  if (n === "abaixo do basico")
+    return { background: "rgba(255,89,89,0.5)", color: "#232323" };
+  if (n === "avancado")
+    return { background: "rgba(153,255,153,0.5)", color: "#232323" };
+  return { background: "#f0f0f0", color: "#8c8c8c" };
+}
 
 const UesPage: React.FC = () => {
   const dispatch = useDispatch();
   const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
+
   const [aplicacoes, setAplicacoes] = useState<any[]>([]);
   const [anos, setAnos] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState();
@@ -30,20 +62,21 @@ const UesPage: React.FC = () => {
   const [dreSelecionadaNome, setDreSeleciondaNome] = useState();
   const [resumoDre, setResumoDre] = useState<any | null>(null);
   const [ues, setUes] = useState([]);
-
   const [uesSelecionadas, setUesSelecionadas] = useState<
     { value: number; label: string }[]
   >([]);
-  const buscaDesempenhoPorMateria = async () => {
-    try {
-      const respostas = await servicos.get(
-        `/api/boletimescolar/${aplicacaoSelecionada}/dre/${dreSelecionada}/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
-      );
-      setNiveisProficiencia(respostas?.disciplinas || []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
+  const [uesDados, setUesDados] = useState<any[]>([]);
+  const [currentCardPage, setCurrentCardPage] = useState(1);
+  const [loadingMaisUes, setLoadingMaisUes] = useState(false);
+
+  const [uesTotal, setUesTotal] = useState(0);
+
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) => state.nomeAplicacao.id
+  );
+
+  const navigate = useNavigate();
 
   const buscarAplicacoes = async () => {
     try {
@@ -72,10 +105,6 @@ const UesPage: React.FC = () => {
     buscarAplicacoes();
   }, []);
 
-  const aplicacaoSelecionada = useSelector(
-    (state: RootState) => state.nomeAplicacao.id
-  );
-
   const buscarAnos = async () => {
     try {
       const resposta = await servicos.get(
@@ -103,6 +132,17 @@ const UesPage: React.FC = () => {
       buscaDesempenhoPorMateria();
     }
   }, [aplicacaoSelecionada, anoSelecionado]);
+
+  const buscaDesempenhoPorMateria = async () => {
+    try {
+      const respostas = await servicos.get(
+        `/api/boletimescolar/${aplicacaoSelecionada}/dre/${dreSelecionada}/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
+      );
+      setNiveisProficiencia(respostas?.disciplinas || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const opcoes = aplicacoes.map((item: any) => ({
     value: item.id,
@@ -194,9 +234,45 @@ const UesPage: React.FC = () => {
     setUesSelecionadas([]);
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
-  const voltarAoInicio = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const fetchUesListagem = async (pagina = 1, append = false) => {
+    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) {
+      setUesDados([]);
+      setUesTotal(0);
+      return;
+    }
+    try {
+      setLoadingMaisUes(true);
+      const params = new URLSearchParams();
+      uesSelecionadas.forEach((ue) =>
+        params.append("UesIds", String(ue.value))
+      );
+      params.append("TamanhoPagina", String(PAGE_SIZE));
+      params.append("Pagina", String(pagina));
+      const url = `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ue-por-dre-dados?${params.toString()}`;
+      const resposta = await servicos.get(url);
+      if (append) {
+        setUesDados((prev) => [...prev, ...(resposta?.itens || [])]);
+      } else {
+        setUesDados(resposta?.itens || []);
+      }
+      setUesTotal(resposta?.totalRegistros || 0);
+    } catch (error) {
+      setUesDados([]);
+      setUesTotal(0);
+      console.error("Erro ao buscar UEs listagem:", error);
+    } finally {
+      setLoadingMaisUes(false);
+    }
   };
+
+  useEffect(() => {
+    fetchUesListagem(1, false);
+  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
+
+  useEffect(() => {
+    setCurrentCardPage(1);
+    setUesDados([]);
+  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
   const uesOptions = useMemo(() => {
     return ues.map((ue: any) => ({
@@ -204,6 +280,16 @@ const UesPage: React.FC = () => {
       label: ue.label,
     }));
   }, [ues]);
+
+  const voltarAoInicio = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleExibirMais = () => {
+    const proxPagina = currentCardPage + 1;
+    setCurrentCardPage(proxPagina);
+    fetchUesListagem(proxPagina, true);
+  };
 
   return (
     <div className="app-container">
@@ -258,7 +344,7 @@ const UesPage: React.FC = () => {
                 />
               </div>
             </Card>
-            <br></br>
+            <br />
             <Card title="" variant="borderless">
               <p>
                 Você pode consultar as informações de todas as provas já
@@ -295,7 +381,7 @@ const UesPage: React.FC = () => {
                 />
               </div>
             </Card>
-            <br></br>
+            <br />
             <Row gutter={[16, 16]} className="cards-container">
               <Col xs={24} sm={12} md={6}>
                 <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
@@ -324,12 +410,12 @@ const UesPage: React.FC = () => {
                 )
               )}
             </Row>
-            <br></br>
+            <br />
             <div className="informacao-blue">
               As informações são das Unidades Educacionais que realizam a prova{" "}
               {nomeAplicacao.nome}
             </div>
-            <br></br>
+            <br />
             <Card title="" variant="borderless">
               <p className="ues-dre-title">
                 <b>Unidades Educacionais (UEs) - {dreSelecionadaNome}</b>
@@ -341,41 +427,192 @@ const UesPage: React.FC = () => {
               <DesempenhoPorMateria dados={niveisProficiencia} />
 
               <br />
-              <p>Você pode filtrar por Unidade Educacional (UE)</p>
+              <div className="conteudo-fixo-ues">
+                <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
-              <Select
-                mode="multiple"
-                allowClear
-                showSearch
-                labelInValue
-                value={uesSelecionadas}
-                onChange={(values) => setUesSelecionadas(values)}
-                className="select-full"
-                placeholder="Selecione ou digite a UE..."
-                notFoundContent="Nenhuma escola encontrada"
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toString()
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={uesOptions}
-                optionRender={(option) => {
-                  const selected = uesSelecionadas.some(
-                    (ue) => ue.value === option.value
-                  );
-                  return (
-                    <div className="select-option-multiview">
-                      <Checkbox checked={selected} className="checkbox-ue" />
-                      {option.label}
-                    </div>
-                  );
-                }}
-              />
+                <Select
+                  mode="multiple"
+                  allowClear
+                  showSearch
+                  labelInValue
+                  value={uesSelecionadas}
+                  onChange={(values) => setUesSelecionadas(values)}
+                  className="select-full"
+                  placeholder="Selecione ou digite a UE..."
+                  notFoundContent="Nenhuma escola encontrada"
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toString()
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={uesOptions}
+                  optionRender={(option) => {
+                    const selected = uesSelecionadas.some(
+                      (ue) => ue.value === option.value
+                    );
+                    return (
+                      <div className="select-option-multiview">
+                        <Checkbox checked={selected} className="checkbox-ue" />
+                        {option.label}
+                      </div>
+                    );
+                  }}
+                />
+              </div>
 
               <br />
+
+              <div className="ues-list-cards">
+                <Row gutter={[16, 16]}>
+                  {uesDados.map((ue) => {
+                    const semDisciplinas =
+                      !ue.disciplinas || ue.disciplinas.length === 0;
+                    return (
+                      <Col xs={24} sm={24} md={8} key={ue.id}>
+                        <Card className="ues-list-card">
+                          <Tooltip title={ue.nome}>
+                            <div className="ues-list-card-nome ue-nome-truncado">
+                              {ue.nome}
+                            </div>
+                          </Tooltip>
+
+                          <div className="ues-list-card-ano">
+                            <b>Ano:</b> <span>{ue.anoEscolar}º ano</span>
+                          </div>
+
+                          {semDisciplinas ? (
+                            <div className="mensagem-sem-dados">
+                              <p>
+                                Não há dados cadastrados nesta Unidade
+                                Educacional.
+                              </p>
+                            </div>
+                          ) : (
+                            <>
+                              <div className="ues-list-card-proficiencias">
+                                {ue.disciplinas.map((p: any, idx: number) => (
+                                  <div
+                                    className="ues-list-card-prof-item"
+                                    key={idx}
+                                  >
+                                    <span className="disciplina-label">
+                                      <img
+                                        src={
+                                          p.disciplina === "Língua portuguesa"
+                                            ? iconePort
+                                            : iconeMat
+                                        }
+                                        alt="Ícone disciplina"
+                                        className="disciplina-icon"
+                                      />
+                                      <span>{p.disciplina}</span>
+                                    </span>
+                                    <span
+                                      className="nivel"
+                                      style={estiloNivel(p.nivelDescricao)}
+                                    >
+                                      {p.nivelDescricao}
+                                    </span>
+                                    <div className="prof-value">
+                                      {typeof p.mediaProficiencia === "number"
+                                        ? p.mediaProficiencia.toLocaleString(
+                                            "pt-BR",
+                                            {
+                                              minimumFractionDigits: 1,
+                                              maximumFractionDigits: 1,
+                                            }
+                                          )
+                                        : "-"}
+                                    </div>
+                                    <div className="prof-label">
+                                      Média de proficiência
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <hr className="separador" />
+                              <div className="ues-list-card-meta-row">
+                                <div>
+                                  <span className="ues-list-meta-titulo">
+                                    <img
+                                      src={iconeAlunos}
+                                      alt="Ícone alunos"
+                                      className="disciplina-icon"
+                                    />{" "}
+                                    Total de estudantes:
+                                  </span>
+                                  <br />
+                                  <span className="ues-list-meta-valor">
+                                    {ue.totalEstudantes?.toLocaleString(
+                                      "pt-BR"
+                                    ) ?? "-"}
+                                  </span>
+                                </div>
+                                <div>
+                                  <span className="ues-list-meta-titulo">
+                                    <img
+                                      src={iconeDados}
+                                      alt="Ícone dados"
+                                      className="disciplina-icon"
+                                    />
+                                    Realizaram a prova:
+                                  </span>
+                                  <br />
+                                  <span className="ues-list-meta-valor">
+                                    {ue.totalEstudadesRealizaramProva?.toLocaleString(
+                                      "pt-BR"
+                                    ) ?? "-"}{" "}
+                                    (
+                                    {ue.percentualEstudadesRealizaramProva ?? 0}
+                                    %)
+                                  </span>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                          <Button
+                            className="btn-acessar-ue"
+                            block
+                            disabled={semDisciplinas}
+                            onClick={() => {
+                              navigate(`/?ueSelecionada=${ue.id}`);
+                              window.scrollTo(0, 0);
+                            }}
+                          >
+                            Acessar UE
+                          </Button>
+                        </Card>
+                      </Col>
+                    );
+                  })}
+                </Row>
+                {uesDados.length < uesTotal && (
+                  <div style={{ textAlign: "center", marginTop: 24 }}>
+                    <Button
+                      variant="outlined"
+                      className="btn-exibir-mais"
+                      loading={loadingMaisUes}
+                      onClick={handleExibirMais}
+                      style={{
+                        minWidth: 160,
+                        height: 40,
+                        fontWeight: 600,
+                        fontSize: 16,
+                      }}
+                    >
+                      <img
+                        src={iconeMais}
+                        alt="Ícone dados"
+                        className="disciplina-icon"
+                      />
+                      Exibir mais
+                    </Button>
+                  </div>
+                )}
+              </div>
             </Card>
-            <br></br>
+            <br />
             <Card title="" variant="borderless">
               <RelatorioAlunosPorUes
                 dreSelecionadaNome={dreSelecionadaNome}
