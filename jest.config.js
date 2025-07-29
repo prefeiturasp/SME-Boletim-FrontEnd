@@ -6,14 +6,16 @@ export default {
   },
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/src/__mocks__/fileMock.js",
   },
-  transformIgnorePatterns: ["/node_modules/"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(antd|@babel|rc-util|rc-pagination|rc-picker|rc-table|rc-tree|rc-select)/)",
+  ],
   collectCoverage: true,
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.test.{js,jsx,ts,tsx}",
     "!src/interfaces/**",
-    "!src/pages/**",
     "!src/redux/**",
     "!src/types/**",
     "!src/App.tsx",

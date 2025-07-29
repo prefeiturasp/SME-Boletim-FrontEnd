@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">22.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/48</span>
+                <span class='fraction'>11/48</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">18.75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>3/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">24.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/45</span>
+                <span class='fraction'>11/45</span>
             </div>
         
             
@@ -252,7 +252,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,7 +276,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,20 +288,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -432,7 +432,7 @@ import "./turma.css";
 import DesempenhoTurma from "../../grafico/desempenhoTurma";
 import { ColumnsType } from "antd/es/table";
 &nbsp;
-const colunasTurmaInicial = <span class="cstat-no" title="statement not covered" >[</span>
+const colunasTurmaInicial = [
   { title: "Turma", dataIndex: "turma", key: "turma" },
   {
     title: "Abaixo do Básico",
@@ -456,7 +456,7 @@ const colunasTurmaInicial = <span class="cstat-no" title="statement not covered"
   },
 ];
 &nbsp;
-const colunasNiveisInicial = <span class="cstat-no" title="statement not covered" >[</span>
+const colunasNiveisInicial = [
   { title: "Ano Escolar", dataIndex: "anoEscolar", key: "anoEscolar" },
   {
     title: "Abaixo do Básico",
@@ -468,20 +468,20 @@ const colunasNiveisInicial = <span class="cstat-no" title="statement not covered
   { title: "Avançado", dataIndex: "avancado", key: "avancado" },
 ];
 &nbsp;
-const Turma: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+const Turma: React.FC = () =&gt; {
   const [colunasTurmas, setColunasTurmas] =
-<span class="cstat-no" title="statement not covered" >    useState&lt;any[]&gt;(colunasTurmaInicial);</span>
+    useState&lt;any[]&gt;(colunasTurmaInicial);
   const [colunasNiveis, setColunasNiveis] =
-<span class="cstat-no" title="statement not covered" >    useState&lt;any[]&gt;(colunasNiveisInicial);</span>
-  const [dados, setDados] = <span class="cstat-no" title="statement not covered" >useState&lt;any[]&gt;([]);</span>
-  const [estaCarregando, setEstaCarregando] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+    useState&lt;any[]&gt;(colunasNiveisInicial);
+  const [dados, setDados] = useState&lt;any[]&gt;([]);
+  const [estaCarregando, setEstaCarregando] = useState(false);
 &nbsp;
-  const escolaSelecionada = <span class="cstat-no" title="statement not covered" >useSelector(</span>
-<span class="fstat-no" title="function not covered" >    (s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.escola.escolaSelecionada</span>
+  const escolaSelecionada = useSelector(
+    (state: RootState) =&gt; state.escola.escolaSelecionada
   );
 &nbsp;
-  const aplicacaoSelecionada = <span class="cstat-no" title="statement not covered" >useSelector(</span>
-<span class="fstat-no" title="function not covered" >    (s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.nomeAplicacao.id</span>
+  const aplicacaoSelecionada = useSelector(
+    (state: RootState) =&gt; state.nomeAplicacao.id
   );
 &nbsp;
   const activeTab = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.tab.activeTab)</span>;</span>
@@ -610,7 +610,7 @@ export default Turma;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-29T12:59:01.142Z
+                at 2025-07-29T14:12:50.399Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

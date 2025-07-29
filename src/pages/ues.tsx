@@ -11,7 +11,7 @@ import {
   Pagination,
   Tooltip,
 } from "antd";
-import { Header } from "antd/es/layout/layout";
+
 import { Link } from "react-router-dom";
 import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,11 +28,14 @@ import iconeDados from "../assets/icon-dados.svg";
 import iconeMais from "../assets/icon-mais.svg";
 import { useNavigate } from "react-router-dom";
 
+import { Layout } from "antd";
+const { Header } = Layout;
+
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 const versao = "1.0";
 const PAGE_SIZE = 12;
 
-function estiloNivel(nivel: string) {
+export function estiloNivel(nivel: string) {
   if (!nivel) return { background: "#f0f0f0", color: "#8c8c8c" };
   const n = nivel
     .normalize("NFD")
@@ -352,6 +355,7 @@ const UesPage: React.FC = () => {
               </p>
               <div className="filtros-card">
                 <Select
+                  data-testid="select-aplicacao"
                   showSearch
                   placeholder="Selecione uma aplicação..."
                   className="select-full"

@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1753793941247" clover="3.2.0">
-  <project timestamp="1753793941247" name="All files">
-    <metrics statements="1229" coveredstatements="161" conditionals="743" coveredconditionals="79" methods="455" coveredmethods="68" elements="2427" coveredelements="308" complexity="0" loc="1229" ncloc="1229" packages="11" files="41" classes="41"/>
+<coverage generated="1753798370465" clover="3.2.0">
+  <project timestamp="1753798370465" name="All files">
+    <metrics statements="842" coveredstatements="339" conditionals="501" coveredconditionals="155" methods="271" coveredmethods="100" elements="1614" coveredelements="594" complexity="0" loc="842" ncloc="842" packages="12" files="22" classes="22"/>
     <package name="src">
-      <metrics statements="44" coveredstatements="0" conditionals="13" coveredconditionals="0" methods="21" coveredmethods="0"/>
-      <file name="App.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\App.js">
-        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="8" count="0" type="stmt"/>
-      </file>
-      <file name="AppRoutes.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\AppRoutes.js">
-        <metrics statements="10" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="6" coveredmethods="0"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-      </file>
+      <metrics statements="12" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <file name="AppRoutes.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\AppRoutes.tsx">
         <metrics statements="12" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="13" count="0" type="stmt"/>
@@ -36,89 +19,19 @@
         <line num="39" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
       </file>
-      <file name="main.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\main.js">
-        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="6" count="0" type="stmt"/>
-      </file>
-      <file name="servicos.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\servicos.js">
-        <metrics statements="20" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="8" coveredmethods="0"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-      </file>
     </package>
     <package name="src.componentes.cabecalho">
-      <metrics statements="8" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <file name="cabecalho.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\cabecalho\cabecalho.js">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-      </file>
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="cabecalho.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\cabecalho\cabecalho.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.conteudo">
-      <metrics statements="69" coveredstatements="0" conditionals="52" coveredconditionals="0" methods="26" coveredmethods="0"/>
-      <file name="conteudo.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudo.js">
-        <metrics statements="33" coveredstatements="0" conditionals="26" coveredconditionals="0" methods="13" coveredmethods="0"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="86" count="0" type="cond" truecount="0" falsecount="2"/>
-      </file>
+      <metrics statements="36" coveredstatements="0" conditionals="26" coveredconditionals="0" methods="13" coveredmethods="0"/>
       <file name="conteudo.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudo.tsx">
         <metrics statements="36" coveredstatements="0" conditionals="26" coveredconditionals="0" methods="13" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
@@ -160,111 +73,21 @@
       </file>
     </package>
     <package name="src.componentes.conteudo.conteudoTabs">
-      <metrics statements="618" coveredstatements="60" conditionals="292" coveredconditionals="4" methods="170" coveredmethods="18"/>
-      <file name="estudantes.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\estudantes.js">
-        <metrics statements="87" coveredstatements="10" conditionals="59" coveredconditionals="0" methods="21" coveredmethods="3"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="9" type="stmt"/>
-        <line num="10" count="8" type="stmt"/>
+      <metrics statements="319" coveredstatements="69" conditionals="146" coveredconditionals="4" methods="85" coveredmethods="18"/>
+      <file name="estudantes.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\estudantes.tsx">
+        <metrics statements="89" coveredstatements="12" conditionals="59" coveredconditionals="0" methods="21" coveredmethods="3"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="9" type="stmt"/>
         <line num="11" count="8" type="stmt"/>
         <line num="12" count="8" type="stmt"/>
-        <line num="13" count="8" type="stmt"/>
         <line num="14" count="8" type="stmt"/>
         <line num="15" count="8" type="stmt"/>
         <line num="16" count="8" type="stmt"/>
         <line num="17" count="8" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="9"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="67" count="0" type="cond" truecount="0" falsecount="9"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="88" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="105" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
-        <line num="110" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="123" count="0" type="stmt"/>
-        <line num="125" count="0" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
-        <line num="130" count="0" type="stmt"/>
-        <line num="145" count="0" type="stmt"/>
-        <line num="153" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="162" count="0" type="stmt"/>
-        <line num="164" count="0" type="stmt"/>
-        <line num="166" count="0" type="stmt"/>
-        <line num="167" count="0" type="stmt"/>
-        <line num="173" count="0" type="stmt"/>
-      </file>
-      <file name="estudantes.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\estudantes.tsx">
-        <metrics statements="89" coveredstatements="0" conditionals="59" coveredconditionals="0" methods="21" coveredmethods="0"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="20" count="8" type="stmt"/>
+        <line num="23" count="8" type="stmt"/>
+        <line num="24" count="8" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
         <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -343,82 +166,19 @@
         <line num="249" count="0" type="stmt"/>
         <line num="259" count="0" type="stmt"/>
       </file>
-      <file name="principal.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\principal.js">
-        <metrics statements="60" coveredstatements="19" conditionals="15" coveredconditionals="4" methods="15" coveredmethods="8"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="45" count="2" type="cond" truecount="2" falsecount="3"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="79" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="83" count="2" type="stmt"/>
-        <line num="85" count="2" type="stmt"/>
-        <line num="86" count="2" type="stmt"/>
-        <line num="89" count="2" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="102" count="0" type="stmt"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
-        <line num="110" count="0" type="stmt"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="125" count="0" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="142" count="2" type="cond" truecount="1" falsecount="1"/>
-      </file>
       <file name="principal.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\principal.tsx">
-        <metrics statements="62" coveredstatements="0" conditionals="15" coveredconditionals="0" methods="15" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
+        <metrics statements="62" coveredstatements="21" conditionals="15" coveredconditionals="4" methods="15" coveredmethods="8"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
@@ -434,11 +194,11 @@
         <line num="58" count="0" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="69" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="74" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
         <line num="80" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="81" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
@@ -446,12 +206,12 @@
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
-        <line num="110" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="110" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="111" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
+        <line num="113" count="1" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
         <line num="122" count="0" type="stmt"/>
         <line num="124" count="0" type="stmt"/>
         <line num="135" count="0" type="stmt"/>
@@ -469,150 +229,35 @@
         <line num="166" count="0" type="stmt"/>
         <line num="168" count="0" type="stmt"/>
         <line num="179" count="0" type="stmt"/>
-        <line num="183" count="0" type="stmt"/>
+        <line num="183" count="1" type="stmt"/>
       </file>
-      <file name="probabilidade.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\probabilidade.js">
-        <metrics statements="112" coveredstatements="22" conditionals="58" coveredconditionals="0" methods="33" coveredmethods="4"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="13" type="stmt"/>
-        <line num="36" count="12" type="stmt"/>
-        <line num="37" count="12" type="stmt"/>
-        <line num="38" count="12" type="stmt"/>
-        <line num="39" count="12" type="stmt"/>
-        <line num="40" count="12" type="stmt"/>
-        <line num="41" count="12" type="stmt"/>
-        <line num="42" count="12" type="stmt"/>
-        <line num="43" count="12" type="stmt"/>
-        <line num="44" count="12" type="stmt"/>
-        <line num="45" count="12" type="stmt"/>
-        <line num="46" count="12" type="stmt"/>
+      <file name="probabilidade.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\probabilidade.tsx">
+        <metrics statements="123" coveredstatements="25" conditionals="58" coveredconditionals="0" methods="33" coveredmethods="4"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="13" type="stmt"/>
+        <line num="53" count="12" type="stmt"/>
+        <line num="54" count="12" type="stmt"/>
+        <line num="56" count="12" type="stmt"/>
+        <line num="57" count="12" type="stmt"/>
+        <line num="58" count="12" type="stmt"/>
+        <line num="59" count="12" type="stmt"/>
+        <line num="60" count="12" type="stmt"/>
         <line num="61" count="12" type="stmt"/>
         <line num="62" count="12" type="stmt"/>
         <line num="63" count="12" type="stmt"/>
         <line num="64" count="12" type="stmt"/>
-        <line num="65" count="12" type="stmt"/>
-        <line num="66" count="12" type="stmt"/>
-        <line num="67" count="12" type="stmt"/>
-        <line num="68" count="12" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="85" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="86" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="99" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="104" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="109" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="110" count="0" type="stmt"/>
-        <line num="112" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="118" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="121" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="123" count="0" type="stmt"/>
-        <line num="129" count="0" type="stmt"/>
-        <line num="130" count="0" type="stmt"/>
-        <line num="131" count="0" type="stmt"/>
-        <line num="134" count="0" type="stmt"/>
-        <line num="135" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="137" count="0" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="143" count="0" type="stmt"/>
-        <line num="145" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="147" count="0" type="stmt"/>
-        <line num="148" count="0" type="stmt"/>
-        <line num="149" count="0" type="stmt"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="156" count="0" type="stmt"/>
-        <line num="157" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="158" count="0" type="stmt"/>
-        <line num="159" count="0" type="stmt"/>
-        <line num="169" count="0" type="stmt"/>
-        <line num="170" count="0" type="stmt"/>
-        <line num="171" count="0" type="stmt"/>
-        <line num="181" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="182" count="0" type="stmt"/>
-        <line num="183" count="0" type="stmt"/>
-        <line num="184" count="0" type="stmt"/>
-        <line num="187" count="0" type="stmt"/>
-        <line num="188" count="0" type="stmt"/>
-        <line num="189" count="0" type="stmt"/>
-        <line num="190" count="0" type="stmt"/>
-        <line num="191" count="0" type="stmt"/>
-        <line num="192" count="0" type="stmt"/>
-        <line num="193" count="0" type="stmt"/>
-        <line num="194" count="0" type="stmt"/>
-        <line num="206" count="0" type="stmt"/>
-        <line num="207" count="0" type="stmt"/>
-        <line num="208" count="0" type="stmt"/>
-        <line num="220" count="0" type="stmt"/>
-        <line num="223" count="0" type="stmt"/>
-        <line num="230" count="0" type="stmt"/>
-        <line num="231" count="0" type="stmt"/>
-        <line num="232" count="0" type="stmt"/>
-        <line num="238" count="0" type="stmt"/>
-        <line num="245" count="0" type="stmt"/>
-        <line num="246" count="0" type="stmt"/>
-        <line num="247" count="0" type="stmt"/>
-        <line num="253" count="0" type="stmt"/>
-        <line num="259" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="269" count="0" type="stmt"/>
-        <line num="271" count="0" type="stmt"/>
-        <line num="273" count="0" type="stmt"/>
-        <line num="274" count="0" type="stmt"/>
-      </file>
-      <file name="probabilidade.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\probabilidade.tsx">
-        <metrics statements="123" coveredstatements="0" conditionals="58" coveredconditionals="0" methods="33" coveredmethods="0"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
+        <line num="80" count="12" type="stmt"/>
+        <line num="82" count="12" type="stmt"/>
+        <line num="83" count="12" type="stmt"/>
+        <line num="86" count="12" type="stmt"/>
+        <line num="87" count="12" type="stmt"/>
+        <line num="89" count="12" type="stmt"/>
+        <line num="94" count="12" type="stmt"/>
+        <line num="96" count="12" type="stmt"/>
+        <line num="100" count="12" type="stmt"/>
+        <line num="104" count="12" type="stmt"/>
+        <line num="105" count="12" type="stmt"/>
         <line num="108" count="0" type="stmt"/>
         <line num="109" count="0" type="stmt"/>
         <line num="111" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -712,62 +357,19 @@
         <line num="459" count="0" type="stmt"/>
         <line num="460" count="0" type="stmt"/>
       </file>
-      <file name="turma.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\turma.js">
-        <metrics statements="40" coveredstatements="9" conditionals="14" coveredconditionals="0" methods="16" coveredmethods="3"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="31" count="2" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
-        <line num="43" count="10" type="stmt"/>
-        <line num="44" count="8" type="stmt"/>
-        <line num="45" count="8" type="stmt"/>
-        <line num="46" count="8" type="stmt"/>
-        <line num="47" count="8" type="stmt"/>
-        <line num="48" count="8" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="82" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="85" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="99" count="0" type="stmt"/>
-      </file>
       <file name="turma.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\conteudoTabs\turma.tsx">
-        <metrics statements="45" coveredstatements="0" conditionals="14" coveredconditionals="0" methods="16" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
+        <metrics statements="45" coveredstatements="11" conditionals="14" coveredconditionals="0" methods="16" coveredmethods="3"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="4" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
         <line num="63" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
@@ -805,78 +407,19 @@
       </file>
     </package>
     <package name="src.componentes.conteudo.tabela">
-      <metrics statements="119" coveredstatements="33" conditionals="92" coveredconditionals="27" methods="58" coveredmethods="14"/>
-      <file name="tabela.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\tabela\tabela.js">
-        <metrics statements="56" coveredstatements="33" conditionals="46" coveredconditionals="27" methods="29" coveredmethods="14"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="46" count="16" type="stmt"/>
-        <line num="47" count="16" type="stmt"/>
-        <line num="48" count="18" type="stmt"/>
-        <line num="49" count="18" type="stmt"/>
-        <line num="50" count="16" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="54" count="16" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="68" count="16" type="stmt"/>
-        <line num="69" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="71" count="16" type="stmt"/>
-        <line num="72" count="224" type="cond" truecount="2" falsecount="0"/>
-        <line num="74" count="16" type="stmt"/>
-        <line num="75" count="8" type="cond" truecount="1" falsecount="1"/>
-        <line num="76" count="8" type="stmt"/>
-        <line num="77" count="56" type="cond" truecount="4" falsecount="0"/>
-        <line num="78" count="8" type="stmt"/>
-        <line num="79" count="8" type="stmt"/>
-        <line num="80" count="48" type="cond" truecount="2" falsecount="2"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="48" type="cond" truecount="4" falsecount="0"/>
-        <line num="84" count="16" type="stmt"/>
-        <line num="85" count="8" type="stmt"/>
-        <line num="86" count="40" type="cond" truecount="2" falsecount="2"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="89" count="40" type="cond" truecount="4" falsecount="0"/>
-        <line num="90" count="24" type="stmt"/>
-        <line num="91" count="8" type="stmt"/>
-        <line num="92" count="32" type="cond" truecount="2" falsecount="2"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="32" type="cond" truecount="4" falsecount="0"/>
-        <line num="96" count="32" type="stmt"/>
-        <line num="97" count="8" type="stmt"/>
-        <line num="98" count="24" type="cond" truecount="2" falsecount="2"/>
-        <line num="99" count="0" type="stmt"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="104" count="16" type="stmt"/>
-        <line num="105" count="112" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="110" count="112" type="stmt"/>
-      </file>
+      <metrics statements="63" coveredstatements="36" conditionals="46" coveredconditionals="27" methods="29" coveredmethods="14"/>
       <file name="tabela.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\conteudo\tabela\tabela.tsx">
-        <metrics statements="63" coveredstatements="0" conditionals="46" coveredconditionals="0" methods="29" coveredmethods="0"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
+        <metrics statements="63" coveredstatements="36" conditionals="46" coveredconditionals="27" methods="29" coveredmethods="14"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="8" type="stmt"/>
+        <line num="69" count="8" type="stmt"/>
+        <line num="71" count="9" type="stmt"/>
+        <line num="72" count="9" type="stmt"/>
+        <line num="74" count="8" type="stmt"/>
         <line num="75" count="0" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
+        <line num="79" count="8" type="stmt"/>
         <line num="80" count="0" type="stmt"/>
         <line num="81" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="83" count="0" type="stmt"/>
@@ -887,116 +430,53 @@
         <line num="89" count="0" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
+        <line num="96" count="8" type="stmt"/>
         <line num="97" count="0" type="stmt"/>
         <line num="98" count="0" type="stmt"/>
         <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="107" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="113" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="115" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="120" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="104" count="8" type="stmt"/>
+        <line num="105" count="16" type="stmt"/>
+        <line num="106" count="16" type="stmt"/>
+        <line num="107" count="112" type="cond" truecount="2" falsecount="0"/>
+        <line num="112" count="8" type="stmt"/>
+        <line num="113" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="114" count="4" type="stmt"/>
+        <line num="115" count="28" type="cond" truecount="2" falsecount="0"/>
+        <line num="117" count="4" type="stmt"/>
+        <line num="119" count="4" type="stmt"/>
+        <line num="120" count="24" type="cond" truecount="1" falsecount="1"/>
         <line num="123" count="0" type="stmt"/>
         <line num="126" count="0" type="stmt"/>
-        <line num="127" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="129" count="0" type="stmt"/>
-        <line num="131" count="0" type="stmt"/>
-        <line num="132" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="127" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="129" count="8" type="stmt"/>
+        <line num="131" count="4" type="stmt"/>
+        <line num="132" count="20" type="cond" truecount="1" falsecount="1"/>
         <line num="135" count="0" type="stmt"/>
         <line num="138" count="0" type="stmt"/>
-        <line num="139" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="141" count="0" type="stmt"/>
-        <line num="143" count="0" type="stmt"/>
-        <line num="144" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="139" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="141" count="12" type="stmt"/>
+        <line num="143" count="4" type="stmt"/>
+        <line num="144" count="16" type="cond" truecount="1" falsecount="1"/>
         <line num="147" count="0" type="stmt"/>
         <line num="150" count="0" type="stmt"/>
-        <line num="151" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="155" count="0" type="stmt"/>
-        <line num="156" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="151" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="153" count="16" type="stmt"/>
+        <line num="155" count="4" type="stmt"/>
+        <line num="156" count="12" type="cond" truecount="1" falsecount="1"/>
         <line num="159" count="0" type="stmt"/>
         <line num="162" count="0" type="stmt"/>
-        <line num="167" count="0" type="stmt"/>
-        <line num="168" count="0" type="stmt"/>
+        <line num="167" count="8" type="stmt"/>
+        <line num="168" count="56" type="stmt"/>
         <line num="173" count="0" type="stmt"/>
         <line num="174" count="0" type="stmt"/>
         <line num="175" count="0" type="stmt"/>
         <line num="181" count="0" type="stmt"/>
-        <line num="190" count="0" type="stmt"/>
-        <line num="193" count="0" type="stmt"/>
+        <line num="190" count="8" type="stmt"/>
+        <line num="193" count="56" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.escolherEscola">
-      <metrics statements="125" coveredstatements="6" conditionals="112" coveredconditionals="0" methods="38" coveredmethods="1"/>
-      <file name="escolherEscola.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\escolherEscola\escolherEscola.js">
-        <metrics statements="60" coveredstatements="6" conditionals="56" coveredconditionals="0" methods="19" coveredmethods="1"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="9" type="stmt"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="16" count="8" type="stmt"/>
-        <line num="17" count="8" type="stmt"/>
-        <line num="32" count="8" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="79" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="90" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="94" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="102" count="0" type="cond" truecount="0" falsecount="6"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="124" count="0" type="stmt"/>
-        <line num="125" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="131" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="132" count="0" type="stmt"/>
-        <line num="147" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="148" count="0" type="stmt"/>
-        <line num="152" count="0" type="cond" truecount="0" falsecount="4"/>
-      </file>
+      <metrics statements="65" coveredstatements="0" conditionals="56" coveredconditionals="0" methods="19" coveredmethods="0"/>
       <file name="escolherEscola.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\escolherEscola\escolherEscola.tsx">
         <metrics statements="65" coveredstatements="0" conditionals="56" coveredconditionals="0" methods="19" coveredmethods="0"/>
         <line num="14" count="0" type="stmt"/>
@@ -1067,75 +547,33 @@
       </file>
     </package>
     <package name="src.componentes.filtro">
-      <metrics statements="106" coveredstatements="26" conditionals="88" coveredconditionals="26" methods="78" coveredmethods="17"/>
-      <file name="filtroLateral.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\filtro\filtroLateral.js">
-        <metrics statements="39" coveredstatements="26" conditionals="44" coveredconditionals="26" methods="39" coveredmethods="17"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="16" type="stmt"/>
-        <line num="9" count="16" type="stmt"/>
-        <line num="10" count="10" type="stmt"/>
-        <line num="11" count="10" type="stmt"/>
-        <line num="12" count="10" type="stmt"/>
-        <line num="13" count="6" type="cond" truecount="1" falsecount="1"/>
-        <line num="14" count="6" type="stmt"/>
-        <line num="17" count="10" type="stmt"/>
-        <line num="18" count="10" type="stmt"/>
-        <line num="19" count="10" type="stmt"/>
-        <line num="20" count="8" type="stmt"/>
-        <line num="21" count="8" type="stmt"/>
-        <line num="22" count="40" type="stmt"/>
-        <line num="24" count="8" type="stmt"/>
-        <line num="26" count="10" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="48" count="10" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="52" count="10" type="cond" truecount="1" falsecount="0"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="cond" truecount="8" falsecount="1"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="64" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="70" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="80" count="1" type="cond" truecount="2" falsecount="2"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="84" count="0" type="cond" truecount="0" falsecount="6"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="90" count="1" type="stmt"/>
-        <line num="93" count="20" type="cond" truecount="14" falsecount="2"/>
-      </file>
+      <metrics statements="67" coveredstatements="35" conditionals="44" coveredconditionals="26" methods="39" coveredmethods="17"/>
       <file name="filtroLateral.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\filtro\filtroLateral.tsx">
-        <metrics statements="67" coveredstatements="0" conditionals="44" coveredconditionals="0" methods="39" coveredmethods="0"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
+        <metrics statements="67" coveredstatements="35" conditionals="44" coveredconditionals="26" methods="39" coveredmethods="17"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="28" count="16" type="stmt"/>
+        <line num="29" count="16" type="stmt"/>
+        <line num="31" count="10" type="stmt"/>
+        <line num="34" count="10" type="stmt"/>
+        <line num="36" count="10" type="stmt"/>
+        <line num="37" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="6" type="stmt"/>
+        <line num="42" count="10" type="stmt"/>
+        <line num="43" count="10" type="stmt"/>
+        <line num="44" count="10" type="stmt"/>
+        <line num="45" count="8" type="stmt"/>
+        <line num="46" count="8" type="stmt"/>
+        <line num="47" count="40" type="stmt"/>
+        <line num="49" count="8" type="stmt"/>
+        <line num="52" count="10" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="75" count="10" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
         <line num="77" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="88" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="80" count="10" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="88" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="97" count="0" type="stmt"/>
         <line num="100" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="101" count="0" type="stmt"/>
@@ -1145,25 +583,25 @@
         <line num="109" count="0" type="stmt"/>
         <line num="110" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="111" count="0" type="stmt"/>
-        <line num="114" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="118" count="0" type="stmt"/>
+        <line num="114" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="118" count="1" type="stmt"/>
         <line num="119" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="125" count="0" type="stmt"/>
-        <line num="128" count="0" type="stmt"/>
-        <line num="132" count="0" type="stmt"/>
-        <line num="150" count="0" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="132" count="10" type="stmt"/>
+        <line num="150" count="1" type="stmt"/>
         <line num="158" count="0" type="stmt"/>
         <line num="161" count="0" type="stmt"/>
         <line num="163" count="0" type="stmt"/>
-        <line num="178" count="0" type="stmt"/>
-        <line num="182" count="0" type="stmt"/>
+        <line num="178" count="6" type="stmt"/>
+        <line num="182" count="4" type="stmt"/>
         <line num="185" count="0" type="stmt"/>
-        <line num="206" count="0" type="stmt"/>
+        <line num="206" count="1" type="stmt"/>
         <line num="220" count="0" type="stmt"/>
-        <line num="233" count="0" type="stmt"/>
+        <line num="233" count="10" type="stmt"/>
         <line num="236" count="0" type="stmt"/>
         <line num="239" count="0" type="stmt"/>
-        <line num="250" count="0" type="stmt"/>
+        <line num="250" count="10" type="stmt"/>
         <line num="253" count="0" type="stmt"/>
         <line num="256" count="0" type="stmt"/>
         <line num="272" count="0" type="stmt"/>
@@ -1172,55 +610,30 @@
         <line num="289" count="0" type="stmt"/>
         <line num="292" count="0" type="stmt"/>
         <line num="295" count="0" type="stmt"/>
-        <line num="315" count="0" type="stmt"/>
+        <line num="315" count="4" type="stmt"/>
         <line num="318" count="0" type="stmt"/>
         <line num="320" count="0" type="stmt"/>
         <line num="342" count="0" type="stmt"/>
-        <line num="346" count="0" type="stmt"/>
+        <line num="346" count="20" type="stmt"/>
         <line num="361" count="0" type="stmt"/>
-        <line num="365" count="0" type="stmt"/>
+        <line num="365" count="20" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.grafico">
-      <metrics statements="67" coveredstatements="17" conditionals="80" coveredconditionals="15" methods="44" coveredmethods="10"/>
-      <file name="desempenhoAno.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoAno.js">
-        <metrics statements="7" coveredstatements="7" conditionals="8" coveredconditionals="8" methods="6" coveredmethods="6"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="34" count="3" type="stmt"/>
-        <line num="43" count="8" type="cond" truecount="8" falsecount="0"/>
-      </file>
+      <metrics statements="38" coveredstatements="22" conditionals="40" coveredconditionals="15" methods="22" coveredmethods="10"/>
       <file name="desempenhoAno.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoAno.tsx">
-        <metrics statements="11" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="136" count="0" type="stmt"/>
-      </file>
-      <file name="desempenhoPorMateria.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoPorMateria.js">
-        <metrics statements="12" coveredstatements="0" conditionals="20" coveredconditionals="0" methods="12" coveredmethods="0"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="cond" truecount="0" falsecount="8"/>
+        <metrics statements="11" coveredstatements="11" conditionals="8" coveredconditionals="8" methods="6" coveredmethods="6"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="79" count="3" type="stmt"/>
+        <line num="111" count="2" type="stmt"/>
+        <line num="121" count="4" type="stmt"/>
+        <line num="126" count="6" type="stmt"/>
+        <line num="136" count="8" type="stmt"/>
       </file>
       <file name="desempenhoPorMateria.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoPorMateria.tsx">
         <metrics statements="16" coveredstatements="0" conditionals="20" coveredconditionals="0" methods="12" coveredmethods="0"/>
@@ -1241,107 +654,48 @@
         <line num="131" count="0" type="stmt"/>
         <line num="143" count="0" type="stmt"/>
       </file>
-      <file name="desempenhoTurma.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoTurma.js">
-        <metrics statements="3" coveredstatements="3" conditionals="6" coveredconditionals="4" methods="3" coveredmethods="3"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="14" count="9" type="cond" truecount="3" falsecount="1"/>
-      </file>
       <file name="desempenhoTurma.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\desempenhoTurma.tsx">
-        <metrics statements="5" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-      </file>
-      <file name="estudantePorMateria.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\estudantePorMateria.js">
-        <metrics statements="7" coveredstatements="7" conditionals="6" coveredconditionals="3" methods="1" coveredmethods="1"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="7" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="8" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="60" count="9" type="stmt"/>
+        <line num="70" count="9" type="stmt"/>
       </file>
       <file name="estudantePorMateria.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\estudantePorMateria.tsx">
-        <metrics statements="6" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="6" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="21" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.grafico.conteudo">
-      <metrics statements="17" coveredstatements="8" conditionals="14" coveredconditionals="7" methods="8" coveredmethods="4"/>
-      <file name="legendaCustomizada.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\conteudo\legendaCustomizada.js">
-        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="3" count="5" type="stmt"/>
-        <line num="4" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="6" count="17" type="stmt"/>
-      </file>
+      <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="4" coveredmethods="4"/>
       <file name="legendaCustomizada.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\conteudo\legendaCustomizada.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-      </file>
-      <file name="tooltipCustomizada.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\conteudo\tooltipCustomizada.js">
-        <metrics statements="4" coveredstatements="4" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
-        <line num="3" count="5" type="stmt"/>
-        <line num="4" count="11" type="cond" truecount="5" falsecount="0"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="7" count="7" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="14" count="14" type="stmt"/>
       </file>
       <file name="tooltipCustomizada.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\grafico\conteudo\tooltipCustomizada.tsx">
-        <metrics statements="5" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="7" type="cond" truecount="5" falsecount="0"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.componentes.relatorio">
-      <metrics statements="46" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="1"/>
-      <file name="relatorio.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\relatorio\relatorio.js">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-      </file>
+      <metrics statements="23" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
       <file name="relatorio.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\relatorio\relatorio.tsx">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-      </file>
-      <file name="relatorioAlunosPorUes.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\relatorio\relatorioAlunosPorUes.js">
-        <metrics statements="21" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
       </file>
       <file name="relatorioAlunosPorUes.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\relatorio\relatorioAlunosPorUes.tsx">
         <metrics statements="21" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
@@ -1369,22 +723,227 @@
       </file>
     </package>
     <package name="src.componentes.rodape">
-      <metrics statements="10" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
-      <file name="rodape.js" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\rodape\rodape.js">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-      </file>
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="rodape.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\componentes\rodape\rodape.tsx">
-        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.pages">
+      <metrics statements="201" coveredstatements="157" conditionals="132" coveredconditionals="76" methods="48" coveredmethods="33"/>
+      <file name="auth.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\pages\auth.tsx">
+        <metrics statements="42" coveredstatements="35" conditionals="30" coveredconditionals="19" methods="3" coveredmethods="3"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="23" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="36" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="54" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="64" count="1" type="cond" truecount="4" falsecount="1"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="76" count="3" type="stmt"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="83" count="6" type="stmt"/>
+      </file>
+      <file name="semAcesso.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\pages\semAcesso.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+      </file>
+      <file name="ues.tsx" path="C:\Projetos\SME-Boletim-FrontEnd\src\pages\ues.tsx">
+        <metrics statements="156" coveredstatements="119" conditionals="102" coveredconditionals="57" methods="44" coveredmethods="29"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="44" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="19" type="stmt"/>
+        <line num="57" count="22" type="stmt"/>
+        <line num="59" count="19" type="stmt"/>
+        <line num="60" count="19" type="stmt"/>
+        <line num="61" count="19" type="stmt"/>
+        <line num="62" count="19" type="stmt"/>
+        <line num="63" count="19" type="stmt"/>
+        <line num="64" count="19" type="stmt"/>
+        <line num="65" count="19" type="stmt"/>
+        <line num="66" count="19" type="stmt"/>
+        <line num="67" count="19" type="stmt"/>
+        <line num="68" count="19" type="stmt"/>
+        <line num="72" count="19" type="stmt"/>
+        <line num="73" count="19" type="stmt"/>
+        <line num="74" count="19" type="stmt"/>
+        <line num="76" count="19" type="stmt"/>
+        <line num="78" count="19" type="stmt"/>
+        <line num="79" count="22" type="stmt"/>
+        <line num="82" count="19" type="stmt"/>
+        <line num="84" count="19" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="86" count="3" type="stmt"/>
+        <line num="89" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="90" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="92" count="3" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="107" count="19" type="stmt"/>
+        <line num="108" count="3" type="stmt"/>
+        <line num="111" count="19" type="stmt"/>
+        <line num="112" count="3" type="stmt"/>
+        <line num="113" count="3" type="stmt"/>
+        <line num="116" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="117" count="6" type="stmt"/>
+        <line num="122" count="3" type="stmt"/>
+        <line num="123" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="129" count="19" type="stmt"/>
+        <line num="130" count="3" type="stmt"/>
+        <line num="133" count="19" type="stmt"/>
+        <line num="134" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="135" count="3" type="stmt"/>
+        <line num="139" count="19" type="stmt"/>
+        <line num="140" count="3" type="stmt"/>
+        <line num="141" count="3" type="stmt"/>
+        <line num="144" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="146" count="0" type="stmt"/>
+        <line num="150" count="20" type="stmt"/>
+        <line num="156" count="19" type="stmt"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="158" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="171" count="19" type="stmt"/>
+        <line num="172" count="3" type="stmt"/>
+        <line num="173" count="3" type="stmt"/>
+        <line num="174" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="175" count="6" type="stmt"/>
+        <line num="180" count="3" type="stmt"/>
+        <line num="181" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="182" count="3" type="stmt"/>
+        <line num="183" count="3" type="stmt"/>
+        <line num="186" count="0" type="stmt"/>
+        <line num="190" count="19" type="stmt"/>
+        <line num="191" count="3" type="stmt"/>
+        <line num="194" count="19" type="stmt"/>
+        <line num="195" count="3" type="cond" truecount="4" falsecount="1"/>
+        <line num="196" count="3" type="stmt"/>
+        <line num="197" count="3" type="stmt"/>
+        <line num="200" count="3" type="stmt"/>
+        <line num="202" count="0" type="stmt"/>
+        <line num="203" count="0" type="stmt"/>
+        <line num="207" count="19" type="stmt"/>
+        <line num="208" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="209" count="3" type="stmt"/>
+        <line num="213" count="19" type="stmt"/>
+        <line num="214" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="215" count="3" type="stmt"/>
+        <line num="216" count="3" type="stmt"/>
+        <line num="218" count="3" type="stmt"/>
+        <line num="219" count="3" type="stmt"/>
+        <line num="222" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="223" count="6" type="stmt"/>
+        <line num="228" count="3" type="stmt"/>
+        <line num="230" count="0" type="stmt"/>
+        <line num="231" count="0" type="stmt"/>
+        <line num="235" count="19" type="stmt"/>
+        <line num="236" count="6" type="stmt"/>
+        <line num="237" count="6" type="stmt"/>
+        <line num="240" count="19" type="cond" truecount="0" falsecount="2"/>
+        <line num="241" count="12" type="cond" truecount="5" falsecount="0"/>
+        <line num="242" count="6" type="stmt"/>
+        <line num="243" count="6" type="stmt"/>
+        <line num="244" count="6" type="stmt"/>
+        <line num="246" count="6" type="stmt"/>
+        <line num="247" count="6" type="stmt"/>
+        <line num="248" count="6" type="stmt"/>
+        <line num="249" count="6" type="stmt"/>
+        <line num="250" count="0" type="stmt"/>
+        <line num="252" count="6" type="stmt"/>
+        <line num="253" count="6" type="stmt"/>
+        <line num="254" count="6" type="stmt"/>
+        <line num="255" count="6" type="stmt"/>
+        <line num="256" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="257" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="259" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="261" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="263" count="0" type="stmt"/>
+        <line num="264" count="0" type="stmt"/>
+        <line num="265" count="0" type="stmt"/>
+        <line num="267" count="6" type="stmt"/>
+        <line num="271" count="19" type="stmt"/>
+        <line num="272" count="12" type="stmt"/>
+        <line num="275" count="19" type="stmt"/>
+        <line num="276" count="12" type="stmt"/>
+        <line num="277" count="12" type="stmt"/>
+        <line num="280" count="19" type="stmt"/>
+        <line num="281" count="8" type="stmt"/>
+        <line num="287" count="19" type="stmt"/>
+        <line num="288" count="0" type="stmt"/>
+        <line num="291" count="19" type="stmt"/>
+        <line num="292" count="0" type="stmt"/>
+        <line num="293" count="0" type="stmt"/>
+        <line num="294" count="0" type="stmt"/>
+        <line num="297" count="19" type="stmt"/>
+        <line num="337" count="0" type="stmt"/>
+        <line num="342" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="366" count="0" type="stmt"/>
+        <line num="375" count="0" type="stmt"/>
+        <line num="380" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="404" count="8" type="stmt"/>
+        <line num="443" count="0" type="stmt"/>
+        <line num="448" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="455" count="0" type="stmt"/>
+        <line num="456" count="0" type="stmt"/>
+        <line num="458" count="0" type="stmt"/>
+        <line num="474" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="475" count="4" type="stmt"/>
+        <line num="499" count="2" type="stmt"/>
+        <line num="583" count="1" type="stmt"/>
+        <line num="584" count="1" type="stmt"/>
       </file>
     </package>
   </project>
