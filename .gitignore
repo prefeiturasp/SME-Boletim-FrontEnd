@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+dist/
+build/
+src/**/*.js
+src/**/*.d.ts
+
+coverage
