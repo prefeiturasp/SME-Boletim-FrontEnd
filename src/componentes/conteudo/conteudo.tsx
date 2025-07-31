@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Tabs, Select } from "antd";
+import { Link } from "react-router-dom";
 import Principal from "./conteudoTabs/principal";
 import Turma from "./conteudoTabs/turma";
 import Estudantes from "./conteudoTabs/estudantes";
@@ -9,6 +10,7 @@ import { RootState } from "../../redux/store";
 import { setActiveTab } from "../../redux/slices/tabSlice";
 import { setNomeAplicacao } from "../../redux/slices/nomeAplicacaoSlice";
 import { servicos } from "../../servicos";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const Conteudo: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,19 +20,29 @@ const Conteudo: React.FC = () => {
   const filtrosCarregados = useSelector(
     (state: RootState) => state.filtroCarregado
   );
-
   const escolaSelecionada = useSelector(
     (state: RootState) => state.escola.escolaSelecionada
   );
 
   const abasDesabilitadas = !filtrosCarregados.carregado;
 
+  const [showVoltarUes, setShowVoltarUes] = useState(false);
+
+  useEffect(() => {
+    const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
+    console.log(tipoPerfil);
+    if (tipoPerfil === 4 || tipoPerfil === 5) {
+      setShowVoltarUes(true);
+    } else {
+      setShowVoltarUes(false);
+    }
+  }, []);
+
   const buscarAplicacoes = async () => {
     try {
       const resposta = await servicos.get(
         `/api/boletimescolar/aplicacoes-prova`
       );
-      console.log(resposta);
       setAplicacoes(resposta || []);
 
       if (resposta.length > 0) {
@@ -85,6 +97,26 @@ const Conteudo: React.FC = () => {
           <Card
             title={
               <div>
+                {showVoltarUes && (
+                  <div style={{ marginBottom: 12 }}>
+                    <Link
+                      to="/ues"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                        color: "#1976d2",
+                        textDecoration: "none",
+                        margin: "15px 0px 0px",
+                        fontSize: 14,
+                      }}
+                      className="botao-voltar-ues"
+                    >
+                      <ArrowLeftOutlined style={{ fontSize: 18 }} />
+                      Voltar a tela anterior
+                    </Link>
+                  </div>
+                )}
                 <span
                   style={{
                     display: "block",

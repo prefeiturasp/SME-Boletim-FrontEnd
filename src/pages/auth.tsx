@@ -33,14 +33,18 @@ const Auth: React.FC = () => {
             })
           );
 
-          // if (tipoPerfilNum === 1 || tipoPerfilNum === 2 || tipoPerfilNum === 3) {
-          //   navigate("/");
-          // } else if (tipoPerfilNum === 4) {
-          //   navigate("/ues");
-          // } else if (tipoPerfilNum === 5) {
-          //   navigate("/dres");
-          // }
-          navigate("/");
+          if (
+            tipoPerfilNum === 1 ||
+            tipoPerfilNum === 2 ||
+            tipoPerfilNum === 3
+          ) {
+            navigate("/");
+          } else if (tipoPerfilNum === 4) {
+            navigate("/ues");
+          } else if (tipoPerfilNum === 5) {
+            navigate("/dres");
+          }
+
           return;
         } else {
           dispatch(logout());
@@ -57,14 +61,13 @@ const Auth: React.FC = () => {
 
           dispatch(setUserLogged({ token, dataHoraExpiracao, tipoPerfil }));
 
-          // if (tipoPerfil === 1 || tipoPerfil === 2 || tipoPerfil === 3) {
-          //   navigate("/");
-          // } else if (tipoPerfil === 4) {
-          //   navigate("/ues");
-          // } else if (tipoPerfil === 5) {
-          //   navigate("/dres");
-          // }
-          navigate("/");
+          if (tipoPerfil === 1 || tipoPerfil === 2 || tipoPerfil === 3) {
+            navigate("/");
+          } else if (tipoPerfil === 4) {
+            navigate("/ues");
+          } else if (tipoPerfil === 5) {
+            navigate("/dres");
+          }
         } catch (error) {
           console.error("Erro ao autenticar:", error);
           navigate("/sem-acesso");
