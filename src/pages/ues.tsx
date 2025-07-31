@@ -60,9 +60,12 @@ const UesPage: React.FC = () => {
   const [anos, setAnos] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState();
   const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
-  const [dres, setDres] = useState([]);
+  const [dres, setDres] = useState<{ value: number; label: string }[]>([]);
+
   const [dreSelecionada, setDreSelecionada] = useState();
-  const [dreSelecionadaNome, setDreSeleciondaNome] = useState();
+  const [dreSelecionadaNome, setDreSeleciondaNome] = useState<
+    string | undefined
+  >();
   const [resumoDre, setResumoDre] = useState<any | null>(null);
   const [ues, setUes] = useState([]);
   const [uesSelecionadas, setUesSelecionadas] = useState<
@@ -134,7 +137,7 @@ const UesPage: React.FC = () => {
     if (aplicacoes.length > 0) {
       buscaDesempenhoPorMateria();
     }
-  }, [aplicacaoSelecionada, anoSelecionado]);
+  }, [aplicacaoSelecionada, anoSelecionado, dreSelecionada]);
 
   const buscaDesempenhoPorMateria = async () => {
     try {
@@ -335,6 +338,8 @@ const UesPage: React.FC = () => {
                   className="select-full"
                   onChange={(value) => {
                     setDreSelecionada(value);
+                    const dreObj = dres.find((d) => d.value === value);
+                    setDreSeleciondaNome(dreObj?.label);
                   }}
                   value={dreSelecionada || undefined}
                   notFoundContent="Nenhuma DRE encontrada"
@@ -416,8 +421,8 @@ const UesPage: React.FC = () => {
             </Row>
             <br />
             <div className="informacao-blue">
-              As informações são das Unidades Educacionais que realizam a prova{" "}
-              {nomeAplicacao.nome}
+              As informações são das Unidades Educacionais que realizaram a
+              prova {nomeAplicacao.nome}
             </div>
             <br />
             <Card title="" variant="borderless">
@@ -523,8 +528,8 @@ const UesPage: React.FC = () => {
                                         ? p.mediaProficiencia.toLocaleString(
                                             "pt-BR",
                                             {
-                                              minimumFractionDigits: 1,
-                                              maximumFractionDigits: 1,
+                                              minimumFractionDigits: 2,
+                                              maximumFractionDigits: 2,
                                             }
                                           )
                                         : "-"}
