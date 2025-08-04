@@ -39,10 +39,8 @@ const Auth: React.FC = () => {
             tipoPerfilNum === 3
           ) {
             navigate("/");
-          } else if (tipoPerfilNum === 4) {
+          } else if (tipoPerfilNum === 4 || tipoPerfilNum === 5) {
             navigate("/ues");
-          } else if (tipoPerfilNum === 5) {
-            navigate("/dres");
           }
 
           return;
@@ -63,10 +61,8 @@ const Auth: React.FC = () => {
 
           if (tipoPerfil === 1 || tipoPerfil === 2 || tipoPerfil === 3) {
             navigate("/");
-          } else if (tipoPerfil === 4) {
+          } else if (tipoPerfil === 4 || tipoPerfil === 5) {
             navigate("/ues");
-          } else if (tipoPerfil === 5) {
-            navigate("/dres");
           }
         } catch (error) {
           console.error("Erro ao autenticar:", error);
