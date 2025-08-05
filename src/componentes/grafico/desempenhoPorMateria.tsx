@@ -39,15 +39,40 @@ const ConverteDados = (lsDados: any[]): DataPoint[] => {
   }));
 };
 
-const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
+const ConverteDadosDre = (lsDados: any[]): DataPoint[] => {
+  return lsDados.map((item) => ({
+    name: item.disciplinaNome,
+    abaixoDoBasico:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 1)
+        ?.quantidadeDres || 0,
+    basico:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 2)
+        ?.quantidadeDres || 0,
+    adequado:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 3)
+        ?.quantidadeDres || 0,
+    avancado:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 4)
+        ?.quantidadeDres || 0,
+  }));
+};
+
+
+const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, tipo }) => {
   console.log(dados);
   if (!Array.isArray(dados) || dados.length === 0) return <></>;
   else {
-    const data = ConverteDados(dados);
+    let data: DataPoint[] = [];
+    if(tipo === "UEs"){
+      data = ConverteDados(dados);
+    } else if(tipo === "DREs"){
+      data = ConverteDadosDre(dados);
+    }
+    
     return (
       <>
         <Card>
-          Confira a quantidade de <b>Unidades Educacionais (UEs) </b>
+          Confira a quantidade de <b>Unidades Educacionais ({tipo}) </b>
           classificadas dentro de cada um dos niveis de proficiência (AB, B, AD,
           AV).
           <div className="legendas">
