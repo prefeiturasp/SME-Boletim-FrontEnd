@@ -13,7 +13,7 @@ import {
 } from "antd";
 
 import { Link } from "react-router-dom";
-import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE.jpg";//verificar
+import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";//verificar
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
@@ -25,11 +25,13 @@ import iconeMat from "../assets/icon-mat.svg";
 import iconeAlunos from "../assets/icon-alunos.svg";
 import iconeDados from "../assets/icon-dados.svg";
 import iconeMais from "../assets/icon-mais.svg";
+import iconeUe from "../assets/icon-ue.svg";
 import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
 import { Label } from "recharts";
 import RelatorioAlunosPorDres from "../componentes/relatorio/relatorioAlunosPorDres";
+import { Color } from "antd/es/color-picker";
 const { Header } = Layout;
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
@@ -326,20 +328,22 @@ const DresPage: React.FC = () => {
       <div className="conteudo-principal-ues">
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <h2>Secretaria Municipal de Educação</h2>
+            <h2 className="titulo-sme">Secretaria Municipal de Educação</h2>
             
-            <Card title="" variant="borderless">
-              <p>
+            <Card title="" variant="borderless" className="card-body-dre">
+              <p style={{ marginTop: "0", marginBottom: "3em"}}>
                 Você pode consultar as informações de todas as provas já
                 aplicadas. Basta selecionar a aplicação que deseja visualizar.
               </p>
               
-              <div className="filtros-card">
-                <Select
+              <div className="filtros-card-dre">
+                <div className="filtro-aplicacao">
+                  <label className="label-filtro-dre">Aplicação</label>
+                  <Select
                     data-testid="select-aplicacao"
                     showSearch
                     placeholder="Selecione uma aplicação..."
-                    className="select-full"
+                    className="select-custom"
                     onChange={handleChange}
                     value={nomeAplicacao.id || undefined}
                     notFoundContent="Nenhuma aplicação encontrada"
@@ -347,12 +351,14 @@ const DresPage: React.FC = () => {
                         option?.label.toLowerCase().includes(input.toLowerCase())
                     }
                     options={opcoes}                    
-                />
-
-                <Select
+                  />
+                </div>
+                <div className="filtro-ano">
+                  <label className="label-filtro-dre">Ano</label>
+                  <Select
                     showSearch
                     placeholder="Ano escolar"
-                    className="select-ano"
+                    className="select-custom"
                     onChange={(value) => {
                         setAnoSelecionado(value);
                     }}
@@ -364,33 +370,34 @@ const DresPage: React.FC = () => {
                         .includes(input.toLowerCase())
                     }
                     options={anos}
-                />                
+                 />
+                </div>
               </div>
             </Card>
             <br />
-            <Row gutter={[16, 16]} className="cards-container">
-              <Col xs={24} sm={12} md={4}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+            <Row gutter={[16, 16]} className="cards-container-dre">
+              <Col xs={24} sm={12} md={4} className="colum-dre">
+                <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalDres ?? "-"}</div>
                   <div className="descricao">DREs</div>
                 </Card>
               </Col>
-              <Col xs={24} sm={12} md={5}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+              <Col xs={24} sm={12} md={5} className="colum-dre">
+                <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalUes ?? "-"}</div>
                   <div className="descricao">Unidade Educacionais</div>
                 </Card>
               </Col>
-              <Col xs={24} sm={12} md={5}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+              <Col xs={24} sm={12} md={5} className="colum-dre">
+                <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalAlunos ?? "-"}</div>
                   <div className="descricao">Estudantes</div>
                 </Card>
               </Col>
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
-                  <Col xs={24} sm={12} md={5} key={idx}>
-                    <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                  <Col xs={24} sm={12} md={5} key={idx} className="colum-dre">
+                    <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
@@ -402,13 +409,13 @@ const DresPage: React.FC = () => {
                 )
               )}
             </Row>
-            <br />
-            <div className="informacao-blue">
+            
+            <div className="informacao-blue-dre">
               As informações são das Unidades Educacionais que realizaram a
               prova {nomeAplicacao.nome}
             </div>
             <br />
-            <Card title="" variant="borderless">
+            <Card title="" variant="borderless" className="body-pai-dre">
               <p className="ues-dre-title">
                 <b>Diretoria Regional de Educação (DREs) </b>
                 {/* - {dreSelecionadaNome} */}
@@ -421,7 +428,7 @@ const DresPage: React.FC = () => {
               <DesempenhoPorMateria dados={niveisProficiencia} tipo={"DREs"} />
 
               <br />
-              <div className="conteudo-fixo-ues">
+              <div className="conteudo-fixo-dres">
                 <p>Você pode filtrar por Diretoria Regional de Educação (DRE).</p>
 
                 <Select
@@ -456,17 +463,15 @@ const DresPage: React.FC = () => {
                 />
               </div>
 
-              <br />
-
-              <div className="ues-list-cards">
+              <div className="dres-list-cards">
                 <Row gutter={[16, 16]}>
                   {dresDados.map((dre) => {
                     const semDisciplinas = !dre.disciplinas || dre.disciplinas.length === 0;
                     return (
                       <Col xs={24} sm={24} md={8} key={dre.dreId}>
-                        <Card className="ues-list-card">
+                        <Card className="dres-list-card">
                           <Tooltip title={dre.dreNome}>
-                            <div className="ues-list-card-nome ue-nome-truncado">
+                            <div className="dre-list-card-nome ue-nome-truncado">
                               {dre.dreNome}
                             </div>
                           </Tooltip>
@@ -500,7 +505,7 @@ const DresPage: React.FC = () => {
                                         alt="Ícone disciplina"
                                         className="disciplina-icon"
                                       />
-                                      <span>{p.disciplina}</span>
+                                      <span style={{fontWeight: "700", color: "#595959"}}>{p.disciplina}</span>
                                     </span>
                                     <span
                                       className="nivel"
@@ -531,7 +536,7 @@ const DresPage: React.FC = () => {
                                 <div>
                                   <span className="ues-list-meta-titulo">
                                     <img
-                                      src={iconeDados}
+                                      src={iconeUe}
                                       alt="Ícone alunos"
                                       className="disciplina-icon"
                                     />{" "}
