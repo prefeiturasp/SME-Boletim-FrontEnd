@@ -70,14 +70,22 @@ const RelatorioAlunosPorDres: React.FC<DownloadRelatorioProps> = ({
         responseType: "blob",
       });
 
-      const blob = new Blob([resposta.data], {
+      const blob = new Blob([resposta], {
         type: "application/vnd.ms-excel",
       });
 
       const link = document.createElement("a");
       const nomeSanitizado = String(dreSelecionadaNome).replace(/[\\/:*?"<>|]/g, "");
       link.href = URL.createObjectURL(blob);
-      link.download = `dados-dre-${nomeSanitizado}.xls`;
+      link.download = `arquivo.xls`;
+
+      if (tipoSelecionado === "proficiência") {
+        link.download = `boletim-resultados-principais.xls`;
+      }
+
+      if (tipoSelecionado === "probabilidade") {
+        link.download = `boletim-resultados-probabilidades.xls`;
+      }
 
       document.body.appendChild(link);
       link.click();
