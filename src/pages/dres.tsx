@@ -13,7 +13,7 @@ import {
 } from "antd";
 
 import { Link } from "react-router-dom";
-import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";//verificar
+import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg"; //verificar
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
@@ -32,6 +32,7 @@ import { Layout } from "antd";
 import { Label } from "recharts";
 import RelatorioAlunosPorDres from "../componentes/relatorio/relatorioAlunosPorDres";
 import { Color } from "antd/es/color-picker";
+import DesempenhoPorMediaProficiencia from "../componentes/grafico/desempenhoPorMediaProficiencia";
 const { Header } = Layout;
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
@@ -63,6 +64,7 @@ const DresPage: React.FC = () => {
   const [anos, setAnos] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState();
   const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
+  const [mediaProficiencia, setMediaProficiencia] = useState<any[]>([]);
   const [dres, setDres] = useState<{ value: number; label: string }[]>([]);
 
   const [dreSelecionada, setDreSelecionada] = useState();
@@ -139,6 +141,7 @@ const DresPage: React.FC = () => {
   useEffect(() => {
     if (aplicacoes.length > 0) {
       buscaDesempenhoPorMateria();
+      buscaDesempenhoPorMediaProficiencia();
     }
   }, [aplicacaoSelecionada, anoSelecionado, dreSelecionada]);
 
@@ -148,6 +151,17 @@ const DresPage: React.FC = () => {
         `/api/boletimescolar/${anoSelecionado}/${aplicacaoSelecionada}/grafico/niveis-proficiencia-disciplina`
       );
       setNiveisProficiencia(respostas?.disciplinas || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const buscaDesempenhoPorMediaProficiencia = async () => {
+    try {
+      const respostas = await servicos.get(
+        `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia`
+      );
+      setMediaProficiencia(respostas || []);
     } catch (error) {
       console.error(error);
     }
@@ -257,7 +271,7 @@ const DresPage: React.FC = () => {
       );
       //const url = `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ue-por-dre-dados?${params.toString()}`;
       const url = `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres/proficiencia?${params.toString()}`;
-            
+
       const resposta = await servicos.get(url);
       if (append) {
         setDresDados((prev) => [...prev, ...(resposta?.itens || [])]);
@@ -329,13 +343,13 @@ const DresPage: React.FC = () => {
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <h2 className="titulo-sme">Secretaria Municipal de Educação</h2>
-            
+
             <Card title="" variant="borderless" className="card-body-dre">
-              <p style={{ marginTop: "0", marginBottom: "3em"}}>
+              <p style={{ marginTop: "0", marginBottom: "3em" }}>
                 Você pode consultar as informações de todas as provas já
                 aplicadas. Basta selecionar a aplicação que deseja visualizar.
               </p>
-              
+
               <div className="filtros-card-dre">
                 <div className="filtro-aplicacao">
                   <label className="label-filtro-dre">Aplicação</label>
@@ -348,9 +362,9 @@ const DresPage: React.FC = () => {
                     value={nomeAplicacao.id || undefined}
                     notFoundContent="Nenhuma aplicação encontrada"
                     filterOption={(input, option) =>
-                        option?.label.toLowerCase().includes(input.toLowerCase())
+                      option?.label.toLowerCase().includes(input.toLowerCase())
                     }
-                    options={opcoes}                    
+                    options={opcoes}
                   />
                 </div>
                 <div className="filtro-ano">
@@ -360,17 +374,17 @@ const DresPage: React.FC = () => {
                     placeholder="Ano escolar"
                     className="select-custom"
                     onChange={(value) => {
-                        setAnoSelecionado(value);
+                      setAnoSelecionado(value);
                     }}
                     value={anoSelecionado || undefined}
                     notFoundContent="Nenhum ano encontrado"
                     filterOption={(input, option: any) =>
-                        (option?.label ?? "")
+                      (option?.label ?? "")
                         .toLowerCase()
                         .includes(input.toLowerCase())
                     }
                     options={anos}
-                 />
+                  />
                 </div>
               </div>
             </Card>
@@ -397,7 +411,10 @@ const DresPage: React.FC = () => {
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
                   <Col xs={24} sm={12} md={5} key={idx} className="colum-dre">
-                    <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
+                    <Card
+                      className="card-resumo-dre"
+                      bodyStyle={{ padding: 0 }}
+                    >
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
@@ -409,7 +426,7 @@ const DresPage: React.FC = () => {
                 )
               )}
             </Row>
-            
+
             <div className="informacao-blue-dre">
               As informações são das Unidades Educacionais que realizaram a
               prova {nomeAplicacao.nome}
@@ -421,15 +438,17 @@ const DresPage: React.FC = () => {
                 {/* - {dreSelecionadaNome} */}
               </p>
               <p>
-                Confira as informações de todas as DREs do Municipio de São Paulo .
-                {/* {dreSelecionadaNome} */}
+                Confira as informações de todas as DREs do Municipio de São
+                Paulo .{/* {dreSelecionadaNome} */}
               </p>
 
               <DesempenhoPorMateria dados={niveisProficiencia} tipo={"DREs"} />
 
               <br />
               <div className="conteudo-fixo-dres">
-                <p>Você pode filtrar por Diretoria Regional de Educação (DRE).</p>
+                <p>
+                  Você pode filtrar por Diretoria Regional de Educação (DRE).
+                </p>
 
                 <Select
                   mode="multiple"
@@ -450,7 +469,7 @@ const DresPage: React.FC = () => {
                   options={uesOptions}
                   optionRender={(option) => {
                     const selected = uesSelecionadas.some(
-                    //   (ue) => ue.value === option.value
+                      //   (ue) => ue.value === option.value
                       (dre) => dre.value === option.value
                     );
                     return (
@@ -466,7 +485,8 @@ const DresPage: React.FC = () => {
               <div className="dres-list-cards">
                 <Row gutter={[16, 16]}>
                   {dresDados.map((dre) => {
-                    const semDisciplinas = !dre.disciplinas || dre.disciplinas.length === 0;
+                    const semDisciplinas =
+                      !dre.disciplinas || dre.disciplinas.length === 0;
                     return (
                       <Col xs={24} sm={24} md={8} key={dre.dreId}>
                         <Card className="dres-list-card">
@@ -505,12 +525,19 @@ const DresPage: React.FC = () => {
                                         alt="Ícone disciplina"
                                         className="disciplina-icon"
                                       />
-                                      <span style={{fontWeight: "700", color: "#595959"}}>{p.disciplina}</span>
+                                      <span
+                                        style={{
+                                          fontWeight: "700",
+                                          color: "#595959",
+                                        }}
+                                      >
+                                        {p.disciplina}
+                                      </span>
                                     </span>
                                     <span
                                       className="nivel"
                                       style={estiloNivel(p.nivelProficiencia)}
-                                    >                                      
+                                    >
                                       {p.nivelProficiencia}
                                     </span>
                                     <div className="prof-value">
@@ -532,7 +559,6 @@ const DresPage: React.FC = () => {
                               </div>
                               <hr className="separador" />
                               <div className="ues-list-card-meta-row">
-
                                 <div>
                                   <span className="ues-list-meta-titulo">
                                     <img
@@ -543,10 +569,9 @@ const DresPage: React.FC = () => {
                                     Unidades Educacionais:
                                   </span>
                                   <br />
-                                  <span className="ues-list-meta-valor">                                    
-                                    {dre.totalUes?.toLocaleString(
-                                      "pt-BR"
-                                    ) ?? "-"}
+                                  <span className="ues-list-meta-valor">
+                                    {dre.totalUes?.toLocaleString("pt-BR") ??
+                                      "-"}
                                   </span>
                                 </div>
 
@@ -561,9 +586,8 @@ const DresPage: React.FC = () => {
                                   </span>
                                   <br />
                                   <span className="ues-list-meta-valor">
-                                    {dre.totalAlunos?.toLocaleString(
-                                      "pt-BR"
-                                    ) ?? "-"}
+                                    {dre.totalAlunos?.toLocaleString("pt-BR") ??
+                                      "-"}
                                   </span>
                                 </div>
                                 <div>
@@ -580,8 +604,7 @@ const DresPage: React.FC = () => {
                                     {dre.totalRealizaramProva?.toLocaleString(
                                       "pt-BR"
                                     ) ?? "-"}{" "}
-                                    (
-                                    {dre.percentualParticipacao ?? 0}
+                                    ({dre.percentualParticipacao ?? 0}
                                     %)
                                   </span>
                                 </div>
@@ -629,12 +652,17 @@ const DresPage: React.FC = () => {
                 )}
               </div>
             </Card>
+
+            <br />
+            <Card title="" variant="borderless">
+              <DesempenhoPorMediaProficiencia dados={mediaProficiencia} />
+            </Card>
             <br />
             <Card title="" variant="borderless">
               <RelatorioAlunosPorDres
                 dreSelecionadaNome={dreSelecionadaNome}
-                aplicacaoSelecionada={aplicacaoSelecionada}                
-              />              
+                aplicacaoSelecionada={aplicacaoSelecionada}
+              />
             </Card>
           </Col>
         </Row>
