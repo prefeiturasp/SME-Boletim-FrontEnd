@@ -9,6 +9,7 @@ import Auth from "./pages/auth";
 import SemAcesso from "./pages/semAcesso";
 import UesPage from "./pages/ues";
 import { RootState } from "./redux/store";
+import DresPage from "./pages/dres";
 
 const AppLayout: React.FC = () => (
   <div className="app-container">
@@ -53,6 +54,14 @@ const AppRoutes: React.FC = () => (
       element={
         <PrivateRoute>
           <UesPage />
+        </PrivateRoute>
+      }
+    />
+    <Route
+      path="/dres"
+      element={
+        <PrivateRoute>
+          <DresPage />
         </PrivateRoute>
       }
     />
