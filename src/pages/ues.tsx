@@ -357,40 +357,48 @@ const UesPage: React.FC = () => {
             <br />
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
-                <p>
+                <p style={{ marginTop: "0", marginBottom: "3em" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
                 </p>
-                <div className="filtros-card">
-                  <Select
-                    data-testid="select-aplicacao"
-                    showSearch
-                    placeholder="Selecione uma aplicação..."
-                    className="select-full"
-                    onChange={handleChange}
-                    value={nomeAplicacao.id || undefined}
-                    notFoundContent="Nenhuma aplicação encontrada"
-                    filterOption={(input, option) =>
-                      option?.label.toLowerCase().includes(input.toLowerCase())
-                    }
-                    options={opcoes}
-                  />
-                  <Select
-                    showSearch
-                    placeholder="Ano escolar"
-                    className="select-ano"
-                    onChange={(value) => {
-                      setAnoSelecionado(value);
-                    }}
-                    value={anoSelecionado || undefined}
-                    notFoundContent="Nenhum ano encontrado"
-                    filterOption={(input, option: any) =>
-                      (option?.label ?? "")
-                        .toLowerCase()
-                        .includes(input.toLowerCase())
-                    }
-                    options={anos}
-                  />
+                <div className="filtros-card-dre">
+                  <div className="filtro-aplicacao">
+                    <label className="label-filtro-dre">Aplicação</label>
+                    <Select
+                      data-testid="select-aplicacao"
+                      showSearch
+                      placeholder="Selecione uma aplicação..."
+                      className="select-full"
+                      onChange={handleChange}
+                      value={nomeAplicacao.id || undefined}
+                      notFoundContent="Nenhuma aplicação encontrada"
+                      filterOption={(input, option) =>
+                        option?.label
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={opcoes}
+                    />
+                  </div>
+                  <div className="filtro-ano">
+                    <label className="label-filtro-dre">Ano</label>
+                    <Select
+                      showSearch
+                      placeholder="Ano escolar"
+                      className="select-custom"
+                      onChange={(value) => {
+                        setAnoSelecionado(value);
+                      }}
+                      value={anoSelecionado || undefined}
+                      notFoundContent="Nenhum ano encontrado"
+                      filterOption={(input, option: any) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={anos}
+                    />
+                  </div>
                 </div>
               </Card>
             </div>
@@ -434,7 +442,8 @@ const UesPage: React.FC = () => {
                   <b>Unidades Educacionais (UEs) - {dreSelecionadaNome}</b>
                 </div>
                 <div className="ues-dre-subtitulo">
-                  Confira as informações de todas as UEs da {dreSelecionadaNome}.
+                  Confira as informações de todas as UEs da {dreSelecionadaNome}
+                  .
                 </div>
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
@@ -466,7 +475,10 @@ const UesPage: React.FC = () => {
                       );
                       return (
                         <div className="select-option-multiview">
-                        <Checkbox checked={selected} className="checkbox-ue" />
+                          <Checkbox
+                            checked={selected}
+                            className="checkbox-ue"
+                          />
                           {option.label}
                         </div>
                       );
@@ -548,11 +560,11 @@ const UesPage: React.FC = () => {
                                 <div className="list-card-meta-row">
                                   <div className="list-meta-conteudo">
                                     <img
-                                        src={iconeAlunos}
-                                        alt="Ícone alunos"
-                                        className="disciplina-icon"
-                                      />{" "}
-                                    <div className="list-meta-titulo">                                      
+                                      src={iconeAlunos}
+                                      alt="Ícone alunos"
+                                      className="disciplina-icon"
+                                    />{" "}
+                                    <div className="list-meta-titulo">
                                       Total de estudantes:
                                     </div>
                                     <div className="list-meta-valor">
@@ -563,11 +575,11 @@ const UesPage: React.FC = () => {
                                   </div>
                                   <div className="list-meta-conteudo">
                                     <img
-                                        src={iconeDados}
-                                        alt="Ícone dados"
-                                        className="disciplina-icon"
-                                      />
-                                    <div className="list-meta-titulo">                                      
+                                      src={iconeDados}
+                                      alt="Ícone dados"
+                                      className="disciplina-icon"
+                                    />
+                                    <div className="list-meta-titulo">
                                       Realizaram a prova:
                                     </div>
                                     <div className="list-meta-valor">
@@ -575,7 +587,8 @@ const UesPage: React.FC = () => {
                                         "pt-BR"
                                       ) ?? "-"}{" "}
                                       (
-                                    {ue.percentualEstudadesRealizaramProva ?? 0}
+                                      {ue.percentualEstudadesRealizaramProva ??
+                                        0}
                                       %)
                                     </div>
                                   </div>

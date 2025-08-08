@@ -5,7 +5,7 @@
 
 .card-resumo {
   text-align: center;
-  border-radius: 8px;
+  border-radius: 4px 4px 0px 0px;
   height: 110px;
   display: flex;
   flex-direction: column;
@@ -354,7 +354,7 @@
 }
 
 .select-custom {
-  width: 100%;
+  width: 100% !important;
 }
 
 .label-filtro-dre{
