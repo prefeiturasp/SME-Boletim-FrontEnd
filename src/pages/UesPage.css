@@ -358,3 +358,11 @@
   unicode-range: U+0460-052F;
   font-family: sans-serif;
 }
+
+.ues-dre-subtitulo {
+  padding: 4px 0px 4px 0px;
+}
+
+.ajustes-padding-cards .ant-card .ant-card-body {
+  padding: 32px;
+}
