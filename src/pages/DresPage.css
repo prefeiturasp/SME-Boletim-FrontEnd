@@ -409,19 +409,6 @@
   padding-left: 0.3em;
 }
 
-.grafico-borda-dre{
-  border: 1px solid #f1f0f0; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px; 
-  padding: 16px; 
-  background-color: white; 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-.grafico-borda-dre div {
-  padding-left: 0 !important;
-}
-
 .conteudo-fixo-dres {
   position: sticky;
   top: 0px;
@@ -488,4 +475,12 @@
 .filtro-ano2 {
   margin-left: 5px;
   width: 20%;
+}
+
+.ues-dre-subtitulo {
+  padding: 4px 0px 4px 0px;
+}
+
+.ajustes-padding-cards .ant-card .ant-card-body {
+  padding: 32px;
 }

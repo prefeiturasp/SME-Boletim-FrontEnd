@@ -70,8 +70,8 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
     }
     
     return (
-      <>
-        <Card className="grafico-borda-dre">
+      <div className="ajuste-padding-grafico-card">
+        <Card className="grafico-borda">
           Confira a quantidade de <b>Unidades Educacionais ({tipo}) </b>
           classificadas dentro de cada um dos niveis de proficiência (AB, B, AD,
           AV).
@@ -174,7 +174,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
             </div>
           ))}
         </Card>
-      </>
+      </div>
     );
   }
 };

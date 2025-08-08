@@ -61,8 +61,10 @@ const Auth: React.FC = () => {
 
           if (tipoPerfil === 1 || tipoPerfil === 2 || tipoPerfil === 3) {
             navigate("/");
-          } else if (tipoPerfil === 4 || tipoPerfil === 5) {
+          } else if (tipoPerfil === 4) {
             navigate("/ues");
+          } else if (tipoPerfil === 5) {
+            navigate("/dres");
           }
         } catch (error) {
           console.error("Erro ao autenticar:", error);

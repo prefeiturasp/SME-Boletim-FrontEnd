@@ -349,6 +349,8 @@ const DresPage: React.FC = () => {
           <Col span={24}>
             <h2 className="titulo-sme">Secretaria Municipal de Educação</h2>
 
+            <div className="ajustes-padding-cards">
+
             <Card title="" variant="borderless" className="card-body-dre">
               <p style={{ marginTop: "0", marginBottom: "3em" }}>
                 Você pode consultar as informações de todas as provas já
@@ -393,6 +395,7 @@ const DresPage: React.FC = () => {
                 </div>
               </div>
             </Card>
+            </div>
             <br />
             <Row gutter={[16, 16]} className="cards-container-dre">
               <Col xs={24} sm={12} md={4} className="colum-dre">
@@ -437,15 +440,16 @@ const DresPage: React.FC = () => {
               prova {nomeAplicacao.nome}
             </div>
             <br />
+            <div className="ajustes-padding-cards">
             <Card title="" variant="borderless" className="body-pai-dre">
-              <p className="ues-dre-title">
+              <div className="ues-dre-title">
                 <b>Diretoria Regional de Educação (DREs) </b>
                 {/* - {dreSelecionadaNome} */}
-              </p>
-              <p>
+              </div>
+              <div className="ues-dre-subtitulo">
                 Confira as informações de todas as DREs do Municipio de São
                 Paulo .{/* {dreSelecionadaNome} */}
-              </p>
+              </div>
 
               <DesempenhoPorMateria dados={niveisProficiencia} tipo={"DREs"} />
 
@@ -657,6 +661,7 @@ const DresPage: React.FC = () => {
                 )}
               </div>
             </Card>
+            </div>
 
             <br />
             <Card title="" variant="borderless">

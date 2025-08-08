@@ -15,33 +15,51 @@
 }
 
 .caixa-vermelha {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #FF5959;
     margin-right: 5px;
 }
 
 .caixa-amarela {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #FEDE99;
     margin-right: 5px;
 }
 
 .caixa-azul {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #9999FF;
     margin-right: 5px;
 }
 
 .caixa-verde {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #99FF99;
     margin-right: 5px;
+}
+
+.grafico-borda{
+  border: 1px solid #f1f0f0; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  margin-top: 16px;
+}
+
+/*.grafico-borda div {
+  padding: 32px 16px 16px 16px;
+}*/
+
+
+.ajuste-padding-grafico-card .ant-card .ant-card-body {
+  padding: 32px 16px 16px 16px !important;
 }
