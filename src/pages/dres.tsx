@@ -637,7 +637,7 @@ const DresPage: React.FC = () => {
                               block
                               disabled={semDisciplinas}
                               onClick={() => {
-                                navigate(`/?ueSelecionada=${dre.dreId}`);
+                                navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
                             >
