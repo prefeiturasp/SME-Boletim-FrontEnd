@@ -350,51 +350,52 @@ const DresPage: React.FC = () => {
             <h2 className="titulo-sme">Secretaria Municipal de Educação</h2>
 
             <div className="ajustes-padding-cards">
+              <Card title="" variant="borderless" className="card-body-dre">
+                <p style={{ marginTop: "0", marginBottom: "3em" }}>
+                  Você pode consultar as informações de todas as provas já
+                  aplicadas. Basta selecionar a aplicação que deseja visualizar.
+                </p>
 
-            <Card title="" variant="borderless" className="card-body-dre">
-              <p style={{ marginTop: "0", marginBottom: "3em" }}>
-                Você pode consultar as informações de todas as provas já
-                aplicadas. Basta selecionar a aplicação que deseja visualizar.
-              </p>
-
-              <div className="filtros-card-dre">
-                <div className="filtro-aplicacao">
-                  <label className="label-filtro-dre">Aplicação</label>
-                  <Select
-                    data-testid="select-aplicacao"
-                    showSearch
-                    placeholder="Selecione uma aplicação..."
-                    className="select-custom"
-                    onChange={handleChange}
-                    value={nomeAplicacao.id || undefined}
-                    notFoundContent="Nenhuma aplicação encontrada"
-                    filterOption={(input, option) =>
-                      option?.label.toLowerCase().includes(input.toLowerCase())
-                    }
-                    options={opcoes}
-                  />
+                <div className="filtros-card-dre">
+                  <div className="filtro-aplicacao">
+                    <label className="label-filtro-dre">Aplicação</label>
+                    <Select
+                      data-testid="select-aplicacao"
+                      showSearch
+                      placeholder="Selecione uma aplicação..."
+                      className="select-custom"
+                      onChange={handleChange}
+                      value={nomeAplicacao.id || undefined}
+                      notFoundContent="Nenhuma aplicação encontrada"
+                      filterOption={(input, option) =>
+                        option?.label
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={opcoes}
+                    />
+                  </div>
+                  <div className="filtro-ano">
+                    <label className="label-filtro-dre">Ano</label>
+                    <Select
+                      showSearch
+                      placeholder="Ano escolar"
+                      className="select-custom"
+                      onChange={(value) => {
+                        setAnoSelecionado(value);
+                      }}
+                      value={anoSelecionado || undefined}
+                      notFoundContent="Nenhum ano encontrado"
+                      filterOption={(input, option: any) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={anos}
+                    />
+                  </div>
                 </div>
-                <div className="filtro-ano">
-                  <label className="label-filtro-dre">Ano</label>
-                  <Select
-                    showSearch
-                    placeholder="Ano escolar"
-                    className="select-custom"
-                    onChange={(value) => {
-                      setAnoSelecionado(value);
-                    }}
-                    value={anoSelecionado || undefined}
-                    notFoundContent="Nenhum ano encontrado"
-                    filterOption={(input, option: any) =>
-                      (option?.label ?? "")
-                        .toLowerCase()
-                        .includes(input.toLowerCase())
-                    }
-                    options={anos}
-                  />
-                </div>
-              </div>
-            </Card>
+              </Card>
             </div>
             <br />
             <Row gutter={[16, 16]} className="cards-container-dre">
@@ -441,226 +442,237 @@ const DresPage: React.FC = () => {
             </div>
             <br />
             <div className="ajustes-padding-cards">
-            <Card title="" variant="borderless" className="body-pai-dre">
-              <div className="ues-dre-title">
-                <b>Diretoria Regional de Educação (DREs) </b>
-                {/* - {dreSelecionadaNome} */}
-              </div>
-              <div className="ues-dre-subtitulo">
-                Confira as informações de todas as DREs do Municipio de São
-                Paulo .{/* {dreSelecionadaNome} */}
-              </div>
+              <Card title="" variant="borderless" className="body-pai-dre">
+                <div className="ues-dre-title">
+                  <b>Diretoria Regional de Educação (DREs) </b>
+                  {/* - {dreSelecionadaNome} */}
+                </div>
+                <div className="ues-dre-subtitulo">
+                  Confira as informações de todas as DREs do Municipio de São
+                  Paulo .{/* {dreSelecionadaNome} */}
+                </div>
 
-              <DesempenhoPorMateria dados={niveisProficiencia} tipo={"DREs"} />
-
-              <br />
-              <div className="conteudo-fixo-dres">
-                <p>
-                  Você pode filtrar por Diretoria Regional de Educação (DRE).
-                </p>
-
-                <Select
-                  mode="multiple"
-                  allowClear
-                  showSearch
-                  labelInValue
-                  value={uesSelecionadas}
-                  onChange={(values) => setUesSelecionadas(values)}
-                  className="select-full"
-                  placeholder="Selecione ou digite a DRE..."
-                  notFoundContent="Nenhuma escola encontrada"
-                  filterOption={(input, option) =>
-                    (option?.label ?? "")
-                      .toString()
-                      .toLowerCase()
-                      .includes(input.toLowerCase())
-                  }
-                  options={uesOptions}
-                  optionRender={(option) => {
-                    const selected = uesSelecionadas.some(
-                      //   (ue) => ue.value === option.value
-                      (dre) => dre.value === option.value
-                    );
-                    return (
-                      <div className="select-option-multiview">
-                        <Checkbox checked={selected} className="checkbox-ue" />
-                        {option.label}
-                      </div>
-                    );
-                  }}
+                <DesempenhoPorMateria
+                  dados={niveisProficiencia}
+                  tipo={"DREs"}
                 />
-              </div>
 
-              <div className="dres-list-cards">
-                <Row gutter={[16, 16]}>
-                  {dresDados.map((dre) => {
-                    const semDisciplinas =
-                      !dre.disciplinas || dre.disciplinas.length === 0;
-                    return (
-                      <Col xs={24} sm={24} md={8} key={dre.dreId}>
-                        <Card className="dres-list-card">
-                          <Tooltip title={dre.dreNome}>
-                            <div className="dre-list-card-nome ue-nome-truncado">
-                              {dre.dreNome}
-                            </div>
-                          </Tooltip>
+                <br />
+                <div className="conteudo-fixo-dres">
+                  <p>
+                    Você pode filtrar por Diretoria Regional de Educação (DRE).
+                  </p>
 
-                          <div className="ues-list-card-ano">
-                            <b>Ano:</b> <span>{dre.anoEscolar}º ano</span>
-                          </div>
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    showSearch
+                    labelInValue
+                    value={uesSelecionadas}
+                    onChange={(values) => setUesSelecionadas(values)}
+                    className="select-full"
+                    placeholder="Selecione ou digite a DRE..."
+                    notFoundContent="Nenhuma escola encontrada"
+                    filterOption={(input, option) =>
+                      (option?.label ?? "")
+                        .toString()
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
+                    options={uesOptions}
+                    optionRender={(option) => {
+                      const selected = uesSelecionadas.some(
+                        //   (ue) => ue.value === option.value
+                        (dre) => dre.value === option.value
+                      );
+                      return (
+                        <div className="select-option-multiview">
+                          <Checkbox
+                            checked={selected}
+                            className="checkbox-ue"
+                          />
+                          {option.label}
+                        </div>
+                      );
+                    }}
+                  />
+                </div>
 
-                          {semDisciplinas ? (
-                            <div className="mensagem-sem-dados">
-                              <p>
-                                Não há dados cadastrados nesta Unidade
-                                Educacional.
-                              </p>
-                            </div>
-                          ) : (
-                            <>
-                              <div className="ues-list-card-proficiencias">
-                                {dre.disciplinas.map((p: any, idx: number) => (
-                                  <div
-                                    className="ues-list-card-prof-item"
-                                    key={idx}
-                                  >
-                                    <span className="disciplina-label">
-                                      <img
-                                        src={
-                                          p.disciplina === "Língua portuguesa"
-                                            ? iconePort
-                                            : iconeMat
-                                        }
-                                        alt="Ícone disciplina"
-                                        className="disciplina-icon"
-                                      />
-                                      <span
-                                        style={{
-                                          fontWeight: "700",
-                                          color: "#595959",
-                                        }}
-                                      >
-                                        {p.disciplina}
-                                      </span>
-                                    </span>
-                                    <span
-                                      className="nivel"
-                                      style={estiloNivel(p.nivelProficiencia)}
-                                    >
-                                      {p.nivelProficiencia}
-                                    </span>
-                                    <div className="prof-value">
-                                      {typeof p.mediaProficiencia === "number"
-                                        ? p.mediaProficiencia.toLocaleString(
-                                            "pt-BR",
-                                            {
-                                              minimumFractionDigits: 2,
-                                              maximumFractionDigits: 2,
-                                            }
-                                          )
-                                        : "-"}
-                                    </div>
-                                    <div className="prof-label">
-                                      Média de proficiência
-                                    </div>
-                                  </div>
-                                ))}
+                <div className="list-cards">
+                  <Row gutter={[16, 16]}>
+                    {dresDados.map((dre) => {
+                      const semDisciplinas =
+                        !dre.disciplinas || dre.disciplinas.length === 0;
+                      return (
+                        <Col xs={24} sm={24} md={8} key={dre.dreId}>
+                          <Card className="list-card">
+                            <Tooltip title={dre.dreNome} className="custom-tooltip">
+                              <div className="list-card-nome nome-truncado">
+                                {dre.dreNome}
                               </div>
-                              <hr className="separador" />
-                              <div className="ues-list-card-meta-row">
-                                <div>
-                                  <span className="ues-list-meta-titulo">
+                            </Tooltip>
+
+                            <div className="list-card-ano">
+                              <b>Ano:</b> <span>{dre.anoEscolar}º ano</span>
+                            </div>
+
+                            {semDisciplinas ? (
+                              <div className="mensagem-sem-dados">
+                                <p>
+                                  Não há dados cadastrados <br/>nesta Unidade
+                                  Educacional.
+                                </p>
+                              </div>
+                            ) : (
+                              <>
+                                <div className="list-card-proficiencias">
+                                  {dre.disciplinas.map(
+                                    (p: any, idx: number) => (
+                                      <div
+                                        className="list-card-prof-item"
+                                        key={idx}
+                                      >
+                                        <div className="disciplina-label">
+                                          <img
+                                            src={
+                                              p.disciplina ===
+                                              "Língua portuguesa"
+                                                ? iconePort
+                                                : iconeMat
+                                            }
+                                            alt="Ícone disciplina"
+                                            className="disciplina-icon"
+                                          />
+                                          <span
+                                            style={{
+                                              fontWeight: "700",
+                                              color: "#595959",
+                                            }}
+                                          >
+                                            {p.disciplina}
+                                          </span>
+                                        </div>
+                                        <span
+                                          className="nivel"
+                                          style={estiloNivel(
+                                            p.nivelProficiencia
+                                          )}
+                                        >
+                                          {p.nivelProficiencia}
+                                        </span>
+                                        <div className="prof-value">
+                                          {typeof p.mediaProficiencia ===
+                                          "number"
+                                            ? p.mediaProficiencia.toLocaleString(
+                                                "pt-BR",
+                                                {
+                                                  minimumFractionDigits: 2,
+                                                  maximumFractionDigits: 2,
+                                                }
+                                              )
+                                            : "-"}
+                                        </div>
+                                        <div className="prof-label">
+                                          Média de proficiência
+                                        </div>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                                <hr className="separador" />
+                                <div className="list-card-meta-row">
+                                  <div className="list-meta-conteudo-dres">
                                     <img
                                       src={iconeUe}
                                       alt="Ícone alunos"
                                       className="disciplina-icon"
                                     />{" "}
-                                    Unidades Educacionais:
-                                  </span>
-                                  <br />
-                                  <span className="ues-list-meta-valor">
-                                    {dre.totalUes?.toLocaleString("pt-BR") ??
-                                      "-"}
-                                  </span>
-                                </div>
+                                    <div className="list-meta-titulo">
+                                      Unidades Educacionais:
+                                    </div>
+                                    <div className="list-meta-valor">
+                                      {dre.totalUes?.toLocaleString("pt-BR") ??
+                                        "-"}
+                                    </div>
+                                  </div>
 
-                                <div>
-                                  <span className="ues-list-meta-titulo">
+                                  <div className="list-meta-conteudo-dres">
                                     <img
                                       src={iconeAlunos}
                                       alt="Ícone alunos"
                                       className="disciplina-icon"
                                     />{" "}
-                                    Total de estudantes:
-                                  </span>
-                                  <br />
-                                  <span className="ues-list-meta-valor">
-                                    {dre.totalAlunos?.toLocaleString("pt-BR") ??
-                                      "-"}
-                                  </span>
-                                </div>
-                                <div>
-                                  <span className="ues-list-meta-titulo">
+                                    <div className="list-meta-titulo">
+                                      Total de estudantes:
+                                    </div>
+                                    <div className="list-meta-valor">
+                                      {dre.totalAlunos?.toLocaleString(
+                                        "pt-BR"
+                                      ) ?? "-"}
+                                    </div>
+                                  </div>
+                                  <div className="list-meta-conteudo-dres">
                                     <img
                                       src={iconeDados}
                                       alt="Ícone dados"
                                       className="disciplina-icon"
                                     />
-                                    Realizaram a prova:
-                                  </span>
-                                  <br />
-                                  <span className="ues-list-meta-valor">
-                                    {dre.totalRealizaramProva?.toLocaleString(
-                                      "pt-BR"
-                                    ) ?? "-"}{" "}
-                                    ({dre.percentualParticipacao ?? 0}
-                                    %)
-                                  </span>
+                                    <div className="list-meta-titulo">
+                                      Realizaram a prova:
+                                    </div>
+                                    <div className="list-meta-valor">
+                                      {dre.totalRealizaramProva?.toLocaleString(
+                                        "pt-BR"
+                                      ) ?? "-"}{" "}
+                                      ({dre.percentualParticipacao ?? 0}
+                                      %)
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </>
-                          )}
-                          <Button
-                            className="btn-acessar-ue"
-                            block
-                            disabled={semDisciplinas}
-                            onClick={() => {
-                              navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
-                              window.scrollTo(0, 0);
-                            }}
-                          >
-                            Acessar DRE
-                          </Button>
-                        </Card>
-                      </Col>
-                    );
-                  })}
-                </Row>
-                {dresDados.length < dresTotal && (
-                  <div style={{ textAlign: "center", marginTop: 24 }}>
-                    <Button
-                      variant="outlined"
-                      className="btn-exibir-mais"
-                      loading={loadingMaisDres}
-                      onClick={handleExibirMais}
-                      style={{
-                        minWidth: 160,
-                        height: 40,
-                        fontWeight: 600,
-                        fontSize: 16,
-                      }}
-                    >
-                      <img
-                        src={iconeMais}
-                        alt="Ícone dados"
-                        className="disciplina-icon"
-                      />
-                      Exibir mais
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </Card>
+
+                              </>
+                            )}
+                            <Button
+                              className="btn-acessar-ue"
+                              block
+                              disabled={semDisciplinas}
+                              onClick={() => {
+                                navigate(`/?ueSelecionada=${dre.dreId}`);
+                                window.scrollTo(0, 0);
+                              }}
+                            >
+                              Acessar DRE
+                            </Button>
+                          </Card>
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                  {dresDados.length < dresTotal && (
+                    <div style={{ textAlign: "center", marginTop: 24 }}>
+                      <Button
+                        variant="outlined"
+                        className="btn-exibir-mais"
+                        loading={loadingMaisDres}
+                        onClick={handleExibirMais}
+                        style={{
+                          minWidth: 160,
+                          height: 40,
+                          fontWeight: 600,
+                          fontSize: 16,
+                        }}
+                      >
+                        <img
+                          src={iconeMais}
+                          alt="Ícone dados"
+                          className="disciplina-icon"
+                        />
+                        Exibir mais
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </Card>
             </div>
 
             <br />

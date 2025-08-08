@@ -383,40 +383,48 @@ const UesPage: React.FC = () => {
             <br />
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
-                <p>
+                <p style={{ marginTop: "0", marginBottom: "3em" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
                 </p>
-                <div className="filtros-card">
-                  <Select
-                    data-testid="select-aplicacao"
-                    showSearch
-                    placeholder="Selecione uma aplicação..."
-                    className="select-full"
-                    onChange={handleChange}
-                    value={nomeAplicacao.id || undefined}
-                    notFoundContent="Nenhuma aplicação encontrada"
-                    filterOption={(input, option) =>
-                      option?.label.toLowerCase().includes(input.toLowerCase())
-                    }
-                    options={opcoes}
-                  />
-                  <Select
-                    showSearch
-                    placeholder="Ano escolar"
-                    className="select-ano"
-                    onChange={(value) => {
-                      setAnoSelecionado(value);
-                    }}
-                    value={anoSelecionado || undefined}
-                    notFoundContent="Nenhum ano encontrado"
-                    filterOption={(input, option: any) =>
-                      (option?.label ?? "")
-                        .toLowerCase()
-                        .includes(input.toLowerCase())
-                    }
-                    options={anos}
-                  />
+                <div className="filtros-card-dre">
+                  <div className="filtro-aplicacao">
+                    <label className="label-filtro-dre">Aplicação</label>
+                    <Select
+                      data-testid="select-aplicacao"
+                      showSearch
+                      placeholder="Selecione uma aplicação..."
+                      className="select-full"
+                      onChange={handleChange}
+                      value={nomeAplicacao.id || undefined}
+                      notFoundContent="Nenhuma aplicação encontrada"
+                      filterOption={(input, option) =>
+                        option?.label
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={opcoes}
+                    />
+                  </div>
+                  <div className="filtro-ano">
+                    <label className="label-filtro-dre">Ano</label>
+                    <Select
+                      showSearch
+                      placeholder="Ano escolar"
+                      className="select-custom"
+                      onChange={(value) => {
+                        setAnoSelecionado(value);
+                      }}
+                      value={anoSelecionado || undefined}
+                      notFoundContent="Nenhum ano encontrado"
+                      filterOption={(input, option: any) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={anos}
+                    />
+                  </div>
                 </div>
               </Card>
             </div>
@@ -460,7 +468,8 @@ const UesPage: React.FC = () => {
                   <b>Unidades Educacionais (UEs) - {dreSelecionadaNome}</b>
                 </div>
                 <div className="ues-dre-subtitulo">
-                  Confira as informações de todas as UEs da {dreSelecionadaNome}.
+                  Confira as informações de todas as UEs da {dreSelecionadaNome}
+                  .
                 </div>
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
@@ -492,7 +501,10 @@ const UesPage: React.FC = () => {
                       );
                       return (
                         <div className="select-option-multiview">
-                        <Checkbox checked={selected} className="checkbox-ue" />
+                          <Checkbox
+                            checked={selected}
+                            className="checkbox-ue"
+                          />
                           {option.label}
                         </div>
                       );
@@ -502,40 +514,40 @@ const UesPage: React.FC = () => {
 
                 <br />
 
-                <div className="ues-list-cards">
+                <div className="list-cards">
                   <Row gutter={[16, 16]}>
                     {uesDados.map((ue) => {
                       const semDisciplinas =
                         !ue.disciplinas || ue.disciplinas.length === 0;
                       return (
                         <Col xs={24} sm={24} md={8} key={ue.id}>
-                          <Card className="ues-list-card">
+                          <Card className="list-card">
                             <Tooltip title={ue.nome}>
-                              <div className="ues-list-card-nome ue-nome-truncado">
+                              <div className="list-card-nome nome-truncado">
                                 {ue.nome}
                               </div>
                             </Tooltip>
 
-                            <div className="ues-list-card-ano">
+                            <div className="list-card-ano">
                               <b>Ano:</b> <span>{ue.anoEscolar}º ano</span>
                             </div>
 
                             {semDisciplinas ? (
                               <div className="mensagem-sem-dados">
                                 <p>
-                                  Não há dados cadastrados nesta Unidade
+                                  Não há dados cadastrados <br/>nesta Unidade
                                   Educacional.
                                 </p>
                               </div>
                             ) : (
                               <>
-                                <div className="ues-list-card-proficiencias">
+                                <div className="list-card-proficiencias">
                                   {ue.disciplinas.map((p: any, idx: number) => (
                                     <div
-                                      className="ues-list-card-prof-item"
+                                      className="list-card-prof-item"
                                       key={idx}
                                     >
-                                      <span className="disciplina-label">
+                                      <div className="disciplina-label">
                                         <img
                                           src={
                                             p.disciplina === "Língua portuguesa"
@@ -546,7 +558,7 @@ const UesPage: React.FC = () => {
                                           className="disciplina-icon"
                                         />
                                         <span>{p.disciplina}</span>
-                                      </span>
+                                      </div>
                                       <span
                                         className="nivel"
                                         style={estiloNivel(p.nivelDescricao)}
@@ -571,41 +583,40 @@ const UesPage: React.FC = () => {
                                   ))}
                                 </div>
                                 <hr className="separador" />
-                                <div className="ues-list-card-meta-row">
-                                  <div>
-                                    <span className="ues-list-meta-titulo">
-                                      <img
-                                        src={iconeAlunos}
-                                        alt="Ícone alunos"
-                                        className="disciplina-icon"
-                                      />{" "}
+                                <div className="list-card-meta-row">
+                                  <div className="list-meta-conteudo">
+                                    <img
+                                      src={iconeAlunos}
+                                      alt="Ícone alunos"
+                                      className="disciplina-icon"
+                                    />{" "}
+                                    <div className="list-meta-titulo">
                                       Total de estudantes:
-                                    </span>
-                                    <br />
-                                    <span className="ues-list-meta-valor">
+                                    </div>
+                                    <div className="list-meta-valor">
                                       {ue.totalEstudantes?.toLocaleString(
                                         "pt-BR"
                                       ) ?? "-"}
-                                    </span>
+                                    </div>
                                   </div>
-                                  <div>
-                                    <span className="ues-list-meta-titulo">
-                                      <img
-                                        src={iconeDados}
-                                        alt="Ícone dados"
-                                        className="disciplina-icon"
-                                      />
+                                  <div className="list-meta-conteudo">
+                                    <img
+                                      src={iconeDados}
+                                      alt="Ícone dados"
+                                      className="disciplina-icon"
+                                    />
+                                    <div className="list-meta-titulo">
                                       Realizaram a prova:
-                                    </span>
-                                    <br />
-                                    <span className="ues-list-meta-valor">
+                                    </div>
+                                    <div className="list-meta-valor">
                                       {ue.totalEstudadesRealizaramProva?.toLocaleString(
                                         "pt-BR"
                                       ) ?? "-"}{" "}
                                       (
-                                    {ue.percentualEstudadesRealizaramProva ?? 0}
+                                      {ue.percentualEstudadesRealizaramProva ??
+                                        0}
                                       %)
-                                    </span>
+                                    </div>
                                   </div>
                                 </div>
                               </>

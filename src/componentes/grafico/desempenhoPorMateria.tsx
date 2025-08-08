@@ -88,9 +88,12 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
             <div className="caixa-verde"></div>{" "}
             <div className="texto">AV - Avançado</div>
           </div>
+          <div className="desempenho-por-materia-espacamento"></div>
           {data.map((item, index) => (
+            <>
+            
             <div key={index} className="desempenho-por-materia">
-              <div>
+              <div className="desempenho-por-materia-titulo-barra">
                 Componente Curricular: <strong>{item.name}</strong>
               </div>
               <ResponsiveContainer width="100%" height={70}>
@@ -121,6 +124,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
                     tickLine={false}
                     tick={false}
                   />
+                  
                   {item.abaixoDoBasico > 0 && (
                     <Bar dataKey="abaixoDoBasico" stackId="a" fill="#FF5959">
                       <LabelList
@@ -172,6 +176,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            </>
           ))}
         </Card>
       </div>
