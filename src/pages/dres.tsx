@@ -491,21 +491,21 @@ const DresPage: React.FC = () => {
                 />
               </div>
 
-              <div className="dres-list-cards">
+              <div className="list-cards">
                 <Row gutter={[16, 16]}>
                   {dresDados.map((dre) => {
                     const semDisciplinas =
                       !dre.disciplinas || dre.disciplinas.length === 0;
                     return (
                       <Col xs={24} sm={24} md={8} key={dre.dreId}>
-                        <Card className="dres-list-card">
+                        <Card className="list-card">
                           <Tooltip title={dre.dreNome}>
-                            <div className="dre-list-card-nome ue-nome-truncado">
+                            <div className="list-card-nome nome-truncado">
                               {dre.dreNome}
                             </div>
                           </Tooltip>
 
-                          <div className="ues-list-card-ano">
+                          <div className="list-card-ano">
                             <b>Ano:</b> <span>{dre.anoEscolar}º ano</span>
                           </div>
 
@@ -518,13 +518,13 @@ const DresPage: React.FC = () => {
                             </div>
                           ) : (
                             <>
-                              <div className="ues-list-card-proficiencias">
+                              <div className="list-card-proficiencias">
                                 {dre.disciplinas.map((p: any, idx: number) => (
                                   <div
-                                    className="ues-list-card-prof-item"
+                                    className="list-card-prof-item"
                                     key={idx}
                                   >
-                                    <span className="disciplina-label">
+                                    <div className="disciplina-label">
                                       <img
                                         src={
                                           p.disciplina === "Língua portuguesa"
@@ -542,7 +542,7 @@ const DresPage: React.FC = () => {
                                       >
                                         {p.disciplina}
                                       </span>
-                                    </span>
+                                    </div>
                                     <span
                                       className="nivel"
                                       style={estiloNivel(p.nivelProficiencia)}
@@ -567,55 +567,55 @@ const DresPage: React.FC = () => {
                                 ))}
                               </div>
                               <hr className="separador" />
-                              <div className="ues-list-card-meta-row">
-                                <div>
-                                  <span className="ues-list-meta-titulo">
-                                    <img
+                              <div className="list-card-meta-row">
+                                <div className="list-meta-conteudo-dres">
+                                  <img
                                       src={iconeUe}
                                       alt="Ícone alunos"
                                       className="disciplina-icon"
                                     />{" "}
+                                  <div className="list-meta-titulo">
+                                    
                                     Unidades Educacionais:
-                                  </span>
-                                  <br />
-                                  <span className="ues-list-meta-valor">
+                                  </div>
+                                  <div className="list-meta-valor">
                                     {dre.totalUes?.toLocaleString("pt-BR") ??
                                       "-"}
-                                  </span>
+                                  </div>
                                 </div>
 
-                                <div>
-                                  <span className="ues-list-meta-titulo">
-                                    <img
+                                <div className="list-meta-conteudo-dres">
+                                  <img
                                       src={iconeAlunos}
                                       alt="Ícone alunos"
                                       className="disciplina-icon"
                                     />{" "}
+                                  <div className="list-meta-titulo">
+                                    
                                     Total de estudantes:
-                                  </span>
-                                  <br />
-                                  <span className="ues-list-meta-valor">
+                                  </div>
+                                  <div className="list-meta-valor">
                                     {dre.totalAlunos?.toLocaleString("pt-BR") ??
                                       "-"}
-                                  </span>
+                                  </div>
                                 </div>
-                                <div>
-                                  <span className="ues-list-meta-titulo">
-                                    <img
+                                <div className="list-meta-conteudo-dres">
+                                  <img
                                       src={iconeDados}
                                       alt="Ícone dados"
                                       className="disciplina-icon"
                                     />
+                                  <div className="list-meta-titulo">
+                                    
                                     Realizaram a prova:
-                                  </span>
-                                  <br />
-                                  <span className="ues-list-meta-valor">
+                                  </div>
+                                  <div className="list-meta-valor">
                                     {dre.totalRealizaramProva?.toLocaleString(
                                       "pt-BR"
                                     ) ?? "-"}{" "}
                                     ({dre.percentualParticipacao ?? 0}
                                     %)
-                                  </span>
+                                  </div>
                                 </div>
                               </div>
                             </>

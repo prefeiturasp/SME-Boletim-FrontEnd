@@ -124,9 +124,9 @@
 
 .ues-list-card {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  padding: 20px 18px 16px 18px;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 2px 2px 9px 0px rgba(0, 0, 0, 0.12);
+  padding: 24px 24px 24px 24px;
   min-height: 355px;
   display: flex;
   flex-direction: column;
@@ -153,19 +153,6 @@
 .ues-list-card-ano span {
   font-weight: 500;
   color: #333;
-}
-
-.ues-list-card-proficiencias {
-  display: flex;
-  gap: 26px;
-  margin-bottom: 14px;
-}
-
-.ues-list-card-prof-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 112px;
 }
 
 .indicator-blue .dot {
@@ -241,22 +228,6 @@
 .prof-label {
   font-size: 0.99em;
   margin-bottom: 5px;
-}
-
-.ues-list-card-meta-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.98em;
-  margin: 10px 0 10px 0;
-}
-
-.ues-list-meta-titulo {
-  margin-right: 5px;
-}
-
-.ues-list-meta-valor {
-  font-weight: 600;
-  color: #232323;
 }
 
 .btn-acessar-ue {
@@ -364,4 +335,13 @@
 
 .ajustes-padding-cards .ant-card .ant-card-body {
   padding: 32px;
+}
+
+
+
+.list-meta-conteudo {
+  width: 50%;
+  display: block;
+  /*background-color: red;
+  border: 2px solid #000000; */
 }

@@ -476,21 +476,21 @@ const UesPage: React.FC = () => {
 
                 <br />
 
-                <div className="ues-list-cards">
+                <div className="list-cards">
                   <Row gutter={[16, 16]}>
                     {uesDados.map((ue) => {
                       const semDisciplinas =
                         !ue.disciplinas || ue.disciplinas.length === 0;
                       return (
                         <Col xs={24} sm={24} md={8} key={ue.id}>
-                          <Card className="ues-list-card">
+                          <Card className="list-card">
                             <Tooltip title={ue.nome}>
-                              <div className="ues-list-card-nome ue-nome-truncado">
+                              <div className="list-card-nome nome-truncado">
                                 {ue.nome}
                               </div>
                             </Tooltip>
 
-                            <div className="ues-list-card-ano">
+                            <div className="list-card-ano">
                               <b>Ano:</b> <span>{ue.anoEscolar}º ano</span>
                             </div>
 
@@ -503,13 +503,13 @@ const UesPage: React.FC = () => {
                               </div>
                             ) : (
                               <>
-                                <div className="ues-list-card-proficiencias">
+                                <div className="list-card-proficiencias">
                                   {ue.disciplinas.map((p: any, idx: number) => (
                                     <div
-                                      className="ues-list-card-prof-item"
+                                      className="list-card-prof-item"
                                       key={idx}
                                     >
-                                      <span className="disciplina-label">
+                                      <div className="disciplina-label">
                                         <img
                                           src={
                                             p.disciplina === "Língua portuguesa"
@@ -520,7 +520,7 @@ const UesPage: React.FC = () => {
                                           className="disciplina-icon"
                                         />
                                         <span>{p.disciplina}</span>
-                                      </span>
+                                      </div>
                                       <span
                                         className="nivel"
                                         style={estiloNivel(p.nivelDescricao)}
@@ -545,41 +545,39 @@ const UesPage: React.FC = () => {
                                   ))}
                                 </div>
                                 <hr className="separador" />
-                                <div className="ues-list-card-meta-row">
-                                  <div>
-                                    <span className="ues-list-meta-titulo">
-                                      <img
+                                <div className="list-card-meta-row">
+                                  <div className="list-meta-conteudo">
+                                    <img
                                         src={iconeAlunos}
                                         alt="Ícone alunos"
                                         className="disciplina-icon"
                                       />{" "}
+                                    <div className="list-meta-titulo">                                      
                                       Total de estudantes:
-                                    </span>
-                                    <br />
-                                    <span className="ues-list-meta-valor">
+                                    </div>
+                                    <div className="list-meta-valor">
                                       {ue.totalEstudantes?.toLocaleString(
                                         "pt-BR"
                                       ) ?? "-"}
-                                    </span>
+                                    </div>
                                   </div>
-                                  <div>
-                                    <span className="ues-list-meta-titulo">
-                                      <img
+                                  <div className="list-meta-conteudo">
+                                    <img
                                         src={iconeDados}
                                         alt="Ícone dados"
                                         className="disciplina-icon"
                                       />
+                                    <div className="list-meta-titulo">                                      
                                       Realizaram a prova:
-                                    </span>
-                                    <br />
-                                    <span className="ues-list-meta-valor">
+                                    </div>
+                                    <div className="list-meta-valor">
                                       {ue.totalEstudadesRealizaramProva?.toLocaleString(
                                         "pt-BR"
                                       ) ?? "-"}{" "}
                                       (
                                     {ue.percentualEstudadesRealizaramProva ?? 0}
                                       %)
-                                    </span>
+                                    </div>
                                   </div>
                                 </div>
                               </>
