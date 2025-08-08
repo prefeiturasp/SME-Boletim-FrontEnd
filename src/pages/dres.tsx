@@ -141,9 +141,14 @@ const DresPage: React.FC = () => {
   useEffect(() => {
     if (aplicacoes.length > 0) {
       buscaDesempenhoPorMateria();
-      buscaDesempenhoPorMediaProficiencia();
     }
   }, [aplicacaoSelecionada, anoSelecionado, dreSelecionada]);
+
+  useEffect(() => {
+    if (aplicacoes.length > 0 && anoSelecionado != undefined) {
+      buscaDesempenhoPorMediaProficiencia();
+    }
+  }, [aplicacaoSelecionada, anoSelecionado]);
 
   const buscaDesempenhoPorMateria = async () => {
     try {
@@ -427,7 +432,7 @@ const DresPage: React.FC = () => {
               )}
             </Row>
 
-            <div className="informacao-blue-dre">
+            <div className="informacao-blue">
               As informações são das Unidades Educacionais que realizaram a
               prova {nomeAplicacao.nome}
             </div>
@@ -655,6 +660,56 @@ const DresPage: React.FC = () => {
 
             <br />
             <Card title="" variant="borderless">
+              <span className="titulo">Média de proficiência</span>
+
+              <div className="conteudo-grafico-media-proficiencia">
+                <div className="conteudo-grafico-media-proficiencia-texto">
+                  <p>
+                    Confira a média de proficiência por componente curricular
+                    das Diretorias Regionais (DRE)
+                  </p>
+                </div>
+                <div className="conteudo-grafico-media-proficiencia-dropdown">
+                  <div className="filtro-aplicacao2">
+                    <Select
+                      data-testid="select-aplicacao"
+                      showSearch
+                      placeholder="Selecione uma aplicação..."
+                      className="select-custom"
+                      onChange={handleChange}
+                      value={nomeAplicacao.id || undefined}
+                      notFoundContent="Nenhuma aplicação encontrada"
+                      filterOption={(input, option) =>
+                        option?.label
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={opcoes}
+                    />
+                  </div>
+                  <div className="filtro-ano2">
+                    <Select
+                      showSearch
+                      placeholder="Ano escolar"
+                      className="select-custom"
+                      onChange={(value) => {
+                        setAnoSelecionado(value);
+                      }}
+                      value={anoSelecionado || undefined}
+                      notFoundContent="Nenhum ano encontrado"
+                      filterOption={(input, option: any) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={anos}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <br></br>
+
               <DesempenhoPorMediaProficiencia dados={mediaProficiencia} />
             </Card>
             <br />

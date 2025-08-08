@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import "./desempenhoPorMediaProficiencia.css";
+import React from "react";
 
 interface legendas {
   legenda: string;
@@ -48,24 +49,19 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
 
       lsobjGrafico.push(hi);
     });
+
+    console.log("acabei");
+  } else {
+    return (
+      <div className="dados-nao-encontrados">
+        {" "}
+        NÃO FORAM ENCONTRADOS RESULTADOS PARA EXIBIÇÃO DO GRÁFICO
+      </div>
+    );
   }
 
   return (
     <>
-      <span className="titulo">Média de proficiência</span>
-
-      <div className="conteudo">
-        <div className="conteudo-texto">
-          <p>
-            Confira a média de proficiência por componente curricular das
-            Diretorias Regionais (DRE)
-          </p>
-        </div>
-        <div className="counteudo-dropdown"></div>
-      </div>
-
-      <br></br>
-
       <ResponsiveContainer width="100%" height={500}>
         <BarChart
           data={lsobjGrafico}
@@ -91,7 +87,9 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
                     >
                       {line}
                     </text>
-                  ))}
+                  ))
+                  
+                  }
                 </g>
               );
             }}

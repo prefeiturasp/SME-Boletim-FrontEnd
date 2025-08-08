@@ -4,5 +4,14 @@
 
 .titulo {
   font-size: 20px;
-  font-weight: bold;;
+  font-weight: bold;
+}
+
+.dados-nao-encontrados {
+  font-size: 20px;
+  font-weight: bold;
+  align-items: center;
+  width: fit-content; /* or a specific width */
+  margin: 0 auto;
+  padding: 200px 0px 200px 0px;
 }
