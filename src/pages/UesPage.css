@@ -25,10 +25,6 @@
   font-weight: bold;
 }
 
-.ues-dre-title {
-  font-size: 20px;
-}
-
 .ant-select-item-option-selected .ant-select-item-option-state {
   display: none !important;
 }
@@ -119,14 +115,14 @@
 }
 
 .ues-list-cards {
-  margin-top: 32px;
+  margin-top: 0px;
 }
 
 .ues-list-card {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  padding: 20px 18px 16px 18px;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 2px 2px 9px 0px rgba(0, 0, 0, 0.12);
+  padding: 24px 24px 24px 24px;
   min-height: 355px;
   display: flex;
   flex-direction: column;
@@ -153,19 +149,6 @@
 .ues-list-card-ano span {
   font-weight: 500;
   color: #333;
-}
-
-.ues-list-card-proficiencias {
-  display: flex;
-  gap: 26px;
-  margin-bottom: 14px;
-}
-
-.ues-list-card-prof-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 112px;
 }
 
 .indicator-blue .dot {
@@ -224,13 +207,6 @@
   color: #8c8c8c;
 }
 
-.prof-value {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 2px 0 2px 0;
-  color: #3578b7;
-}
-
 .nivel-green + .prof-value {
   color: #389e0d;
 }
@@ -241,22 +217,6 @@
 .prof-label {
   font-size: 0.99em;
   margin-bottom: 5px;
-}
-
-.ues-list-card-meta-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.98em;
-  margin: 10px 0 10px 0;
-}
-
-.ues-list-meta-titulo {
-  margin-right: 5px;
-}
-
-.ues-list-meta-valor {
-  font-weight: 600;
-  color: #232323;
 }
 
 .btn-acessar-ue {
@@ -297,16 +257,6 @@
   cursor: pointer;
 }
 
-.mensagem-sem-dados {
-  font-style: italic;
-  color: #595959;
-  text-align: center;
-  padding: 16px 0;
-  margin-top: 85px;
-  margin-bottom: 53px;
-  font-size: 14px;
-}
-
 .disciplina-icon {
   width: 18px;
   height: 18px;
@@ -339,12 +289,11 @@
   position: sticky;
   top: 0px;
   z-index: 10;
-  background: #fff;
+  background: #ffff;  
+  padding: 16px 0px 32px 0px;
+  /*border-radius: 8px;
   box-shadow: 0 2px 10px 0 rgba(66, 139, 202, 0.08);
-  padding: 16px 18px 12px 18px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s;*/
 }
 
 
@@ -359,10 +308,15 @@
   font-family: sans-serif;
 }
 
-.ues-dre-subtitulo {
-  padding: 4px 0px 4px 0px;
-}
-
 .ajustes-padding-cards .ant-card .ant-card-body {
   padding: 32px;
+}
+
+
+
+.list-meta-conteudo {
+  width: 50%;
+  display: block;
+  /*background-color: red;
+  border: 2px solid #000000; */
 }
