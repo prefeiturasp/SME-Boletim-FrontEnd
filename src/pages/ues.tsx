@@ -26,7 +26,7 @@ import iconeMat from "../assets/icon-mat.svg";
 import iconeAlunos from "../assets/icon-alunos.svg";
 import iconeDados from "../assets/icon-dados.svg";
 import iconeMais from "../assets/icon-mais.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Layout } from "antd";
 const { Header } = Layout;
@@ -62,7 +62,7 @@ const UesPage: React.FC = () => {
   const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
   const [dres, setDres] = useState<{ value: number; label: string }[]>([]);
 
-  const [dreSelecionada, setDreSelecionada] = useState();
+  const [dreSelecionada, setDreSelecionada] = useState(0);
   const [dreSelecionadaNome, setDreSeleciondaNome] = useState<
     string | undefined
   >();
@@ -83,6 +83,27 @@ const UesPage: React.FC = () => {
   );
 
   const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+
+   useEffect(() => {
+    const dreParam = searchParams.get("dreUrlSelecionada");    
+    if (!dreParam) return;
+
+    const optNum = Number(dreParam);
+    if (Number.isNaN(optNum)) return;
+
+    if (dres.length === 0) return;
+
+    setDreSelecionada(optNum);
+    const dreObj = dres.find((d) => d.value === optNum);
+    setDreSeleciondaNome(dreObj?.label);
+    
+    setUesSelecionadas([]);
+    setCurrentCardPage(1);
+    setUesDados([]);
+    
+  }, [searchParams, dres]);
 
   const buscarAplicacoes = async () => {
     try {
@@ -106,7 +127,7 @@ const UesPage: React.FC = () => {
       console.error("Erro ao buscar aplicações:", error);
     }
   };
-
+  
   useEffect(() => {
     buscarAplicacoes();
   }, []);
@@ -182,8 +203,13 @@ const UesPage: React.FC = () => {
       );
       setDres(opcoesDre);
       if (opcoesDre.length > 0) {
-        setDreSelecionada(opcoesDre[0].value);
-        setDreSeleciondaNome(opcoesDre[0].label);
+
+        const param = searchParams.get("dreUrlSelecionada");
+        const preferida = param ? Number(param) : opcoesDre[0].value;
+        const dreObj = opcoesDre.find((d:{ value: number; label: string }) => d.value === preferida) ?? opcoesDre[0];
+
+        setDreSelecionada(dreObj.value);
+        setDreSeleciondaNome(dreObj.label);
       }
     } catch (error) {
       console.error("Erro ao buscar DREs:", error);

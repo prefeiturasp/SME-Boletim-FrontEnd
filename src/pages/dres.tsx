@@ -629,6 +629,7 @@ const DresPage: React.FC = () => {
                                     </div>
                                   </div>
                                 </div>
+
                               </>
                             )}
                             <Button
@@ -636,7 +637,7 @@ const DresPage: React.FC = () => {
                               block
                               disabled={semDisciplinas}
                               onClick={() => {
-                                navigate(`/?ueSelecionada=${dre.id}`);
+                                navigate(`/?ueSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
                             >
