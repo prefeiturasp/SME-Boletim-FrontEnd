@@ -25,10 +25,6 @@
   font-weight: bold;
 }
 
-.ues-dre-title {
-  font-size: 20px;
-}
-
 .ant-select-item-option-selected .ant-select-item-option-state {
   display: none !important;
 }
@@ -211,13 +207,6 @@
   color: #8c8c8c;
 }
 
-.prof-value {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 2px 0 2px 0;
-  color: #3578b7;
-}
-
 .nivel-green + .prof-value {
   color: #389e0d;
 }
@@ -266,16 +255,6 @@
   text-overflow: ellipsis;
   white-space: normal;
   cursor: pointer;
-}
-
-.mensagem-sem-dados {
-  font-style: italic;
-  color: #595959;
-  text-align: center;
-  padding: 16px 0;
-  margin-top: 85px;
-  margin-bottom: 53px;
-  font-size: 14px;
 }
 
 .disciplina-icon {
@@ -327,10 +306,6 @@
   font-stretch: 100%;
   unicode-range: U+0460-052F;
   font-family: sans-serif;
-}
-
-.ues-dre-subtitulo {
-  padding: 4px 0px 4px 0px;
 }
 
 .ajustes-padding-cards .ant-card .ant-card-body {

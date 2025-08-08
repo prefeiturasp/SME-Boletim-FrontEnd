@@ -506,7 +506,7 @@ const DresPage: React.FC = () => {
                       return (
                         <Col xs={24} sm={24} md={8} key={dre.dreId}>
                           <Card className="list-card">
-                            <Tooltip title={dre.dreNome}>
+                            <Tooltip title={dre.dreNome} className="custom-tooltip">
                               <div className="list-card-nome nome-truncado">
                                 {dre.dreNome}
                               </div>
@@ -519,7 +519,7 @@ const DresPage: React.FC = () => {
                             {semDisciplinas ? (
                               <div className="mensagem-sem-dados">
                                 <p>
-                                  Não há dados cadastrados nesta Unidade
+                                  Não há dados cadastrados <br/>nesta Unidade
                                   Educacional.
                                 </p>
                               </div>

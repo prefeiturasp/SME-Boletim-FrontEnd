@@ -38,6 +38,7 @@
 
 .ues-dre-title {
   font-size: 20px;
+  color: #595959;
 }
 
 .ant-select-item-option-selected .ant-select-item-option-state {
@@ -213,7 +214,7 @@
   font-size: 24px;
   font-weight: 700;
   margin: 2px 0 2px 0;
-  color: #3578b7;
+  color: #5a94d8;
 }
 
 .nivel-green + .prof-value {
@@ -284,7 +285,6 @@
 }
 
 .mensagem-sem-dados {
-  font-style: italic;
   color: #595959;
   text-align: center;
   padding: 16px 0;
@@ -476,4 +476,13 @@
   width: 30%;
   /*background-color: red;
   border: 2px solid #000000; */
+}
+
+.custom-tooltip .ant-tooltip-inner {
+  background-color: red !important;
+  color: white !important;
+}
+
+.custom-tooltip .ant-tooltip-arrow::before {
+  background-color: red !important;
 }

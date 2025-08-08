@@ -509,7 +509,7 @@ const UesPage: React.FC = () => {
                             {semDisciplinas ? (
                               <div className="mensagem-sem-dados">
                                 <p>
-                                  Não há dados cadastrados nesta Unidade
+                                  Não há dados cadastrados <br/>nesta Unidade
                                   Educacional.
                                 </p>
                               </div>
