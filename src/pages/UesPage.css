@@ -54,18 +54,33 @@
   width: 100%;
 }
 
+/* Change background color of hovered option */
+.ant-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: #5a94d8  !important; /* Replace with your desired hover color */
+}
+
+/* Optional: change text color on hover */
+.ant-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) .ant-select-item-option-content {
+  color: white !important; /* Replace with your desired text color */
+}
+
+.ant-select-item .ant-select-item-option .ant-select-item-option-active .ant-select-item-option-selected
+{
+   background-color: red  !important;
+}
+
+/* Hovered option */
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: #00ffff !important;
+  color: #ff0000 !important;
+}
+
+
 .select-ano {
   width: 20%;
 }
 
-.informacao-blue {
-  background: #428bca;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-  text-align: left;
-}
+
 
 .select-option-multiview {
   display: flex;
@@ -330,4 +345,16 @@
   border-radius: 8px;
   margin-bottom: 14px;
   transition: box-shadow 0.2s;
+}
+
+
+.titulo-ue{
+  height: 54px;
+  align-content: end;
+  color: #595959;  
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  unicode-range: U+0460-052F;
+  font-family: sans-serif;
 }
