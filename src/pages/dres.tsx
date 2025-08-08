@@ -627,10 +627,7 @@ const DresPage: React.FC = () => {
                             onClick={() => {
                               navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                               window.scrollTo(0, 0);
-                            }}
-                          >
-                            Acessar DRE
-                          </Button>
+                            }}>Acessar DRE</Button>
                         </Card>
                       </Col>
                     );
