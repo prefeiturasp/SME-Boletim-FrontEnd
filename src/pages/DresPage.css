@@ -106,7 +106,7 @@
 }
 
 .ues-list-cards {
-  margin-top: 32px;
+  margin-top: 0px;
 }
 
 .ues-list-card {
@@ -322,18 +322,6 @@
   opacity: 1;
 }
 
-.conteudo-fixo-ues {
-  position: sticky;
-  top: 0px;
-  z-index: 10;
-  background: #fff;
-  box-shadow: 0 2px 10px 0 rgba(66, 139, 202, 0.08);
-  padding: 16px 18px 12px 18px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  transition: box-shadow 0.2s;
-}
-
 .titulo-sme{
   height: 54px;
   align-content: end;
@@ -413,12 +401,11 @@
   position: sticky;
   top: 0px;
   z-index: 10;
-  background: #fff;
+  background: #fff;  
+  padding: 16px 0px 32px 0px;
+  /*border-radius: 8px;
   box-shadow: 0 2px 10px 0 rgba(66, 139, 202, 0.08);
-  padding: 16px 18px 12px 18px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s;*/
 }
 
 .dres-list-cards {

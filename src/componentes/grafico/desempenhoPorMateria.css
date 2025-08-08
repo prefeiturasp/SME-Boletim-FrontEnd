@@ -1,17 +1,17 @@
 .legendas {
     background: #F5F5F5;
-    padding: 10px;
-    margin: 10px 0;
+    margin-top: 8px;
+    padding: 8px;
     display: flex;
-    align-items: center; /* ✅ this aligns boxes and text vertically */
-    flex-wrap: wrap; /* optional if you want them to wrap on smaller screens */
+    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .texto {
     margin-right: 30px;
     display: flex;
-    align-items: center; /* ensures text stays centered if multi-line */
+    align-items: center;
 }
 
 .caixa-vermelha {
@@ -48,11 +48,10 @@
 
 .grafico-borda{
   border: 1px solid #f1f0f0; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: white; 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   margin-top: 16px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.12)
 }
 
 /*.grafico-borda div {
@@ -61,5 +60,18 @@
 
 
 .ajuste-padding-grafico-card .ant-card .ant-card-body {
-  padding: 32px 16px 16px 16px !important;
+  padding: 32px 16px 0px 16px !important;
+}
+
+.desempenho-por-materia-espacamento {
+  padding-top:32px
+}
+
+.desempenho-por-materia-titulo-barra {
+  margin-bottom: 8px; 
+}
+
+svg .recharts-surface {
+  height: 0px;
+  width: 0px;
 }
