@@ -51,18 +51,23 @@
 }
 
 /* Change background color of hovered option */
-.ant-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-  background-color: #5a94d8  !important; /* Replace with your desired hover color */
+.ant-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: #5a94d8 !important; /* Replace with your desired hover color */
 }
 
 /* Optional: change text color on hover */
-.ant-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) .ant-select-item-option-content {
+.ant-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled)
+  .ant-select-item-option-content {
   color: white !important; /* Replace with your desired text color */
 }
 
-.ant-select-item .ant-select-item-option .ant-select-item-option-active .ant-select-item-option-selected
-{
-   background-color: red  !important;
+.ant-select-item
+  .ant-select-item-option
+  .ant-select-item-option-active
+  .ant-select-item-option-selected {
+  background-color: red !important;
 }
 
 /* Hovered option */
@@ -71,12 +76,9 @@
   color: #ff0000 !important;
 }
 
-
 .select-ano {
   width: 20%;
 }
-
-
 
 .select-option-multiview {
   display: flex;
@@ -220,13 +222,13 @@
 }
 
 .btn-acessar-ue {
-  margin-top: 8px;
   border: 1.2px solid #5a94d8;
   color: #3578b7;
   background: white !important;
   border-radius: 5px;
   font-weight: 500;
 }
+
 .btn-acessar-ue:hover {
   background: #e9f3ff !important;
   color: #215181;
@@ -285,22 +287,10 @@
   opacity: 1;
 }
 
-.conteudo-fixo-ues {
-  position: sticky;
-  top: 0px;
-  z-index: 10;
-  background: #ffff;  
-  padding: 16px 0px 32px 0px;
-  /*border-radius: 8px;
-  box-shadow: 0 2px 10px 0 rgba(66, 139, 202, 0.08);
-  transition: box-shadow 0.2s;*/
-}
-
-
-.titulo-ue{
+.titulo-ue {
   height: 54px;
   align-content: end;
-  color: #595959;  
+  color: #595959;
   font-style: normal;
   font-weight: 700;
   font-stretch: 100%;
@@ -311,8 +301,6 @@
 .ajustes-padding-cards .ant-card .ant-card-body {
   padding: 32px;
 }
-
-
 
 .list-meta-conteudo {
   width: 50%;

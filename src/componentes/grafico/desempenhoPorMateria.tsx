@@ -72,12 +72,12 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
     return (
       <div className="ajuste-padding-grafico-card">
         <Card className="grafico-borda">
-          Confira a quantidade de <b>Unidades Educacionais ({tipo}) </b>
+          Confira a quantidade de <span className="desempenho-por-materia-negrito">Unidades Educacionais ({tipo}) </span>
           classificadas dentro de cada um dos niveis de proficiência (AB, B, AD,
           AV).
           <div className="legendas">
             <div className="texto">
-              <b>Niveis:</b>
+              <span className="desempenho-por-materia-negrito">Niveis:</span>
             </div>
             <div className="caixa-vermelha"></div>{" "}
             <div className="texto">AB - Abaixo do basico</div>
@@ -94,7 +94,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
             
             <div key={index} className="desempenho-por-materia">
               <div className="desempenho-por-materia-titulo-barra">
-                Componente Curricular: <strong>{item.name}</strong>
+                Componente Curricular: <span className="desempenho-por-materia-negrito">{item.name}</span>
               </div>
               <ResponsiveContainer width="100%" height={70}>
                 <BarChart
@@ -142,7 +142,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
                       <LabelList
                         dataKey="basico"
                         position="center"
-                        fill="black"
+                        fill="#595959"
                         fontSize={14}
                         fontWeight={500}
                         formatter={(value: unknown) => `B: ${value}`}
@@ -166,7 +166,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
                       <LabelList
                         dataKey="avancado"
                         position="center"
-                        fill="black"
+                        fill="#595959"
                         fontSize={14}
                         fontWeight={500}
                         formatter={(value: unknown) => `AV: ${value}`}

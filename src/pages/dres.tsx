@@ -20,6 +20,7 @@ import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
 import "./DresPage.css";
+import "./ues_dres.css";
 import iconePort from "../assets/icon-port.svg";
 import iconeMat from "../assets/icon-mat.svg";
 import iconeAlunos from "../assets/icon-alunos.svg";
@@ -458,7 +459,7 @@ const DresPage: React.FC = () => {
                 />
 
                 <br />
-                <div className="conteudo-fixo-dres">
+                <div className="conteudo-fixo-dropdown">
                   <p>
                     Você pode filtrar por Diretoria Regional de Educação (DRE).
                   </p>
@@ -506,7 +507,10 @@ const DresPage: React.FC = () => {
                       return (
                         <Col xs={24} sm={24} md={8} key={dre.dreId}>
                           <Card className="list-card">
-                            <Tooltip title={dre.dreNome} className="custom-tooltip">
+                            <Tooltip
+                              title={dre.dreNome}
+                              className="custom-tooltip"
+                            >
                               <div className="list-card-nome nome-truncado">
                                 {dre.dreNome}
                               </div>
@@ -519,8 +523,8 @@ const DresPage: React.FC = () => {
                             {semDisciplinas ? (
                               <div className="mensagem-sem-dados">
                                 <p>
-                                  Não há dados cadastrados <br/>nesta Unidade
-                                  Educacional.
+                                  Não há dados cadastrados <br />
+                                  nesta Unidade Educacional.
                                 </p>
                               </div>
                             ) : (
@@ -629,7 +633,6 @@ const DresPage: React.FC = () => {
                                     </div>
                                   </div>
                                 </div>
-
                               </>
                             )}
                             <Button
@@ -677,7 +680,9 @@ const DresPage: React.FC = () => {
 
             <br />
             <Card title="" variant="borderless">
-              <span className="titulo">Média de proficiência</span>
+              <span className="ues-dre-title">
+                <b>Média de proficiência</b>
+              </span>
 
               <div className="conteudo-grafico-media-proficiencia">
                 <div className="conteudo-grafico-media-proficiencia-texto">

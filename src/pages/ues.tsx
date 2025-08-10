@@ -20,6 +20,7 @@ import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
 import RelatorioAlunosPorUes from "../componentes/relatorio/relatorioAlunosPorUes";
+import "./ues_dres.css";
 import "./UesPage.css";
 import iconePort from "../assets/icon-port.svg";
 import iconeMat from "../assets/icon-mat.svg";
@@ -86,8 +87,8 @@ const UesPage: React.FC = () => {
 
   const [searchParams] = useSearchParams();
 
-   useEffect(() => {
-    const dreParam = searchParams.get("dreUrlSelecionada");    
+  useEffect(() => {
+    const dreParam = searchParams.get("dreUrlSelecionada");
     if (!dreParam) return;
 
     const optNum = Number(dreParam);
@@ -98,11 +99,10 @@ const UesPage: React.FC = () => {
     setDreSelecionada(optNum);
     const dreObj = dres.find((d) => d.value === optNum);
     setDreSeleciondaNome(dreObj?.label);
-    
+
     setUesSelecionadas([]);
     setCurrentCardPage(1);
     setUesDados([]);
-    
   }, [searchParams, dres]);
 
   const buscarAplicacoes = async () => {
@@ -127,7 +127,7 @@ const UesPage: React.FC = () => {
       console.error("Erro ao buscar aplicações:", error);
     }
   };
-  
+
   useEffect(() => {
     buscarAplicacoes();
   }, []);
@@ -203,10 +203,12 @@ const UesPage: React.FC = () => {
       );
       setDres(opcoesDre);
       if (opcoesDre.length > 0) {
-
         const param = searchParams.get("dreUrlSelecionada");
         const preferida = param ? Number(param) : opcoesDre[0].value;
-        const dreObj = opcoesDre.find((d:{ value: number; label: string }) => d.value === preferida) ?? opcoesDre[0];
+        const dreObj =
+          opcoesDre.find(
+            (d: { value: number; label: string }) => d.value === preferida
+          ) ?? opcoesDre[0];
 
         setDreSelecionada(dreObj.value);
         setDreSeleciondaNome(dreObj.label);
@@ -475,7 +477,7 @@ const UesPage: React.FC = () => {
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
 
                 <br />
-                <div className="conteudo-fixo-ues">
+                <div className="conteudo-fixo-dropdown">
                   <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
                   <Select
@@ -512,8 +514,6 @@ const UesPage: React.FC = () => {
                   />
                 </div>
 
-                <br />
-
                 <div className="list-cards">
                   <Row gutter={[16, 16]}>
                     {uesDados.map((ue) => {
@@ -535,8 +535,8 @@ const UesPage: React.FC = () => {
                             {semDisciplinas ? (
                               <div className="mensagem-sem-dados">
                                 <p>
-                                  Não há dados cadastrados <br/>nesta Unidade
-                                  Educacional.
+                                  Não há dados cadastrados <br />
+                                  nesta Unidade Educacional.
                                 </p>
                               </div>
                             ) : (
@@ -638,27 +638,31 @@ const UesPage: React.FC = () => {
                     })}
                   </Row>
                   {uesDados.length < uesTotal && (
-                    <div style={{ textAlign: "center", marginTop: 24 }}>
-                      <Button
-                        variant="outlined"
-                        className="btn-exibir-mais"
-                        loading={loadingMaisUes}
-                        onClick={handleExibirMais}
-                        style={{
-                          minWidth: 160,
-                          height: 40,
-                          fontWeight: 600,
-                          fontSize: 16,
-                        }}
-                      >
-                        <img
-                          src={iconeMais}
-                          alt="Ícone dados"
-                          className="disciplina-icon"
-                        />
-                        Exibir mais
-                      </Button>
-                    </div>
+                    <>
+                      <br></br>
+                      <div className="transparent-bottom">
+                        <Button
+                          variant="outlined"
+                          className="btn-exibir-mais"
+                          loading={loadingMaisUes}
+                          onClick={handleExibirMais}
+                          style={{
+                            minWidth: 160,
+                            height: 40,
+                            fontWeight: 600,
+                            fontSize: 16,
+                            zIndex: 10000,
+                          }}
+                        >
+                          <img
+                            src={iconeMais}
+                            alt="Ícone dados"
+                            className="disciplina-icon"
+                          />
+                          Exibir mais
+                        </Button>
+                      </div>
+                    </>
                   )}
                 </div>
               </Card>

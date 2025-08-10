@@ -42,7 +42,7 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
       );
 
       const hi: objGrafico = {
-        dreNome: item.dreNome.trim().replace(" ", "\n"),
+        dreNome: item.dreNome.trim(),
         portugues: portuguesDisc?.mediaProficiencia ?? 0,
         matematica: matematicaDisc?.mediaProficiencia ?? 0,
       };
@@ -62,10 +62,10 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
 
   return (
     <>
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={lsobjGrafico}
-          margin={{ top: 0, right: 0, left: 20, bottom: 0 }}
+          margin={{ top: 0, right: 0, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -75,22 +75,18 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
             tick={({ x, y, payload }) => {
               const lines = payload.value.split(" ");
               return (
-                <g transform={`translate(${x},${y + 10})`}>
+                <text
+                  x={x}
+                  y={y + 10}
+                  textAnchor="middle"
+                  style={{ fontSize: 12 }}
+                >
                   {lines.map((line: string, index: number) => (
-                    <text
-                      key={index}
-                      x={0}
-                      y={index * 12}
-                      textAnchor="middle"
-                      fill="#666"
-                      fontSize={12}
-                    >
+                    <tspan key={index} x={x} dy={index === 0 ? 0 : 14}>
                       {line}
-                    </text>
-                  ))
-                  
-                  }
-                </g>
+                    </tspan>
+                  ))}
+                </text>
               );
             }}
           >
@@ -112,7 +108,7 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
               value="Média de proficiência"
               angle={-90}
               position="insideLeft"
-              offset={-15}
+              offset={0}
               style={{
                 textAnchor: "middle",
                 fontSize: 14,

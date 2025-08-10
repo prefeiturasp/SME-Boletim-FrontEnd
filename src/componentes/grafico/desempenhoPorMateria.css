@@ -61,6 +61,7 @@
 
 .ajuste-padding-grafico-card .ant-card .ant-card-body {
   padding: 32px 16px 0px 16px !important;
+  margin: 0px;
 }
 
 .desempenho-por-materia-espacamento {
@@ -74,4 +75,9 @@
 svg .recharts-surface {
   height: 0px;
   width: 0px;
+}
+
+.desempenho-por-materia-negrito {
+  color: #595959;
+  font-weight:700;
 }
