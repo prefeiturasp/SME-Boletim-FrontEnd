@@ -67,11 +67,12 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
           data={lsobjGrafico}
           margin={{ top: 0, right: 0, left: 20, bottom: 5 }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          {/*<CartesianGrid strokeDasharray="3 3" />*/}
           <XAxis
             dataKey="dreNome"
             interval={0}
             height={60}
+            
             tick={({ x, y, payload }) => {
               const lines = payload.value.split(" ");
               return (
@@ -109,6 +110,7 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
               angle={-90}
               position="insideLeft"
               offset={0}
+              
               style={{
                 textAnchor: "middle",
                 fontSize: 14,
