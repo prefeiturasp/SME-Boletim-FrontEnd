@@ -3,10 +3,15 @@
   top: 0px;
   z-index: 10;
   background: #fff;
-  margin: 32px 0px 32px 0px;
+  padding: 32px 0px 32px 0px;
   /*border-radius: 8px;
   box-shadow: 0 2px 10px 0 rgba(66, 139, 202, 0.08);
   transition: box-shadow 0.2s;*/
+}
+
+.conteudo-fixo-dropdown p{
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 .btn-exibir-mais .btn-exibir-mais {
@@ -18,13 +23,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 250px; /* your current height */
+  height: 300px; /* your current height */
   z-index: 9999;
   pointer-events: auto;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.8) 40%
+    rgba(255, 255, 255, 0.5) 30%
   );
 
   display: flex;
@@ -48,4 +53,46 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+
+.ajustes-padding-cards .ant-card .ant-card-body {
+  padding: 32px;
+  margin-left: 0px;
+}
+
+
+.separador-ues-dres {
+  height: 0.01px;
+  width: 100%;
+  border: 1px solid #D5D5D5;
+}
+
+.btn-acessar-ue {
+  margin-top: 8px;
+  border: 1.2px solid #5a94d8;
+  color: #3578b7;
+  background: white !important;
+  border-radius: 5px;
+  font-weight: 400;
+}
+.btn-acessar-ue:hover {
+  background: #e9f3ff !important;
+  color: #215181;
+  border: 1.2px solid #215181;
+}
+
+/* Change tooltip background */
+.ant-tooltip .ant-tooltip-inner {
+  background-color: #EDEDED !important;
+  color: #595959 !important; /* text color */
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Change tooltip arrow */
+.ant-tooltip .ant-tooltip-arrow:before {
+  background-color: #EDEDED !important;
+  font-weight: 700;
+  font-size: 14px;
 }

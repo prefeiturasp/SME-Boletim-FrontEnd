@@ -246,19 +246,7 @@
 }
 
 
-.btn-acessar-ue {
-  margin-top: 8px;
-  border: 1.2px solid #5a94d8;
-  color: #3578b7;
-  background: white !important;
-  border-radius: 5px;
-  font-weight: 500;
-}
-.btn-acessar-ue:hover {
-  background: #e9f3ff !important;
-  color: #215181;
-  border: 1.2px solid #215181;
-}
+
 
 .ues-list-pagination {
   margin-top: 26px;
@@ -399,7 +387,7 @@
 
 
 .list-cards {
-  margin-top: 0px;
+  margin-top: 2px;
 }
 
 .list-card-nome {
@@ -456,10 +444,6 @@
 
 .ues-dre-subtitulo {
   padding: 4px 0px 4px 0px;
-}
-
-.ajustes-padding-cards .ant-card .ant-card-body {
-  padding: 32px;
 }
 
 .list-meta-conteudo-dres {

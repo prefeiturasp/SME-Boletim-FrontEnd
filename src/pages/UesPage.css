@@ -221,19 +221,6 @@
   margin-bottom: 5px;
 }
 
-.btn-acessar-ue {
-  border: 1.2px solid #5a94d8;
-  color: #3578b7;
-  background: white !important;
-  border-radius: 5px;
-  font-weight: 500;
-}
-
-.btn-acessar-ue:hover {
-  background: #e9f3ff !important;
-  color: #215181;
-  border: 1.2px solid #215181;
-}
 
 .ues-list-pagination {
   margin-top: 26px;
@@ -298,9 +285,6 @@
   font-family: sans-serif;
 }
 
-.ajustes-padding-cards .ant-card .ant-card-body {
-  padding: 32px;
-}
 
 .list-meta-conteudo {
   width: 50%;

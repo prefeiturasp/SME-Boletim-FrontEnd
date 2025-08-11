@@ -42,14 +42,14 @@ export function estiloNivel(nivel: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
-  if (n === "adequado")
-    return { background: "rgba(153,153,255,0.5)", color: "#232323" };
+  if (n === "adequado") 
+    return { background: "rgba(153,153,255,0.5)", color: "#3f673f" };
   if (n === "basico")
-    return { background: "rgba(254,222,153,0.5)", color: "#232323" };
+    return { background: "rgba(254,222,153,0.5)", color: "#3f673f" };
   if (n === "abaixo do basico")
-    return { background: "rgba(255,89,89,0.5)", color: "#232323" };
+    return { background: "rgba(255,89,89,0.5)", color: "#3f673f" };
   if (n === "avancado")
-    return { background: "rgba(153,255,153,0.5)", color: "#232323" };
+    return { background: "rgba(153,255,153,0.5)", color: "#3f673f" };
   return { background: "#f0f0f0", color: "#8c8c8c" };
 }
 
@@ -385,7 +385,7 @@ const UesPage: React.FC = () => {
             <br />
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
-                <p style={{ marginTop: "0", marginBottom: "3em" }}>
+                <p style={{ marginTop: "0", marginBottom: "32px" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
                 </p>
@@ -475,8 +475,7 @@ const UesPage: React.FC = () => {
                 </div>
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
-
-                <br />
+                
                 <div className="conteudo-fixo-dropdown">
                   <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
@@ -582,7 +581,7 @@ const UesPage: React.FC = () => {
                                     </div>
                                   ))}
                                 </div>
-                                <hr className="separador" />
+                                <hr className="separador-ues-dres" />
                                 <div className="list-card-meta-row">
                                   <div className="list-meta-conteudo">
                                     <img
