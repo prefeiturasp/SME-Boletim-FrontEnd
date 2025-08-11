@@ -42,14 +42,14 @@ export function estiloNivel(nivel: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
-  if (n === "adequado") 
-    return { background: "#9999FF", color: "#3f673f" };
+  if (n === "adequado")
+    return { background: "rgba(153, 153, 255, 0.5)", color: "#3f673f" };
   if (n === "basico")
-    return { background: "#FEDE99", color: "#3f673f" };
+    return { background: "rgba(254,222,153, 0.5)", color: "#3f673f" };
   if (n === "abaixo do basico")
-    return { background: "#FF5959", color: "#3f673f" };
+    return { background: "rgba(255,89,89, 0.5)", color: "#3f673f" };
   if (n === "avancado")
-    return { background: "#99FF99", color: "#3f673f" };
+    return { background: "rgba(153, 255, 153, 0.5)", color: "#3f673f" };
   return { background: "#f0f0f0", color: "#8c8c8c" };
 }
 
