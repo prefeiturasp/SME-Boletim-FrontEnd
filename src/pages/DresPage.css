@@ -262,16 +262,6 @@
   height: 435px !important;
 }
 
-.nome-truncado {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  cursor: pointer;
-}
-
 .mensagem-sem-dados {
   color: #595959;
   text-align: center;
@@ -390,14 +380,7 @@
   margin-top: 2px;
 }
 
-.list-card-nome {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #595959;
-  min-height: 1em;
-  font-family: sans-serif;
-}
+
 
 .list-card {
   background: #fff;

@@ -1,9 +1,8 @@
-import "./desempenhoPorMateria.css";
+import "./desempenhoPorMediaProficiencia.css";
 
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Label,
   ResponsiveContainer,
   Tooltip,
@@ -12,6 +11,7 @@ import {
 } from "recharts";
 import "./desempenhoPorMediaProficiencia.css";
 import React from "react";
+import TooltipMediaProficiencia from "./conteudo/tooltipMediaProficiencia";
 
 interface legendas {
   legenda: string;
@@ -119,7 +119,14 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
               }}
             />
           </YAxis>
-          <Tooltip />
+          <Tooltip
+          content={<TooltipMediaProficiencia showPercentage={false}/>}
+            wrapperStyle={{
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              borderRadius: "5px",
+              color: "#fff",
+            }}
+          />
 
           <Bar dataKey="portugues" fill="#5A94D8" />
           <Bar dataKey="matematica" fill="#EDEDED" />
@@ -132,12 +139,12 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
               <div className="legenda-titulo">Componentes curriculares:</div>
             )}
             <div
-              className="legenda-caixa"
+              className="legenda-caixa-media-proficiencia"
               style={{
                 backgroundColor: entry.cor,
               }}
             ></div>
-            <span className="legenda-texto">{entry.legenda}</span>
+            <span className="legenda-texto-media-proficiencia">{entry.legenda}</span>
           </div>
         ))}
       </div>

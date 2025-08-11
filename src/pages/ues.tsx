@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
 import {
   Row,
@@ -86,6 +86,7 @@ const UesPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
+  const stickyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const dreParam = searchParams.get("dreUrlSelecionada");
@@ -104,6 +105,37 @@ const UesPage: React.FC = () => {
     setCurrentCardPage(1);
     setUesDados([]);
   }, [searchParams, dres]);
+
+  useEffect(() => {
+    const el = stickyRef.current;
+    if (!el) return;
+
+    const scrollEl = getScrollParent(el);
+
+    const onScroll = () => {
+      const stuck = el.getBoundingClientRect().top <= 0;
+      el.classList.toggle("fixed", stuck);
+    };
+
+    scrollEl.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+    return () => {
+      scrollEl.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  function getScrollParent(node: HTMLElement): HTMLElement | Window {
+    let p: HTMLElement | null = node.parentElement;
+    while (p) {
+      const { overflowY } = getComputedStyle(p);
+      if (/(auto|scroll|overlay)/.test(overflowY)) return p;
+      p = p.parentElement;
+    }
+    return window;
+  }
 
   const buscarAplicacoes = async () => {
     try {
@@ -476,7 +508,7 @@ const UesPage: React.FC = () => {
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
                 
-                <div className="conteudo-fixo-dropdown">
+                <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
                   <Select
