@@ -484,12 +484,13 @@ const UesPage: React.FC = () => {
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
                   <Col xs={24} sm={12} md={6} key={idx}>
-                    <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                    <Card className="card-resumo" bodyStyle={{ padding: 0, paddingTop: "0.3em"}}>
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
-                      <div className="descricao">
-                        Média de proficiência {disciplina.disciplinaNome}
+                      <div className="descricao" style={{lineHeight:1}}>
+                        <p style={{margin:0}}>Média de proficiência</p>
+                        <p style={{margin:0}}>{disciplina.disciplinaNome}</p>                         
                       </div>
                     </Card>
                   </Col>
@@ -551,7 +552,7 @@ const UesPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="list-cards">
+                <div className="list-cards" style={{zIndex: "auto"}}>
                   <Row gutter={[16, 16]}>
                     {uesDados.map((ue) => {
                       const semDisciplinas =
@@ -677,10 +678,10 @@ const UesPage: React.FC = () => {
                   {uesDados.length < uesTotal && (
                     <>
                       <br></br>
-                      <div className="transparent-bottom">
+                      <div className="transparent-bottom-ue">
                         <Button
                           variant="outlined"
-                          className="btn-exibir-mais"
+                          className="btn-exibir-mais-ue"
                           loading={loadingMaisUes}
                           onClick={handleExibirMais}
                           style={{
@@ -688,7 +689,7 @@ const UesPage: React.FC = () => {
                             height: 40,
                             fontWeight: 600,
                             fontSize: 16,
-                            zIndex: 10000,
+                            zIndex: 2,
                           }}
                         >
                           <img
@@ -718,7 +719,7 @@ const UesPage: React.FC = () => {
 
       <div className="rodape">
         <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio}>
-          Voltar para o Início
+          Voltar para o início
         </Button>
       </div>
       <div className="rodape-versao">
