@@ -77,7 +77,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
           AV).
           <div className="legendas">
             <div className="texto">
-              <span className="desempenho-por-materia-negrito">Niveis:</span>
+              <span className="desempenho-por-materia-negrito">Níveis:</span>
             </div>
             <div className="caixa-vermelha"></div>{" "}
             <div className="texto">AB - Abaixo do basico</div>

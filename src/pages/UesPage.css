@@ -308,3 +308,30 @@
   /*background-color: red;
   border: 2px solid #000000; */
 }
+
+.transparent-bottom-ue{
+   position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 250px;
+  z-index: auto !important;
+  pointer-events: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.8) 40%
+  );
+
+  display: flex;
+  justify-content: center; 
+}
+
+.transparent-bottom-ue .btn-exibir-mais-ue {
+  position: absolute;
+  bottom: 32px;
+}
+
+.btn-exibir-mais-ue .btn-exibir-mais-ue {
+  align-items: center;
+}

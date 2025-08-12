@@ -274,8 +274,7 @@ const DresPage: React.FC = () => {
       const params = new URLSearchParams();
       uesSelecionadas.forEach((dre) =>
         params.append("dreIds", String(dre.value))
-      );
-      //const url = `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ue-por-dre-dados?${params.toString()}`;
+      );      
       const url = `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres/proficiencia?${params.toString()}`;
 
       const resposta = await servicos.get(url);
@@ -445,19 +444,15 @@ const DresPage: React.FC = () => {
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless" className="body-pai-dre">
                 <div className="ues-dre-title">
-                  <b>Diretoria Regional de Educação (DREs) </b>
-                  {/* - {dreSelecionadaNome} */}
+                  <b>Diretorias Regionais de Educação (DREs)</b>
                 </div>
                 <div className="ues-dre-subtitulo">
-                  Confira as informações de todas as DREs do Municipio de São
-                  Paulo .{/* {dreSelecionadaNome} */}
+                  Confira as informações de todas as DREs do Município de São Paulo.
                 </div>
-
                 <DesempenhoPorMateria
                   dados={niveisProficiencia}
                   tipo={"DREs"}
                 />
-
                 <br />
                 <div className="conteudo-fixo-dropdown">
                   <p>
@@ -747,7 +742,7 @@ const DresPage: React.FC = () => {
 
       <div className="rodape">
         <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio}>
-          Voltar para o Início
+          Voltar para o início
         </Button>
       </div>
       <div className="rodape-versao">
