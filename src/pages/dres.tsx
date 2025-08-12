@@ -47,13 +47,13 @@ export function estiloNivel(nivel: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
   if (n === "adequado")
-    return { background: "rgba(153,153,255,0.5)", color: "#232323" };
+    return { background: "rgba(153, 153, 255, 0.5)", color: "#3f673f" };
   if (n === "basico")
-    return { background: "rgba(254,222,153,0.5)", color: "#232323" };
+    return { background: "rgba(254,222,153, 0.5)", color: "#3f673f" };
   if (n === "abaixo do basico")
-    return { background: "rgba(255,89,89,0.5)", color: "#232323" };
+    return { background: "rgba(255,89,89, 0.5)", color: "#3f673f" };
   if (n === "avancado")
-    return { background: "rgba(153,255,153,0.5)", color: "#232323" };
+    return { background: "rgba(153, 255, 153, 0.5)", color: "#3f673f" };
   return { background: "#f0f0f0", color: "#8c8c8c" };
 }
 
@@ -367,7 +367,7 @@ const DresPage: React.FC = () => {
 
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless" className="card-body-dre">
-                <p style={{ marginTop: "0", marginBottom: "3em" }}>
+                <p style={{ marginTop: "0", marginBottom: "32px" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
                 </p>
@@ -595,7 +595,7 @@ const DresPage: React.FC = () => {
                                     )
                                   )}
                                 </div>
-                                <hr className="separador" />
+                                <hr className="separador-ues-dres" />
                                 <div className="list-card-meta-row">
                                   <div className="list-meta-conteudo-dres">
                                     <img

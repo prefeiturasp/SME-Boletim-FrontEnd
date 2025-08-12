@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
 import {
   Row,
@@ -43,13 +43,13 @@ export function estiloNivel(nivel: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
   if (n === "adequado")
-    return { background: "rgba(153,153,255,0.5)", color: "#232323" };
+    return { background: "rgba(153, 153, 255, 0.5)", color: "#3f673f" };
   if (n === "basico")
-    return { background: "rgba(254,222,153,0.5)", color: "#232323" };
+    return { background: "rgba(254,222,153, 0.5)", color: "#3f673f" };
   if (n === "abaixo do basico")
-    return { background: "rgba(255,89,89,0.5)", color: "#232323" };
+    return { background: "rgba(255,89,89, 0.5)", color: "#3f673f" };
   if (n === "avancado")
-    return { background: "rgba(153,255,153,0.5)", color: "#232323" };
+    return { background: "rgba(153, 255, 153, 0.5)", color: "#3f673f" };
   return { background: "#f0f0f0", color: "#8c8c8c" };
 }
 
@@ -86,6 +86,7 @@ const UesPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
+  const stickyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const dreParam = searchParams.get("dreUrlSelecionada");
@@ -104,6 +105,37 @@ const UesPage: React.FC = () => {
     setCurrentCardPage(1);
     setUesDados([]);
   }, [searchParams, dres]);
+
+  useEffect(() => {
+    const el = stickyRef.current;
+    if (!el) return;
+
+    const scrollEl = getScrollParent(el);
+
+    const onScroll = () => {
+      const stuck = el.getBoundingClientRect().top <= 0;
+      el.classList.toggle("fixed", stuck);
+    };
+
+    scrollEl.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+    return () => {
+      scrollEl.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  function getScrollParent(node: HTMLElement): HTMLElement | Window {
+    let p: HTMLElement | null = node.parentElement;
+    while (p) {
+      const { overflowY } = getComputedStyle(p);
+      if (/(auto|scroll|overlay)/.test(overflowY)) return p;
+      p = p.parentElement;
+    }
+    return window;
+  }
 
   const buscarAplicacoes = async () => {
     try {
@@ -385,7 +417,7 @@ const UesPage: React.FC = () => {
             <br />
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
-                <p style={{ marginTop: "0", marginBottom: "3em" }}>
+                <p style={{ marginTop: "0", marginBottom: "32px" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
                 </p>
@@ -476,9 +508,8 @@ const UesPage: React.FC = () => {
                 </div>
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
-
-                <br />
-                <div className="conteudo-fixo-dropdown">
+                
+                <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
                   <Select
@@ -583,7 +614,7 @@ const UesPage: React.FC = () => {
                                     </div>
                                   ))}
                                 </div>
-                                <hr className="separador" />
+                                <hr className="separador-ues-dres" />
                                 <div className="list-card-meta-row">
                                   <div className="list-meta-conteudo">
                                     <img

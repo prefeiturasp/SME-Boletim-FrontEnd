@@ -248,7 +248,7 @@ const Probabilidade: React.FC = () => {
 
     notification.open({
       key: "relatorioProbabilidade",
-      message: "Os dados estão em processamento",
+      message: <b>Os dados estão em processamento</b>,
       description: `Não atualize a tela! Assim que processamento for finalizado, o seu documento "resultado por probabilidades" será baixado automaticamente.`,
       placement: "bottomLeft",
       icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
@@ -283,7 +283,7 @@ const Probabilidade: React.FC = () => {
 
       notification.open({
         key: "relatorioProbabilidadeSuccess",
-        message: "Tudo certo por aqui!",
+        message: <b>Tudo certo por aqui!</b>,
         description: `Seu documento "resultados por probabilidades" foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
         placement: "bottomLeft",
         icon: <CheckCircleOutlined style={{ color: "#108ee9" }} />,
@@ -297,7 +297,7 @@ const Probabilidade: React.FC = () => {
 
       notification.open({
         key: "relatorioProbabilidadeErro",
-        message: "Não conseguimos baixar seu documento",
+        message: <b>Não conseguimos baixar seu documento</b>,
         description: `Ocorreu um erro no download do seu documento "resultados por probabilidades". Você pode tentar novamente. `,
         placement: "bottomLeft",
         icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,

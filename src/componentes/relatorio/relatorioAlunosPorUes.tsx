@@ -61,7 +61,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
 
     notification.open({
       key: "relatorioPrincipal",
-      message: "Os dados estão em processamento",
+      message: <b>Os dados estão em processamento</b>,
       description: `Não atualize a tela! Assim que os dados forem processados, o seu documento será baixado automaticamente.`,
       placement: "bottomLeft",
       icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
@@ -99,7 +99,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
 
       notification.open({
         key: "relatorioPrincipalSuccess",
-        message: "Tudo certo por aqui!",
+        message: <b>Tudo certo por aqui!</b>,
         description: `Seu documento  foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
         placement: "bottomLeft",
         icon: <CheckCircleOutlined style={{ color: "#108ee9" }} />,
@@ -115,7 +115,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
 
       notification.open({
         key: "relatorioPrincipalErro",
-        message: "Não conseguimos baixar seu documento",
+        message: <b>Não conseguimos baixar seu documento</b>,
         description: `Ocorreu um erro no download do seu documento. Você pode tentar novamente. `,
         placement: "bottomLeft",
         icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
