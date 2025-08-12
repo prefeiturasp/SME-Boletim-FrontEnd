@@ -87,6 +87,7 @@ const UesPage: React.FC = () => {
 
   const [searchParams] = useSearchParams();
   const stickyRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const dreParam = searchParams.get("dreUrlSelecionada");
@@ -108,22 +109,26 @@ const UesPage: React.FC = () => {
 
   useEffect(() => {
     const el = stickyRef.current;
-    if (!el) return;
+    const container = containerRef.current;
+    if (!el || !container) return;
 
     const scrollEl = getScrollParent(el);
 
-    const onScroll = () => {
+    const update = () => {
       const stuck = el.getBoundingClientRect().top <= 0;
       el.classList.toggle("fixed", stuck);
+
+      const rect = container.getBoundingClientRect();
+      el.style.setProperty("--container-left", `${rect.left}px`);
+      el.style.setProperty("--container-width", `${rect.width}px`);
     };
 
-    scrollEl.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    onScroll();
-
+    scrollEl.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
     return () => {
-      scrollEl.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      scrollEl.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
     };
   }, []);
 
@@ -382,10 +387,10 @@ const UesPage: React.FC = () => {
         </Header>
       </Row>
 
-      <div className="conteudo-principal-ues">
+      <div className="conteudo-principal-ues" ref={containerRef}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <h2 className="titulo-ue">{dreSelecionadaNome}</h2>
+            <h2 className="titulo-ue-sme">{dreSelecionadaNome}</h2>
 
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
@@ -507,7 +512,7 @@ const UesPage: React.FC = () => {
                 </div>
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
-                
+
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
@@ -542,6 +547,7 @@ const UesPage: React.FC = () => {
                         </div>
                       );
                     }}
+                    dropdownStyle={{ zIndex: 1001 }}
                   />
                 </div>
 

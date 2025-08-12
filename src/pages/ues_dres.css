@@ -1,13 +1,15 @@
-.titulo-ue {
-  height: 54px;
-  align-content: end;
-  color: #595959;
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  unicode-range: U+0460-052F;
-  font-family: sans-serif;
+.titulo-ue-sme {
+
   position: sticky;
+  top: 0;
+  z-index: 999;
+  color: #595959;
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  margin: 0; 
+  background-color: #EDEDED;
+  padding-bottom: 16px;
 }
 
 .conteudo-fixo-dropdown {
@@ -17,11 +19,19 @@
   background: white;
   padding: 32px 0px;
   transition: background-color 0.3s ease;
+  overflow-anchor: none;
 }
 
 .conteudo-fixo-dropdown.fixed {
-  background: #EDEDED; /* Your new color when fixed */
-  width: 100%;
+  background: #EDEDED;
+  width: calc(100dvw - (96px + 32px));
+  padding-top: 70px;
+  margin-left: -96px;
+  padding-left: 96px;
+  z-index: 998;
+  padding-right:36px;
+  margin-right: 32px;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.11999999731779099)
 }
 
 .conteudo-fixo-dropdown p{

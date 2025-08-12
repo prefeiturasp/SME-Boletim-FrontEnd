@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeftOutlined, UpOutlined } from "@ant-design/icons";
 import {
   Row,
@@ -8,7 +8,6 @@ import {
   Select,
   Checkbox,
   Button,
-  Pagination,
   Tooltip,
 } from "antd";
 
@@ -83,12 +82,49 @@ const DresPage: React.FC = () => {
   const [loadingMaisDres, setLoadingMaisDres] = useState(false);
 
   const [dresTotal, setDresTotal] = useState(0);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const aplicacaoSelecionada = useSelector(
     (state: RootState) => state.nomeAplicacao.id
   );
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const el = stickyRef.current;
+    const container = containerRef.current;
+    if (!el || !container) return;
+
+    const scrollEl = getScrollParent(el);
+
+    const update = () => {
+      const stuck = el.getBoundingClientRect().top <= 0;
+      el.classList.toggle("fixed", stuck);
+
+      const rect = container.getBoundingClientRect();
+      el.style.setProperty("--container-left", `${rect.left}px`);
+      el.style.setProperty("--container-width", `${rect.width}px`);
+    };
+
+    scrollEl.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+    return () => {
+      scrollEl.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  function getScrollParent(node: HTMLElement): HTMLElement | Window {
+    let p: HTMLElement | null = node.parentElement;
+    while (p) {
+      const { overflowY } = getComputedStyle(p);
+      if (/(auto|scroll|overlay)/.test(overflowY)) return p;
+      p = p.parentElement;
+    }
+    return window;
+  }
 
   const buscarAplicacoes = async () => {
     try {
@@ -345,10 +381,10 @@ const DresPage: React.FC = () => {
         </Header>
       </Row>
 
-      <div className="conteudo-principal-ues">
+      <div className="conteudo-principal-ues" ref={containerRef}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <h2 className="titulo-sme">Secretaria Municipal de Educação</h2>
+            <h2 className="titulo-ue-sme">Secretaria Municipal de Educação</h2>
 
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless" className="card-body-dre">
@@ -458,7 +494,7 @@ const DresPage: React.FC = () => {
                   tipo={"DREs"}
                 />
 
-                <div className="conteudo-fixo-dropdown">
+                <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>
                     Você pode filtrar por Diretoria Regional de Educação (DRE).
                   </p>
@@ -495,6 +531,7 @@ const DresPage: React.FC = () => {
                         </div>
                       );
                     }}
+                    dropdownStyle={{ zIndex: 1001 }}
                   />
                 </div>
 

@@ -299,17 +299,6 @@
   opacity: 1;
 }
 
-.titulo-sme{
-  height: 54px;
-  align-content: end;
-  color: #595959;  
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  unicode-range: U+0460-052F;
-  font-family: sans-serif;
-}
-
 .filtros-card-dre {
   display: flex;
   flex-wrap: wrap;
