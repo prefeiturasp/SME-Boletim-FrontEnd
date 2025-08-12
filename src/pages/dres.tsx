@@ -223,6 +223,13 @@ const DresPage: React.FC = () => {
       const resposta = await servicos.get(
         `/api/BoletimEscolar/${aplicacaoSelecionada}/${anoSelecionado}/resumo-sme`
       );
+
+      if (resposta?.proficienciaDisciplina?.length) {
+        resposta.proficienciaDisciplina.sort((a: any, b: any) =>
+          a.disciplinaNome.localeCompare(b.disciplinaNome, 'pt-BR', { sensitivity: 'base' })
+        );
+      }
+      
       setResumoDre(resposta);
     } catch (error) {
       console.error("Erro ao buscar resumo da DRE:", error);
