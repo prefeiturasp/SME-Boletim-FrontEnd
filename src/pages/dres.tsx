@@ -470,7 +470,6 @@ const DresPage: React.FC = () => {
                   dados={niveisProficiencia}
                   tipo={"DREs"}
                 />
-                <br />
                 <div className="conteudo-fixo-dropdown">
                   <p>
                     Você pode filtrar por Diretoria Regional de Educação (DRE).
@@ -662,34 +661,7 @@ const DresPage: React.FC = () => {
                         </Col>
                       );
                     })}
-                  </Row>                  
-                  {/* {dresDados.length < dresTotal && dresTotal > 4 && (
-                    <>
-                      <br /><br />
-                      <div style={{ textAlign: "center", marginTop: 24 }}>
-                        <Button
-                          variant="outlined"
-                          className="btn-exibir-mais"
-                          loading={loadingMaisDres}
-                          onClick={handleExibirMais}
-                          style={{
-                            minWidth: 160,
-                            height: 40,
-                            fontWeight: 600,
-                            fontSize: 16,
-                            zIndex: 2,
-                          }}
-                        >
-                          <img
-                            src={iconeMais}
-                            alt="Ícone dados"
-                            className="disciplina-icon"
-                          />
-                          Exibir mais
-                        </Button>
-                      </div>
-                    </>
-                  )} */}
+                  </Row>
                 </div>
               </Card>
             </div>
