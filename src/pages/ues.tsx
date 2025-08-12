@@ -447,12 +447,13 @@ const UesPage: React.FC = () => {
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
                   <Col xs={24} sm={12} md={6} key={idx}>
-                    <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                    <Card className="card-resumo" bodyStyle={{ padding: 0, paddingTop: "0.3em"}}>
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
-                      <div className="descricao">
-                        Média de proficiência {disciplina.disciplinaNome}
+                      <div className="descricao" style={{lineHeight:1}}>
+                        <p style={{margin:0}}>Média de proficiência</p>
+                        <p style={{margin:0}}>{disciplina.disciplinaNome}</p>                         
                       </div>
                     </Card>
                   </Col>

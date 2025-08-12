@@ -149,11 +149,10 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
   return (
     <>
       <div className="elementos">
-        <div className="texto">
-          Você pode baixar os dados de todas as &nbsp;
-          <b>Unidades Educacionais (UEs)</b>, clicando no botão ao lado
+        <div className="texto-ue-download">
+          <div>Você pode baixar os dados de todas as <b>Unidades</b></div>
+          <div><b>Educacionais (UEs)</b>, clicando no botão ao lado</div>
         </div>
-
         <div className="botao-download">
           <Button
             type="primary"

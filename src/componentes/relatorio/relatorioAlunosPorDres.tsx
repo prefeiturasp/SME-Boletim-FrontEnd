@@ -144,9 +144,9 @@ const RelatorioAlunosPorDres: React.FC<DownloadRelatorioProps> = ({
   return (
     <>
       <div className="elementos">
-        <div className="texto">
-          <p>Você pode baixar os dados de todas as Diretorias</p>
-          <b>Regionais da Educação (DREs)</b>, clicando no botão ao lado
+        <div className="texto-dre-download">
+          <div>Você pode baixar os dados de todas as <b>Diretorias</b></div>
+          <div><b>Regionais da Educação (DREs)</b>, clicando no botão ao lado</div>
         </div>
 
         <div className="botao-download">

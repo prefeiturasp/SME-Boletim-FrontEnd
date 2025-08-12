@@ -86,3 +86,13 @@
     font-weight: 700;
     color: #595959;
 }
+
+.texto-ue-download{
+  margin-right: 30px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    flex-direction: column;
+    color: #595959;
+}

@@ -278,10 +278,19 @@ const DresPage: React.FC = () => {
       const url = `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres/proficiencia?${params.toString()}`;
 
       const resposta = await servicos.get(url);
+
+      let novosDres = resposta?.itens || [];
+
       if (append) {
-        setDresDados((prev) => [...prev, ...(resposta?.itens || [])]);
+        //setDresDados((prev) => [...prev, ...(resposta?.itens || [])]);
+         const ultimoItemAtual = dresDados[dresDados.length - 1];
+        if (novosDres.length > 0 && ultimoItemAtual?.dreId === novosDres[0]?.dreId) {
+          novosDres = novosDres.slice(1); // Remova o primeiro item se for duplicado
+        }
+        setDresDados((prev) => [...prev, ...novosDres]);
       } else {
-        setDresDados(resposta?.itens || []);
+        //setDresDados(resposta?.itens || []);
+        setDresDados(novosDres);
       }
       setDresTotal(resposta?.totalTipoDisciplina || 0);
     } catch (error) {
@@ -422,13 +431,14 @@ const DresPage: React.FC = () => {
                   <Col xs={24} sm={12} md={5} key={idx} className="colum-dre">
                     <Card
                       className="card-resumo-dre"
-                      bodyStyle={{ padding: 0 }}
+                      bodyStyle={{ padding: 0, paddingTop: "0.3em" }}
                     >
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
-                      <div className="descricao">
-                        Média de proficiência {disciplina.disciplinaNome}
+                      <div className="descricao" style={{lineHeight:1}}>
+                        <p style={{margin:0}}>Média de proficiência</p>
+                        <p style={{margin:0}}>{disciplina.disciplinaNome}</p>                         
                       </div>
                     </Card>
                   </Col>
@@ -645,34 +655,37 @@ const DresPage: React.FC = () => {
                         </Col>
                       );
                     })}
-                  </Row>
-                  {dresDados.length < dresTotal && (
-                    <div style={{ textAlign: "center", marginTop: 24 }}>
-                      <Button
-                        variant="outlined"
-                        className="btn-exibir-mais"
-                        loading={loadingMaisDres}
-                        onClick={handleExibirMais}
-                        style={{
-                          minWidth: 160,
-                          height: 40,
-                          fontWeight: 600,
-                          fontSize: 16,
-                        }}
-                      >
-                        <img
-                          src={iconeMais}
-                          alt="Ícone dados"
-                          className="disciplina-icon"
-                        />
-                        Exibir mais
-                      </Button>
-                    </div>
-                  )}
+                  </Row>                  
+                  {/* {dresDados.length < dresTotal && dresTotal > 4 && (
+                    <>
+                      <br /><br />
+                      <div style={{ textAlign: "center", marginTop: 24 }}>
+                        <Button
+                          variant="outlined"
+                          className="btn-exibir-mais"
+                          loading={loadingMaisDres}
+                          onClick={handleExibirMais}
+                          style={{
+                            minWidth: 160,
+                            height: 40,
+                            fontWeight: 600,
+                            fontSize: 16,
+                            zIndex: 2,
+                          }}
+                        >
+                          <img
+                            src={iconeMais}
+                            alt="Ícone dados"
+                            className="disciplina-icon"
+                          />
+                          Exibir mais
+                        </Button>
+                      </div>
+                    </>
+                  )} */}
                 </div>
               </Card>
             </div>
-
             <br />
             <Card title="" variant="borderless">
               <span className="ues-dre-title">
