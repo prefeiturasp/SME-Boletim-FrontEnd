@@ -98,7 +98,7 @@ const UesPage: React.FC = () => {
   useEffect(() => {
     const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
     console.log(tipoPerfil);
-    if (tipoPerfil === 4 || tipoPerfil === 5) {
+    if (tipoPerfil === 5) {
       setShowVoltarUes(true);
     } else {
       setShowVoltarUes(false);
@@ -437,7 +437,7 @@ const UesPage: React.FC = () => {
                 {showVoltarUes && (
                                   <div style={{ marginBottom: 12 }}>
                                     <Link
-                                      to="/ues"
+                                      to="/dres"
                                       style={{
                                         display: "flex",
                                         alignItems: "center",

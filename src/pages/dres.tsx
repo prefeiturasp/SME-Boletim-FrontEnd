@@ -82,6 +82,8 @@ const DresPage: React.FC = () => {
   const [loadingMaisDres, setLoadingMaisDres] = useState(false);
 
   const [dresTotal, setDresTotal] = useState(0);
+  const [redirectUes, setRedirectUes] = useState(false);
+
   const stickyRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -404,6 +406,15 @@ const DresPage: React.FC = () => {
     setCurrentCardPage(proxPagina);
     fetchDresListagem(proxPagina, true);
   };
+
+  useEffect(() => {
+      const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
+      console.log(tipoPerfil);
+      if (tipoPerfil !== 5) {
+        setRedirectUes(true);
+        navigate("/ues");
+      }
+    }, []);
 
   return (
     <div className="app-container">
