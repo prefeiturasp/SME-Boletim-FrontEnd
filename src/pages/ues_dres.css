@@ -44,6 +44,13 @@
   color: #595959;
 }
 
+.conteudo-fixo-dropdown .ant-select-arrow {
+  height: 10px;
+  margin-top: 0px;
+  position: absolute;
+  top: 5px;
+}
+
 .conteudo-fixo-dropdown p{
   margin-top: 0px;
   margin-bottom: 10px;
