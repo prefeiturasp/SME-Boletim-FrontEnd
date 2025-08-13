@@ -208,7 +208,7 @@ const DresPage: React.FC = () => {
     if (aplicacoes.length > 0 && anoSelecionado != undefined) {
       buscaDesempenhoPorMediaProficiencia();
     }
-  }, [aplicacaoSelecionada, anoSelecionado]);
+  }, [aplicacaoSelecionada, anoSelecionado, uesSelecionadas]);
 
   const buscaDesempenhoPorMateria = async () => {
     try {
@@ -223,9 +223,15 @@ const DresPage: React.FC = () => {
 
   const buscaDesempenhoPorMediaProficiencia = async () => {
     try {
-      const respostas = await servicos.get(
-        `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia`
-      );
+      let url: string = "";
+      let parametros = "";
+      uesSelecionadas.forEach((dre) => {
+        parametros += "dresIds=" + dre.value + "&";
+      });
+      
+        url = `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia?${parametros}`;
+
+      const respostas = await servicos.get(url);
       setMediaProficiencia(respostas || []);
     } catch (error) {
       console.error(error);

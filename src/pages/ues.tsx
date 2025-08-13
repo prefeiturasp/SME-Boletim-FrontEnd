@@ -79,6 +79,10 @@ const UesPage: React.FC = () => {
 
   const [uesTotal, setUesTotal] = useState(0);
 
+  const [showVoltarUes, setShowVoltarUes] = useState(false);
+  
+    
+
   const aplicacaoSelecionada = useSelector(
     (state: RootState) => state.nomeAplicacao.id
   );
@@ -90,6 +94,16 @@ const UesPage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
+    console.log(tipoPerfil);
+    if (tipoPerfil === 4 || tipoPerfil === 5) {
+      setShowVoltarUes(true);
+    } else {
+      setShowVoltarUes(false);
+    }
+  }, []);
 
   useEffect(() => {
     const dreParam = searchParams.get("dreUrlSelecionada");
@@ -417,7 +431,32 @@ const UesPage: React.FC = () => {
 
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
-                <p>
+
+                
+
+                {showVoltarUes && (
+                                  <div style={{ marginBottom: 12 }}>
+                                    <Link
+                                      to="/ues"
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 6,
+                                        color: "#1976d2",
+                                        textDecoration: "none",
+                                        margin: "0px",
+                                        fontSize: 14,
+                                      }}
+                                      className="botao-voltar-ues"
+                                    >
+                                      <ArrowLeftOutlined style={{ fontSize: 18 }} />
+                                      Voltar a tela anterior
+                                    </Link>
+                                  </div>
+                                )}
+
+
+                <p className="voltar-tela-aterior-ue">
                   Você pode filtrar outra Diretoria Regional de Educação (DRE).
                 </p>
                 <div className="filtros-card">
@@ -445,6 +484,8 @@ const UesPage: React.FC = () => {
             <br />
             <div className="ajustes-padding-cards">
               <Card title="" variant="borderless">
+
+
                 <p style={{ marginTop: "0", marginBottom: "32px" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
