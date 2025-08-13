@@ -10,6 +10,7 @@
   margin: 0; 
   background-color: #EDEDED;
   padding-bottom: 16px;
+  margin-left: -2px;
 }
 
 .conteudo-fixo-dropdown {
@@ -18,20 +19,29 @@
   z-index: 10;
   background: white;
   padding: 32px 0px;
-  transition: background-color 0.3s ease;
+  /*transition: background-color 0.3s ease;*/
   overflow-anchor: none;
 }
 
 .conteudo-fixo-dropdown.fixed {
-  background: #EDEDED;
-  width: calc(100dvw - (96px + 32px));
+  position: fixed;
   padding-top: 70px;
-  margin-left: -96px;
-  padding-left: 96px;
+  background: #EDEDED;
   z-index: 998;
-  padding-right:36px;
-  margin-right: 32px;
-  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.11999999731779099)
+  margin-left: -80px;
+  padding-left: 45px;
+
+  margin-right: -80px;
+  padding-right: 45px;
+  width: calc(100dvw - (100px));
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.11999999731779099);
+}
+
+.conteudo-fixo-dropdown.fixed .ant-select-multiple.ant-select-outlined
+  .ant-select-selector .ant-select-selection-item {
+  background: #fff;
+  border: 1px solid #d5d5d5;
+  color: #595959;
 }
 
 .conteudo-fixo-dropdown p{

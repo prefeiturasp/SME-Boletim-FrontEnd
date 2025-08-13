@@ -88,6 +88,8 @@ const UesPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const stickyRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const dreParam = searchParams.get("dreUrlSelecionada");
@@ -108,29 +110,50 @@ const UesPage: React.FC = () => {
   }, [searchParams, dres]);
 
   useEffect(() => {
-    const el = stickyRef.current;
-    const container = containerRef.current;
-    if (!el || !container) return;
-
-    const scrollEl = getScrollParent(el);
-
-    const update = () => {
-      const stuck = el.getBoundingClientRect().top <= 0;
-      el.classList.toggle("fixed", stuck);
-
-      const rect = container.getBoundingClientRect();
-      el.style.setProperty("--container-left", `${rect.left}px`);
-      el.style.setProperty("--container-width", `${rect.width}px`);
-    };
-
-    scrollEl.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-    return () => {
-      scrollEl.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
+      const el = stickyRef.current;
+      const container = containerRef.current;
+      const sentinel = sentinelRef.current;
+      const spacer = spacerRef.current;
+      if (!el || !container || !sentinel || !spacer) return;
+  
+      const scrollEl = getScrollParent(el);
+      const root = scrollEl instanceof Window ? null : (scrollEl as Element);
+  
+      const setVars = () => {
+        const rect = container.getBoundingClientRect();
+        el.style.setProperty("--container-left", `${rect.left}px`);
+        el.style.setProperty("--container-width", `${rect.width}px`);
+  
+        const title = document.querySelector(
+          ".titulo-ue-sme"
+        ) as HTMLElement | null;
+        const offset = title ? title.getBoundingClientRect().height : 0;
+        el.style.setProperty("--sticky-offset", `${offset}px`);
+      };
+  
+      const onChange: IntersectionObserverCallback = ([entry]) => {
+        // When sentinel is NOT visible, fix it
+        const shouldFix =
+          entry.boundingClientRect.top < 0 && !entry.isIntersecting;
+        el.classList.toggle("fixed", shouldFix);
+        spacer.style.height = shouldFix ? `${el.offsetHeight}px` : "0px";
+        setVars();
+      };
+  
+      const io = new IntersectionObserver(onChange, {
+        root,
+        threshold: [0, 1],
+      });
+  
+      io.observe(sentinel);
+      window.addEventListener("resize", setVars, { passive: true });
+      setVars();
+  
+      return () => {
+        io.disconnect();
+        window.removeEventListener("resize", setVars);
+      };
+    }, []);
 
   function getScrollParent(node: HTMLElement): HTMLElement | Window {
     let p: HTMLElement | null = node.parentElement;
@@ -514,6 +537,12 @@ const UesPage: React.FC = () => {
 
                 <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
 
+                {/* sentinel (1px) tells us when we reached the stick point */}
+                <div ref={sentinelRef} style={{ height: 1 }} />
+
+                {/* spacer keeps layout height when we switch to position:fixed */}
+                <div ref={spacerRef} style={{ height: 0 }} aria-hidden />
+
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>Você pode filtrar por Unidade Educacional (UE)</p>
 
@@ -732,6 +761,7 @@ const UesPage: React.FC = () => {
           </Col>
         </Row>
       </div>
+      <div className="espacamento-ue"></div>
     </div>
   );
 };

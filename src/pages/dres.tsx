@@ -84,6 +84,8 @@ const DresPage: React.FC = () => {
   const [dresTotal, setDresTotal] = useState(0);
   const stickyRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
 
   const aplicacaoSelecionada = useSelector(
     (state: RootState) => state.nomeAplicacao.id
@@ -94,25 +96,46 @@ const DresPage: React.FC = () => {
   useEffect(() => {
     const el = stickyRef.current;
     const container = containerRef.current;
-    if (!el || !container) return;
+    const sentinel = sentinelRef.current;
+    const spacer = spacerRef.current;
+    if (!el || !container || !sentinel || !spacer) return;
 
     const scrollEl = getScrollParent(el);
+    const root = scrollEl instanceof Window ? null : (scrollEl as Element);
 
-    const update = () => {
-      const stuck = el.getBoundingClientRect().top <= 0;
-      el.classList.toggle("fixed", stuck);
-
+    const setVars = () => {
       const rect = container.getBoundingClientRect();
       el.style.setProperty("--container-left", `${rect.left}px`);
       el.style.setProperty("--container-width", `${rect.width}px`);
+
+      const title = document.querySelector(
+        ".titulo-ue-sme"
+      ) as HTMLElement | null;
+      const offset = title ? title.getBoundingClientRect().height : 0;
+      el.style.setProperty("--sticky-offset", `${offset}px`);
     };
 
-    scrollEl.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
+    const onChange: IntersectionObserverCallback = ([entry]) => {
+      // When sentinel is NOT visible, fix it
+      const shouldFix =
+        entry.boundingClientRect.top < 0 && !entry.isIntersecting;
+      el.classList.toggle("fixed", shouldFix);
+      spacer.style.height = shouldFix ? `${el.offsetHeight}px` : "0px";
+      setVars();
+    };
+
+    const io = new IntersectionObserver(onChange, {
+      root,
+      threshold: [0, 1],
+    });
+
+    io.observe(sentinel);
+    window.addEventListener("resize", setVars, { passive: true });
+    setVars();
+
     return () => {
-      scrollEl.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      io.disconnect();
+      window.removeEventListener("resize", setVars);
     };
   }, []);
 
@@ -262,10 +285,12 @@ const DresPage: React.FC = () => {
 
       if (resposta?.proficienciaDisciplina?.length) {
         resposta.proficienciaDisciplina.sort((a: any, b: any) =>
-          a.disciplinaNome.localeCompare(b.disciplinaNome, 'pt-BR', { sensitivity: 'base' })
+          a.disciplinaNome.localeCompare(b.disciplinaNome, "pt-BR", {
+            sensitivity: "base",
+          })
         );
       }
-      
+
       setResumoDre(resposta);
     } catch (error) {
       console.error("Erro ao buscar resumo da DRE:", error);
@@ -317,7 +342,7 @@ const DresPage: React.FC = () => {
       const params = new URLSearchParams();
       uesSelecionadas.forEach((dre) =>
         params.append("dreIds", String(dre.value))
-      );      
+      );
       const url = `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres/proficiencia?${params.toString()}`;
 
       const resposta = await servicos.get(url);
@@ -326,8 +351,11 @@ const DresPage: React.FC = () => {
 
       if (append) {
         //setDresDados((prev) => [...prev, ...(resposta?.itens || [])]);
-         const ultimoItemAtual = dresDados[dresDados.length - 1];
-        if (novosDres.length > 0 && ultimoItemAtual?.dreId === novosDres[0]?.dreId) {
+        const ultimoItemAtual = dresDados[dresDados.length - 1];
+        if (
+          novosDres.length > 0 &&
+          ultimoItemAtual?.dreId === novosDres[0]?.dreId
+        ) {
           novosDres = novosDres.slice(1); // Remova o primeiro item se for duplicado
         }
         setDresDados((prev) => [...prev, ...novosDres]);
@@ -479,9 +507,9 @@ const DresPage: React.FC = () => {
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
-                      <div className="descricao" style={{lineHeight:1}}>
-                        <p style={{margin:0}}>Média de proficiência</p>
-                        <p style={{margin:0}}>{disciplina.disciplinaNome}</p>                         
+                      <div className="descricao" style={{ lineHeight: 1 }}>
+                        <p style={{ margin: 0 }}>Média de proficiência</p>
+                        <p style={{ margin: 0 }}>{disciplina.disciplinaNome}</p>
                       </div>
                     </Card>
                   </Col>
@@ -500,12 +528,18 @@ const DresPage: React.FC = () => {
                   <b>Diretorias Regionais de Educação (DREs)</b>
                 </div>
                 <div className="ues-dre-subtitulo">
-                  Confira as informações de todas as DREs do Município de São Paulo.
+                  Confira as informações de todas as DREs do Município de São
+                  Paulo.
                 </div>
                 <DesempenhoPorMateria
                   dados={niveisProficiencia}
                   tipo={"DREs"}
                 />
+                {/* sentinel (1px) tells us when we reached the stick point */}
+                <div ref={sentinelRef} style={{ height: 1 }} />
+
+                {/* spacer keeps layout height when we switch to position:fixed */}
+                <div ref={spacerRef} style={{ height: 0 }} aria-hidden />
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>
                     Você pode filtrar por Diretoria Regional de Educação (DRE).
