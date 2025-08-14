@@ -37,7 +37,7 @@
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.11999999731779099);
 }
 
-.conteudo-fixo-dropdown.fixed .ant-select-multiple.ant-select-outlined
+.conteudo-fixo-dropdown .ant-select-multiple.ant-select-outlined
   .ant-select-selector .ant-select-selection-item {
   background: #fff;
   border: 1px solid #d5d5d5;
