@@ -66,6 +66,10 @@
   height: 38px;
 }
 
+.modal-botoes .btnDownload-dre:disabled{  
+  background: #d9d9d9 !important;
+}
+
 .modal-botoes .btnDownload-dre p{  
   font-weight: 400;
   size: 14px;
