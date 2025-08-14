@@ -100,7 +100,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
       notification.open({
         key: "relatorioPrincipalSuccess",
         message: <b>Tudo certo por aqui!</b>,
-        description: `Seu documento  foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
+        description: `Seu documento "resultado por ${tipoSelecionado ?? ""}" foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
         placement: "bottomLeft",
         icon: <CheckCircleOutlined style={{ color: "#108ee9" }} />,
         duration: 8,
@@ -163,6 +163,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
               style={{ width: 14, height: 17, paddingTop: 6.8, paddingRight: 3 }} />
             }
             onClick={abrirModal}
+            className="btnAzulPadrao"
           >
             Baixar os dados
           </Button>
@@ -175,63 +176,67 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
         onCancel={fecharModal}
         footer={null}
         centered
-        width={400}
+        width={410}
+        height={370}
         className="tituloModal-Dre"
         zIndex={2000}
       >
-        <p className="texto-modal">Você pode baixar os dados de todas as Unidades Educacionais da <span style={{fontWeight: 700}}>{nomeDre}</span>. Qual você gostaria de baixar primeiro?</p>
+        <div className="modalCorpo">
+          <p className="texto-modal">Você pode baixar os dados de todas as Unidades Educacionais da <span style={{fontWeight: 700}}>{nomeDre}</span>. Qual você gostaria de baixar primeiro?</p>
 
-        <div className="opcoes-container">
-          <CardOpcao
-            tipo="proficiência"
-            titulo="Dados de proficiência por alunos"            
-            icone={
-              <img
-                src={iconeFormado}
-                alt="Ícone aluno"
-                style={{ width: 19.5, height: 18.76, color: "#1890ff",
-                     paddingTop: 4, paddingRight: 0, paddingBottom: 9, paddingLeft: 1
-                 }}
-              />}
+          <div className="opcoes-container">
+            <CardOpcao
+              tipo="proficiência"
+              titulo="Dados de proficiência por alunos"            
+              icone={
+                <img
+                  src={iconeFormado}
+                  alt="Ícone aluno"
+                  style={{ width: 19.5, height: 18.76, color: "#1890ff",
+                      paddingTop: 4, paddingRight: 0, paddingBottom: 9, paddingLeft: 1
+                  }}
+                />}
+              />
+            <CardOpcao
+              tipo="probabilidade"
+              titulo="Probabilidade de acerto por habilidade"
+              icone={
+                <img
+                  src={iconePorce}
+                  alt="Ícone aluno"
+                  style={{ width: 15.81, height: 15.81, color: "#1890ff", 
+                    paddingTop: 4, paddingRight: 0, paddingBottom: 9, paddingLeft: 1
+                  }}
+                />} 
             />
-          <CardOpcao
-            tipo="probabilidade"
-            titulo="Probabilidade de acerto por habilidade"
-            icone={
+          </div>
+
+          <div className="modal-botoes">
+            <Button
+              type="primary"
+              icon={
               <img
-                src={iconePorce}
-                alt="Ícone aluno"
-                style={{ width: 15.81, height: 15.81, color: "#1890ff", 
-                  paddingTop: 4, paddingRight: 0, paddingBottom: 9, paddingLeft: 1
-                }}
-              />} 
-          />
+                src={iconeDownload}
+                alt="ícone de download"
+                style={{ width: 14, height: 17, paddingTop: 6.8, paddingRight: 3 }} />
+              }
+              disabled={!tipoSelecionado || estaCarregandoRelatorio}
+              loading={estaCarregandoRelatorio}
+              onClick={downloadDadosUesArquivo}
+              block
+              className="btnAzulPadrao"
+            >
+              <p>Baixar os dados</p>
+            </Button>
+            <Button 
+                onClick={fecharModal} block style={{ }}
+                className="btnCancelar-dre"
+            >
+              Cancelar
+            </Button>
+          </div>
         </div>
 
-        <div className="modal-botoes">
-          <Button
-            type="primary"
-            icon={
-            <img
-              src={iconeDownload}
-              alt="ícone de download"
-              style={{ width: 14, height: 17, paddingTop: 6.8, paddingRight: 3 }} />
-            }
-            disabled={!tipoSelecionado || estaCarregandoRelatorio}
-            loading={estaCarregandoRelatorio}
-            onClick={downloadDadosUesArquivo}
-            block
-            className="btnDownload-dre"
-          >
-            <p>Baixar os dados</p>
-          </Button>
-           <Button 
-              onClick={fecharModal} block style={{ }}
-              className="btnCancelar-dre"
-           >
-            Cancelar
-           </Button>
-        </div>
       </Modal>
     </>
   );
