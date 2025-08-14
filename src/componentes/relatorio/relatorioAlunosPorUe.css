@@ -103,3 +103,7 @@
 .modalCorpo{  
   padding: 0.25em 0em 0.25em 0em;
 }
+
+.ant-modal-content{
+  padding: 17px 24px !important;
+}
