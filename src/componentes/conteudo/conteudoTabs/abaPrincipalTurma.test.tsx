@@ -10,20 +10,20 @@ jest.mock("react-redux", () => ({
 }));
 
 // Mock estável do serviço
-jest.mock("../../../servicos", () => ({
-  servicos: {
-    get: jest.fn().mockResolvedValue({
-      provas: [
-        {
-          id: 1,
-          descricao: "Matemática",
-          niveis: [{ anoEscolar: "5º" }],
-          turmas: [{ turma: "A" }],
-        },
-      ],
-    }),
-  },
-}));
+// jest.mock("../../../servicos", () => ({
+//   servicos: {
+//     get: jest.fn().mockResolvedValue({
+//       provas: [
+//         {
+//           id: 1,
+//           descricao: "Matemática",
+//           niveis: [{ anoEscolar: "5º" }],
+//           turmas: [{ turma: "A" }],
+//         },
+//       ],
+//     }),
+//   },
+// }));
 
 // Mock estável do estado
 const mockStableState = {

@@ -44,14 +44,14 @@ const mockState = {
 };
 
 // Mock do serviço
-jest.mock("../../../servicos", () => ({
-  servicos: {
-    get: jest.fn().mockResolvedValue({
-      resultados: [],
-      totalRegistros: 0,
-    }),
-  },
-}));
+// jest.mock("../../../servicos", () => ({
+//   servicos: {
+//     get: jest.fn().mockResolvedValue({
+//       resultados: [],
+//       totalRegistros: 0,
+//     }),
+//   },
+// }));
 
 // Mock dos ícones
 jest.mock("@ant-design/icons", () => ({

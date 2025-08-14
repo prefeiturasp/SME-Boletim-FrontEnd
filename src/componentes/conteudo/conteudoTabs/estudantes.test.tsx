@@ -5,11 +5,11 @@ import { useSelector as useSelectorBase } from "react-redux";
 import { servicos } from "../../../servicos";
 
 // Mock do serviço
-jest.mock("../../../servicos", () => ({
-  servicos: {
-    get: jest.fn(),
-  },
-}));
+// jest.mock("../../../servicos", () => ({
+//   servicos: {
+//     get: jest.fn(),
+//   },
+// }));
 
 // Mock do componente de gráfico
 jest.mock("../../grafico/estudantePorMateria", () => () => <div>Gráfico</div>);
@@ -36,10 +36,18 @@ const mockFiltros = {
 };
 const mockActiveTab = "3";
 
+const mockNomeAplicacao = {
+  id: 10,
+  nome: "Mock App",
+  tipoTai: true,
+  dataInicioLote: new Date().toISOString(),
+};
+
 function setupReduxMocks() {
   useSelector.mockImplementation((selectorFn) => {
     // Simula o estado global do Redux
     return selectorFn({
+      nomeAplicacao: mockNomeAplicacao,
       escola: { escolaSelecionada: mockEscola },
       filtros: mockFiltros,
       tab: { activeTab: mockActiveTab },

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.18% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/91</span>
+                <span class='fraction'>0/100</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/59</span>
+                <span class='fraction'>0/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.48% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/89</span>
+                <span class='fraction'>0/96</span>
             </div>
         
             
@@ -328,30 +328,30 @@
 <a name='L263'></a><a href='#L263'>263</a>
 <a name='L264'></a><a href='#L264'>264</a>
 <a name='L265'></a><a href='#L265'>265</a>
-<a name='L266'></a><a href='#L266'>266</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L266'></a><a href='#L266'>266</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -592,42 +592,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from "react";
-import { Table, Spin } from "antd";
-import { useSelector } from "react-redux";
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useEffect, useState } from "react";</span>
+<span class="cstat-no" title="statement not covered" >import { Table, Spin } from "antd";</span>
+<span class="cstat-no" title="statement not covered" >import { useSelector } from "react-redux";</span>
 import { RootState } from "../../../redux/store";
-import { servicos } from "../../../servicos";
-import "./estudantes.css";
-import EstudantesPorMateria from "../../grafico/estudantePorMateria";
+<span class="cstat-no" title="statement not covered" >import { servicos } from "../../../servicos";</span>
+<span class="cstat-no" title="statement not covered" >import "./estudantes.css";</span>
+<span class="cstat-no" title="statement not covered" >import EstudantesPorMateria from "../../grafico/estudantePorMateria";</span>
 &nbsp;
-const Estudantes: React.FC = () =&gt; {
-  const [dados, setDados] = useState&lt;any[]&gt;([]);
-  const [disciplinas, setDadosDisciplinas] = useState&lt;any[]&gt;([]);
-  const [dadosGrafico, setDadosGrafico] = useState&lt;Turma[]&gt;([]);
+const Estudantes: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  const [dados, setDados] = <span class="cstat-no" title="statement not covered" >useState&lt;any[]&gt;([]);</span>
+  const [disciplinas, setDadosDisciplinas] = <span class="cstat-no" title="statement not covered" >useState&lt;any[]&gt;([]);</span>
+  const [dadosGrafico, setDadosGrafico] = <span class="cstat-no" title="statement not covered" >useState&lt;Turma[]&gt;([]);</span>
 &nbsp;
-  const [carregando, setCarregando] = useState(false);
-  const [pagina, setPagina] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalRegistros, setTotalRegistros] = useState(0);
+  const [carregando, setCarregando] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const [pagina, setPagina] = <span class="cstat-no" title="statement not covered" >useState(1);</span>
+  const [pageSize, setPageSize] = <span class="cstat-no" title="statement not covered" >useState(10);</span>
+  const [totalRegistros, setTotalRegistros] = <span class="cstat-no" title="statement not covered" >useState(0);</span>
 &nbsp;
-  const escolaSelecionada = useSelector(
-    (state: RootState) =&gt; state.escola.escolaSelecionada
+  const escolaSelecionada = <span class="cstat-no" title="statement not covered" >useSelector(</span>
+<span class="fstat-no" title="function not covered" >    (s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.escola.escolaSelecionada</span>
   );
 &nbsp;
-  const aplicacaoSelecionada = useSelector(
-    (state: RootState) =&gt; state.nomeAplicacao.id
+  const aplicacaoSelecionada = <span class="cstat-no" title="statement not covered" >useSelector(</span>
+<span class="fstat-no" title="function not covered" >    (s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.nomeAplicacao.id</span>
   );
 &nbsp;
   const filtrosSelecionados = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.filtros)</span>;</span>
   const activeTab = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.tab.activeTab)</span>;</span>
 &nbsp;
-  const buscarDadosEstudantes = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (paginaAtual = <span class="branch-0 cbranch-no" title="branch not covered" >1,</span> tamanhoPagina = <span class="branch-0 cbranch-no" title="branch not covered" >10)</span> =&gt; {</span>
+  const buscarDadosEstudantes = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async (p</span>aginaAtual = <span class="branch-0 cbranch-no" title="branch not covered" >1,</span> tamanhoPagina = <span class="branch-0 cbranch-no" title="branch not covered" >10)</span> =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >      setCarregando(true);</span>
 &nbsp;
       let filtros = <span class="cstat-no" title="statement not covered" >"";</span>
-<span class="cstat-no" title="statement not covered" >      if (</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
         filtrosSelecionados.nomeEstudante ||
         filtrosSelecionados.eolEstudante ||
         filtrosSelecionados.anosEscolares.length &gt; 0 ||
@@ -638,10 +638,10 @@ const Estudantes: React.FC = () =&gt; {
       ) {
         const params = <span class="cstat-no" title="statement not covered" >new URLSearchParams();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.nomeEstudante)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.nomeEstudante)</span>
 <span class="cstat-no" title="statement not covered" >          params.append("NomeEstudante", filtrosSelecionados.nomeEstudante);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.eolEstudante)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.eolEstudante)</span>
 <span class="cstat-no" title="statement not covered" >          params.append("EolEstudante", filtrosSelecionados.eolEstudante);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        filtrosSelecionados.anosEscolares.forEach(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; {</span>
@@ -656,13 +656,13 @@ const Estudantes: React.FC = () =&gt; {
 <span class="cstat-no" title="statement not covered" >          params.append("NivelProficiencia", item.valor.toString());</span>
         });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.nivelMinimoEscolhido)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.nivelMinimoEscolhido)</span>
 <span class="cstat-no" title="statement not covered" >          params.append(</span>
             "NivelMinimo",
             filtrosSelecionados.nivelMinimoEscolhido.toString()
           );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.nivelMaximoEscolhido)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.nivelMaximoEscolhido)</span>
 <span class="cstat-no" title="statement not covered" >          params.append(</span>
             "NivelMaximo",
             filtrosSelecionados.nivelMaximoEscolhido.toString()
@@ -685,12 +685,12 @@ const Estudantes: React.FC = () =&gt; {
     }
   };
 &nbsp;
-  const buscarDadosGraficos = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
+  const buscarDadosGraficos = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =</span>&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >      setCarregando(true);</span>
 &nbsp;
       let filtros = <span class="cstat-no" title="statement not covered" >"";</span>
-<span class="cstat-no" title="statement not covered" >      if (</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
         filtrosSelecionados.nomeEstudante ||
         filtrosSelecionados.eolEstudante ||
         filtrosSelecionados.anosEscolares.length &gt; 0 ||
@@ -701,10 +701,10 @@ const Estudantes: React.FC = () =&gt; {
       ) {
         const params = <span class="cstat-no" title="statement not covered" >new URLSearchParams();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.nomeEstudante)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.nomeEstudante)</span>
 <span class="cstat-no" title="statement not covered" >          params.append("NomeEstudante", filtrosSelecionados.nomeEstudante);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.eolEstudante)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.eolEstudante)</span>
 <span class="cstat-no" title="statement not covered" >          params.append("EolEstudante", filtrosSelecionados.eolEstudante);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        filtrosSelecionados.anosEscolares.forEach(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; {</span>
@@ -719,13 +719,13 @@ const Estudantes: React.FC = () =&gt; {
 <span class="cstat-no" title="statement not covered" >          params.append("NivelProficiencia", item.valor.toString());</span>
         });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.nivelMinimoEscolhido)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.nivelMinimoEscolhido)</span>
 <span class="cstat-no" title="statement not covered" >          params.append(</span>
             "NivelMinimo",
             filtrosSelecionados.nivelMinimoEscolhido.toString()
           );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (filtrosSelecionados.nivelMaximoEscolhido)</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (filtrosSelecionados.nivelMaximoEscolhido)</span>
 <span class="cstat-no" title="statement not covered" >          params.append(</span>
             "NivelMaximo",
             filtrosSelecionados.nivelMaximoEscolhido.toString()
@@ -745,14 +745,14 @@ const Estudantes: React.FC = () =&gt; {
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (escolaSelecionada &amp;&amp; activeTab == "3") {</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (escolaSelecionada &amp;&amp; activeTab == "3") {</span>
 <span class="cstat-no" title="statement not covered" >      buscarDadosEstudantes(pagina, pageSize);</span>
     }
   }, [pagina, pageSize, activeTab, aplicacaoSelecionada]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (escolaSelecionada &amp;&amp; activeTab == "3") {</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (escolaSelecionada &amp;&amp; activeTab == "3") {</span>
 <span class="cstat-no" title="statement not covered" >      setPagina(1);</span>
 <span class="cstat-no" title="statement not covered" >      buscarDadosEstudantes();</span>
 <span class="cstat-no" title="statement not covered" >      buscarDadosGraficos();</span>
@@ -857,7 +857,7 @@ const Estudantes: React.FC = () =&gt; {
   );
 };
 &nbsp;
-export default Estudantes;
+<span class="cstat-no" title="statement not covered" >export default Estudantes;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -865,7 +865,7 @@ export default Estudantes;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-29T14:12:50.399Z
+                at 2025-08-14T11:00:28.610Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

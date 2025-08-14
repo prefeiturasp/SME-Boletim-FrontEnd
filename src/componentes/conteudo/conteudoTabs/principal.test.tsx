@@ -6,11 +6,11 @@ import { store } from "../../../redux/store";
 import "@testing-library/jest-dom";
 import { servicos } from "../../../servicos";
 
-jest.mock("../../../servicos", () => ({
-  servicos: {
-    get: jest.fn(),
-  },
-}));
+// jest.mock("../../../servicos", () => ({
+//   servicos: {
+//     get: jest.fn(),
+//   },
+// }));
 
 describe("Principal Component", () => {
   const mockDados = [

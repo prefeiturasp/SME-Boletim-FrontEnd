@@ -12,7 +12,7 @@ import {
 } from "antd";
 
 import { Link } from "react-router-dom";
-import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg"; //verificar
+import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
@@ -460,7 +460,7 @@ const DresPage: React.FC = () => {
               <Col xs={24} sm={12} md={5} className="colum-dre">
                 <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalUes ?? "-"}</div>
-                  <div className="descricao">Unidade Educacionais</div>
+                  <div className="descricao">Unidades Educacionais</div>
                 </Card>
               </Col>
               <Col xs={24} sm={12} md={5} className="colum-dre">
