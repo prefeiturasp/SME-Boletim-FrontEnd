@@ -61,16 +61,11 @@
   color: #595959;
 }
 
-.modal-botoes .btnDownload-dre{  
-  color: #ffffff;
+.modal-botoes .btnAzulPadrao{
   height: 38px;
 }
 
-.modal-botoes .btnDownload-dre:disabled{  
-  background: #d9d9d9 !important;
-}
-
-.modal-botoes .btnDownload-dre p{  
+.modal-botoes .btnAzulPadrao p{  
   font-weight: 400;
   size: 14px;
 }

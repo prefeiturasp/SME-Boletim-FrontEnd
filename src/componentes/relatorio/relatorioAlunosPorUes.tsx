@@ -163,6 +163,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
               style={{ width: 14, height: 17, paddingTop: 6.8, paddingRight: 3 }} />
             }
             onClick={abrirModal}
+            className="btnAzulPadrao"
           >
             Baixar os dados
           </Button>
@@ -221,7 +222,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
             loading={estaCarregandoRelatorio}
             onClick={downloadDadosUesArquivo}
             block
-            className="btnDownload-dre"
+            className="btnAzulPadrao"
           >
             <p>Baixar os dados</p>
           </Button>

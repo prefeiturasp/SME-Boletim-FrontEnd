@@ -788,7 +788,7 @@ const UesPage: React.FC = () => {
       </div>
 
       <div className="rodape">
-        <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio}>
+        <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio} className="btnAzulPadrao">
           Voltar para o início
         </Button>
       </div>
