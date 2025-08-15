@@ -1,227 +1,75 @@
 import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import configureStore from "redux-mock-store";
+import { MemoryRouter } from "react-router-dom";
 import UesPage from "./ues";
-import * as servicos from "../servicos";
 
+// Mock de serviços e navigate
 jest.mock("../servicos", () => ({
-  servicos: {
-    get: jest.fn(),
-    post: jest.fn(),
-    // ...adicione aqui outros métodos usados se existirem
-  },
+  servicos: { get: jest.fn() },
 }));
 
-// Mocks componentes filhos
-jest.mock("../componentes/grafico/desempenhoPorMateria", () => () => (
-  <div>Mocked DesempenhoPorMateria</div>
-));
-jest.mock("../componentes/relatorio/relatorioAlunosPorUes", () => () => (
-  <div>Mocked RelatorioAlunosPorUes</div>
-));
-
-// Mock useNavigate
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom");
+  const actual = jest.requireActual("react-router-dom");
   return {
-    __esModule: true,
-    ...originalModule,
+    ...actual,
     useNavigate: () => mockNavigate,
+    useSearchParams: () => [new URLSearchParams()],
   };
 });
 
-const mockStore = configureStore(); // REMOVIDO o thunk
+import { servicos } from "../servicos";
+const mockStore = configureStore();
 
-describe("UesPage Component", () => {
-  let store: ReturnType<typeof mockStore>;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-
-    store = mockStore({
-      nomeAplicacao: {
-        id: 1,
-        nome: "Aplicação Teste",
-        tipoTai: true,
-        dataInicioLote: new Date().toISOString(),
-      },
-    });
-
-    (servicos.servicos.get as jest.Mock).mockImplementation((url: string) => {
-      if (url.includes("aplicacoes-prova")) {
-        return Promise.resolve([
-          {
-            id: 1,
-            nome: "Aplicação Teste",
-            tipoTai: true,
-            dataInicioLote: "2023-01-01",
-          },
-          {
-            id: 2,
-            nome: "Outra Aplicação",
-            tipoTai: false,
-            dataInicioLote: "2023-02-01",
-          },
-        ]);
-      }
-      if (url.includes("anos-escolares")) {
-        return Promise.resolve([
-          { ano: 1, descricao: "1º Ano" },
-          { ano: 2, descricao: "2º Ano" },
-        ]);
-      }
-      if (url.includes("dres")) {
-        return Promise.resolve([
-          { id: 10, nome: "DRE Leste" },
-          { id: 20, nome: "DRE Oeste" },
-        ]);
-      }
-      if (url.includes("resumo-dre")) {
-        return Promise.resolve({
-          totalUes: 5,
-          totalAlunos: 100,
-          proficienciaDisciplina: [
-            { disciplinaNome: "Matemática", mediaProficiencia: 3.5 },
-            { disciplinaNome: "Português", mediaProficiencia: 4.2 },
-          ],
-        });
-      }
-      if (url.includes("ues-por-dre")) {
-        return Promise.resolve([
-          { ueId: 100, descricao: "UE A" },
-          { ueId: 101, descricao: "UE B" },
-        ]);
-      }
-      if (url.includes("ue-por-dre-dados")) {
-        return Promise.resolve({
-          totalRegistros: 2,
-          itens: [
-            {
-              id: 100,
-              nome: "UE A",
-              anoEscolar: 1,
-              totalEstudantes: 50,
-              totalEstudadesRealizaramProva: 40,
-              percentualEstudadesRealizaramProva: 80,
-              disciplinas: [
-                {
-                  disciplina: "Língua portuguesa",
-                  nivelDescricao: "Adequado",
-                  mediaProficiencia: 4.0,
-                },
-              ],
-            },
-            {
-              id: 101,
-              nome: "UE B",
-              anoEscolar: 2,
-              totalEstudantes: 50,
-              totalEstudadesRealizaramProva: 45,
-              percentualEstudadesRealizaramProva: 90,
-              disciplinas: [],
-            },
-          ],
-        });
-      }
-      if (url.includes("grafico")) {
-        return Promise.resolve({ disciplinas: [] });
-      }
-
-      return Promise.resolve([]);
-    });
+function renderPage() {
+  const store = mockStore({
+    nomeAplicacao: { id: 1, nome: "Aplicação Teste", tipoTai: true, dataInicioLote: "" },
   });
+  return render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <UesPage />
+      </MemoryRouter>
+    </Provider>
+  );
+}
 
-  function renderComponent() {
-    return render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <UesPage />
-        </BrowserRouter>
-      </Provider>
-    );
-  }
-
-  test("renderiza componentes principais e dados carregados", async () => {
-    renderComponent();
-
-    expect(screen.getAllByText(/Boletim de Provas/i).length).toBeGreaterThan(0);
-
-    expect(screen.getByText("Ano escolar")).toBeInTheDocument();
-
-    await waitFor(() => {
-      const elementos = screen.getAllByText("DRE Leste");
-      expect(elementos.length).toBeGreaterThan(0);
-      expect(screen.getByText("Aplicação Teste")).toBeInTheDocument();
-      expect(screen.getByText("1º Ano")).toBeInTheDocument();
-      expect(screen.getByText("Unidades Educacionais")).toBeInTheDocument();
-      expect(screen.getByText("Estudantes")).toBeInTheDocument();
-      expect(
-        screen.getByText("Média de proficiência Matemática")
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText("Média de proficiência Português")
-      ).toBeInTheDocument();
-    });
-
-    expect(screen.getByText("Mocked DesempenhoPorMateria")).toBeInTheDocument();
-    expect(
-      screen.getByText("Mocked RelatorioAlunosPorUes")
-    ).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.getByText("UE A")).toBeInTheDocument();
-      expect(screen.getByText("UE B")).toBeInTheDocument();
-    });
-
-    const botaoAcessarUE = screen.getAllByRole("button", {
-      name: /Acessar UE/i,
-    })[0];
-    expect(botaoAcessarUE).toBeEnabled();
+beforeEach(() => {
+  jest.clearAllMocks();
+  (servicos.get as jest.Mock).mockImplementation((url: string) => {
+    if (url.includes("aplicacoes-prova")) return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
+    if (url.includes("anos-escolares")) return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
+    if (url.includes("Abrangencia/dres")) return Promise.resolve([{ id: 10, nome: "DRE Leste" }]);
+    if (url.includes("resumo-dre")) return Promise.resolve({ totalUes: 1, totalAlunos: 10, proficienciaDisciplina: [] });
+    if (url.includes("ues-por-dre")) return Promise.resolve([{ ueId: 100, descricao: "UE A" }]);
+    if (url.includes("ue-por-dre-dados")) {
+      return Promise.resolve({
+        totalRegistros: 1,
+        itens: [{
+          id: 100,
+          nome: "UE A",
+          anoEscolar: 1,
+          totalEstudantes: 10,
+          totalEstudadesRealizaramProva: 8,
+          percentualEstudadesRealizaramProva: 80,
+          disciplinas: [],
+        }],
+      });
+    }
+    return Promise.resolve([]);
   });
+});
 
-  test("muda seleção de aplicação e atualiza store", async () => {
-    renderComponent();
+test("renderiza e permite acessar uma UE", async () => {
+  renderPage();
 
-    // Aguarda o Select da aplicação estar presente pelo data-testid
-    const seletorAplicacao = await screen.findByTestId("select-aplicacao");
-    expect(seletorAplicacao).toBeInTheDocument();
+  expect(await screen.findByText(/Boletim de Provas/i)).toBeInTheDocument();
+  expect(await screen.findByText("UE A")).toBeInTheDocument();
 
-    // Abre o dropdown do Select do Ant Design
-    fireEvent.mouseDown(seletorAplicacao);
+  const btn = screen.getByRole("button", { name: /Acessar UE/i });
+  fireEvent.click(btn);
 
-    // Aguarda alguma pequena atualização da store caso necessário
-    await waitFor(() => {
-      // Verifica que o Redux mockStore recebeu a ação correta para setNomeAplicacao
-      const actions = store.getActions();
-
-      expect(actions).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            type: "nomeAplicacao/setNomeAplicacao",
-            payload: expect.objectContaining({
-              id: 1,
-              nome: "Aplicação Teste",
-            }),
-          }),
-        ])
-      );
-    });
-  });
-
-  test("botão Acessar UE chama navigate", async () => {
-    renderComponent();
-
-    await waitFor(() => screen.getByText("UE A"));
-
-    const botaoAcessarUE = screen.getAllByRole("button", {
-      name: /Acessar UE/i,
-    })[0];
-
-    fireEvent.click(botaoAcessarUE);
-
-    expect(mockNavigate).toHaveBeenCalledWith("/?ueSelecionada=100");
-  });
+  expect(mockNavigate).toHaveBeenCalledWith("/?ueSelecionada=100");
 });

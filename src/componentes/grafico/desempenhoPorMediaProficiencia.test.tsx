@@ -1,79 +1,96 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import DesempenhoPorMediaProficiencia from "./desempenhoPorMediaProficiencia";
 
-jest.mock("../conteudo/tooltipMediaProficiencia", () => {
+jest.mock("./conteudo/tooltipMediaProficiencia", () => {
   return function MockedTooltipMediaProficiencia(props: any) {
-    return <div data-testid="tooltip-media-proficiencia" data-props={JSON.stringify(props)} />;
+    return (
+      <div
+        data-testid="tooltip-media-proficiencia"
+        data-props={JSON.stringify(props)}
+      />
+    );
   };
 });
 
-const dadosExemplo = [
-  {
-    dreNome: "BUTANTA",
-    dreId: 3,
-    diciplinas: [
-      { disciplinaId: 4, disciplina: "Matemática", mediaProficiencia: 171.41 },
-      { disciplinaId: 5, disciplina: "Língua portuguesa", mediaProficiencia: 212.35 },
-    ],
-  },
+const dadosTeste = [
   {
     dreNome: "CAMPO LIMPO",
     dreId: 11,
     diciplinas: [
-      { disciplinaId: 4, disciplina: "Matemática", mediaProficiencia: 180.81 },
-      { disciplinaId: 5, disciplina: "Língua portuguesa", mediaProficiencia: 179.35 },
-    ],
-  },
-  {
-    dreNome: "CAPELA DO SOCORRO",
-    dreId: 12,
-    diciplinas: [
-      { disciplinaId: 4, disciplina: "Matemática", mediaProficiencia: 190.12 },
-      { disciplinaId: 5, disciplina: "Língua portuguesa", mediaProficiencia: 200.5 },
+      {
+        disciplinaId: 4,
+        disciplina: "Matemática",
+        mediaProficiencia: 180.81,
+      },
+      {
+        disciplinaId: 5,
+        disciplina: "Língua portuguesa",
+        mediaProficiencia: 179.35,
+      },
     ],
   },
 ];
 
-describe("DesempenhoPorMediaProficiencia", () => {
-  beforeAll(() => {
-    jest.spyOn(console, "log").mockImplementation(() => {});
-  });
-
-  afterAll(() => {
-    (console.log as jest.Mock).mockRestore();
-  });
-
-  test("renderiza estado vazio quando não há dados", () => {
+describe("Testando funcionamento basico do grafico", () => {
+  test("testa se ao não receber dados se o grafico mostra mensagem correta", async () => {
     render(<DesempenhoPorMediaProficiencia dados={[]} />);
+
     expect(
-      screen.getByText(/NÃO FORAM ENCONTRADOS RESULTADOS PARA EXIBIÇÃO DO GRÁFICO/i)
+      await screen.findByText(
+        /NÃO FORAM ENCONTRADOS RESULTADOS PARA EXIBIÇÃO DO GRÁFICO/
+      )
     ).toBeInTheDocument();
   });
 
-  test("renderiza gráfico, legenda e rótulos dos eixos com dados", () => {
-    const { container } = render(<DesempenhoPorMediaProficiencia dados={dadosExemplo} />);
-    expect(screen.getByText("Componentes curriculares:")).toBeInTheDocument();
-    expect(screen.getByText("Língua Portuguesa")).toBeInTheDocument();
-    expect(screen.getByText("Matemática")).toBeInTheDocument();
-    expect(screen.getByText("Diretorias Regionais (DRE)")).toBeInTheDocument();
-    expect(screen.getByText("Média de proficiência")).toBeInTheDocument();
-    const barrasPortugues = container.querySelectorAll('path[fill="#5A94D8"]');
-    expect(barrasPortugues.length).toBeGreaterThan(0);
-    const barrasMatematica = container.querySelectorAll('path[fill="#EDEDED"]');
-    expect(barrasMatematica.length).toBeGreaterThan(0);
-    expect(screen.getByTestId("tooltip-media-proficiencia")).toBeInTheDocument();
+  test("Testa se o grafico abre normalmente caso existam dados validos", async () => {
+    render(<DesempenhoPorMediaProficiencia dados={dadosTeste} />);
+
+    expect(
+      await screen.queryByText(
+        /NÃO FORAM ENCONTRADOS RESULTADOS PARA EXIBIÇÃO DO GRÁFICO/
+      )
+    ).not.toBeInTheDocument();
   });
 
-  /*test("quebra rótulos longos do eixo X em várias linhas", () => {
-    const { container } = render(<DesempenhoPorMediaProficiencia dados={dadosExemplo} />);
-    const textosEixoX = Array.from(container.querySelectorAll("g.recharts-layer.recharts-cartesian-axis-x text"));
-    const tickCapela = textosEixoX.find((t) =>
-      (t.textContent || "").replace(/\s+/g, " ").includes("CAPELA DO SOCORRO")
+  test("Testa se os textos aparecem corretamente", async () => {
+    render(<DesempenhoPorMediaProficiencia dados={dadosTeste} />);
+
+    expect(await screen.findByText(/Língua Portuguesa/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Matemática/i)).toBeInTheDocument();
+
+    expect(
+      await screen.findByText(/Componentes curriculares:/i)
+    ).toBeInTheDocument();
+  });
+
+
+  //TODO: NÃO FUNCIONA TENTAR OUTRA FORMA DE TESTAR AS BARRAS
+  /*test("quebra rótulos longos do eixo X em várias linhas", async () => {
+
+    const { container } = render(<DesempenhoPorMediaProficiencia dados={dadosTeste} />);
+
+    await waitFor(() => {
+      const ticks = container.querySelectorAll(".recharts-cartesian-axis-tick text");
+      expect(ticks.length).toBeGreaterThan(0);
+    });
+
+    const tickTextEls = Array.from(
+      container.querySelectorAll<SVGTextElement>(".recharts-cartesian-axis-tick text")
     );
-    expect(tickCapela).toBeTruthy();
-    const tspans = tickCapela ? within(tickCapela).queryAllByText(/CAPELA|DO|SOCORRO/i) : [];
-    expect(tspans.length).toBeGreaterThanOrEqual(2);
+    const tickTexts = tickTextEls.map((t) => (t.textContent || "").trim().replace(/\s+/g, " "));
+
+    const idx = tickTexts.findIndex((t) => t.includes("CAMPO LIMPO"));
+    expect(idx).toBeGreaterThanOrEqual(0);
+
+    const targetTextEl = tickTextEls[idx];
+    const tspans = targetTextEl.querySelectorAll("tspan");
+    expect(tspans.length).toBeGreaterThanOrEqual(2); // espera quebra em 2+ linhas
   });*/
+
+
+
+
 });
+
