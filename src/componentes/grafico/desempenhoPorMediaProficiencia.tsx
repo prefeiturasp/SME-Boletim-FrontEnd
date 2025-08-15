@@ -50,7 +50,6 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
       lsobjGrafico.push(hi);
     });
 
-    console.log("acabei");
   } else {
     return (
       <div className="dados-nao-encontrados">

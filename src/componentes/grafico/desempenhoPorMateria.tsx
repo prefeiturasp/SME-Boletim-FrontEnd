@@ -21,7 +21,7 @@ interface DataPoint {
   avancado: number;
 }
 
-const ConverteDados = (lsDados: any[]): DataPoint[] => {
+export const ConverteDados = (lsDados: any[]): DataPoint[] => {
   return lsDados.map((item) => ({
     name: item.disciplinaNome,
     abaixoDoBasico:
@@ -39,7 +39,7 @@ const ConverteDados = (lsDados: any[]): DataPoint[] => {
   }));
 };
 
-const ConverteDadosDre = (lsDados: any[]): DataPoint[] => {
+export const ConverteDadosDre = (lsDados: any[]): DataPoint[] => {
   return lsDados.map((item) => ({
     name: item.disciplinaNome,
     abaixoDoBasico:
@@ -57,22 +57,26 @@ const ConverteDadosDre = (lsDados: any[]): DataPoint[] => {
   }));
 };
 
-
-const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, tipo }) => {
-  console.log(dados);
+const DesempenhoPorMateria: React.FC<{ dados?: any[]; tipo: any }> = ({
+  dados,
+  tipo,
+}) => {
   if (!Array.isArray(dados) || dados.length === 0) return <></>;
   else {
     let data: DataPoint[] = [];
-    if(tipo === "UEs"){
+    if (tipo === "UEs") {
       data = ConverteDados(dados);
-    } else if(tipo === "DREs"){
+    } else if (tipo === "DREs") {
       data = ConverteDadosDre(dados);
     }
-    
+
     return (
       <div className="ajuste-padding-grafico-card">
         <Card className="grafico-borda">
-          Confira a quantidade de <span className="desempenho-por-materia-negrito">Unidades Educacionais ({tipo}) </span>
+          Confira a quantidade de{" "}
+          <span className="desempenho-por-materia-negrito">
+            Unidades Educacionais ({tipo}){" "}
+          </span>
           classificadas dentro de cada um dos niveis de proficiência (AB, B, AD,
           AV).
           <div className="legendas">
@@ -90,11 +94,12 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
           </div>
           <div className="desempenho-por-materia-espacamento"></div>
           {data.map((item, index) => (
-            <>
-            
             <div key={index} className="desempenho-por-materia">
               <div className="desempenho-por-materia-titulo-barra">
-                Componente Curricular: <span className="desempenho-por-materia-negrito">{item.name}</span>
+                Componente Curricular:{" "}
+                <span className="desempenho-por-materia-negrito">
+                  {item.name}
+                </span>
               </div>
               <ResponsiveContainer width="100%" height={70}>
                 <BarChart
@@ -124,7 +129,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
                     tickLine={false}
                     tick={false}
                   />
-                  
+
                   {item.abaixoDoBasico > 0 && (
                     <Bar dataKey="abaixoDoBasico" stackId="a" fill="#FF5959">
                       <LabelList
@@ -176,7 +181,6 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[], tipo: any }> = ({ dados, t
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            </>
           ))}
         </Card>
       </div>
