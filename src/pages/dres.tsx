@@ -324,48 +324,34 @@ const DresPage: React.FC = () => {
     setUesSelecionadas([]);
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
-  const fetchDresListagem = async (pagina = 1, append = false) => {
-    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) {
-      setDresDados([]);      
-      return;
-    }
-    try {      
+ const fetchDresListagem = async () => {
+    setDresDados([]);
+
+    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
+
+    try {
       const params = new URLSearchParams();
-      uesSelecionadas.forEach((dre) =>
-        params.append("dreIds", String(dre.value))
-      );
-      const url = `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres/proficiencia?${params.toString()}`;
+      uesSelecionadas.forEach((dre) => params.append("dreIds", String(dre.value)));
+
+      const qs = params.toString();
+      const url =
+        `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}` +
+        `/dres/proficiencia${qs ? `?${qs}` : ""}`;
 
       const resposta = await servicos.get(url);
-
-      let novosDres = resposta?.itens || [];
-
-      if (append) {
-        const ultimoItemAtual = dresDados[dresDados.length - 1];
-        if (
-          novosDres.length > 0 &&
-          ultimoItemAtual?.dreId === novosDres[0]?.dreId
-        ) {
-          novosDres = novosDres.slice(1);
-        }
-        setDresDados((prev) => [...prev, ...novosDres]);
-      } else {
-        setDresDados(novosDres);
-      }      
+      setDresDados(resposta?.itens || []);
     } catch (error) {
       setDresDados([]);
       console.error("Erro ao buscar DREs listagem:", error);
-    } finally {}
+    }
   };
 
+
   useEffect(() => {
-    fetchDresListagem(1, false);
+    fetchDresListagem();
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
-  useEffect(() => {    
-    setDresDados([]);
-  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
-
+  
   const uesOptions = useMemo(() => {
     return ues.map((dre: any) => ({
       value: dre.value,
@@ -699,6 +685,7 @@ const DresPage: React.FC = () => {
                               </>
                             )}
                             <Button
+                              data-testid={dre.dreId ? `btn-acessar-${dre.dreId}` : undefined}
                               className="btn-acessar-ue"
                               block
                               disabled={semDisciplinas}
@@ -706,9 +693,7 @@ const DresPage: React.FC = () => {
                                 navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
-                            >
-                              Acessar DRE
-                            </Button>
+                            >Acessar DRE</Button>
                           </Card>
                         </Col>
                       );
