@@ -1,0 +1,27 @@
+.legenda-container {
+    margin-top: 30px;
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.dados-nao-encontrados {
+  font-size: 20px;
+  font-weight: bold;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 200px 0px 200px 0px;
+}
+
+.legenda-caixa-media-proficiencia {
+  width: 15px;
+  height: 15px;
+}
+
+.legenda-texto-media-proficiencia {
+  margin-left: 8px;
+  color: #595959;
+}

@@ -21,7 +21,7 @@ interface DataPoint {
   avancado: number;
 }
 
-const ConverteDados = (lsDados: any[]): DataPoint[] => {
+export const ConverteDados = (lsDados: any[]): DataPoint[] => {
   return lsDados.map((item) => ({
     name: item.disciplinaNome,
     abaixoDoBasico:
@@ -39,20 +39,49 @@ const ConverteDados = (lsDados: any[]): DataPoint[] => {
   }));
 };
 
-const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
-  console.log(dados);
+export const ConverteDadosDre = (lsDados: any[]): DataPoint[] => {
+  return lsDados.map((item) => ({
+    name: item.disciplinaNome,
+    abaixoDoBasico:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 1)
+        ?.quantidadeDres || 0,
+    basico:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 2)
+        ?.quantidadeDres || 0,
+    adequado:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 3)
+        ?.quantidadeDres || 0,
+    avancado:
+      item.dresPorNiveisProficiencia.find((n: any) => n.codigo === 4)
+        ?.quantidadeDres || 0,
+  }));
+};
+
+const DesempenhoPorMateria: React.FC<{ dados?: any[]; tipo: any }> = ({
+  dados,
+  tipo,
+}) => {
   if (!Array.isArray(dados) || dados.length === 0) return <></>;
   else {
-    const data = ConverteDados(dados);
+    let data: DataPoint[] = [];
+    if (tipo === "UEs") {
+      data = ConverteDados(dados);
+    } else if (tipo === "DREs") {
+      data = ConverteDadosDre(dados);
+    }
+
     return (
-      <>
-        <Card>
-          Confira a quantidade de <b>Unidades Educacionais (UEs) </b>
+      <div className="ajuste-padding-grafico-card">
+        <Card className="grafico-borda">
+          Confira a quantidade de{" "}
+          <span className="desempenho-por-materia-negrito">
+            Unidades Educacionais ({tipo}){" "}
+          </span>
           classificadas dentro de cada um dos niveis de proficiência (AB, B, AD,
           AV).
           <div className="legendas">
             <div className="texto">
-              <b>Niveis:</b>
+              <span className="desempenho-por-materia-negrito">Níveis:</span>
             </div>
             <div className="caixa-vermelha"></div>{" "}
             <div className="texto">AB - Abaixo do basico</div>
@@ -63,10 +92,14 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
             <div className="caixa-verde"></div>{" "}
             <div className="texto">AV - Avançado</div>
           </div>
+          <div className="desempenho-por-materia-espacamento"></div>
           {data.map((item, index) => (
             <div key={index} className="desempenho-por-materia">
-              <div>
-                Componente Curricular: <strong>{item.name}</strong>
+              <div className="desempenho-por-materia-titulo-barra">
+                Componente Curricular:{" "}
+                <span className="desempenho-por-materia-negrito">
+                  {item.name}
+                </span>
               </div>
               <ResponsiveContainer width="100%" height={70}>
                 <BarChart
@@ -96,6 +129,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                     tickLine={false}
                     tick={false}
                   />
+
                   {item.abaixoDoBasico > 0 && (
                     <Bar dataKey="abaixoDoBasico" stackId="a" fill="#FF5959">
                       <LabelList
@@ -113,7 +147,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                       <LabelList
                         dataKey="basico"
                         position="center"
-                        fill="black"
+                        fill="#595959"
                         fontSize={14}
                         fontWeight={500}
                         formatter={(value: unknown) => `B: ${value}`}
@@ -137,7 +171,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
                       <LabelList
                         dataKey="avancado"
                         position="center"
-                        fill="black"
+                        fill="#595959"
                         fontSize={14}
                         fontWeight={500}
                         formatter={(value: unknown) => `AV: ${value}`}
@@ -149,7 +183,7 @@ const DesempenhoPorMateria: React.FC<{ dados?: any[] }> = ({ dados }) => {
             </div>
           ))}
         </Card>
-      </>
+      </div>
     );
   }
 };

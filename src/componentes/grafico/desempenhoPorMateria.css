@@ -1,47 +1,84 @@
 .legendas {
     background: #F5F5F5;
-    padding: 10px;
-    margin: 10px 0;
+    margin-top: 8px;
+    padding: 8px;
     display: flex;
-    align-items: center; /* ✅ this aligns boxes and text vertically */
-    flex-wrap: wrap; /* optional if you want them to wrap on smaller screens */
+    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .texto {
     margin-right: 30px;
     display: flex;
-    align-items: center; /* ensures text stays centered if multi-line */
+    align-items: center;
 }
 
 .caixa-vermelha {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #FF5959;
     margin-right: 5px;
 }
 
 .caixa-amarela {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #FEDE99;
     margin-right: 5px;
 }
 
 .caixa-azul {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #9999FF;
     margin-right: 5px;
 }
 
 .caixa-verde {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     background-color: #99FF99;
     margin-right: 5px;
+}
+
+.grafico-borda{
+  border: 1px solid #f1f0f0; 
+  border-radius: 4px;
+  background-color: white; 
+  margin-top: 16px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.12);
+  margin-bottom: 3px;
+}
+
+/*.grafico-borda div {
+  padding: 32px 16px 16px 16px;
+}*/
+
+
+.ajuste-padding-grafico-card .ant-card .ant-card-body {
+  padding: 32px 16px 0px 16px !important;
+  margin: 0px;
+}
+
+.desempenho-por-materia-espacamento {
+  padding-top:32px
+}
+
+.desempenho-por-materia-titulo-barra {
+  margin-bottom: 8px; 
+}
+
+svg .recharts-surface {
+  height: 0px;
+  width: 0px;
+}
+
+.desempenho-por-materia-negrito {
+  color: #595959;
+  font-weight:700;
 }

@@ -8,33 +8,30 @@ import {
   Select,
   Checkbox,
   Button,
-  Pagination,
   Tooltip,
 } from "antd";
-
 import { Link } from "react-router-dom";
-import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE.jpg";
+import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
 import { setNomeAplicacao } from "../redux/slices/nomeAplicacaoSlice";
 import DesempenhoPorMateria from "../componentes/grafico/desempenhoPorMateria";
-import RelatorioAlunosPorUes from "../componentes/relatorio/relatorioAlunosPorUes";
+import "./DresPage.css";
 import "./ues_dres.css";
-import "./UesPage.css";
 import iconePort from "../assets/icon-port.svg";
 import iconeMat from "../assets/icon-mat.svg";
 import iconeAlunos from "../assets/icon-alunos.svg";
 import iconeDados from "../assets/icon-dados.svg";
-import iconeMais from "../assets/icon-mais.svg";
-import { useNavigate, useSearchParams } from "react-router-dom";
-
+import iconeUe from "../assets/icon-ue.svg";
+import { useNavigate } from "react-router-dom";
 import { Layout } from "antd";
+import RelatorioAlunosPorDres from "../componentes/relatorio/relatorioAlunosPorDres";
+import DesempenhoPorMediaProficiencia from "../componentes/grafico/desempenhoPorMediaProficiencia";
 const { Header } = Layout;
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 const versao = "1.0";
-const PAGE_SIZE = 12;
 
 export function estiloNivel(nivel: string) {
   if (!nivel) return { background: "#f0f0f0", color: "#8c8c8c" };
@@ -53,7 +50,7 @@ export function estiloNivel(nivel: string) {
   return { background: "#f0f0f0", color: "#8c8c8c" };
 }
 
-const UesPage: React.FC = () => {
+const DresPage: React.FC = () => {
   const dispatch = useDispatch();
   const nomeAplicacao = useSelector((state: RootState) => state.nomeAplicacao);
 
@@ -61,9 +58,9 @@ const UesPage: React.FC = () => {
   const [anos, setAnos] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState();
   const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
-  const [dres, setDres] = useState<{ value: number; label: string }[]>([]);
+  const [mediaProficiencia, setMediaProficiencia] = useState<any[]>([]);
 
-  const [dreSelecionada, setDreSelecionada] = useState(0);
+  const [dreSelecionada, setDreSelecionada] = useState();
   const [dreSelecionadaNome, setDreSeleciondaNome] = useState<
     string | undefined
   >();
@@ -73,15 +70,11 @@ const UesPage: React.FC = () => {
     { value: number; label: string }[]
   >([]);
 
-  const [uesDados, setUesDados] = useState<any[]>([]);
-  const [currentCardPage, setCurrentCardPage] = useState(1);
-  const [loadingMaisUes, setLoadingMaisUes] = useState(false);
-
-  const [uesTotal, setUesTotal] = useState(0);
-
-  const [showVoltarUes, setShowVoltarUes] = useState(false);
-  
-    
+  const [dresDados, setDresDados] = useState<any[]>([]);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
 
   const aplicacaoSelecionada = useSelector(
     (state: RootState) => state.nomeAplicacao.id
@@ -89,85 +82,50 @@ const UesPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams();
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const spacerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
-    console.log(tipoPerfil);
-    if (tipoPerfil === 5) {
-      setShowVoltarUes(true);
-    } else {
-      setShowVoltarUes(false);
-    }
-  }, []);
+    const el = stickyRef.current;
+    const container = containerRef.current;
+    const sentinel = sentinelRef.current;
+    const spacer = spacerRef.current;
+    if (!el || !container || !sentinel || !spacer) return;
 
-  useEffect(() => {
-    const dreParam = searchParams.get("dreUrlSelecionada");
-    if (!dreParam) return;
+    const scrollEl = getScrollParent(el);
+    const root = scrollEl instanceof Window ? null : (scrollEl as Element);
 
-    const optNum = Number(dreParam);
-    if (Number.isNaN(optNum)) return;
+    const setVars = () => {
+      const rect = container.getBoundingClientRect();
+      el.style.setProperty("--container-left", `${rect.left}px`);
+      el.style.setProperty("--container-width", `${rect.width}px`);
 
-    if (dres.length === 0) return;
+      const title = document.querySelector(
+        ".titulo-ue-sme"
+      ) as HTMLElement | null;
+      const offset = title ? title.getBoundingClientRect().height : 0;
+      el.style.setProperty("--sticky-offset", `${offset}px`);
+    };
 
-    setDreSelecionada(optNum);
-    const dreObj = dres.find((d) => d.value === optNum);
-    setDreSeleciondaNome(dreObj?.label);
-
-    setUesSelecionadas([]);
-    setCurrentCardPage(1);
-    setUesDados([]);
-  }, [searchParams, dres]);
-
-  useEffect(() => {
-      const el = stickyRef.current;
-      const container = containerRef.current;
-      const sentinel = sentinelRef.current;
-      const spacer = spacerRef.current;
-      if (!el || !container || !sentinel || !spacer) return;
-  
-      const scrollEl = getScrollParent(el);
-      const root = scrollEl instanceof Window ? null : (scrollEl as Element);
-  
-      const setVars = () => {
-        const rect = container.getBoundingClientRect();
-        el.style.setProperty("--container-left", `${rect.left}px`);
-        el.style.setProperty("--container-width", `${rect.width}px`);
-  
-        const title = document.querySelector(
-          ".titulo-ue-sme"
-        ) as HTMLElement | null;
-        const offset = title ? title.getBoundingClientRect().height : 0;
-        el.style.setProperty("--sticky-offset", `${offset}px`);
-      };
-  
-      const onChange: IntersectionObserverCallback = ([entry]) => {
-        // When sentinel is NOT visible, fix it
-        const shouldFix =
-          entry.boundingClientRect.top < 0 && !entry.isIntersecting;
-        el.classList.toggle("fixed", shouldFix);
-        spacer.style.height = shouldFix ? `${el.offsetHeight}px` : "0px";
-        setVars();
-      };
-  
-      const io = new IntersectionObserver(onChange, {
-        root,
-        threshold: [0, 1],
-      });
-  
-      io.observe(sentinel);
-      window.addEventListener("resize", setVars, { passive: true });
+    const onChange: IntersectionObserverCallback = ([entry]) => {
+      const shouldFix =
+        entry.boundingClientRect.top < 0 && !entry.isIntersecting;
+      el.classList.toggle("fixed", shouldFix);
+      spacer.style.height = shouldFix ? `${el.offsetHeight}px` : "0px";
       setVars();
-  
-      return () => {
-        io.disconnect();
-        window.removeEventListener("resize", setVars);
-      };
-    }, []);
+    };
+
+    const io = new IntersectionObserver(onChange, {
+      root,
+      threshold: [0, 1],
+    });
+
+    io.observe(sentinel);
+    window.addEventListener("resize", setVars, { passive: true });
+    setVars();
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("resize", setVars);
+    };
+  }, []);
 
   function getScrollParent(node: HTMLElement): HTMLElement | Window {
     let p: HTMLElement | null = node.parentElement;
@@ -234,12 +192,35 @@ const UesPage: React.FC = () => {
     }
   }, [aplicacaoSelecionada, anoSelecionado, dreSelecionada]);
 
+  useEffect(() => {
+    if (aplicacoes.length > 0 && anoSelecionado != undefined) {
+      buscaDesempenhoPorMediaProficiencia();
+    }
+  }, [aplicacaoSelecionada, anoSelecionado, uesSelecionadas]);
+
   const buscaDesempenhoPorMateria = async () => {
     try {
       const respostas = await servicos.get(
-        `/api/boletimescolar/${aplicacaoSelecionada}/dre/${dreSelecionada}/ano-escolar/${anoSelecionado}/grafico/niveis-proficiencia-disciplina`
+        `/api/boletimescolar/${anoSelecionado}/${aplicacaoSelecionada}/grafico/niveis-proficiencia-disciplina`
       );
       setNiveisProficiencia(respostas?.disciplinas || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const buscaDesempenhoPorMediaProficiencia = async () => {
+    try {
+      let url: string = "";
+      let parametros = "";
+      uesSelecionadas.forEach((dre) => {
+        parametros += "dresIds=" + dre.value + "&";
+      });
+      
+        url = `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia?${parametros}`;
+
+      const respostas = await servicos.get(url);
+      setMediaProficiencia(respostas || []);
     } catch (error) {
       console.error(error);
     }
@@ -275,17 +256,9 @@ const UesPage: React.FC = () => {
           label: item.nome,
         })
       );
-      setDres(opcoesDre);
       if (opcoesDre.length > 0) {
-        const param = searchParams.get("dreUrlSelecionada");
-        const preferida = param ? Number(param) : opcoesDre[0].value;
-        const dreObj =
-          opcoesDre.find(
-            (d: { value: number; label: string }) => d.value === preferida
-          ) ?? opcoesDre[0];
-
-        setDreSelecionada(dreObj.value);
-        setDreSeleciondaNome(dreObj.label);
+        setDreSelecionada(opcoesDre[0].value);
+        setDreSeleciondaNome(opcoesDre[0].label);
       }
     } catch (error) {
       console.error("Erro ao buscar DREs:", error);
@@ -297,11 +270,20 @@ const UesPage: React.FC = () => {
   }, []);
 
   const buscarResumoDre = async () => {
-    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
+    if (!aplicacaoSelecionada || !anoSelecionado) return;
     try {
       const resposta = await servicos.get(
-        `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/resumo-dre`
+        `/api/BoletimEscolar/${aplicacaoSelecionada}/${anoSelecionado}/resumo-sme`
       );
+
+      if (resposta?.proficienciaDisciplina?.length) {
+        resposta.proficienciaDisciplina.sort((a: any, b: any) =>
+          a.disciplinaNome.localeCompare(b.disciplinaNome, "pt-BR", {
+            sensitivity: "base",
+          })
+        );
+      }
+
       setResumoDre(resposta);
     } catch (error) {
       console.error("Erro ao buscar resumo da DRE:", error);
@@ -322,15 +304,15 @@ const UesPage: React.FC = () => {
     }
     try {
       const resposta = await servicos.get(
-        `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ues-por-dre`
+        `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres`
       );
-      const opcoesUe = (resposta ?? []).map(
-        (item: { ueId: any; descricao: any }) => ({
-          value: item.ueId,
-          label: item.descricao,
+      const opcoesDre = (resposta ?? []).map(
+        (item: { dreId: any; dreNome: any }) => ({
+          value: item.dreId,
+          label: item.dreNome,
         })
       );
-      setUes(opcoesUe);
+      setUes(opcoesDre);
     } catch (error) {
       setUes([]);
       console.error("Erro ao buscar UEs:", error);
@@ -342,50 +324,38 @@ const UesPage: React.FC = () => {
     setUesSelecionadas([]);
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
-  const fetchUesListagem = async (pagina = 1, append = false) => {
-    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) {
-      setUesDados([]);
-      setUesTotal(0);
-      return;
-    }
+ const fetchDresListagem = async () => {
+    setDresDados([]);
+
+    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
+
     try {
-      setLoadingMaisUes(true);
       const params = new URLSearchParams();
-      uesSelecionadas.forEach((ue) =>
-        params.append("UesIds", String(ue.value))
-      );
-      params.append("TamanhoPagina", String(PAGE_SIZE));
-      params.append("Pagina", String(pagina));
-      const url = `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ue-por-dre-dados?${params.toString()}`;
+      uesSelecionadas.forEach((dre) => params.append("dreIds", String(dre.value)));
+
+      const qs = params.toString();
+      const url =
+        `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}` +
+        `/dres/proficiencia${qs ? `?${qs}` : ""}`;
+
       const resposta = await servicos.get(url);
-      if (append) {
-        setUesDados((prev) => [...prev, ...(resposta?.itens || [])]);
-      } else {
-        setUesDados(resposta?.itens || []);
-      }
-      setUesTotal(resposta?.totalRegistros || 0);
+      setDresDados(resposta?.itens || []);
     } catch (error) {
-      setUesDados([]);
-      setUesTotal(0);
-      console.error("Erro ao buscar UEs listagem:", error);
-    } finally {
-      setLoadingMaisUes(false);
+      setDresDados([]);
+      console.error("Erro ao buscar DREs listagem:", error);
     }
   };
 
-  useEffect(() => {
-    fetchUesListagem(1, false);
-  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
   useEffect(() => {
-    setCurrentCardPage(1);
-    setUesDados([]);
+    fetchDresListagem();
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
+  
   const uesOptions = useMemo(() => {
-    return ues.map((ue: any) => ({
-      value: ue.value,
-      label: ue.label,
+    return ues.map((dre: any) => ({
+      value: dre.value,
+      label: dre.label,
     }));
   }, [ues]);
 
@@ -393,11 +363,12 @@ const UesPage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleExibirMais = () => {
-    const proxPagina = currentCardPage + 1;
-    setCurrentCardPage(proxPagina);
-    fetchUesListagem(proxPagina, true);
-  };
+  useEffect(() => {
+      const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
+      if (tipoPerfil !== 5) {        
+        navigate("/ues");
+      }
+    }, []);
 
   return (
     <div className="app-container">
@@ -427,69 +398,15 @@ const UesPage: React.FC = () => {
       <div className="conteudo-principal-ues" ref={containerRef}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <h2 className="titulo-ue-sme">{dreSelecionadaNome}</h2>
+            <h2 className="titulo-ue-sme">Secretaria Municipal de Educação</h2>
 
             <div className="ajustes-padding-cards">
-              <Card title="" variant="borderless">
-
-                
-
-                {showVoltarUes && (
-                                  <div style={{ marginBottom: 12 }}>
-                                    <Link
-                                      to="/dres"
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 6,
-                                        color: "#1976d2",
-                                        textDecoration: "none",
-                                        margin: "0px",
-                                        fontSize: 14,
-                                      }}
-                                      className="botao-voltar-ues"
-                                    >
-                                      <ArrowLeftOutlined style={{ fontSize: 18 }} />
-                                      Voltar a tela anterior
-                                    </Link>
-                                  </div>
-                                )}
-
-
-                <p className="voltar-tela-aterior-ue">
-                  Você pode filtrar outra Diretoria Regional de Educação (DRE).
-                </p>
-                <div className="filtros-card">
-                  <Select
-                    showSearch
-                    placeholder="Selecione uma DRE..."
-                    className="select-full"
-                    onChange={(value) => {
-                      setDreSelecionada(value);
-                      const dreObj = dres.find((d) => d.value === value);
-                      setDreSeleciondaNome(dreObj?.label);
-                    }}
-                    value={dreSelecionada || undefined}
-                    notFoundContent="Nenhuma DRE encontrada"
-                    filterOption={(input, option: any) =>
-                      (option?.label ?? "")
-                        .toLowerCase()
-                        .includes(input.toLowerCase())
-                    }
-                    options={dres}
-                  />
-                </div>
-              </Card>
-            </div>
-            <br />
-            <div className="ajustes-padding-cards">
-              <Card title="" variant="borderless">
-
-
+              <Card title="" variant="borderless" className="card-body-dre">
                 <p style={{ marginTop: "0", marginBottom: "32px" }}>
                   Você pode consultar as informações de todas as provas já
                   aplicadas. Basta selecionar a aplicação que deseja visualizar.
                 </p>
+
                 <div className="filtros-card-dre">
                   <div className="filtro-aplicacao">
                     <label className="label-filtro-dre">Aplicação</label>
@@ -497,7 +414,7 @@ const UesPage: React.FC = () => {
                       data-testid="select-aplicacao"
                       showSearch
                       placeholder="Selecione uma aplicação..."
-                      className="select-full"
+                      className="select-custom"
                       onChange={handleChange}
                       value={nomeAplicacao.id || undefined}
                       notFoundContent="Nenhuma aplicação encontrada"
@@ -532,60 +449,69 @@ const UesPage: React.FC = () => {
               </Card>
             </div>
             <br />
-            <Row gutter={[16, 16]} className="cards-container">
-              <Col xs={24} sm={12} md={6}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+            <Row gutter={[16, 16]} className="cards-container-dre">
+              <Col xs={24} sm={12} md={4} className="colum-dre">
+                <Card className="card-resumo-dre" style={{ padding: 0 }}>
+                  <div className="valor">{resumoDre?.totalDres ?? "-"}</div>
+                  <div className="descricao">DREs</div>
+                </Card>
+              </Col>
+              <Col xs={24} sm={12} md={5} className="colum-dre">
+                <Card className="card-resumo-dre" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalUes ?? "-"}</div>
                   <div className="descricao">Unidades Educacionais</div>
                 </Card>
               </Col>
-              <Col xs={24} sm={12} md={6}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+              <Col xs={24} sm={12} md={5} className="colum-dre">
+                <Card className="card-resumo-dre" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalAlunos ?? "-"}</div>
                   <div className="descricao">Estudantes</div>
                 </Card>
               </Col>
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
-                  <Col xs={24} sm={12} md={6} key={idx}>
-                    <Card className="card-resumo" bodyStyle={{ padding: 0, paddingTop: "0.3em"}}>
+                  <Col xs={24} sm={12} md={5} key={idx} className="colum-dre">
+                    <Card
+                      className="card-resumo-dre"
+                      style={{ padding: 0, paddingTop: "0.3em" }}
+                    >
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
-                      <div className="descricao" style={{lineHeight:1}}>
-                        <p style={{margin:0}}>Média de proficiência</p>
-                        <p style={{margin:0}}>{disciplina.disciplinaNome}</p>                         
+                      <div className="descricao" style={{ lineHeight: 1 }}>
+                        <p style={{ margin: 0 }}>Média de proficiência</p>
+                        <p style={{ margin: 0 }}>{disciplina.disciplinaNome}</p>
                       </div>
                     </Card>
                   </Col>
                 )
               )}
             </Row>
+
             <div className="informacao-blue">
               As informações são das Unidades Educacionais que realizaram a
               prova {nomeAplicacao.nome}
             </div>
             <br />
             <div className="ajustes-padding-cards">
-              <Card title="" variant="borderless">
+              <Card title="" variant="borderless" className="body-pai-dre">
                 <div className="ues-dre-title">
-                  <b>Unidades Educacionais (UEs) - {dreSelecionadaNome}</b>
+                  <b>Diretorias Regionais de Educação (DREs)</b>
                 </div>
                 <div className="ues-dre-subtitulo">
-                  Confira as informações de todas as UEs da {dreSelecionadaNome}
-                  .
+                  Confira as informações de todas as DREs do Município de São
+                  Paulo.
                 </div>
-
-                <DesempenhoPorMateria dados={niveisProficiencia} tipo={"UEs"} />
-
-                {/* sentinel (1px) tells us when we reached the stick point */}
-                <div ref={sentinelRef} style={{ height: 1 }} />
-
-                {/* spacer keeps layout height when we switch to position:fixed */}
+                <DesempenhoPorMateria
+                  dados={niveisProficiencia}
+                  tipo={"DREs"}
+                />                
+                <div ref={sentinelRef} style={{ height: 1 }} />                
                 <div ref={spacerRef} style={{ height: 0 }} aria-hidden />
-
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
-                  <p>Você pode filtrar por Unidade Educacional (UE)</p>
+                  <p>
+                    Você pode filtrar por Diretoria Regional de Educação (DRE).
+                  </p>
 
                   <Select
                     mode="multiple"
@@ -595,7 +521,7 @@ const UesPage: React.FC = () => {
                     value={uesSelecionadas}
                     onChange={(values) => setUesSelecionadas(values)}
                     className="select-full"
-                    placeholder="Selecione ou digite a UE..."
+                    placeholder="Selecione ou digite a DRE..."
                     notFoundContent="Nenhuma escola encontrada"
                     filterOption={(input, option) =>
                       (option?.label ?? "")
@@ -605,8 +531,8 @@ const UesPage: React.FC = () => {
                     }
                     options={uesOptions}
                     optionRender={(option) => {
-                      const selected = uesSelecionadas.some(
-                        (ue) => ue.value === option.value
+                      const selected = uesSelecionadas.some(                        
+                        (dre) => dre.value === option.value
                       );
                       return (
                         <div className="select-option-multiview">
@@ -622,22 +548,25 @@ const UesPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="list-cards" style={{zIndex: "auto"}}>
+                <div className="list-cards">
                   <Row gutter={[16, 16]}>
-                    {uesDados.map((ue) => {
+                    {dresDados.map((dre) => {
                       const semDisciplinas =
-                        !ue.disciplinas || ue.disciplinas.length === 0;
+                        !dre.disciplinas || dre.disciplinas.length === 0;
                       return (
-                        <Col xs={24} sm={24} md={8} key={ue.id}>
+                        <Col xs={24} sm={24} md={8} key={dre.dreId}>
                           <Card className="list-card">
-                            <Tooltip title={ue.nome}>
+                            <Tooltip
+                              title={dre.dreNome}
+                              className="custom-tooltip"
+                            >
                               <div className="list-card-nome nome-truncado">
-                                {ue.nome}
+                                {dre.dreNome}
                               </div>
                             </Tooltip>
 
                             <div className="list-card-ano">
-                              <b>Ano:</b> <span>{ue.anoEscolar}º ano</span>
+                              <b>Ano:</b> <span>{dre.anoEscolar}º ano</span>
                             </div>
 
                             {semDisciplinas ? (
@@ -650,49 +579,77 @@ const UesPage: React.FC = () => {
                             ) : (
                               <>
                                 <div className="list-card-proficiencias">
-                                  {ue.disciplinas.map((p: any, idx: number) => (
-                                    <div
-                                      className="list-card-prof-item"
-                                      key={idx}
-                                    >
-                                      <div className="disciplina-label">
-                                        <img
-                                          src={
-                                            p.disciplina === "Língua portuguesa"
-                                              ? iconePort
-                                              : iconeMat
-                                          }
-                                          alt="Ícone disciplina"
-                                          className="disciplina-icon"
-                                        />
-                                        <span>{p.disciplina}</span>
-                                      </div>
-                                      <span
-                                        className="nivel"
-                                        style={estiloNivel(p.nivelDescricao)}
+                                  {dre.disciplinas.map(
+                                    (p: any, idx: number) => (
+                                      <div
+                                        className="list-card-prof-item"
+                                        key={idx}
                                       >
-                                        {p.nivelDescricao}
-                                      </span>
-                                      <div className="prof-value">
-                                        {typeof p.mediaProficiencia === "number"
-                                          ? p.mediaProficiencia.toLocaleString(
-                                              "pt-BR",
-                                              {
-                                                minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2,
-                                              }
-                                            )
-                                          : "-"}
+                                        <div className="disciplina-label">
+                                          <img
+                                            src={
+                                              p.disciplina ===
+                                              "Língua portuguesa"
+                                                ? iconePort
+                                                : iconeMat
+                                            }
+                                            alt="Ícone disciplina"
+                                            className="disciplina-icon"
+                                          />
+                                          <span
+                                            style={{
+                                              fontWeight: "700",
+                                              color: "#595959",
+                                            }}
+                                          >
+                                            {p.disciplina}
+                                          </span>
+                                        </div>
+                                        <span
+                                          className="nivel"
+                                          style={estiloNivel(
+                                            p.nivelProficiencia
+                                          )}
+                                        >
+                                          {p.nivelProficiencia}
+                                        </span>
+                                        <div className="prof-value">
+                                          {typeof p.mediaProficiencia ===
+                                          "number"
+                                            ? p.mediaProficiencia.toLocaleString(
+                                                "pt-BR",
+                                                {
+                                                  minimumFractionDigits: 2,
+                                                  maximumFractionDigits: 2,
+                                                }
+                                              )
+                                            : "-"}
+                                        </div>
+                                        <div className="prof-label">
+                                          Média de proficiência
+                                        </div>
                                       </div>
-                                      <div className="prof-label">
-                                        Média de proficiência
-                                      </div>
-                                    </div>
-                                  ))}
+                                    )
+                                  )}
                                 </div>
                                 <hr className="separador-ues-dres" />
                                 <div className="list-card-meta-row">
-                                  <div className="list-meta-conteudo">
+                                  <div className="list-meta-conteudo-dres">
+                                    <img
+                                      src={iconeUe}
+                                      alt="Ícone alunos"
+                                      className="disciplina-icon"
+                                    />{" "}
+                                    <div className="list-meta-titulo">
+                                      Unidades Educacionais:
+                                    </div>
+                                    <div className="list-meta-valor">
+                                      {dre.totalUes?.toLocaleString("pt-BR") ??
+                                        "-"}
+                                    </div>
+                                  </div>
+
+                                  <div className="list-meta-conteudo-dres">
                                     <img
                                       src={iconeAlunos}
                                       alt="Ícone alunos"
@@ -702,12 +659,12 @@ const UesPage: React.FC = () => {
                                       Total de estudantes:
                                     </div>
                                     <div className="list-meta-valor">
-                                      {ue.totalEstudantes?.toLocaleString(
+                                      {dre.totalAlunos?.toLocaleString(
                                         "pt-BR"
                                       ) ?? "-"}
                                     </div>
                                   </div>
-                                  <div className="list-meta-conteudo">
+                                  <div className="list-meta-conteudo-dres">
                                     <img
                                       src={iconeDados}
                                       alt="Ícone dados"
@@ -717,12 +674,10 @@ const UesPage: React.FC = () => {
                                       Realizaram a prova:
                                     </div>
                                     <div className="list-meta-valor">
-                                      {ue.totalEstudadesRealizaramProva?.toLocaleString(
+                                      {dre.totalRealizaramProva?.toLocaleString(
                                         "pt-BR"
                                       ) ?? "-"}{" "}
-                                      (
-                                      {ue.percentualEstudadesRealizaramProva ??
-                                        0}
+                                      ({dre.percentualParticipacao ?? 0}
                                       %)
                                     </div>
                                   </div>
@@ -730,57 +685,82 @@ const UesPage: React.FC = () => {
                               </>
                             )}
                             <Button
+                              data-testid={dre.dreId ? `btn-acessar-${dre.dreId}` : undefined}
                               className="btn-acessar-ue"
                               block
                               disabled={semDisciplinas}
                               onClick={() => {
-                                navigate(`/?ueSelecionada=${ue.id}`);
+                                navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
-                            >
-                              Acessar UE
-                            </Button>
+                            >Acessar DRE</Button>
                           </Card>
                         </Col>
                       );
                     })}
                   </Row>
-                  {uesDados.length < uesTotal && (
-                    <>
-                      <br></br>
-                      <div className="transparent-bottom-ue">
-                        <Button
-                          variant="outlined"
-                          className="btn-exibir-mais-ue"
-                          loading={loadingMaisUes}
-                          onClick={handleExibirMais}
-                          style={{
-                            minWidth: 160,
-                            height: 40,
-                            fontWeight: 600,
-                            fontSize: 16,
-                            zIndex: 2,
-                          }}
-                        >
-                          <img
-                            src={iconeMais}
-                            alt="Ícone dados"
-                            className="disciplina-icon"
-                          />
-                          Exibir mais
-                        </Button>
-                      </div>
-                    </>
-                  )}
                 </div>
               </Card>
             </div>
             <br />
             <Card title="" variant="borderless">
-              <RelatorioAlunosPorUes
+              <span className="ues-dre-title">
+                <b>Média de proficiência</b>
+              </span>
+
+              <div className="conteudo-grafico-media-proficiencia">
+                <div className="conteudo-grafico-media-proficiencia-texto">
+                  <p>
+                    Confira a média de proficiência por componente curricular
+                    das Diretorias Regionais (DRE)
+                  </p>
+                </div>
+                <div className="conteudo-grafico-media-proficiencia-dropdown">
+                  <div className="filtro-aplicacao2">
+                    <Select
+                      data-testid="select-aplicacao"
+                      showSearch
+                      placeholder="Selecione uma aplicação..."
+                      className="select-custom"
+                      onChange={handleChange}
+                      value={nomeAplicacao.id || undefined}
+                      notFoundContent="Nenhuma aplicação encontrada"
+                      filterOption={(input, option) =>
+                        option?.label
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={opcoes}
+                    />
+                  </div>
+                  <div className="filtro-ano2">
+                    <Select
+                      showSearch
+                      placeholder="Ano escolar"
+                      className="select-custom"
+                      onChange={(value) => {
+                        setAnoSelecionado(value);
+                      }}
+                      value={anoSelecionado || undefined}
+                      notFoundContent="Nenhum ano encontrado"
+                      filterOption={(input, option: any) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={anos}
+                    />
+                  </div>
+                </div>
+              </div>
+              <br></br>
+              <DesempenhoPorMediaProficiencia dados={mediaProficiencia} />
+            </Card>
+            <br />
+            <Card title="" variant="borderless">
+              <RelatorioAlunosPorDres
                 dreSelecionadaNome={dreSelecionadaNome}
                 aplicacaoSelecionada={aplicacaoSelecionada}
-                dreSelecionada={dreSelecionada}
               />
             </Card>
           </Col>
@@ -802,9 +782,8 @@ const UesPage: React.FC = () => {
           </Col>
         </Row>
       </div>
-      <div className="espacamento-ue"></div>
     </div>
   );
 };
 
-export default UesPage;
+export default DresPage;

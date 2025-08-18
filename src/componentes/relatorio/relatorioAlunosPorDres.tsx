@@ -1,15 +1,14 @@
 import { useState } from "react";
-import "./relatorioAlunosPorUe.css";
+import "./relatorioAlunosPorDres.css";
 import { Button, Modal, notification } from "antd";
 import { servicos } from "../../servicos";
 import {
-  CheckCircleOutlined,  
+  CheckCircleOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
 
 interface DownloadRelatorioProps {
   aplicacaoSelecionada: number;
-  dreSelecionada: unknown;
   dreSelecionadaNome: unknown;
 }
 
@@ -19,18 +18,14 @@ import iconeDownload from "../../assets/icon-downloadSeta.svg";
 
 type TipoRelatorio = "proficiência" | "probabilidade";
 
-const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
+const RelatorioAlunosPorDres: React.FC<DownloadRelatorioProps> = ({
   aplicacaoSelecionada,
-  dreSelecionada,
   dreSelecionadaNome
 }) => {
-  const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);  
+  const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
   const [modalVisivel, setModalVisivel] = useState(false);
   const [tipoSelecionado, setTipoSelecionado] = useState<TipoRelatorio | null>(null);
-  const nomeDre = dreSelecionadaNome 
-  ? dreSelecionadaNome.toString().replace(/DIRETORIA REGIONAL DE EDUCACAO/i, "DRE")
-  : '';
-  
+
   const abrirModal = () => {
     setModalVisivel(true);
     setTipoSelecionado(null);
@@ -43,17 +38,17 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
 
   const getUrlDownload = () => {
     if (tipoSelecionado === "proficiência") {
-      return `/api/BoletimEscolar/download-dre/${aplicacaoSelecionada}/${dreSelecionada}`;
+      return `/api/BoletimEscolar/download-sme/${aplicacaoSelecionada}`;
     }
 
     if (tipoSelecionado === "probabilidade") {
-      return `/api/BoletimEscolar/download-dre-probabilidade/${aplicacaoSelecionada}/${dreSelecionada}`;
+      return `/api/BoletimEscolar/download-sme-probabilidade/${aplicacaoSelecionada}`;
     }
 
     return null;
   };
 
-  const downloadDadosUesArquivo = async () => {
+  const downloadRelatorio = async () => {
     const url = getUrlDownload();
     if (!url) return;
 
@@ -80,15 +75,16 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
       });
 
       const link = document.createElement("a");
+      const nomeSanitizado = String(dreSelecionadaNome).replace(/[\\/:*?"<>|]/g, "");
       link.href = URL.createObjectURL(blob);
       link.download = `arquivo.xls`;
 
       if (tipoSelecionado === "proficiência") {
-        link.download = `boletim-resultados-principais-${dreSelecionadaNome}.xls`;
+        link.download = `boletim-resultados-principais.xls`;
       }
 
       if (tipoSelecionado === "probabilidade") {
-        link.download = `boletim-resultados-probabilidades-${dreSelecionadaNome}.xls`;
+        link.download = `boletim-resultados-probabilidades.xls`;
       }
 
       document.body.appendChild(link);
@@ -127,7 +123,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
     }
   };
 
-  const CardOpcao = ({
+   const CardOpcao = ({
     tipo,
     titulo,
     icone,
@@ -148,10 +144,11 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
   return (
     <>
       <div className="elementos">
-        <div className="texto-ue-download">
-          <div>Você pode baixar os dados de todas as <b>Unidades</b></div>
-          <div><b>Educacionais (UEs)</b>, clicando no botão ao lado</div>
+        <div className="texto-dre-download">
+          <div>Você pode baixar os dados de todas as <b>Diretorias</b></div>
+          <div><b>Regionais da Educação (DREs)</b>, clicando no botão ao lado</div>
         </div>
+
         <div className="botao-download">
           <Button
             type="primary"
@@ -178,10 +175,9 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
         width={410}
         height={370}
         className="tituloModal-Dre"
-        zIndex={2000}
       >
         <div className="modalCorpo">
-          <p className="texto-modal">Você pode baixar os dados de todas as Unidades Educacionais da <span style={{fontWeight: 700}}>{nomeDre}</span>. Qual você gostaria de baixar primeiro?</p>
+          <p className="texto-modal">Você pode baixar os dados de todas as Unidades Educacionais. Qual você gostaria de baixar primeiro?</p>
 
           <div className="opcoes-container">
             <CardOpcao
@@ -221,7 +217,7 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
               }
               disabled={!tipoSelecionado || estaCarregandoRelatorio}
               loading={estaCarregandoRelatorio}
-              onClick={downloadDadosUesArquivo}
+              onClick={downloadRelatorio}
               block
               className="btnAzulPadrao"
             >
@@ -234,11 +230,10 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
               Cancelar
             </Button>
           </div>
-        </div>
-
+        </div>        
       </Modal>
-    </>
+    </>   
   );
 };
 
-export default RelatorioAlunosPorUes;
+export default RelatorioAlunosPorDres;

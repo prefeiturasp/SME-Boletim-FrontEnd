@@ -137,3 +137,28 @@
   margin-left: 35px;
   padding-top: 190px;
 }
+
+.informacao-blue {
+  background: #5A94D8;
+  color: white;
+  padding: 8px 32px 8px 32px;
+  border-radius: 4px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;  
+  font-size: 14px;
+  text-align: left;  
+}
+
+.btnAzulPadrao{
+  background: #5A94D8 !important;  
+  color: #ffffff !important;
+}
+
+.btnAzulPadrao:not(:disabled):hover{  
+  background: #327ACB !important;
+}
+
+.btnAzulPadrao:disabled{  
+  background: #d9d9d9 !important;
+  color: #ffffff !important;
+}
