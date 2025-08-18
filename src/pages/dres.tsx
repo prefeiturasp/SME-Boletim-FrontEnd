@@ -10,9 +10,8 @@ import {
   Button,
   Tooltip,
 } from "antd";
-
 import { Link } from "react-router-dom";
-import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg"; //verificar
+import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { servicos } from "../servicos";
@@ -24,20 +23,15 @@ import iconePort from "../assets/icon-port.svg";
 import iconeMat from "../assets/icon-mat.svg";
 import iconeAlunos from "../assets/icon-alunos.svg";
 import iconeDados from "../assets/icon-dados.svg";
-import iconeMais from "../assets/icon-mais.svg";
 import iconeUe from "../assets/icon-ue.svg";
 import { useNavigate } from "react-router-dom";
-
 import { Layout } from "antd";
-import { Label } from "recharts";
 import RelatorioAlunosPorDres from "../componentes/relatorio/relatorioAlunosPorDres";
-import { Color } from "antd/es/color-picker";
 import DesempenhoPorMediaProficiencia from "../componentes/grafico/desempenhoPorMediaProficiencia";
 const { Header } = Layout;
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 const versao = "1.0";
-const PAGE_SIZE = 12;
 
 export function estiloNivel(nivel: string) {
   if (!nivel) return { background: "#f0f0f0", color: "#8c8c8c" };
@@ -65,7 +59,6 @@ const DresPage: React.FC = () => {
   const [anoSelecionado, setAnoSelecionado] = useState();
   const [niveisProficiencia, setNiveisProficiencia] = useState<any[]>([]);
   const [mediaProficiencia, setMediaProficiencia] = useState<any[]>([]);
-  const [dres, setDres] = useState<{ value: number; label: string }[]>([]);
 
   const [dreSelecionada, setDreSelecionada] = useState();
   const [dreSelecionadaNome, setDreSeleciondaNome] = useState<
@@ -78,12 +71,6 @@ const DresPage: React.FC = () => {
   >([]);
 
   const [dresDados, setDresDados] = useState<any[]>([]);
-  const [currentCardPage, setCurrentCardPage] = useState(1);
-  const [loadingMaisDres, setLoadingMaisDres] = useState(false);
-
-  const [dresTotal, setDresTotal] = useState(0);
-  const [redirectUes, setRedirectUes] = useState(false);
-
   const stickyRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -118,7 +105,6 @@ const DresPage: React.FC = () => {
     };
 
     const onChange: IntersectionObserverCallback = ([entry]) => {
-      // When sentinel is NOT visible, fix it
       const shouldFix =
         entry.boundingClientRect.top < 0 && !entry.isIntersecting;
       el.classList.toggle("fixed", shouldFix);
@@ -270,7 +256,6 @@ const DresPage: React.FC = () => {
           label: item.nome,
         })
       );
-      setDres(opcoesDre);
       if (opcoesDre.length > 0) {
         setDreSelecionada(opcoesDre[0].value);
         setDreSeleciondaNome(opcoesDre[0].label);
@@ -339,57 +324,34 @@ const DresPage: React.FC = () => {
     setUesSelecionadas([]);
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
-  const fetchDresListagem = async (pagina = 1, append = false) => {
-    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) {
-      setDresDados([]);
-      setDresTotal(0);
-      return;
-    }
+ const fetchDresListagem = async () => {
+    setDresDados([]);
+
+    if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
+
     try {
-      setLoadingMaisDres(true);
       const params = new URLSearchParams();
-      uesSelecionadas.forEach((dre) =>
-        params.append("dreIds", String(dre.value))
-      );
-      const url = `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}/dres/proficiencia?${params.toString()}`;
+      uesSelecionadas.forEach((dre) => params.append("dreIds", String(dre.value)));
+
+      const qs = params.toString();
+      const url =
+        `/api/BoletimEscolar/${anoSelecionado}/${aplicacaoSelecionada}` +
+        `/dres/proficiencia${qs ? `?${qs}` : ""}`;
 
       const resposta = await servicos.get(url);
-
-      let novosDres = resposta?.itens || [];
-
-      if (append) {
-        //setDresDados((prev) => [...prev, ...(resposta?.itens || [])]);
-        const ultimoItemAtual = dresDados[dresDados.length - 1];
-        if (
-          novosDres.length > 0 &&
-          ultimoItemAtual?.dreId === novosDres[0]?.dreId
-        ) {
-          novosDres = novosDres.slice(1); // Remova o primeiro item se for duplicado
-        }
-        setDresDados((prev) => [...prev, ...novosDres]);
-      } else {
-        //setDresDados(resposta?.itens || []);
-        setDresDados(novosDres);
-      }
-      setDresTotal(resposta?.totalTipoDisciplina || 0);
+      setDresDados(resposta?.itens || []);
     } catch (error) {
       setDresDados([]);
-      setDresTotal(0);
       console.error("Erro ao buscar DREs listagem:", error);
-    } finally {
-      setLoadingMaisDres(false);
     }
   };
 
-  useEffect(() => {
-    fetchDresListagem(1, false);
-  }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
   useEffect(() => {
-    setCurrentCardPage(1);
-    setDresDados([]);
+    fetchDresListagem();
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
+  
   const uesOptions = useMemo(() => {
     return ues.map((dre: any) => ({
       value: dre.value,
@@ -401,17 +363,9 @@ const DresPage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleExibirMais = () => {
-    const proxPagina = currentCardPage + 1;
-    setCurrentCardPage(proxPagina);
-    fetchDresListagem(proxPagina, true);
-  };
-
   useEffect(() => {
       const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
-      console.log(tipoPerfil);
-      if (tipoPerfil !== 5) {
-        setRedirectUes(true);
+      if (tipoPerfil !== 5) {        
         navigate("/ues");
       }
     }, []);
@@ -497,19 +451,19 @@ const DresPage: React.FC = () => {
             <br />
             <Row gutter={[16, 16]} className="cards-container-dre">
               <Col xs={24} sm={12} md={4} className="colum-dre">
-                <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
+                <Card className="card-resumo-dre" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalDres ?? "-"}</div>
                   <div className="descricao">DREs</div>
                 </Card>
               </Col>
               <Col xs={24} sm={12} md={5} className="colum-dre">
-                <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
+                <Card className="card-resumo-dre" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalUes ?? "-"}</div>
                   <div className="descricao">Unidades Educacionais</div>
                 </Card>
               </Col>
               <Col xs={24} sm={12} md={5} className="colum-dre">
-                <Card className="card-resumo-dre" bodyStyle={{ padding: 0 }}>
+                <Card className="card-resumo-dre" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalAlunos ?? "-"}</div>
                   <div className="descricao">Estudantes</div>
                 </Card>
@@ -519,7 +473,7 @@ const DresPage: React.FC = () => {
                   <Col xs={24} sm={12} md={5} key={idx} className="colum-dre">
                     <Card
                       className="card-resumo-dre"
-                      bodyStyle={{ padding: 0, paddingTop: "0.3em" }}
+                      style={{ padding: 0, paddingTop: "0.3em" }}
                     >
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
@@ -551,11 +505,8 @@ const DresPage: React.FC = () => {
                 <DesempenhoPorMateria
                   dados={niveisProficiencia}
                   tipo={"DREs"}
-                />
-                {/* sentinel (1px) tells us when we reached the stick point */}
-                <div ref={sentinelRef} style={{ height: 1 }} />
-
-                {/* spacer keeps layout height when we switch to position:fixed */}
+                />                
+                <div ref={sentinelRef} style={{ height: 1 }} />                
                 <div ref={spacerRef} style={{ height: 0 }} aria-hidden />
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>
@@ -580,8 +531,7 @@ const DresPage: React.FC = () => {
                     }
                     options={uesOptions}
                     optionRender={(option) => {
-                      const selected = uesSelecionadas.some(
-                        //   (ue) => ue.value === option.value
+                      const selected = uesSelecionadas.some(                        
                         (dre) => dre.value === option.value
                       );
                       return (
@@ -735,6 +685,7 @@ const DresPage: React.FC = () => {
                               </>
                             )}
                             <Button
+                              data-testid={dre.dreId ? `btn-acessar-${dre.dreId}` : undefined}
                               className="btn-acessar-ue"
                               block
                               disabled={semDisciplinas}
@@ -742,9 +693,7 @@ const DresPage: React.FC = () => {
                                 navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
-                            >
-                              Acessar DRE
-                            </Button>
+                            >Acessar DRE</Button>
                           </Card>
                         </Col>
                       );
@@ -804,9 +753,7 @@ const DresPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-
               <br></br>
-
               <DesempenhoPorMediaProficiencia dados={mediaProficiencia} />
             </Card>
             <br />
