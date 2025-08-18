@@ -66,7 +66,6 @@ const DesempenhoPorMediaProficiencia: React.FC<{ dados?: any[] }> = ({
           data={lsobjGrafico}
           margin={{ top: 0, right: 0, left: 20, bottom: 5 }}
         >
-          {/*<CartesianGrid strokeDasharray="3 3" />*/}
           <XAxis
             dataKey="dreNome"
             interval={0}

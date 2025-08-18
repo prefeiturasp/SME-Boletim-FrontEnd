@@ -56,7 +56,6 @@
   background-color: #5a94d8 !important; /* Replace with your desired hover color */
 }
 
-/* Optional: change text color on hover */
 .ant-select-dropdown
   .ant-select-item-option-active:not(.ant-select-item-option-disabled)
   .ant-select-item-option-content {

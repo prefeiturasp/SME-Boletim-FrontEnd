@@ -64,33 +64,5 @@ describe("Testando funcionamento basico do grafico", () => {
       await screen.findByText(/Componentes curriculares:/i)
     ).toBeInTheDocument();
   });
-
-
-  //TODO: NÃO FUNCIONA TENTAR OUTRA FORMA DE TESTAR AS BARRAS
-  /*test("quebra rótulos longos do eixo X em várias linhas", async () => {
-
-    const { container } = render(<DesempenhoPorMediaProficiencia dados={dadosTeste} />);
-
-    await waitFor(() => {
-      const ticks = container.querySelectorAll(".recharts-cartesian-axis-tick text");
-      expect(ticks.length).toBeGreaterThan(0);
-    });
-
-    const tickTextEls = Array.from(
-      container.querySelectorAll<SVGTextElement>(".recharts-cartesian-axis-tick text")
-    );
-    const tickTexts = tickTextEls.map((t) => (t.textContent || "").trim().replace(/\s+/g, " "));
-
-    const idx = tickTexts.findIndex((t) => t.includes("CAMPO LIMPO"));
-    expect(idx).toBeGreaterThanOrEqual(0);
-
-    const targetTextEl = tickTextEls[idx];
-    const tspans = targetTextEl.querySelectorAll("tspan");
-    expect(tspans.length).toBeGreaterThanOrEqual(2); // espera quebra em 2+ linhas
-  });*/
-
-
-
-
 });
 

@@ -82,7 +82,6 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
       link.download = `arquivo.xls`;
-      // link.download = `boletim-resultados-principais-${dreSelecionadaNome}.xls`;
 
       if (tipoSelecionado === "proficiência") {
         link.download = `boletim-resultados-principais-${dreSelecionadaNome}.xls`;
