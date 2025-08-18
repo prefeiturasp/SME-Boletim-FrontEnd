@@ -321,7 +321,7 @@ const DresPage: React.FC = () => {
 
   useEffect(() => {
     buscarUes();
-    setUesSelecionadas([]);
+    setUesSelecionadas(prev => (prev.length === 0 ? prev : []));
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
  const fetchDresListagem = async () => {
