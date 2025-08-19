@@ -220,9 +220,7 @@ const RelatorioAlunosPorDres: React.FC<DownloadRelatorioProps> = ({
               onClick={downloadRelatorio}
               block
               className="btnAzulPadrao"
-            >
-              <p>Baixar os dados</p>
-            </Button>
+            >Baixar os dados</Button>
             <Button 
                 onClick={fecharModal} block style={{ }}
                 className="btnCancelar-dre"
