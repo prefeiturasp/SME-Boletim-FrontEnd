@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./relatorioAlunosPorUe.css";
+import "./relatorioAlunosPorUes.css";
 import { Button, Modal, notification } from "antd";
 import { servicos } from "../../servicos";
 import {
