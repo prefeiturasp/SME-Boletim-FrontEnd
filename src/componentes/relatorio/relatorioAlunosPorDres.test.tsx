@@ -128,4 +128,33 @@ describe("RelatorioAlunosPorDres", () => {
         expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
     });
 
+    it("desabilita o botão de download enquanto está carregando", async () => {
+        // Mock necessário para ambiente de teste
+        // @ts-ignore
+        if (!URL.createObjectURL) URL.createObjectURL = jest.fn(() => "blob:url");
+        // @ts-ignore
+        if (!URL.revokeObjectURL) URL.revokeObjectURL = jest.fn();
+
+        const getMock = require("../../servicos").servicos.get;
+        // Não resolve a promise para simular loading
+        getMock.mockImplementation(() => new Promise(() => {}));
+
+        render(<RelatorioAlunosPorDres {...defaultProps} />);
+        fireEvent.click(screen.getAllByText(/Baixar os dados/i)[1]);
+        fireEvent.click(screen.getByText(/Dados de proficiência por alunos/i));
+        const downloadBtn = screen.getAllByRole("button", { name: /Baixar os dados/i })[1];
+        fireEvent.click(downloadBtn);
+
+        // O botão deve ficar desabilitado enquanto está carregando
+        expect(downloadBtn).toBeDisabled();
+    });
+
+    it("desabilita o botão de download quando nenhuma opção está selecionada", () => {
+        render(<RelatorioAlunosPorDres {...defaultProps} />);
+        fireEvent.click(screen.getAllByText(/Baixar os dados/i)[1]);
+        // Não seleciona nenhuma opção
+        const downloadBtn = screen.getAllByRole("button", { name: /Baixar os dados/i })[1];
+        expect(downloadBtn).toBeDisabled();
+    });
+
 });

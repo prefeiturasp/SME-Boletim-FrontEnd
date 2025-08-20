@@ -49,8 +49,6 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
     if (tipoSelecionado === "probabilidade") {
       return `/api/BoletimEscolar/download-dre-probabilidade/${aplicacaoSelecionada}/${dreSelecionada}`;
     }
-
-    return null;
   };
 
   const downloadDadosUesArquivo = async () => {
