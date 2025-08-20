@@ -63,6 +63,8 @@
 
 .modal-botoes .btnAzulPadrao{
   height: 38px;
+  font-weight: 400;
+  size: 14px;
 }
 
 .modal-botoes .btnAzulPadrao p{  
