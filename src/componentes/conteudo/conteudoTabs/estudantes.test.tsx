@@ -4,12 +4,16 @@ import Estudantes from "./estudantes";
 import { useSelector as useSelectorBase } from "react-redux";
 import { servicos } from "../../../servicos";
 
-// Mock do serviço
-jest.mock("../../../servicos", () => ({
+beforeAll(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+jest.mock("../../servicos", () => ({
   servicos: {
     get: jest.fn(),
   },
 }));
+import Conteudo from "./conteudo";
 
 // Mock do componente de gráfico
 jest.mock("../../grafico/estudantePorMateria", () => () => <div>Gráfico</div>);
