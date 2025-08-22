@@ -30,7 +30,6 @@ const Conteudo: React.FC = () => {
 
   useEffect(() => {
     const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
-    console.log(tipoPerfil);
     if (tipoPerfil === 4 || tipoPerfil === 5) {
       setShowVoltarUes(true);
     } else {
