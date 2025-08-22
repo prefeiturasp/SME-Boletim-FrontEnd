@@ -12,6 +12,10 @@ jest.mock("../../../servicos", () => ({
   },
 }));
 
+jest.mock("../../grafico/desempenhoAno", () => () => (
+  <div data-testid="grafico-ano" />
+));
+
 describe("Principal Component", () => {
   const mockDados = [
     {
@@ -39,5 +43,51 @@ describe("Principal Component", () => {
     ).toBeInTheDocument();
 
     getSpy.mockRestore();
+  });
+
+  it("mostra o texto introdutório da seção", () => {
+    render(
+      <Provider store={store}>
+        <Principal />
+      </Provider>
+    );
+
+    expect(
+      screen.getByText(/Esta seção apresenta uma tabela e um gráfico/i)
+    ).toBeInTheDocument();
+  });
+
+  it("tem o botão 'Baixar os dados'", () => {
+    render(
+      <Provider store={store}>
+        <Principal />
+      </Provider>
+    );
+
+    expect(
+      screen.getByRole("button", { name: /Baixar os dados/i })
+    ).toBeInTheDocument();
+  });
+
+  it("mostra o texto da seção de download", () => {
+    render(
+      <Provider store={store}>
+        <Principal />
+      </Provider>
+    );
+
+    expect(
+      screen.getByText(/Você pode baixar os dados da/i)
+    ).toBeInTheDocument();
+  });
+
+  it("não mostra o gráfico quando não há dados", async () => {
+    render(
+      <Provider store={store}>
+        <Principal />
+      </Provider>
+    );
+
+    expect(screen.queryByTestId("grafico-ano")).toBeNull();
   });
 });

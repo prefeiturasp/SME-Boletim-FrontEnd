@@ -341,12 +341,8 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
                   onChange={(value) =>
                     handleFilterChange("nivelMinimoEscolhido", value)
                   }
-                >
-                  {generateOptions().map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
+                  options={generateOptions().map((v) => ({ value: v, label: v }))}
+                >                  
                 </Select>
               </div>
             </div>
@@ -360,12 +356,9 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
                   onChange={(value) =>
                     handleFilterChange("nivelMaximoEscolhido", value)
                   }
+                  options={generateOptions().map((v) => ({ value: v, label: v }))}
                 >
-                  {generateOptions().map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
+                  
                 </Select>
               </div>
             </div>

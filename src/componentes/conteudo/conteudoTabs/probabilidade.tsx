@@ -347,7 +347,7 @@ const Probabilidade: React.FC = () => {
                 backgroundColor: "transparent",
                 color: "white",
               }}
-              dropdownStyle={{ borderRadius: 8 }}
+              styles={{ popup: { root: { borderRadius: 8 } } }}
               variant="borderless"
               placeholder="Selecione"
               onChange={(value) => {
@@ -381,7 +381,7 @@ const Probabilidade: React.FC = () => {
                 backgroundColor: "transparent",
                 color: "white",
               }}
-              dropdownStyle={{ borderRadius: 8 }}
+              styles={{ popup: { root: { borderRadius: 8 } } }}
               variant="borderless"
               placeholder="Selecione"
               onChange={(value) => {
