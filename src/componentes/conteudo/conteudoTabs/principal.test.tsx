@@ -144,7 +144,6 @@ describe("Principal Component", () => {
     expect(screen.queryByTestId("grafico-ano")).toBeNull();
   });
 
-
   it("aciona o download ao clicar no botão", async () => {
     const { useSelector } = jest.requireMock("react-redux");
     useSelector.mockImplementation((selector: any) => selector(estadoBase));
@@ -198,6 +197,24 @@ describe("Principal Component", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("grafico-ano")).toBeInTheDocument();
+    });
+  });
+
+  it("desabilita o botão de download quando está carregando relatório", async () => {
+    const { useSelector } = jest.requireMock("react-redux");
+    useSelector.mockImplementation((selector: any) => selector(estadoBase));
+    jest.spyOn(servicos, "get")
+      .mockResolvedValueOnce([]) // para buscarAbrangencias
+      .mockResolvedValueOnce(new Blob(["test"], { type: "application/vnd.ms-excel" })); // para download
+
+    global.URL.createObjectURL = jest.fn(() => "blob:http://fake-url");
+
+    render(<Principal />);
+    const botao = screen.getByRole("button", { name: /Baixar os dados/i });
+    botao.click();
+
+    await waitFor(() => {
+      expect(botao).toBeDisabled();
     });
   });
 
