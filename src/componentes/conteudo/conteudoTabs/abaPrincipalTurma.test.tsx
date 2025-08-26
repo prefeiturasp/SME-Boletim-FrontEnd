@@ -30,6 +30,7 @@ const mockStableState = {
   escola: {
     escolaSelecionada: { ueId: 123 }, // Valor primitivo estável
   },
+  nomeAplicacao: { id: "APP1" },
   filtros: {
     anosEscolares: [], // Array vazio estável
     componentesCurriculares: [], // Array vazio estável
