@@ -1,8 +1,16 @@
-// src/pages/semAcesso.test.tsx
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SemAcesso from "./semAcesso";
+
+beforeAll(() => {
+  jest.spyOn(window, 'location', 'get').mockReturnValue({
+    ...window.location,
+    assign: jest.fn(),
+  });
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
+});
 
 describe("Componente SemAcesso", () => {
   beforeEach(() => {

@@ -3,6 +3,13 @@ import Auth from "./auth";
 import { servicos } from "../servicos";
 import * as reactRouterDom from "react-router-dom";
 
+beforeAll(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+});
+afterAll(() => {
+  (console.error as jest.Mock).mockRestore();
+});
+
 const mockDispatch = jest.fn();
 
 jest.mock("react-redux", () => {
