@@ -201,6 +201,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
               <Input
                 className="filtro-input"
                 placeholder="Digite o nome do estudante"
+                data-testid="input-nome-estudante"
                 value={selectedFilters.nomeEstudante}
                 onChange={(e) =>
                   handleFilterChange("nomeEstudante", e.target.value)
