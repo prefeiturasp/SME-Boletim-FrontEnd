@@ -730,6 +730,7 @@ const UesPage: React.FC = () => {
                             )}
                             <Button
                               className="btn-acessar-ue"
+                              data-testid={`btn-acessar-ue-${ue.id}`}
                               block
                               disabled={semDisciplinas}
                               onClick={() => {

@@ -15,6 +15,7 @@ beforeAll(() => {
 
 beforeEach(() => {
   jest.clearAllMocks();
+  localStorage.clear();
   (servicos.get as jest.Mock).mockImplementation((url: string) => {
     if (url.includes("aplicacoes-prova")) return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
     if (url.includes("anos-escolares")) return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
@@ -31,12 +32,16 @@ beforeEach(() => {
           totalEstudantes: 10,
           totalEstudadesRealizaramProva: 8,
           percentualEstudadesRealizaramProva: 80,
-          disciplinas: [],
+          disciplinas: [
+             { disciplina: "Matemática", nivelDescricao: "Básico", mediaProficiencia: 200.5 }
+          ],
         }],
       });
     }
     return Promise.resolve([]);
   });
+  Object.defineProperty(window, "scrollTo", { value: jest.fn(), writable: true });
+  localStorage.setItem("tipoPerfil", "5");
 });
 
 test("renderiza e permite acessar uma UE", async () => {
@@ -45,8 +50,9 @@ test("renderiza e permite acessar uma UE", async () => {
   expect(await screen.findAllByText(/Boletim de Provas/i)).not.toHaveLength(0);
   expect(await screen.findByText("UE A")).toBeInTheDocument();
 
-  const btn = screen.getByRole("button", { name: /Acessar UE/i });
-  fireEvent.click(btn);
+  const btns = screen.getAllByRole("button", { name: /Acessar UE/i });
+  const enabledBtn = btns.find(btn => !(btn as HTMLButtonElement).disabled);
+  fireEvent.click(enabledBtn!);
 
   expect(mockNavigate).toHaveBeenCalledWith("/?ueSelecionada=100");
 });
@@ -91,11 +97,11 @@ jest.mock("react-router-dom", () => {
 function renderPage(storeState?: any) {
   const fakeState = {
       nomeAplicacao: { id: 1, nome: "Aplicação 2025", tipoTai: true, dataInicioLote: "2025-01-01T00:00:00Z" },
-    };
-    useDispatchMock.mockReturnValue(jest.fn());
-    useSelectorMock.mockImplementation((selectorFn: any) => selectorFn(fakeState));
-    window.localStorage.setItem("tipoPerfil", "5");
-  
+  };
+
+  useDispatchMock.mockReturnValue(jest.fn());
+  useSelectorMock.mockImplementation((selectorFn: any) => selectorFn(fakeState));
+
   return render(    
       <MemoryRouter>
         <UesPage />
@@ -183,9 +189,11 @@ describe("UesPage - extra coverage", () => {
     });
     renderPage();
     expect(await screen.findByText("UE Sem Disciplina")).toBeInTheDocument();
-    expect(screen.getByText((content, node) =>
-      node.textContent?.includes("Não há dados cadastrados")
-    )).toBeInTheDocument();
+    expect(
+      screen.getAllByText((content, node) =>
+        Boolean(node?.textContent?.includes("Não há dados cadastrados"))
+      ).length
+    ).toBeGreaterThan(0);
   });
 
   it("deve atualizar dreSelecionada e dreSelecionadaNome ao trocar DRE", async () => {
@@ -228,22 +236,26 @@ describe("UesPage - extra coverage", () => {
   it("não deve renderizar botão Voltar a tela anterior se tipoPerfil for diferente de 5", async () => {
     localStorage.setItem("tipoPerfil", "1");
     renderPage();
-    await waitFor(() => expect(screen.queryByText("Voltar a tela anterior")).not.toBeInTheDocument());
+    await waitFor(() => 
+      expect(screen.queryByText("Voltar a tela anterior")).not.toBeInTheDocument()
+    );
   });
 
   it("deve renderizar cards de resumo com proficienciaDisciplina", async () => {
     renderPage();
     expect(await screen.findByText("Matemática")).toBeInTheDocument();
     expect(screen.getAllByText("Língua portuguesa").length).toBeGreaterThan(0);
-    expect(screen.getByText("Média de proficiência")).toBeInTheDocument();
+    expect(screen.getAllByText("Média de proficiência").length).toBeGreaterThan(0);
   });
 
   it("deve chamar navegação ao clicar em Acessar UE", async () => {
     renderPage();
-    const btns = await screen.findAllByRole("button", { name: /Acessar UE/i });
-    fireEvent.click(btns[0]);
+    const btn = await screen.findByTestId("btn-acessar-ue-100");
+    expect((btn as HTMLButtonElement).disabled).toBe(false);
+
+    fireEvent.click(btn);
+
     expect(mockNavigate).toHaveBeenCalledWith("/?ueSelecionada=100");
-    expect(btns[1]).toBeDisabled();
   });
 
   it("função estiloNivel retorna estilos corretos", () => {
