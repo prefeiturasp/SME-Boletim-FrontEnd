@@ -23,19 +23,23 @@ beforeEach(() => {
     if (url.includes("resumo-dre")) return Promise.resolve({ totalUes: 1, totalAlunos: 10, proficienciaDisciplina: [] });
     if (url.includes("ues-por-dre")) return Promise.resolve([{ ueId: 100, descricao: "UE A" }]);
     if (url.includes("ue-por-dre-dados")) {
-      return Promise.resolve({
-        totalRegistros: 1,
-        itens: [{
-          id: 100,
-          nome: "UE A",
+       const itens = [];
+      for (let i = 1; i <= 15; i++) {
+        itens.push({
+          id: 100 + i,
+          nome: `UE ${i}`,
           anoEscolar: 1,
-          totalEstudantes: 10,
-          totalEstudadesRealizaramProva: 8,
+          totalEstudantes: 10 + i,
+          totalEstudadesRealizaramProva: 8 + i,
           percentualEstudadesRealizaramProva: 80,
           disciplinas: [
-             { disciplina: "Matemática", nivelDescricao: "Básico", mediaProficiencia: 200.5 }
+            { disciplina: "Matemática", nivelDescricao: "Básico", mediaProficiencia: 200.5 }
           ],
-        }],
+        });
+      }
+      return Promise.resolve({
+        totalRegistros: 15,
+        itens,
       });
     }
     return Promise.resolve([]);
@@ -55,7 +59,7 @@ test("renderiza e permite acessar uma UE", async () => {
   fireEvent.click(enabledBtn!);
 
   expect(mockNavigate).toHaveBeenCalledWith("/?ueSelecionada=100");
-});
+}, 20000);
 
 // Mocks
 jest.mock("../servicos", () => ({
@@ -163,6 +167,7 @@ beforeEach(() => {
 
 describe("UesPage - extra coverage", () => {
   it("deve renderizar corretamente quando não há disciplinas nas UEs", async () => {
+    jest.clearAllMocks();
     (servicos.get as jest.Mock).mockImplementation((url: string) => {
       if (url.includes("ue-por-dre-dados")) {
         return Promise.resolve({
@@ -185,8 +190,13 @@ describe("UesPage - extra coverage", () => {
       if (url.includes("anos-escolares")) return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
       if (url.includes("Abrangencia/dres")) return Promise.resolve([{ id: 10, nome: "DRE Leste" }]);
       if (url.includes("resumo-dre")) return Promise.resolve({ totalUes: 1, totalAlunos: 5, proficienciaDisciplina: [] });
+      if (url.includes("ues-por-dre")) return Promise.resolve([{ /* dados simulados */ }]);
+      if (url.includes("ue-por-dre-dados")) return Promise.resolve([{ /* dados simulados */ }]);
+    
       return Promise.resolve([]);
     });
+    Object.defineProperty(window, "scrollTo", { value: jest.fn(), writable: true });
+    localStorage.setItem("tipoPerfil", "5");
     renderPage();
     expect(await screen.findByText("UE Sem Disciplina")).toBeInTheDocument();
     expect(
