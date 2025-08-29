@@ -97,7 +97,6 @@ const UesPage: React.FC = () => {
 
   useEffect(() => {
     const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
-    console.log(tipoPerfil);
     if (tipoPerfil === 5) {
       setShowVoltarUes(true);
     } else {
@@ -534,13 +533,13 @@ const UesPage: React.FC = () => {
             <br />
             <Row gutter={[16, 16]} className="cards-container">
               <Col xs={24} sm={12} md={6}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                <Card className="card-resumo" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalUes ?? "-"}</div>
                   <div className="descricao">Unidades Educacionais</div>
                 </Card>
               </Col>
               <Col xs={24} sm={12} md={6}>
-                <Card className="card-resumo" bodyStyle={{ padding: 0 }}>
+                <Card className="card-resumo" style={{ padding: 0 }}>
                   <div className="valor">{resumoDre?.totalAlunos ?? "-"}</div>
                   <div className="descricao">Estudantes</div>
                 </Card>
@@ -548,7 +547,7 @@ const UesPage: React.FC = () => {
               {resumoDre?.proficienciaDisciplina?.map(
                 (disciplina: any, idx: number) => (
                   <Col xs={24} sm={12} md={6} key={idx}>
-                    <Card className="card-resumo" bodyStyle={{ padding: 0, paddingTop: "0.3em"}}>
+                    <Card className="card-resumo" style={{ padding: 0, paddingTop: "0.3em"}}>
                       <div className="valor">
                         {disciplina.mediaProficiencia?.toFixed(1) ?? "-"}
                       </div>
@@ -731,6 +730,7 @@ const UesPage: React.FC = () => {
                             )}
                             <Button
                               className="btn-acessar-ue"
+                              data-testid={`btn-acessar-ue-${ue.id}`}
                               block
                               disabled={semDisciplinas}
                               onClick={() => {
