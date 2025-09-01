@@ -1,0 +1,91 @@
+.secao-sobre-comparativo{
+    padding-bottom: 10px;
+    color: #595959;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.filtros-card-comparacao-borda{    
+    border: 1px solid #D5D5D5;
+    border-radius: 4px;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.filtros-card-comparacao-borda span{
+    color: #595959;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.filtros-card-comparacao-select{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* 
+.label-filtro-component-curricular,
+.label-filtro-ano,
+.label-filtro-turma{
+    color: #595959;  
+    font-style: normal;
+    font-family: sans-serif;
+    padding-left: 0.1em; 
+    padding-bottom: 0.3em; 
+} */
+
+
+.filtro-component-curricular-comparativo span,
+.filtro-ano-comparativo span,
+.filtro-turma-comparativo span{
+    font-weight: 700;
+    color: #595959;
+}
+
+.filtro-component-curricular-comparativo .ant-select-single {
+    width: 185px;
+}
+
+.filtro-ano-comparativo .ant-select-single {
+    width: 145px;
+}
+
+.filtro-turma-comparativo .ant-select-single {
+    width: 140px;
+}
+
+.select-custom-comparativo .ant-select-selector {
+  width: 100% !important;  
+  border: none;  
+  width: 170px;
+  background-color: transparent;
+  color: white;
+  border-radius: 0;
+}
+
+.select-custom-comparativo .ant-select-selection-wrap{
+    border-bottom: 1px solid #D5D5D5;
+}
+
+.select-custom-comparativo .ant-select-dropdown {
+    border-radius: 8px;
+}
+
+/* Responsivo: quebra para 100% abaixo de 768px */
+@media (max-width: 768px) {
+  .filtro-component-curricular,
+  .filtro-ano,
+  .filtro-turma {
+    flex: 1 1 100%;
+  }
+}
+
+
+
+
+
+
+
+
