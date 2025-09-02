@@ -1,6 +1,8 @@
-import { Select, Spin } from "antd";
+import { Card, Col, Row, Select, Spin } from "antd";
 import "./comparativo.css"
 import { useState } from "react";
+import iconeDados from "../../../assets/icon-dados.svg";
+import iconeAlunos from "../../../assets/icon-alunos.svg";
 
 const Comparativo: React.FC = () => {
     const [estaCarregando, setEstaCarregando] = useState(false);
@@ -13,6 +15,23 @@ const Comparativo: React.FC = () => {
 
     const [turmas, setTurmas] = useState([]);
     const [turmaSelecionada, setTurmaSelecionada] = useState();
+
+    const [proeficiencia, setProeficiencia] = useState<any | null>(192.2);
+
+    const getNivelColor = (nivel: string) => {
+        switch (nivel) {
+        case "Abaixo do básico":
+            return "#FF5959";
+        case "Básico":
+            return "#FEDE99";
+        case "Avançado":
+            return "#99FF99";
+        case "Adequado":
+            return "#9999FF";
+        default:
+            return "black";
+        }
+    };
 
     return (
         <Spin spinning={estaCarregando} tip="Carregando...">
@@ -84,9 +103,186 @@ const Comparativo: React.FC = () => {
                             options={turmas}
                         />
                     </div>
-                </div>
-                
+                </div>                
             </div>
+            
+            <div className="cards-comparacao">
+                <Row gutter={[16, 16]} className="cards-container-comparacao">
+                    <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px'}}>
+                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
+                            <div style={{}}>Proeficiência
+                                <div style={{float: 'right', fontSize: '12px'}}>
+                                    <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <span
+                                            style={{
+                                            width: "10px",
+                                            height: "10px",
+                                            borderRadius: "50%",
+                                            backgroundColor: getNivelColor("Abaixo do básico"),
+                                            }}
+                                        ></span>
+                                    {"Abaixo do básico"}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{proeficiencia ?? "-"}</div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeDados}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Prova São Paulo</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>Janeiro 2025</div>
+                                </div>
+                            </div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeAlunos}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Estudantes que realizaram a prova:</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>862 (95,6%)</div>
+                                </div>
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px', paddingLeft: '2px'}}>
+                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
+                            <div style={{}}>Proeficiência
+                                <div style={{float: 'right', fontSize: '12px'}}>
+                                    <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <span
+                                            style={{
+                                            width: "10px",
+                                            height: "10px",
+                                            borderRadius: "50%",
+                                            backgroundColor: getNivelColor("Abaixo do básico"),
+                                            }}
+                                        ></span>
+                                    {"Abaixo do básico"}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{proeficiencia ?? "-"}</div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeDados}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Prova São Paulo</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>Janeiro 2025</div>
+                                </div>
+                            </div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeAlunos}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Estudantes que realizaram a prova:</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>862 (95,6%)</div>
+                                </div>
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px', paddingLeft: '2px'}}>
+                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
+                            <div style={{}}>Proeficiência
+                                <div style={{float: 'right', fontSize: '12px'}}>
+                                    <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <span
+                                            style={{
+                                            width: "10px",
+                                            height: "10px",
+                                            borderRadius: "50%",
+                                            backgroundColor: getNivelColor("Abaixo do básico"),
+                                            }}
+                                        ></span>
+                                    {"Abaixo do básico"}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{proeficiencia ?? "-"}</div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeDados}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Prova São Paulo</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>Janeiro 2025</div>
+                                </div>
+                            </div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeAlunos}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Estudantes que realizaram a prova:</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>862 (95,6%)</div>
+                                </div>
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} style={{paddingLeft: '2px'}}>
+                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
+                            <div style={{}}>Proeficiência
+                                <div style={{float: 'right', fontSize: '12px'}}>
+                                    <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <span
+                                            style={{
+                                            width: "10px",
+                                            height: "10px",
+                                            borderRadius: "50%",
+                                            backgroundColor: getNivelColor("Abaixo do básico"),
+                                            }}
+                                        ></span>
+                                    {"Abaixo do básico"}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{proeficiencia ?? "-"}</div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeDados}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Prova São Paulo</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>Janeiro 2025</div>
+                                </div>
+                            </div>
+                            <div className="cards-conteudo-valores">
+                                <img
+                                    src={iconeAlunos}
+                                    alt="Ícone disciplina"
+                                    className="cards-conteudo-valores-icon"
+                                />
+                                <div>
+                                    <div style={{width: '100%'}}>Estudantes que realizaram a prova:</div>
+                                    <div style={{fontWeight: '500', fontSize: '12px'}}>862 (95,6%)</div>
+                                </div>
+                            </div>
+                        </Card>
+                    </Col>                    
+                </Row>
+                <div className="info-blue">
+                    Informações da <span style={{fontWeight: '700'}}>EMEF Bartolomeu ourenço de Gusmão</span> nas provas São Paulo (PSP) e  Saberes e Aprendizagens (PSA)
+                </div>
+
+            </div>
+                
         </Spin>
     )
 }
