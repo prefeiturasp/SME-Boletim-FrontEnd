@@ -227,7 +227,7 @@ const Comparativo: React.FC = () => {
                         <span>Turma:</span>
                         <Select
                             className="select-custom-comparativo"
-                            placeholder="Selecione"
+                            placeholder="Todas"
                             variant="borderless"
                             onChange={(value) => {
                                 setTurmaSelecionada(value);
@@ -250,7 +250,7 @@ const Comparativo: React.FC = () => {
                     <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px'}}>
                         <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
                             <div className="cards-conteudo-titulo">
-                                <span>Proeficiência</span>
+                                <span>Proficiência</span>
                                 <div style={{float: 'right', fontSize: '12px'}}>
                                     <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <span
@@ -295,7 +295,7 @@ const Comparativo: React.FC = () => {
                     <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px', paddingLeft: '2px'}}>
                         <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
                             <div className="cards-conteudo-titulo">
-                                <span>Proeficiência</span>
+                                <span>Proficiência</span>
                                 <div style={{float: 'right', fontSize: '12px'}}>
                                     <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <span
@@ -340,7 +340,7 @@ const Comparativo: React.FC = () => {
                     <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px', paddingLeft: '2px'}}>
                         <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
                              <div className="cards-conteudo-titulo">
-                                <span>Proeficiência</span>
+                                <span>Proficiência</span>
                                 <div style={{float: 'right', fontSize: '12px'}}>
                                     <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <span
@@ -385,7 +385,7 @@ const Comparativo: React.FC = () => {
                     <Col xs={24} sm={24} md={24} lg={6} style={{paddingLeft: '2px'}}>
                         <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
                             <div className="cards-conteudo-titulo">
-                                <span>Proeficiência</span>
+                                <span>Proficiência</span>
                                 <div style={{float: 'right', fontSize: '12px'}}>
                                     <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <span
