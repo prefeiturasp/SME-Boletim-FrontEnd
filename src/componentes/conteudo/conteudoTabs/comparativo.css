@@ -82,17 +82,22 @@
     flex-wrap: wrap;
 }
 
+.cards-conteudo-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .card-conteudo-comparacao .ant-card-body{
     border: 1px solid #f1f0f0;
     border-radius: 4px;
     background-color: white;
     box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.12);
-
     padding: 1.6em !important;
     color: #595959;
     font-size: 14px;
     font-weight: 400 !important;
-    height: 232px;
+    height: auto;
 }
 
 .cards-conteudo-valores{
@@ -102,10 +107,33 @@
     align-items: center;
     margin-top: 11px;
     border-radius: 4px;
+    padding: 0.5em;
+}
+
+
+.cards-conmteudo-valores-label{
+    display: flex;
+    align-items: center;  
+    width: auto;
+    line-height: 1em;
+}
+
+.cards-conmteudo-valores-valor-mes{
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 2em;
+    width: 100%;
+}
+
+.cards-conmteudo-valores-valor{
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 1.7em;
+    width: 100%;
 }
 
 .cards-conteudo-valores-icon{
-    margin: 0.5em;
+    margin-right: 0.5em;
 }
 
 .info-blue{
