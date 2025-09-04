@@ -9,6 +9,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Comparativo from "./comparativo";
 import { useSelector, useDispatch } from "react-redux";
 import { servicos } from "../../../servicos";
+import { getNivelColor } from "./comparativo";
+import { act } from "@testing-library/react";
 
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -72,6 +74,8 @@ describe("Comparativo", () => {
     expect(profSpans.length).toBe(4);
     expect(screen.getByText(/Informações da/i)).toBeInTheDocument();
     expect(screen.getByText("Leste")).toBeInTheDocument();
+    // Exemplo de teste para garantir que a imagem está no DOM
+    expect(screen.getAllByAltText("Ícone disciplina").length).toBeGreaterThan(0);
   });
 
   it("deve renderizar selects com opções corretas", () => {
@@ -163,5 +167,54 @@ describe("Comparativo", () => {
   it("deve renderizar todos os níveis dos cards", () => {
     render(<Comparativo />);
     expect(screen.getAllByText("Abaixo do básico").length).toBe(4);
+  });
+
+
+
+
+  // it("deve buscar turmas e atualizar o estado", async () => {
+  //   const turmasMock = [{ texto: "Turma 1", valor: 1 }];
+  //   (servicos.get as jest.Mock).mockResolvedValueOnce(turmasMock);
+
+  //   render(<Comparativo />);
+
+  //   // Aguarda o estado ser atualizado e o componente re-renderizar
+  //   await act(async () => {
+  //     await Promise.resolve();
+  //     await Promise.resolve(); // aguarda mais um tick
+  //   });
+
+  //   fireEvent.mouseDown(screen.getAllByRole("combobox")[2]);
+
+  //   // Busca no document.body, pois o AntD pode renderizar fora do container principal    
+  //   fireEvent.mouseDown(screen.getAllByRole("combobox")[2]);
+  //   await act(async () => { await Promise.resolve(); });
+  //   expect(document.body.textContent).toContain("Turma 1");
+  // });
+
+  it("deve tratar erro ao buscar turmas", async () => {
+    (servicos.get as jest.Mock).mockRejectedValueOnce(new Error("Erro de rede"));
+
+    render(<Comparativo />);
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    // O estado de loading deve ser falso após o erro
+    // (você pode testar se o spinner sumiu, por exemplo)
+    expect(screen.queryByText(/Carregando.../i)).not.toBeInTheDocument();
+  });
+
+
+});
+
+describe("getNivelColor", () => {
+  it("retorna a cor correta para cada nível", () => {
+    expect(getNivelColor("Abaixo do básico")).toBe("#FF5959");
+    expect(getNivelColor("Básico")).toBe("#FEDE99");
+    expect(getNivelColor("Avançado")).toBe("#99FF99");
+    expect(getNivelColor("Adequado")).toBe("#9999FF");
+    expect(getNivelColor("Qualquer outro")).toBe("black");
   });
 });

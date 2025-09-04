@@ -50,22 +50,7 @@ const Comparativo: React.FC = () => {
 
     //Mock
     const [proeficiencia, setProeficiencia] = useState<any | null>(192.2);
-
-    const getNivelColor = (nivel: string) => {
-        switch (nivel) {
-        case "Abaixo do básico":
-            return "#FF5959";
-        case "Básico":
-            return "#FEDE99";
-        case "Avançado":
-            return "#99FF99";
-        case "Adequado":
-            return "#9999FF";
-        default:
-            return "black";
-        }
-    };
-
+   
 
     const alteraRadio = (valor: string, tipo: TipoFiltro) => {
         if (tipo === "componentesCurriculares") {
@@ -105,15 +90,15 @@ const Comparativo: React.FC = () => {
 
             setTurmas(resposta || []);
 
-            if (resposta.length > 0) {
-            const primeiraTurma = resposta[0];
+            // if (resposta.length > 0) {
+            // const primeiraTurma = resposta[0];
             // dispatch(
             //   setNomeAplicacao({
             //     id: primeiraTurma.id,
             //     nome: primeiraTurma.nome,                
             //   })
             // );
-            }
+            //}
         } catch (error) {
             console.error("Erro ao buscar turmas:", error);
         }finally {
@@ -127,7 +112,6 @@ const Comparativo: React.FC = () => {
     //       buscarTurmas();
     //     }
     //   }, [escolaSelecionada]);
-
 
     // Vai ser trocado quando o BACKEND estiver pronto.
     // const buscarComparacoesCards = async () => {
@@ -439,3 +423,18 @@ const Comparativo: React.FC = () => {
 }
 
 export default Comparativo;
+
+export const getNivelColor = (nivel: string) => {
+    switch (nivel) {
+    case "Abaixo do básico":
+        return "#FF5959";
+    case "Básico":
+        return "#FEDE99";
+    case "Avançado":
+        return "#99FF99";
+    case "Adequado":
+        return "#9999FF";
+    default:
+        return "black";
+    }
+};
