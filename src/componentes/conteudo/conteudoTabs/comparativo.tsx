@@ -4,12 +4,10 @@ import {useEffect, useState } from "react";
 import iconeDados from "../../../assets/icon-dados.svg";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { RootState } from "../../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { setFilters } from "../../../redux/slices/filtrosSlice";
+import { useSelector } from "react-redux";
 import { servicos } from "../../../servicos";
 
-const Comparativo: React.FC = () => {
-    const dispatch = useDispatch();
+const Comparativo: React.FC = () => {    
     const [estaCarregando, setEstaCarregando] = useState(false);
 
     //Confirmar como vai ficar
@@ -31,26 +29,27 @@ const Comparativo: React.FC = () => {
     );
 
 
-    const [componentesCurricularSelecionado, setComponentesCurricular] = useState(
-        filtroCompleto.componentesCurriculares
-        ?.slice()
-        .sort((a, b) => a.texto.localeCompare(b.texto))[0]?.texto || ""
+    //Codigo para o valor ficar ordenado.
+    const componentesOrdenados = filtroCompleto.componentesCurriculares
+    ?.slice()
+    .sort((a, b) => a.texto.localeCompare(b.texto)) || [];
+    
+    const primeiroValor = componentesOrdenados[0]?.valor ?
+    Number(componentesOrdenados[0]?.valor): null;
+
+    const [componentesCurricularSelecionado, setComponentesCurricular] = useState<string>(
+        componentesOrdenados[0]?.texto ?? ""
     );
-    const [componentesCurricularSelecionadoId, setComponentesCurricularId] = useState(
-        filtroCompleto.componentesCurriculares
-        ?.slice()
-        .sort((a, b) => a.texto.localeCompare(b.texto))[0]?.valor || ""
+
+    const [componentesCurricularSelecionadoId, setComponentesCurricularId] = useState<number | null>(
+        primeiroValor
     );
 
     const [anosEscolarSelecionado, setAnoEscolar] = useState(
-        filtroCompleto.anosEscolares
-        ?.slice()
-        .sort((a, b) => a.texto.localeCompare(b.texto))[0]?.texto || ""
+        filtroCompleto.anosEscolares[0]?.texto ?? ""
     );
     const [anosEscolarSelecionadoId, setAnoEscolarId] = useState(
-        filtroCompleto.anosEscolares
-        ?.slice()
-        .sort((a, b) => a.texto.localeCompare(b.texto))[0]?.valor || ""
+        filtroCompleto.anosEscolares[0]?.valor ?? null
     );
  
     const [turmaSelecionada, setTurma] = useState("Todas");
@@ -64,56 +63,25 @@ const Comparativo: React.FC = () => {
     useEffect(() => {
         if (activeTab !== '5') return;
 
-        const componenteId = filtrosSelecionados.componentesCurricularesRadio?.[0]?.valor;
-        const anoId = filtrosSelecionados.anosEscolaresRadio?.[0]?.valor;
-
-        if (aplicacaoSelecionada && escolaSelecionada?.ueId && componenteId && anoId) {
-            //buscarCardsComparacao();
+        if (aplicacaoSelecionada && escolaSelecionada?.ueId && componentesCurricularSelecionadoId && anosEscolarSelecionadoId) {
+            buscarCardsComparacao();
         }
         }, [
         activeTab,
         aplicacaoSelecionada,
         escolaSelecionada?.ueId,
-        filtrosSelecionados.componentesCurricularesRadio,
-        filtrosSelecionados.anosEscolaresRadio,
+        componentesCurricularSelecionadoId,
+        anosEscolarSelecionadoId,
     ]);
-
-    //Mock
-    const [proeficiencia, setProeficiencia] = useState<any | null>(192.2);   
-
-    const alteraRadio = (valor: string, tipo: TipoFiltro) => {
-        if (tipo === "componentesCurriculares") {
-            setComponentesCurricular(valor);
-            setComponentesCurricularId(valor);
-            const item = filtroCompleto.componentesCurriculares.find(
-            (item) => item.texto === valor
-            );
-            const novosFiltros = {
-            ...filtrosSelecionados,
-            componentesCurricularesRadio: [item],
-            };
-            dispatch(setFilters(novosFiltros));
-        } else if (tipo === "anosEscolares") {
-            setAnoEscolar(valor);
-            setAnoEscolarId(valor);
-            const item = filtroCompleto.anosEscolares.find(
-            (item) => item.texto === valor
-            );
-            const novosFiltros = {
-            ...filtrosSelecionados,
-            anosEscolaresRadio: [item],
-            };
-            dispatch(setFilters(novosFiltros));
-        }
-    };
-    
+   
+        
     const buscarCardsComparacao = async () => {
         try {
             setEstaCarregando(true);
             setResumoCardsComparacao(null);
 
-            const componenteId = filtrosSelecionados.componentesCurricularesRadio?.[0]?.valor;
-            const anoId = filtrosSelecionados.anosEscolaresRadio?.[0]?.valor;
+            const componenteId = componentesCurricularSelecionadoId;
+            const anoId = anosEscolarSelecionadoId;
 
             if (!aplicacaoSelecionada || !escolaSelecionada?.ueId || !componenteId || !anoId) return;
 
@@ -130,6 +98,8 @@ const Comparativo: React.FC = () => {
         }
     };
 
+    
+
     return (
         <Spin spinning={estaCarregando} tip="Carregando...">
             <div>
@@ -145,23 +115,16 @@ const Comparativo: React.FC = () => {
                 <div className="filtros-card-comparacao-select">
                     <div className="filtro-component-curricular-comparativo">
                         <span>Componente curricular:</span>
-                        <Select
+                        <Select<number>
                             className="select-custom-comparativo"
                             placeholder="Selecione"
                             variant="borderless"
-                            onChange={(value) => {
-                                setComponentesCurricular(value);
+                            onChange={(value: number) => {
                                 setComponentesCurricularId(value);
-                                alteraRadio(value, "componentesCurriculares");
+                                const item = filtroCompleto.componentesCurriculares.find(i => i.valor === value);
+                                setComponentesCurricular(item?.texto ?? "");                                
                             }}
-                            value={
-                                filtrosSelecionados &&
-                                filtrosSelecionados.componentesCurricularesRadio.length > 0 &&
-                                filtrosSelecionados.componentesCurricularesRadio[0] &&
-                                filtrosSelecionados.componentesCurricularesRadio[0].texto
-                                ? filtrosSelecionados.componentesCurricularesRadio[0].texto
-                                : undefined
-                            }
+                            value={componentesCurricularSelecionadoId}
                             notFoundContent="Nenhum componente curricular encontrado"
                             filterOption={(input, option: any) =>
                                 (option?.label ?? "")
@@ -172,7 +135,7 @@ const Comparativo: React.FC = () => {
                             .slice()
                             .sort((a, b) => a.texto.localeCompare(b.texto))
                             .map((item) => (
-                                <Select.Option key={item.valor} value={item.texto}>
+                                <Select.Option key={item.valor} value={item.valor}>
                                     {item.texto}
                                 </Select.Option>
                             ))}
@@ -185,18 +148,11 @@ const Comparativo: React.FC = () => {
                             placeholder="Selecione"
                             variant="borderless"
                             onChange={(value) => {
-                                setAnoEscolar(value);
                                 setAnoEscolarId(value);
-                                alteraRadio(value, "anosEscolares");
+                                const item = filtroCompleto.anosEscolares.find(i => i.valor === value);
+                                setAnoEscolar(item?.texto ?? "");
                             }}
-                            value={
-                                filtrosSelecionados &&
-                                filtrosSelecionados.anosEscolaresRadio.length > 0 &&
-                                filtrosSelecionados.anosEscolaresRadio[0] &&
-                                filtrosSelecionados.anosEscolaresRadio[0].texto
-                                ? filtrosSelecionados.anosEscolaresRadio[0].texto
-                                : undefined
-                            }
+                            value={anosEscolarSelecionadoId}
                             notFoundContent="Nenhum ano encontrado"
                             filterOption={(input, option: any) =>
                                 (option?.label ?? "")
@@ -205,7 +161,7 @@ const Comparativo: React.FC = () => {
                             }                            
                         >
                         {filtroCompleto.anosEscolares.map((item) => (
-                            <Select.Option key={item.valor} value={item.texto}>
+                            <Select.Option key={item.valor} value={item.valor}>
                                 {item.texto + "º ano"}
                             </Select.Option>
                         ))}
@@ -254,29 +210,29 @@ const Comparativo: React.FC = () => {
                                             width: "10px",
                                             height: "10px",
                                             borderRadius: "50%",
-                                            backgroundColor: getNivelColor(resumoCardsComparacao?.nivelProficiencia ?? ""),
+                                            backgroundColor: getNivelColor(resumoCardsComparacao?.provaSP?.nivelProficiencia ?? ""),
                                             }}
                                         ></span>
-                                    {resumoCardsComparacao?.nivelProficiencia ?? "-"}
+                                    {resumoCardsComparacao?.provaSP?.nivelProficiencia ?? "-"}
                                     </span>
                                 </div>
                             </div>
-                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{resumoCardsComparacao?.mediaProficiencia ?? "-"}</div>
+                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{resumoCardsComparacao?.provaSP?.mediaProficiencia ?? "-"}</div>
                             <div className="cards-conteudo-valores">
-                                <div className="cards-conmteudo-valores-label">
+                                <div className="cards-conteudo-valores-label">
                                     <img
                                         src={iconeDados}
                                         alt="Ícone disciplina"
                                         className="cards-conteudo-valores-icon"
                                     />
-                                    <span style={{paddingBottom: '0.2em'}}>{resumoCardsComparacao?.nomeAplicacao ?? "-"}</span>
+                                    <span style={{paddingBottom: '0.2em'}}>Prova {resumoCardsComparacao?.provaSP?.nomeAplicacao ?? "-"}</span>
                                 </div>
-                                <div className="cards-conmteudo-valores-valor-mes">
-                                    <span>{resumoCardsComparacao?.periodo ?? "-"}</span>
+                                <div className="cards-conteudo-valores-valor-mes">
+                                    <span>{resumoCardsComparacao?.provaSP?.periodo ?? "-"}</span>
                                 </div>
                             </div>
                             <div className="cards-conteudo-valores">
-                                <div className="cards-conmteudo-valores-label">
+                                <div className="cards-conteudo-valores-label">
                                     <img
                                         src={iconeAlunos}
                                         alt="Ícone disciplina"
@@ -284,7 +240,7 @@ const Comparativo: React.FC = () => {
                                     />
                                     <span>Estudantes que realizaram a prova:</span>
                                 </div>
-                                <div className="cards-conmteudo-valores-valor">{resumoCardsComparacao?.totalRealizaramProva ?? "-"}</div>
+                                <div className="cards-conteudo-valores-valor">{resumoCardsComparacao?.provaSP?.totalRealizaramProva ?? "-"}</div>
                             </div>
                         </Card>
                     </Col>
@@ -311,20 +267,20 @@ const Comparativo: React.FC = () => {
                                 </div>
                                 <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{comparacao?.mediaProficiencia ?? "-"}</div>
                                 <div className="cards-conteudo-valores">
-                                    <div className="cards-conmteudo-valores-label">
+                                    <div className="cards-conteudo-valores-label">
                                         <img
                                             src={iconeDados}
                                             alt="Ícone disciplina"
                                             className="cards-conteudo-valores-icon"
                                         />
-                                        <span style={{paddingBottom: '0.2em'}}>{comparacao?.nomeAplicacao ?? "-"}</span>
+                                        <span style={{paddingBottom: '0.2em'}}>Prova {comparacao?.nomeAplicacao ?? "-"}</span>
                                     </div>                                
-                                    <div className="cards-conmteudo-valores-valor-mes">
+                                    <div className="cards-conteudo-valores-valor-mes">
                                         <span>{comparacao?.periodo ?? "-"}</span>
                                     </div>
                                 </div>
                                 <div className="cards-conteudo-valores">
-                                    <div className="cards-conmteudo-valores-label">
+                                    <div className="cards-conteudo-valores-label">
                                         <img
                                             src={iconeAlunos}
                                             alt="Ícone disciplina"
@@ -332,103 +288,12 @@ const Comparativo: React.FC = () => {
                                         />
                                         <span>Estudantes que realizaram a prova:</span>
                                     </div>
-                                    <div className="cards-conmteudo-valores-valor">{comparacao?.totalRealizaramProva ?? "-"}</div>
+                                    <div className="cards-conteudo-valores-valor">{comparacao?.totalRealizaramProva ?? "-"}</div>
                                 </div>
                             </Card>
                         </Col>
                      ))
                     }
-
-                    {/* <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px', paddingLeft: '2px'}}>
-                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
-                             <div className="cards-conteudo-titulo">
-                                <span>Proficiência</span>
-                                <div style={{float: 'right', fontSize: '12px'}}>
-                                    <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                        <span
-                                            style={{
-                                            width: "10px",
-                                            height: "10px",
-                                            borderRadius: "50%",
-                                            backgroundColor: getNivelColor("Abaixo do básico"),
-                                            }}
-                                        ></span>
-                                    {"Abaixo do básico"}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{proeficiencia ?? "-"}</div>
-                            <div className="cards-conteudo-valores">
-                                <div className="cards-conmteudo-valores-label">
-                                    <img
-                                        src={iconeDados}
-                                        alt="Ícone disciplina"
-                                        className="cards-conteudo-valores-icon"
-                                    />
-                                    <span style={{paddingBottom: '0.2em'}}>Prova Saberes e Aprendizagens</span>
-                                </div>                                
-                                <div className="cards-conmteudo-valores-valor-mes">
-                                    <span>2025</span>
-                                </div>
-                            </div>
-                            <div className="cards-conteudo-valores">
-                                <div className="cards-conmteudo-valores-label">
-                                    <img
-                                        src={iconeAlunos}
-                                        alt="Ícone disciplina"
-                                        className="cards-conteudo-valores-icon"
-                                    />
-                                    <span>Estudantes que realizaram a prova:</span>
-                                </div>
-                                <div className="cards-conmteudo-valores-valor">862 (95,6%)</div>
-                            </div>
-                        </Card>
-                    </Col>
-                    <Col xs={24} sm={24} md={24} lg={6} style={{paddingLeft: '2px'}}>
-                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
-                            <div className="cards-conteudo-titulo">
-                                <span>Proficiência</span>
-                                <div style={{float: 'right', fontSize: '12px'}}>
-                                    <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                        <span
-                                            style={{
-                                            width: "10px",
-                                            height: "10px",
-                                            borderRadius: "50%",
-                                            backgroundColor: getNivelColor("Abaixo do básico"),
-                                            }}
-                                        ></span>
-                                    {"Abaixo do básico"}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style={{ width: '100%', fontSize: '38px', fontWeight: '700' }}>{proeficiencia ?? "-"}</div>
-                            <div className="cards-conteudo-valores">
-                                <div className="cards-conmteudo-valores-label">
-                                    <img
-                                        src={iconeDados}
-                                        alt="Ícone disciplina"
-                                        className="cards-conteudo-valores-icon"
-                                    />
-                                    <span style={{paddingBottom: '0.2em'}}>Prova Saberes e Aprendizagens</span>
-                                </div>                                
-                                <div className="cards-conmteudo-valores-valor-mes">
-                                    <span>2025</span>
-                                </div>
-                            </div>
-                            <div className="cards-conteudo-valores">
-                                <div className="cards-conmteudo-valores-label">
-                                    <img
-                                        src={iconeAlunos}
-                                        alt="Ícone disciplina"
-                                        className="cards-conteudo-valores-icon"
-                                    />
-                                    <span>Estudantes que realizaram a prova:</span>
-                                </div>
-                                <div className="cards-conmteudo-valores-valor">862 (95,6%)</div>
-                            </div>
-                        </Card>
-                    </Col>*/}
                 </Row>
                 <div className="info-blue">
                     Informações da <span style={{fontWeight: '700'}}>{escolaSelecionada.descricao?.replace("DRE SA -", "")}</span> nas provas São Paulo (PSP) e  Saberes e Aprendizagens (PSA)
@@ -442,7 +307,7 @@ export default Comparativo;
 
 export const getNivelColor = (nivel: string) => {
     switch (nivel) {
-    case "Abaixo do básico":
+    case "Abaixo do Básico":
         return "#FF5959";
     case "Básico":
         return "#FEDE99";
