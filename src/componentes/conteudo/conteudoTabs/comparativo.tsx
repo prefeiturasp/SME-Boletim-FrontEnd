@@ -199,8 +199,8 @@ const Comparativo: React.FC = () => {
             
             <div className="cards-comparacao">
                 <Row gutter={[16, 16]} className="cards-container-comparacao">
-                    <Col xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px'}}>
-                        <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
+                    <Col xs={24} sm={24} md={24} lg={6} key="prova-sp">
+                        <Card className="card-conteudo-comparacao" style={{ padding: '0' }}>
                             <div className="cards-conteudo-titulo">
                                 <span>Proficiência</span>
                                 <div style={{float: 'right', fontSize: '12px'}}>
@@ -225,7 +225,7 @@ const Comparativo: React.FC = () => {
                                         alt="Ícone disciplina"
                                         className="cards-conteudo-valores-icon"
                                     />
-                                    <span style={{paddingBottom: '0.2em'}}>Prova {resumoCardsComparacao?.provaSP?.nomeAplicacao ?? "-"}</span>
+                                    <span style={{paddingBottom: '0.2em'}}>{resumoCardsComparacao?.provaSP?.nomeAplicacao ?? "-"}</span>
                                 </div>
                                 <div className="cards-conteudo-valores-valor-mes">
                                     <span>{resumoCardsComparacao?.provaSP?.periodo ?? "-"}</span>
@@ -245,9 +245,8 @@ const Comparativo: React.FC = () => {
                         </Card>
                     </Col>
                     {resumoCardsComparacao?.lotes?.map(
-                     (comparacao: any, idx: number) =>(
-                        //editar css do paddings depois
-                        <Col key={idx} xs={24} sm={24} md={24} lg={6} style={{paddingRight: '2px', paddingLeft: '2px'}}>
+                     (comparacao: any, idx: number) =>(                        
+                        <Col key={idx} xs={24} sm={24} md={24} lg={6} style={{ paddingLeft: '0px'}}>
                             <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
                                 <div className="cards-conteudo-titulo">
                                     <span>Proficiência</span>
@@ -273,7 +272,11 @@ const Comparativo: React.FC = () => {
                                             alt="Ícone disciplina"
                                             className="cards-conteudo-valores-icon"
                                         />
-                                        <span style={{paddingBottom: '0.2em'}}>Prova {comparacao?.nomeAplicacao ?? "-"}</span>
+                                        <span style={{paddingBottom: '0.2em'}}
+                                            title={`Prova ${comparacao?.nomeAplicacao ?? '-'}`}
+                                        >
+                                            Prova {comparacao?.nomeAplicacao ?? "-"}
+                                        </span>
                                     </div>                                
                                     <div className="cards-conteudo-valores-valor-mes">
                                         <span>{comparacao?.periodo ?? "-"}</span>
