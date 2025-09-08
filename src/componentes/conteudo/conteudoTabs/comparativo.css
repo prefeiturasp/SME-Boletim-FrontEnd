@@ -1,0 +1,174 @@
+.secao-sobre-comparativo{
+    padding-bottom: 10px;
+    color: #595959;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.filtros-card-comparacao-borda{    
+    border: 1px solid #D5D5D5;
+    border-radius: 4px;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.filtros-card-comparacao-borda span{
+    color: #595959;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.filtros-card-comparacao-select{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* 
+.label-filtro-component-curricular,
+.label-filtro-ano,
+.label-filtro-turma{
+    color: #595959;  
+    font-style: normal;
+    font-family: sans-serif;
+    padding-left: 0.1em; 
+    padding-bottom: 0.3em; 
+} */
+
+
+.filtro-component-curricular-comparativo span,
+.filtro-ano-comparativo span,
+.filtro-turma-comparativo span{
+    font-weight: 700;
+    color: #595959;
+}
+
+.filtro-component-curricular-comparativo .ant-select-single {
+    width: 185px;
+}
+
+.filtro-ano-comparativo .ant-select-single {
+    width: 145px;
+}
+
+.filtro-turma-comparativo .ant-select-single {
+    width: 140px;
+}
+
+.select-custom-comparativo .ant-select-selector {
+  width: 100% !important;  
+  border: none;  
+  width: 170px;
+  background-color: transparent;
+  color: white;
+  border-radius: 0;
+}
+
+.select-custom-comparativo .ant-select-selection-wrap{
+    border-bottom: 1px solid #D5D5D5;
+}
+
+.select-custom-comparativo .ant-select-dropdown {
+    border-radius: 8px;
+}
+
+.cards-comparacao{
+    margin-top: 20px;
+}
+
+.cards-container-comparacao{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cards-conteudo-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-conteudo-comparacao .ant-card-body{
+    border: 1px solid #f1f0f0;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.12);
+    padding: 1.6em !important;
+    color: #595959;
+    font-size: 14px;
+    font-weight: 400 !important;
+    height: auto;
+}
+
+.cards-conteudo-valores{
+    background: #F5F5F5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 11px;
+    border-radius: 4px;
+    padding: 0.5em;
+}
+
+
+.cards-conteudo-valores-label{
+    display: flex;
+    align-items: center;  
+    width: 100%;
+    line-height: 1em;
+    
+}
+
+.cards-conteudo-valores-label span{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cards-conteudo-valores-valor-mes{
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 2em;
+    width: 100%;
+}
+
+.cards-conteudo-valores-valor{
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 1.7em;
+    width: 100%;
+}
+
+.cards-conteudo-valores-icon{
+    margin-right: 0.5em;
+}
+
+.info-blue{
+    background: #5A94D8;
+    color: white;
+    padding: 8px 32px 8px 32px;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    font-size: 14px;
+    text-align: left;
+}
+
+
+/* Responsivo: quebra para 100% abaixo de 768px */
+@media (max-width: 768px) {
+  .filtro-component-curricular,
+  .filtro-ano,
+  .filtro-turma {
+    flex: 1 1 100%;
+  }
+}
+
+
+
+
+
+
+
+

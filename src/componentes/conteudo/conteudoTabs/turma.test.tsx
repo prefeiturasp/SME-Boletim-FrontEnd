@@ -32,13 +32,17 @@ jest.mock("antd", () => {
       <div
         data-testid={`table-${className || "default"}`}
         data-columns={JSON.stringify(columns)}
-        data-rows={JSON.stringify(
-          (dataSource || []).map((r: any) => r[rowKey] ?? r.anoEscolar ?? r.turma)
-        )}
-      />
+      >
+        {(dataSource || []).map((r: any, index: number) => (
+          <div key={r[rowKey] ?? r.anoEscolar ?? r.turma ?? index}>
+            {JSON.stringify(r)}
+          </div>
+        ))}
+      </div>
     ),
   };
 });
+
 
 const estadoBase = (overrides?: Partial<any>) => ({
   escola: { escolaSelecionada: { ueId: "UE1" } },

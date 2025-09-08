@@ -11,6 +11,7 @@ import { setActiveTab } from "../../redux/slices/tabSlice";
 import { setNomeAplicacao } from "../../redux/slices/nomeAplicacaoSlice";
 import { servicos } from "../../servicos";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import Comparativo from "./conteudoTabs/comparativo";
 
 const Conteudo: React.FC = () => {
   const dispatch = useDispatch();
@@ -145,35 +146,42 @@ const Conteudo: React.FC = () => {
             }
             variant="borderless"
           >
-            <Tabs
+           <Tabs
               activeKey={activeTab}
               onChange={(key) => dispatch(setActiveTab(key))}
-            >
-              <Tabs.TabPane
-                tab="Principal"
-                key="1"
-                disabled={abasDesabilitadas}
-              >
-                <Principal />
-              </Tabs.TabPane>
-              <Tabs.TabPane tab="Turma" key="2" disabled={abasDesabilitadas}>
-                <Turma />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab="Estudantes"
-                key="3"
-                disabled={abasDesabilitadas}
-              >
-                <Estudantes />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab="Resultado por Probabilidade"
-                key="4"
-                disabled={abasDesabilitadas}
-              >
-                <Resultado />
-              </Tabs.TabPane>
-            </Tabs>
+              items={[
+                {
+                  key: '1',
+                  label: 'Principal',
+                  children: <Principal />,
+                  disabled: abasDesabilitadas,
+                },
+                {
+                  key: '2',
+                  label: 'Turma',
+                  children: <Turma />,
+                  disabled: abasDesabilitadas,
+                },
+                {
+                  key: '3',
+                  label: 'Estudantes',
+                  children: <Estudantes />,
+                  disabled: abasDesabilitadas,
+                },
+                {
+                  key: '4',
+                  label: 'Resultado por Probabilidade',
+                  children: <Resultado />,
+                  disabled: abasDesabilitadas,
+                },
+                {
+                  key: '5',
+                  label: 'Comparativo',
+                  children: <Comparativo />,
+                  disabled: abasDesabilitadas,
+                },
+              ]}
+            />
           </Card>
         </Col>
       </Row>

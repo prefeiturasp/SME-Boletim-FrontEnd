@@ -255,8 +255,8 @@ const Estudantes: React.FC = () => {
           }}
         />
       </div>
-      {dadosGrafico.map((item) => (
-        <EstudantesPorMateria dados={item} />
+      {dadosGrafico.map((item, index) => (
+        <EstudantesPorMateria key={index} dados={item} />
       ))}
     </Spin>
   );

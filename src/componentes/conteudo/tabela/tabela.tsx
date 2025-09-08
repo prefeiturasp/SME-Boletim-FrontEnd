@@ -190,6 +190,7 @@ const Tabela: React.FC<TabelaProps> = ({ dados, origem, estaCarregando }) => {
   return (
     <div className="tabela-container">
       <Table
+        rowKey="key"
         columns={colunas.filter((col) => !col.hidden)}
         dataSource={dados}
         pagination={false}
