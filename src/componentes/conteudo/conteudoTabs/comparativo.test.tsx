@@ -335,48 +335,6 @@ describe("Comparativo", () => {
   });
 
   
-//  it("renderiza cards de Proficiência quando há dados", async () => {
-//     // Mocka o serviço para SEMPRE retornar o resumoMock neste teste
-//     (servicos.get as jest.Mock).mockResolvedValue(resumoMock);
-
-//     // Mocka o estado do Redux para já estar com os filtros certos
-//     (useSelector as unknown as jest.Mock).mockImplementation((selector) =>
-//       selector({
-//         ...mockState,
-//         filtros: {
-//           componentesCurricularesRadio: [{ texto: "Português", valor: 2 }],
-//           anosEscolaresRadio: [{ texto: "9", valor: 9 }],
-//         },
-//       })
-//     );
-
-//     render(<Comparativo />);
-
-//     // Aguarda renderizar os cards
-//     await waitFor(() => {
-//       expect(screen.getAllByText("Proficiência").length).toBeGreaterThan(0);
-//     });
-
-//     // Tenta encontrar os valores de forma flexível
-//     expect(
-//       screen.queryAllByText((content) =>
-//         typeof content === "string" && content.includes("200")
-//       ).length
-//     ).toBeGreaterThan(0);
-
-//     expect(
-//       screen.queryAllByText((content) =>
-//         typeof content === "string" && content.includes("250")
-//       ).length
-//     ).toBeGreaterThan(0);
-
-//     expect(screen.getByText("PSP")).toBeInTheDocument();
-//     expect(screen.getByText("Prova PSA")).toBeInTheDocument();
-//     expect(screen.getByText("2025")).toBeInTheDocument();
-//     expect(screen.getByText("2024")).toBeInTheDocument();
-//     expect(screen.getAllByAltText("Ícone disciplina").length).toBeGreaterThan(0);
-//   });
-
   it("renderiza mensagem de nenhum componente/ano/turma encontrado", () => {
     const emptyState = {
       ...mockState,
