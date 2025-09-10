@@ -6,6 +6,7 @@ import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { servicos } from "../../../servicos";
+import ComparativoTabela from "./comparativoTabela";
 
 const Comparativo: React.FC = () => {    
     const [estaCarregando, setEstaCarregando] = useState(false);
@@ -301,7 +302,9 @@ const Comparativo: React.FC = () => {
                 <div className="info-blue">
                     Informações da <span style={{fontWeight: '700'}}>{escolaSelecionada.descricao?.replace("DRE SA -", "")}</span> nas provas São Paulo (PSP) e  Saberes e Aprendizagens (PSA)
                 </div>
-            </div>                
+            </div>
+            <br />
+            <ComparativoTabela></ComparativoTabela>                
         </Spin>
     )
 }
