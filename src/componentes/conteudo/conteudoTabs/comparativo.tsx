@@ -304,7 +304,11 @@ const Comparativo: React.FC = () => {
                 </div>
             </div>
             <br />
-            <ComparativoTabela></ComparativoTabela>                
+            <br />
+            <ComparativoTabela
+                turmaSelecionada={turmaSelecionada}
+                componentesCurricularSelecionado={componentesCurricularSelecionado}
+            />
         </Spin>
     )
 }

@@ -2,14 +2,44 @@ import { useState } from "react";
 import { Table, Progress, Tag, Spin } from "antd";
 import "./comparativoTabela.css";
 
-const ComparativoTabela: React.FC = () => { 
+interface ComparativoTabelaProps {
+  turmaSelecionada: string;
+  componentesCurricularSelecionado: string;
+}
+
+const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
+  turmaSelecionada,
+  componentesCurricularSelecionado
+}) => { 
     const [estaCarregando, setEstaCarregando] = useState(false);
     const disciplina = "Lingua portuguesa";
     const ano = 5;
 
 
     return (
-        <Spin spinning={estaCarregando} tip="Carregando...">            
+        <Spin spinning={estaCarregando} tip="Carregando...">
+            <div className="bloco-secao-tabela-comparativo">
+                <div className="secao-tabela-comparativo">
+                    <b>Estudantes da Turma {turmaSelecionada} em {componentesCurricularSelecionado}</b>
+                </div>
+                <div>
+                  <div className="legendas">
+                    <div className="texto">
+                      <span className="desempenho-por-materia-negrito">Níveis:</span>
+                    </div>
+                    <div className="caixa-vermelha"></div>{" "}
+                    <div className="texto">1 - Abaixo do basico</div>
+                    <div className="caixa-amarela"></div>{" "}
+                    <div className="texto">2 - Básico</div>
+                    <div className="caixa-azul"></div>{" "}
+                    <div className="texto">3 - Adequado</div>
+                    <div className="caixa-verde"></div>{" "}
+                    <div className="texto">4 - Avançado</div>
+                  </div>
+                </div>
+            </div>
+            <br />
+            <br />
             <Table
               columns={buildColumns(disciplina, ano, mockResponse.itens)}
               dataSource={mockResponse.itens.map((item, idx) => ({ ...item, key: idx }))}
@@ -31,37 +61,42 @@ export default ComparativoTabela;
 // ---- FUNÇÃO PARA PEGAR A COR DA BARRA BASEADO NA DISCIPLINA/ANO ----
 const getProgressColor = (value: number, disciplina: string, ano: number) => {
   if (disciplina === "Lingua portuguesa" && ano === 5) {
-    if (value < 150) return "red";
-    if (value < 200) return "orange";
-    if (value < 250) return "blue";
-    return "green";
+    if (value < 150) return "#FF5959";
+    if (value < 200) return "#FEDE99";
+    if (value < 250) return "#5A94D8";
+    return "#99FF99";
   }
   if (disciplina === "Lingua portuguesa" && ano === 9) {
-    if (value < 200) return "red";
-    if (value < 275) return "orange";
-    if (value < 325) return "blue";
-    return "green";
+    if (value < 200) return "#FF5959";
+    if (value < 275) return "#FEDE99";
+    if (value < 325) return "#5A94D8";
+    return "#99FF99";
   }
   if (disciplina === "Matemática" && ano === 5) {
-    if (value < 175) return "red";
-    if (value < 225) return "orange";
-    if (value < 275) return "blue";
-    return "green";
+    if (value < 175) return "#FF5959";
+    if (value < 225) return "#FEDE99";
+    if (value < 275) return "#5A94D8";
+    return "#99FF99";
   }
   if (disciplina === "Matemática" && ano === 9) {
-    if (value < 225) return "red";
-    if (value < 300) return "orange";
-    if (value < 350) return "blue";
-    return "green";
+    if (value < 225) return "#FF5959";
+    if (value < 300) return "#FEDE99";
+    if (value < 350) return "#5A94D8";
+    return "#99FF99";
   }
   return "default";
 };
 
 // ---- FUNÇÃO PARA COR DO RETÂNGULO DA VARIAÇÃO ----
-const getVariationTag = (valor: number) => {
-  if (valor > 0) return <Tag color="green">{valor.toFixed(1)}%</Tag>;
-  if (valor < 0) return <Tag color="red">{valor.toFixed(1)}%</Tag>;
-  return <Tag color="gray">0%</Tag>;
+const getVariationTag = (value: number) => {
+  let bgColor = "#B0B0B0"; // neutro
+  if (value > 0) bgColor = "#21C45D"; // verde
+  else if (value < 0) bgColor = "#EF4343"; // vermelho
+  return (
+    <div className="variacao-tag" style={{ backgroundColor: bgColor }}>
+      {value.toFixed(2)}%
+    </div>
+  );
 };
 
 // ---- GERA COLUNAS DINÂMICAS ----
@@ -75,7 +110,7 @@ const buildColumns = (disciplina: string, ano: number, dados: any[]) => {
   });
 
   const columns: any[] = [
-    {
+    {      
       title: "",
       dataIndex: "nome",
       key: "nome",
@@ -177,7 +212,7 @@ const mockResponse = {
       proficiencias: [
         { descricao: "PSP", mes: "", valor: 200.0 },
         { descricao: "PSA", mes: "Agosto", valor: 210.5 },
-        { descricao: "PSA", mes: "Setembro", valor: 210.4 },
+        { descricao: "PSA", mes: "Setembro", valor: 22.4 },
         { descricao: "PSA", mes: "Outubro", valor: 223.6 },
         { descricao: "PSA", mes: "Novembro", valor: 320.6 },
         // { descricao: "PSA", mes: "Dezembro", valor: 153.6 },

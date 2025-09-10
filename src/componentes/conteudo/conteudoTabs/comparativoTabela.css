@@ -49,8 +49,7 @@
 }
 
 /* primeira coluna sempre bold */
-.coluna-nome-header,
-.variacao-header {
+.coluna-nome-header {
   color: #595959 !important;
   font-weight: 700 !important;
   font-size: 14px;
@@ -60,13 +59,48 @@
   vertical-align: top;
   position: relative !important;
   
+  overflow: visible !important;
+  z-index: 20 !important;  
+}
+
+
+.variacao-header {
+  color: #595959 !important;
+  font-weight: 700 !important;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  vertical-align: top;
+  position: relative !important;
+  
+  overflow: visible !important;
+  z-index: 20 !important;  
+
+}
+
+.variacao-header .variacao-tag {
+  color: #FFFFFF;
+  background: bgColor;
+  font-weight: 700;
+  border-radius: 6;
+  text-align: center;
+  display: inline-block;
+  margin-top: 0.4em;
+
+  width: 100% !important;
+  height: 24px !important;
+  border-radius: 6px;
+  line-height: 25px !important;
 }
 
 .coluna-nome-header::before{
   content: attr(data-content) !important;
   position: absolute !important;
   top: -9px !important;
-  left: 35%;
+  left: 33%;
   transform: translateX(-50%) !important;
   font-weight: 700;
   font-size: 14px;
@@ -78,7 +112,6 @@
   white-space: nowrap;
   line-height: normal;
 }
-
 
 .variacao-header::before {
   content: attr(data-content) !important;
@@ -113,7 +146,6 @@
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   line-height: 33px;
-  /* padding: 0 !important; */
 }
 
 
@@ -122,3 +154,62 @@
   font-weight: 700 !important;
 }
 
+
+.bloco-secao-tabela-comparativo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.secao-tabela-comparativo {
+  font-size: 20px;
+  color: #595959;
+}
+
+.legendas {
+    background: #FFFFFF !important;
+    margin-top: 8px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.texto {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.caixa-vermelha {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #FF5959;
+    margin-right: 5px;
+}
+
+.caixa-amarela {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #FEDE99;
+    margin-right: 5px;
+}
+
+.caixa-azul {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #9999FF;
+    margin-right: 5px;
+}
+
+.caixa-verde {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #99FF99;
+    margin-right: 5px;
+}
