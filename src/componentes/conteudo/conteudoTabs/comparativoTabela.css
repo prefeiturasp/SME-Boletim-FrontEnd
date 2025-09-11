@@ -33,20 +33,21 @@
   height: 32px;
   line-height: 32px;
   padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  background: #FFFFFF !important;
+  padding-bottom: 0 !important;  
   border: none !important;
 }
 
-.ant-table-thead > tr > th:first-child,
-.ant-table-thead > tr > th:last-child{
+.ant-table-thead > tr > th.coluna-nome-header:first-child,
+.ant-table-thead > tr > th.variacao-header:last-child,
+.ant-table-thead > tr > th.aplicacao-psa-header{
   background: #F5F5F5 !important;
 }
 
-.ant-table-thead > tr > th.coluna-nome-header > .ant-table-cell-content,
-.ant-table-thead > tr > th.variacao-header > .ant-table-cell-content {
-  visibility: hidden;
+.ant-table-thead > tr > th.psp-header,
+.ant-table-thead > tr > th.psa-header{
+  background: #FFFFFF !important;
 }
+
 
 /* primeira coluna sempre bold */
 .coluna-nome-header {
@@ -55,12 +56,6 @@
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
   text-align: center !important;
-
-  vertical-align: top;
-  position: relative !important;
-  
-  overflow: visible !important;
-  z-index: 20 !important;  
 }
 
 
@@ -72,13 +67,6 @@
   text-align: center !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
-
-  vertical-align: top;
-  position: relative !important;
-  
-  overflow: visible !important;
-  z-index: 20 !important;  
-
 }
 
 .variacao-header .variacao-tag {
@@ -96,40 +84,6 @@
   line-height: 25px !important;
 }
 
-.coluna-nome-header::before{
-  content: attr(data-content) !important;
-  position: absolute !important;
-  top: -9px !important;
-  left: 33%;
-  transform: translateX(-50%) !important;
-  font-weight: 700;
-  font-size: 14px;
-  color: #595959;
-  background: white;
-  padding: 0 4px;
-
-  display: inline-block;
-  white-space: nowrap;
-  line-height: normal;
-}
-
-.variacao-header::before {
-  content: attr(data-content) !important;
-  position: absolute !important;
-  top: -9px !important;
-  left: 50%;
-  transform: translateX(-50%) !important;
-  font-weight: 700;
-  font-size: 14px;
-  color: #595959;
-  background: white;
-  padding: 0 4px;
-
-  display: inline-block;
-  white-space: nowrap;
-  line-height: normal;
-}
-
 /* outras colunas: forçar font-weight normal */
 .ant-table-tbody > tr > td:not(:first-child) {
   font-weight: 400 !important;
@@ -137,7 +91,7 @@
 
 /* tira hover das linhas (apenas remove fundo) */
 .ant-table-tbody > tr:hover > td {
-  background: none !important;  
+  background: none !important;
 }
 
 /* linhas do corpo */
@@ -145,15 +99,9 @@
   height: 33px;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+  padding-right: 0 !important;
   line-height: 33px;
 }
-
-
-/* todos os headers, exceto o primeiro */
-.ant-table-thead > tr > th:not(:first-child) {
-  font-weight: 700 !important;
-}
-
 
 .bloco-secao-tabela-comparativo{
   display: flex;
@@ -212,4 +160,31 @@
     border-radius: 4px;
     background-color: #99FF99;
     margin-right: 5px;
+}
+
+.transparent-bottom-ue{
+   position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 250px;
+  z-index: auto !important;
+  pointer-events: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.8) 40%
+  );
+
+  display: flex;
+  justify-content: center; 
+}
+
+.transparent-bottom-ue .btn-exibir-mais-ue {
+  position: absolute;
+  bottom: -30px;
+}
+
+.btn-exibir-mais-ue .btn-exibir-mais-ue {
+  align-items: center;
 }

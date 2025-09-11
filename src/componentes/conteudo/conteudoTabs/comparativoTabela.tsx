@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { Table, Progress, Tag, Spin } from "antd";
+import { Children, useState } from "react";
+import { Table, Progress, Tag, Spin, Button } from "antd";
 import "./comparativoTabela.css";
+
+import iconeMais from "./../../../assets/icon-mais.svg";
 
 interface ComparativoTabelaProps {
   turmaSelecionada: string;
@@ -14,6 +16,13 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
     const [estaCarregando, setEstaCarregando] = useState(false);
     const disciplina = "Lingua portuguesa";
     const ano = 5;
+    const [loadingMaisUes, setLoadingMaisUes] = useState(false);
+
+    const handleExibirMais = () => {
+      // const proxPagina = currentCardPage + 1;
+      // setCurrentCardPage(proxPagina);
+      // fetchUesListagem(proxPagina, true);
+    };
 
 
     return (
@@ -38,20 +47,39 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
                   </div>
                 </div>
             </div>
-            <br />
-            <br />
+            <br />            
             <Table
               columns={buildColumns(disciplina, ano, mockResponse.itens)}
               dataSource={mockResponse.itens.map((item, idx) => ({ ...item, key: idx }))}
               pagination={false}
-              // scroll={{ x: "max-content" }}
-              bordered
-              title={() => (
-                <div className="tabela-titulo">
-                  Aplicação PSA
-                </div>
-              )}
+              scroll={{ x: "max-content" }}
+              bordered             
             />
+            <>
+                      <br></br><br></br><br></br>
+                      <div className="transparent-bottom-ue">
+                        <Button
+                          variant="outlined"
+                          className="btn-exibir-mais-ue"
+                          loading={loadingMaisUes}
+                          onClick={handleExibirMais}
+                          style={{
+                            minWidth: 160,
+                            height: 40,
+                            fontWeight: 600,
+                            fontSize: 16,
+                            zIndex: 2,
+                          }}
+                        >
+                          <img
+                            src={iconeMais}
+                            alt="Ícone dados"
+                            className="disciplina-icon"
+                          />
+                          Exibir mais
+                        </Button>
+                      </div>
+                    </>
         </Spin>    
     );
 }
@@ -111,76 +139,74 @@ const buildColumns = (disciplina: string, ano: number, dados: any[]) => {
 
   const columns: any[] = [
     {      
-      title: "",
+      title: "Nome do Estudante",
       dataIndex: "nome",
       key: "nome",
       className: "coluna-nome-header",
       width: 284,
-      onHeaderCell: () => ({
-        className: "coluna-nome-header",
-        "data-content": "Nome do Estudante",
-      }),
     },
     {
-      title: "PSP",
-      key: "psp",
-      width: 127,
-      render: (_: any, record: any) => {
-        const psp = record.proficiencias.find((p: any) => p.descricao === "PSP");
-        if (!psp) return null;
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span>{psp.valor.toFixed(2)}</span>
-            <Progress
-              percent={100}
-              showInfo={false}
-              strokeColor={getProgressColor(psp.valor, disciplina, ano)}
-              style={{ width: 60 }}
-            />
-          </div>
-        );
-      },
+      title: "Aplicação PSA",
+      className: "aplicacao-psa-header",
+      children: [
+        {
+          title: "PSP",
+          key: "psp",
+          width: 80,
+          className: "psp-header",
+          render: (_: any, record: any) => {
+            const psp = record.proficiencias.find((p: any) => p.descricao === "PSP");
+            if (!psp) return null;
+            return (
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span>{psp.valor.toFixed(2)}</span>
+                <Progress
+                  percent={100}
+                  showInfo={false}
+                  strokeColor={getProgressColor(psp.valor, disciplina, ano)}
+                  style={{ width: 60 }}
+                />
+              </div>
+            );
+          },
+        },
+        // Criar colunas PSA dinamicamente
+        ...Array.from(mesesUnicos).map((mes) => ({
+            title: `PSA (${mes} 2025)`,
+            key: `psa-${mes}`,
+            width: 80,
+            className: "psa-header",
+            render: (_: any, record: any) => {
+              const psa = record.proficiencias.find(
+                (p: any) => p.descricao === "PSA" && p.mes === mes
+              );
+              if (!psa) return null;
+              return (
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span>{psa.valor.toFixed(2)}</span>
+                  <Progress
+                    percent={100}
+                    showInfo={false}
+                    strokeColor={getProgressColor(psa.valor, disciplina, ano)}
+                    style={{ width: 60 }}
+                  />
+                </div>
+              );
+            },
+          })),       
+      ]
     },
+
   ];
-
-  // Criar colunas PSA dinamicamente
-  Array.from(mesesUnicos).forEach((mes) => {
-    columns.push({
-      title: `PSA (${mes} 2025)`,
-      key: `psa-${mes}`,
-      width: 80,
-      render: (_: any, record: any) => {
-        const psa = record.proficiencias.find(
-          (p: any) => p.descricao === "PSA" && p.mes === mes
-        );
-        if (!psa) return null;
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span>{psa.valor.toFixed(2)}</span>
-            <Progress
-              percent={100}
-              showInfo={false}
-              strokeColor={getProgressColor(psa.valor, disciplina, ano)}
-              style={{ width: 60 }}
-            />
-          </div>
-        );
-      },
-    });
-  });
-
+  
   // Coluna de variação
   columns.push({
-    title: "",
+    title: "Variacão",
     key: "variacao",
     width: 80,
     aling: "center",
     render: (_: any, record: any) => getVariationTag(record.variacao),
     className: "variacao-header",
-    onHeaderCell: () => ({
-        className: "variacao-header",
-        "data-content": "Variação",
-    }),
   });
 
   return columns;
@@ -244,7 +270,7 @@ const mockResponse = {
     },
     {
       nome: "Ciclano",
-      variacao: 5.2,
+      variacao: 0.0,
       proficiencias: [
         { descricao: "PSP", valor: 200.0 },
         { descricao: "PSA", mes: "Agosto", valor: 210.5 },
