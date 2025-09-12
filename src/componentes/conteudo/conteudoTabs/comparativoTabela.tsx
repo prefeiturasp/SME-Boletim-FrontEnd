@@ -87,7 +87,7 @@ export default ComparativoTabela;
 
 
 // ---- FUNÇÃO PARA PEGAR A COR DA BARRA BASEADO NA DISCIPLINA/ANO ----
-const getProgressColor = (value: number, disciplina: string, ano: number) => {
+export const getProgressColor = (value: number, disciplina: string, ano: number) => {
   if (disciplina === "Lingua portuguesa" && ano === 5) {
     if (value < 150) return "#FF5959";
     if (value < 200) return "#FEDE99";
@@ -128,7 +128,7 @@ const getVariationTag = (value: number) => {
 };
 
 // ---- GERA COLUNAS DINÂMICAS ----
-const buildColumns = (disciplina: string, ano: number, dados: any[]) => {
+export const buildColumns = (disciplina: string, ano: number, dados: any[]) => {
   // Coletar todos os meses distintos (PSP não tem mês)
   const mesesUnicos = new Set<string>();
   dados.forEach((item) => {
