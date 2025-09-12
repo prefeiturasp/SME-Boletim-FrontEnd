@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+.tabela-titulo{
+   text-align: center;
+   font-weight: 700;
+   font-size: 16px;
+   border-bottom: none;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   color: #595959;
+}
+
+.ant-table-title{
+  padding: 0 !important;
+  border: none !important;
+  background: #F5F5F5 !important;  
+}
+
+/* Remove todas as bordas verticais internas da tabela */
+.ant-table-bordered .ant-table-cell {
+  border-right: none !important;
+}
+
+/* Remove também a borda direita da tabela */
+.ant-table-bordered .ant-table-container {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+/* cabeçalho (ajusta separadamente se precisar) */
+.ant-table-thead > tr > th {
+  height: 32px;
+  line-height: 32px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;  
+  border: none !important;
+}
+
+.ant-table-thead > tr > th.coluna-nome-header:first-child,
+.ant-table-thead > tr > th.variacao-header:last-child,
+.ant-table-thead > tr > th.aplicacao-psa-header{
+  background: #F5F5F5 !important;
+}
+
+.ant-table-thead > tr > th.psp-header,
+.ant-table-thead > tr > th.psa-header{
+  background: #FFFFFF !important;
+}
+
+
+/* primeira coluna sempre bold */
+.coluna-nome-header {
+  color: #595959 !important;
+  font-weight: 700 !important;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center !important;
+}
+
+
+.variacao-header {
+  color: #595959 !important;
+  font-weight: 700 !important;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.variacao-header .variacao-tag {
+  color: #FFFFFF;
+  background: bgColor;
+  font-weight: 700;
+  border-radius: 6;
+  text-align: center;
+  display: inline-block;
+  margin-top: 0.4em;
+
+  width: 100% !important;
+  height: 24px !important;
+  border-radius: 6px;
+  line-height: 25px !important;
+}
+
+/* outras colunas: forçar font-weight normal */
+.ant-table-tbody > tr > td:not(:first-child) {
+  font-weight: 400 !important;
+}
+
+/* tira hover das linhas (apenas remove fundo) */
+.ant-table-tbody > tr:hover > td {
+  background: none !important;
+}
+
+/* linhas do corpo */
+.ant-table-tbody > tr > td {
+  height: 33px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+  line-height: 33px;
+}
+
+.bloco-secao-tabela-comparativo{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.secao-tabela-comparativo {
+  font-size: 20px;
+  color: #595959;
+}
+
+.legendas {
+    background: #FFFFFF !important;
+    margin-top: 8px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.texto {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.caixa-vermelha {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #FF5959;
+    margin-right: 5px;
+}
+
+.caixa-amarela {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #FEDE99;
+    margin-right: 5px;
+}
+
+.caixa-azul {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #9999FF;
+    margin-right: 5px;
+}
+
+.caixa-verde {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #99FF99;
+    margin-right: 5px;
+}
+
+.transparent-bottom-ue{
+   position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 250px;
+  z-index: auto !important;
+  pointer-events: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.8) 40%
+  );
+
+  display: flex;
+  justify-content: center; 
+}
+
+.transparent-bottom-ue .btn-exibir-mais-ue {
+  position: absolute;
+  bottom: -30px;
+}
+
+.btn-exibir-mais-ue .btn-exibir-mais-ue {
+  align-items: center;
+}
