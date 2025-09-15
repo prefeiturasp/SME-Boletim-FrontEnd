@@ -128,34 +128,13 @@ const Comparativo: React.FC = () => {
   const buscaTodasTurmas = async () => {
     try {
       setEstaCarregando(true);
-      //const resposta = await servicos.get(`/api/pegatodasturmas`);
-
-      const resultado: Turma[] = [
-        {
-          ano: 5,
-          turma: "A",
-          descricao: "5A",
-          disciplina: "Lingua Portuguesa",
-        },
-        {
-          ano: 5,
-          turma: "B",
-          descricao: "5B",
-          disciplina: "Lingua Portuguesa",
-        },
-        {
-          ano: 5,
-          turma: "C",
-          descricao: "5C",
-          disciplina: "Lingua Portuguesa",
-        },
-      ];
-
+      const resultado: Turma[] = await servicos.get(
+        `/api/BoletimEscolar/${aplicacaoSelecionada}/turmas-ue-ano/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`
+      );
       const registrosPorTabela: number[] = [];
       resultado.map(() => {
         registrosPorTabela.push(limite);
       });
-
       setTodasTurmas(resultado);
       setTabelasCount(registrosPorTabela);
     } catch (error) {
@@ -169,7 +148,13 @@ const Comparativo: React.FC = () => {
   useEffect(() => {
     if (activeTab !== "5") return;
     else buscaDadosTurma(indexTabelaTurma);
-  }, [filtrosSelecionados, indexTabelaTurma, activeTab, todasTurmas, tabelasCount]);
+  }, [
+    filtrosSelecionados,
+    indexTabelaTurma,
+    activeTab,
+    todasTurmas,
+    tabelasCount,
+  ]);
 
   const buscaUnicaTurma = async (
     ano: string,
@@ -201,7 +186,7 @@ const Comparativo: React.FC = () => {
                 return false;
               });
             }
-            
+
             if (nomeSelecionado) {
               passouNome = aluno.nome.toLowerCase().includes(nomeSelecionado);
             }
@@ -214,7 +199,6 @@ const Comparativo: React.FC = () => {
       resultado.itens = resultado.itens.slice(0, limite);
 
       return resultado;
-
     } catch (error) {
       console.log(error);
       setEstaCarregando(false);
