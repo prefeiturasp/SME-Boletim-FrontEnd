@@ -75,6 +75,42 @@
         { "descricao": "PSA", "mes": "Novembro", "valor": 233 },
         { "descricao": "PSA", "mes": "Dezembro", "valor": 192 }
       ]
+    },
+    {
+      "nome": "Juliana Carvalho",
+      "variacao": -1.9,
+      "proficiencias": [
+        { "descricao": "PSP", "valor": 298 },
+        { "descricao": "PSA", "mes": "Agosto", "valor": 135 },
+        { "descricao": "PSA", "mes": "Setembro", "valor": 260 },
+        { "descricao": "PSA", "mes": "Outubro", "valor": 178 },
+        { "descricao": "PSA", "mes": "Novembro", "valor": 213 },
+        { "descricao": "PSA", "mes": "Dezembro", "valor": 221 }
+      ]
+    },
+    {
+      "nome": "Bruno Almeida de Morais",
+      "variacao": -3.9,
+      "proficiencias": [
+        { "descricao": "PSP", "valor": 187 },
+        { "descricao": "PSA", "mes": "Agosto", "valor": 239 },
+        { "descricao": "PSA", "mes": "Setembro", "valor": 143 },
+        { "descricao": "PSA", "mes": "Outubro", "valor": 264 },
+        { "descricao": "PSA", "mes": "Novembro", "valor": 189 },
+        { "descricao": "PSA", "mes": "Dezembro", "valor": 273 }
+      ]
+    },
+    {
+      "nome": "Camila Ribeiro Pereira",
+      "variacao": 10.9,
+      "proficiencias": [
+        { "descricao": "PSP", "valor": 167 },
+        { "descricao": "PSA", "mes": "Agosto", "valor": 203 },
+        { "descricao": "PSA", "mes": "Setembro", "valor": 297 },
+        { "descricao": "PSA", "mes": "Outubro", "valor": 158 },
+        { "descricao": "PSA", "mes": "Novembro", "valor": 233 },
+        { "descricao": "PSA", "mes": "Dezembro", "valor": 192 }
+      ]
     }
   ]
 }

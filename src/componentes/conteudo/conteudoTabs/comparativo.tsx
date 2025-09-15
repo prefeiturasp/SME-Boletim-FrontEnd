@@ -169,7 +169,7 @@ const Comparativo: React.FC = () => {
   useEffect(() => {
     if (activeTab !== "5") return;
     else buscaDadosTurma(indexTabelaTurma);
-  }, [indexTabelaTurma, activeTab, todasTurmas, tabelasCount]);
+  }, [filtrosSelecionados, indexTabelaTurma, activeTab, todasTurmas, tabelasCount]);
 
   const buscaUnicaTurma = async (
     ano: string,

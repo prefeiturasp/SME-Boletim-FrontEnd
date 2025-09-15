@@ -63,10 +63,12 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
         scroll={{ x: "max-content" }}
         bordered
       />
+      
       <>
         <br></br>
         <br></br>
         <br></br>
+        {dadosTurma.itens.length >= 5 && (
         <div className="transparent-bottom-ue">
           <Button
             variant="outlined"
@@ -89,7 +91,10 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
             Exibir mais
           </Button>
         </div>
+        )}
+        
       </>
+      
     </Spin>
   );
 };

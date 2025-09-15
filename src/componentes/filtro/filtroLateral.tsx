@@ -227,7 +227,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           </>
         )}
 
-        {activeTab != "4" && (
+        {activeTab != "4" && activeTab != "5" && (
           <>
             <Divider className="separador" />
             <div className="filtro-secao">
@@ -268,7 +268,6 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
 
         {activeTab == "9" && (
           <>
-            <Divider className="separador" />
             <div className="filtro-secao">
               <h3 className="filtro-titulo">Ano</h3>
               {filtroDados.anosEscolares.map((ano) => (
