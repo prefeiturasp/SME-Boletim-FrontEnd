@@ -10,6 +10,7 @@ import SemAcesso from "./pages/semAcesso";
 import UesPage from "./pages/ues";
 import { RootState } from "./redux/store";
 import DresPage from "./pages/dres";
+import CompararDados from "./pages/compararDados";
 
 const AppLayout: React.FC = () => (
   <div className="app-container">
@@ -62,6 +63,14 @@ const AppRoutes: React.FC = () => (
       element={
         <PrivateRoute>
           <DresPage />
+        </PrivateRoute>
+      }
+    />
+    <Route
+      path="/comparar-dados"
+      element={
+        <PrivateRoute>
+          <CompararDados />
         </PrivateRoute>
       }
     />
