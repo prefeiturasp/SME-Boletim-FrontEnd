@@ -13,4 +13,5 @@ interface Filtro {
   turmas: FiltroChaveValor[]
   nomeEstudante: string,
   eolEstudante: string,
+  variacoes: FiltroChaveValor[]
 }

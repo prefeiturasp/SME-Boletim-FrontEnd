@@ -29,6 +29,11 @@ const initialState: Filtro = {
   nivelMaximo: 0,
   nivelMaximoEscolhido: 0,
   turmas: [],
+  variacoes: [
+    { valor: "positiva", texto: "Variação positiva" },
+    { valor: "negativa", texto: "Variação negativa" },
+    { valor: "neutra", texto: "Sem Variação" },
+  ],
   nomeEstudante: "",
   eolEstudante: "",
 };

@@ -22,7 +22,7 @@ const initialState: Filtro = {
       texto: "Avançado",
       valor: 4,
     },
-  ],  
+  ],
   anosEscolares: [
     { valor: 5, texto: "5" },
     { valor: 9, texto: "9" },
@@ -40,6 +40,11 @@ const initialState: Filtro = {
     { valor: "A", texto: "A" },
     { valor: "A", texto: "A" },
     { valor: "A", texto: "A" },
+  ],
+  variacoes: [
+    { valor: "positiva", texto: "Variação positiva" },
+    { valor: "negativa", texto: "Variação negativa" },
+    { valor: "neutra", texto: "Sem Variação" },
   ],
   nivelMinimoEscolhido: 0,
   nivelMaximoEscolhido: 0,
