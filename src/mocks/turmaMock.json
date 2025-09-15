@@ -5,7 +5,7 @@
   "aplicacoes": ["Agosto", "Setembro"],
   "itens": [
     {
-      "nome": "Carlos Henrique Souza",
+      "nome": "Osmar Henrique Souza",
       "variacao": 5.9,
       "proficiencias": [
         { "descricao": "PSP", "valor": 275 },
@@ -17,8 +17,8 @@
       ]
     },
     {
-      "nome": "Fernanda Oliveira Lima",
-      "variacao": -2.9,
+      "nome": "Marcia Oliveira Lima",
+      "variacao": 0,
       "proficiencias": [
         { "descricao": "PSP", "valor": 132 },
         { "descricao": "PSA", "mes": "Agosto", "valor": 278 },
@@ -41,8 +41,8 @@
       ]
     },
     {
-      "nome": "Juliana Carvalho",
-      "variacao": -1.9,
+      "nome": "Juliana Silveira das Graças",
+      "variacao": 0,
       "proficiencias": [
         { "descricao": "PSP", "valor": 298 },
         { "descricao": "PSA", "mes": "Agosto", "valor": 135 },

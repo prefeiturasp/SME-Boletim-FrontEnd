@@ -114,6 +114,11 @@
   color: #595959;
 }
 
+.espacamento-tabela-comparativo
+{
+  padding-bottom: 50px;
+}
+
 .legendas {
     background: #FFFFFF !important;
     margin-top: 8px;
