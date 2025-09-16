@@ -230,6 +230,11 @@ const Comparativo: React.FC = () => {
           20
         );
 
+        if (!x || !x.itens) {
+          setEstaCarregando(false);
+          return;
+        }
+
         const mais5 = x.itens.slice(0, 5);
 
         const clone = [...dadosTurma];
@@ -430,7 +435,15 @@ const Comparativo: React.FC = () => {
               </div>
             </Card>
           </Col>
-          {resumoCardsComparacao?.lotes?.map((comparacao: any, idx: number) => (
+          {resumoCardsComparacao?.lotes
+          ?.slice()
+          .sort((a: any, b: any) => {
+            const dataA = parsePeriodo(a?.periodo);
+            const dataB = parsePeriodo(b?.periodo);
+            if (!dataA || !dataB) return 0;
+            return dataA.getTime() - dataB.getTime();
+          })
+          .map((comparacao: any, idx: number) => (
             <Col
               key={idx}
               xs={24}
@@ -545,3 +558,26 @@ export const getNivelColor = (nivel: string) => {
       return "black";
   }
 };
+
+const meses: Record<string, number> = {
+  Janeiro: 0,
+  Fevereiro: 1,
+  Março: 2,
+  Abril: 3,
+  Maio: 4,
+  Junho: 5,
+  Julho: 6,
+  Agosto: 7,
+  Setembro: 8,
+  Outubro: 9,
+  Novembro: 10,
+  Dezembro: 11,
+};
+
+function parsePeriodo(periodo: string): Date | null {
+  if (!periodo) return null;
+  const [mes, ano] = periodo.split(" ");
+  const mesIndex = meses[mes];
+  if (mesIndex === undefined || isNaN(Number(ano))) return null;
+  return new Date(Number(ano), mesIndex, 1);
+}
