@@ -12,6 +12,7 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
+import LoadingBox from "../../loadingBox/loadingBox";
 
 const Principal: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
@@ -181,7 +182,8 @@ const Principal: React.FC = () => {
   };
 
   return (
-    <Spin spinning={estaCarregando} tip="Carregando...">
+    <div>
+      {estaCarregando && <LoadingBox />}
       <span>
         Esta seção apresenta uma tabela e um gráfico que ilustram a quantidade
         de estudantes por ano escolar e faixa de classificação em cada nível.
@@ -248,7 +250,7 @@ const Principal: React.FC = () => {
           </Col>
         </Row>
       </div>
-    </Spin>
+    </div>
   );
 };
 

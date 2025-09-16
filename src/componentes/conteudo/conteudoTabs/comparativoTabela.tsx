@@ -2,6 +2,7 @@ import { Children, useState } from "react";
 import { Table, Progress, Tag, Spin, Button } from "antd";
 import "./comparativoTabela.css";
 import iconeMais from "./../../../assets/icon-mais.svg";
+import LoadingBox from "../../loadingBox/loadingBox";
 
 interface ComparativoTabelaProps {
   index: number;
@@ -29,7 +30,7 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
 
   return (
     <>
-      <Spin spinning={estaCarregando} tip="Carregando...">
+      {estaCarregando && <LoadingBox />}
         <div className="bloco-secao-tabela-comparativo">
           <div className="secao-tabela-comparativo">
             <b>
@@ -94,7 +95,7 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
             </div>
           )}
         </>
-      </Spin>
+      
 
       <div className="espacamento-tabela-comparativo"></div>
     </>
