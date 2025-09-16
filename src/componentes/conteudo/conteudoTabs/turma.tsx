@@ -6,6 +6,7 @@ import { servicos } from "../../../servicos";
 import "./turma.css";
 import DesempenhoTurma from "../../grafico/desempenhoTurma";
 import { ColumnsType } from "antd/es/table";
+import LoadingBox from "../../loadingBox/loadingBox";
 
 const colunasTurmaInicial = [
   { title: "Turma", dataIndex: "turma", key: "turma" },
@@ -133,7 +134,8 @@ const Turma: React.FC = () => {
   }, [filtrosSelecionados, activeTab]);
 
   return (
-    <Spin spinning={estaCarregando} tip="Carregando...">
+    <div>
+      {estaCarregando && <LoadingBox />}
       <div>
         <p className="secao-sobre-turmas">
           Esta seção apresenta uma tabelas e gráficos que ilustram a quantidade
@@ -173,7 +175,7 @@ const Turma: React.FC = () => {
           </div>
         ))}
       </div>
-    </Spin>
+    </div>
   );
 };
 

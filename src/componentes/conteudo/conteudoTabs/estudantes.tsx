@@ -5,6 +5,7 @@ import { RootState } from "../../../redux/store";
 import { servicos } from "../../../servicos";
 import "./estudantes.css";
 import EstudantesPorMateria from "../../grafico/estudantePorMateria";
+import LoadingBox from "../../loadingBox/loadingBox";
 
 const Estudantes: React.FC = () => {
   const [dados, setDados] = useState<any[]>([]);
@@ -211,7 +212,8 @@ const Estudantes: React.FC = () => {
   ];
 
   return (
-    <Spin spinning={carregando} tip="Carregando...">
+    <div>
+      {carregando && <LoadingBox />}
       <div>
         <p className="secao-sobre-estudantes">
           Esta seção apresenta uma tabela e gráficos que ilustram a proficiência
@@ -258,7 +260,7 @@ const Estudantes: React.FC = () => {
       {dadosGrafico.map((item, index) => (
         <EstudantesPorMateria key={index} dados={item} />
       ))}
-    </Spin>
+    </div>
   );
 };
 

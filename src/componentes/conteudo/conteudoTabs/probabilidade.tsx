@@ -21,6 +21,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { setFilters } from "../../../redux/slices/filtrosSlice";
+import LoadingBox from "../../loadingBox/loadingBox";
 
 const colunasInicial = [
   {
@@ -311,7 +312,8 @@ const Probabilidade: React.FC = () => {
   };
 
   return (
-    <Spin spinning={carregando} tip="Carregando...">
+    <div>
+      {carregando && <LoadingBox />}
       <div>
         <p className="secao-sobre-probabilidade">
           Os percentuais por habilidade ajudam os professores no planejamento de
@@ -493,7 +495,7 @@ const Probabilidade: React.FC = () => {
           </Col>
         </Row>
       </div>
-    </Spin>
+    </div>
   );
 };
 

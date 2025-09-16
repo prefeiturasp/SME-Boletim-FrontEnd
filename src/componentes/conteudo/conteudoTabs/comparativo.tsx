@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { servicos } from "../../../servicos";
 import ComparativoTabela from "./comparativoTabela";
 import turmaMock from "../../../mocks/turmaMock.json";
+import LoadingBox from "../../loadingBox/loadingBox";
 
 interface Turma {
   ano: number;
@@ -267,8 +268,10 @@ const Comparativo: React.FC = () => {
     }
   };
 
+  
   return (
-    <Spin spinning={estaCarregando} tip="Carregando...">
+    <>
+      {estaCarregando && <LoadingBox />}
       <div>
         <p className="secao-sobre-comparativo">
           Esta seção apresenta a evolução do nível de proficiência das turmas e
@@ -373,149 +376,159 @@ const Comparativo: React.FC = () => {
 
       <div className="cards-comparacao">
         <Row gutter={[16, 16]} className="cards-container-comparacao">
-          <Col xs={24} sm={24} md={24} lg={6} key="prova-sp">
-            <Card className="card-conteudo-comparacao" style={{ padding: "0" }}>
-              <div className="cards-conteudo-titulo">
-                <span>Proficiência</span>
-                <div style={{ float: "right", fontSize: "12px" }}>
-                  <span
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
+          {(() => {
+            const dinamicos = resumoCardsComparacao?.lotes?.length ?? 0;
+            const totalCards = 1 + dinamicos; // 1 fixo + dinâmicos
+            const span = 24 / totalCards; // divide o grid igualmente
+
+            return (
+              <>
+                <Col xs={24} sm={24} md={24} lg={span} key="prova-sp">
+                  <Card className="card-conteudo-comparacao" style={{ padding: "0" }}>
+                    <div className="cards-conteudo-titulo">
+                      <span>Proficiência</span>
+                      <div style={{ float: "right", fontSize: "12px" }}>
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                          }}
+                        >
+                          <span
+                            style={{
+                              width: "10px",
+                              height: "10px",
+                              borderRadius: "50%",
+                              backgroundColor: getNivelColor(
+                                resumoCardsComparacao?.provaSP?.nivelProficiencia ??
+                                  ""
+                              ),
+                            }}
+                          ></span>
+                          {resumoCardsComparacao?.provaSP?.nivelProficiencia ?? "-"}
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      style={{ width: "100%", fontSize: "38px", fontWeight: "700" }}
+                    >
+                      {resumoCardsComparacao?.provaSP?.mediaProficiencia ?? "-"}
+                    </div>
+                    <div className="cards-conteudo-valores">
+                      <div className="cards-conteudo-valores-label">
+                        <img
+                          src={iconeDados}
+                          alt="Ícone disciplina"
+                          className="cards-conteudo-valores-icon"
+                        />
+                        <span style={{ paddingBottom: "0.2em" }}>
+                          {resumoCardsComparacao?.provaSP?.nomeAplicacao ?? "-"}
+                        </span>
+                      </div>
+                      <div className="cards-conteudo-valores-valor-mes">
+                        <span>{resumoCardsComparacao?.provaSP?.periodo ?? "-"}</span>
+                      </div>
+                    </div>
+                    <div className="cards-conteudo-valores">
+                      <div className="cards-conteudo-valores-label">
+                        <img
+                          src={iconeAlunos}
+                          alt="Ícone disciplina"
+                          className="cards-conteudo-valores-icon"
+                        />
+                        <span>Estudantes que realizaram a prova:</span>
+                      </div>
+                      <div className="cards-conteudo-valores-valor">
+                        {resumoCardsComparacao?.provaSP?.totalRealizaramProva ?? "-"}
+                      </div>
+                    </div>
+                  </Card>
+                </Col>
+                {resumoCardsComparacao?.lotes
+                ?.slice()
+                .sort((a: any, b: any) => {
+                  const dataA = parsePeriodo(a?.periodo);
+                  const dataB = parsePeriodo(b?.periodo);
+                  if (!dataA || !dataB) return 0;
+                  return dataA.getTime() - dataB.getTime();
+                })
+                .map((comparacao: any, idx: number) => (
+                  <Col
+                    key={idx}
+                    xs={24}
+                    sm={24}
+                    md={24}
+                    lg={span}
+                    style={{ paddingLeft: "0px" }}
                   >
-                    <span
-                      style={{
-                        width: "10px",
-                        height: "10px",
-                        borderRadius: "50%",
-                        backgroundColor: getNivelColor(
-                          resumoCardsComparacao?.provaSP?.nivelProficiencia ??
-                            ""
-                        ),
-                      }}
-                    ></span>
-                    {resumoCardsComparacao?.provaSP?.nivelProficiencia ?? "-"}
-                  </span>
-                </div>
-              </div>
-              <div
-                style={{ width: "100%", fontSize: "38px", fontWeight: "700" }}
-              >
-                {resumoCardsComparacao?.provaSP?.mediaProficiencia ?? "-"}
-              </div>
-              <div className="cards-conteudo-valores">
-                <div className="cards-conteudo-valores-label">
-                  <img
-                    src={iconeDados}
-                    alt="Ícone disciplina"
-                    className="cards-conteudo-valores-icon"
-                  />
-                  <span style={{ paddingBottom: "0.2em" }}>
-                    {resumoCardsComparacao?.provaSP?.nomeAplicacao ?? "-"}
-                  </span>
-                </div>
-                <div className="cards-conteudo-valores-valor-mes">
-                  <span>{resumoCardsComparacao?.provaSP?.periodo ?? "-"}</span>
-                </div>
-              </div>
-              <div className="cards-conteudo-valores">
-                <div className="cards-conteudo-valores-label">
-                  <img
-                    src={iconeAlunos}
-                    alt="Ícone disciplina"
-                    className="cards-conteudo-valores-icon"
-                  />
-                  <span>Estudantes que realizaram a prova:</span>
-                </div>
-                <div className="cards-conteudo-valores-valor">
-                  {resumoCardsComparacao?.provaSP?.totalRealizaramProva ?? "-"}
-                </div>
-              </div>
-            </Card>
-          </Col>
-          {resumoCardsComparacao?.lotes
-          ?.slice()
-          .sort((a: any, b: any) => {
-            const dataA = parsePeriodo(a?.periodo);
-            const dataB = parsePeriodo(b?.periodo);
-            if (!dataA || !dataB) return 0;
-            return dataA.getTime() - dataB.getTime();
-          })
-          .map((comparacao: any, idx: number) => (
-            <Col
-              key={idx}
-              xs={24}
-              sm={24}
-              md={24}
-              lg={6}
-              style={{ paddingLeft: "0px" }}
-            >
-              <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
-                <div className="cards-conteudo-titulo">
-                  <span>Proficiência</span>
-                  <div style={{ float: "right", fontSize: "12px" }}>
-                    <span
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: "10px",
-                          height: "10px",
-                          borderRadius: "50%",
-                          backgroundColor: getNivelColor(
-                            comparacao?.nivelProficiencia ?? ""
-                          ),
-                        }}
-                      ></span>
-                      {comparacao?.nivelProficiencia ?? "-"}
-                    </span>
-                  </div>
-                </div>
-                <div
-                  style={{ width: "100%", fontSize: "38px", fontWeight: "700" }}
-                >
-                  {comparacao?.mediaProficiencia ?? "-"}
-                </div>
-                <div className="cards-conteudo-valores">
-                  <div className="cards-conteudo-valores-label">
-                    <img
-                      src={iconeDados}
-                      alt="Ícone disciplina"
-                      className="cards-conteudo-valores-icon"
-                    />
-                    <span
-                      style={{ paddingBottom: "0.2em" }}
-                      title={`Prova ${comparacao?.nomeAplicacao ?? "-"}`}
-                    >
-                      Prova {comparacao?.nomeAplicacao ?? "-"}
-                    </span>
-                  </div>
-                  <div className="cards-conteudo-valores-valor-mes">
-                    <span>{comparacao?.periodo ?? "-"}</span>
-                  </div>
-                </div>
-                <div className="cards-conteudo-valores">
-                  <div className="cards-conteudo-valores-label">
-                    <img
-                      src={iconeAlunos}
-                      alt="Ícone disciplina"
-                      className="cards-conteudo-valores-icon"
-                    />
-                    <span>Estudantes que realizaram a prova:</span>
-                  </div>
-                  <div className="cards-conteudo-valores-valor">
-                    {comparacao?.totalRealizaramProva ?? "-"}
-                  </div>
-                </div>
-              </Card>
-            </Col>
-          ))}
+                    <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
+                      <div className="cards-conteudo-titulo">
+                        <span>Proficiência</span>
+                        <div style={{ float: "right", fontSize: "12px" }}>
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                            }}
+                          >
+                            <span
+                              style={{
+                                width: "10px",
+                                height: "10px",
+                                borderRadius: "50%",
+                                backgroundColor: getNivelColor(
+                                  comparacao?.nivelProficiencia ?? ""
+                                ),
+                              }}
+                            ></span>
+                            {comparacao?.nivelProficiencia ?? "-"}
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        style={{ width: "100%", fontSize: "38px", fontWeight: "700" }}
+                      >
+                        {comparacao?.mediaProficiencia ?? "-"}
+                      </div>
+                      <div className="cards-conteudo-valores">
+                        <div className="cards-conteudo-valores-label">
+                          <img
+                            src={iconeDados}
+                            alt="Ícone disciplina"
+                            className="cards-conteudo-valores-icon"
+                          />
+                          <span
+                            style={{ paddingBottom: "0.2em" }}
+                            title={`Prova ${comparacao?.nomeAplicacao ?? "-"}`}
+                          >
+                            Prova {comparacao?.nomeAplicacao ?? "-"}
+                          </span>
+                        </div>
+                        <div className="cards-conteudo-valores-valor-mes">
+                          <span>{comparacao?.periodo ?? "-"}</span>
+                        </div>
+                      </div>
+                      <div className="cards-conteudo-valores">
+                        <div className="cards-conteudo-valores-label">
+                          <img
+                            src={iconeAlunos}
+                            alt="Ícone disciplina"
+                            className="cards-conteudo-valores-icon"
+                          />
+                          <span>Estudantes que realizaram a prova:</span>
+                        </div>
+                        <div className="cards-conteudo-valores-valor">
+                          {comparacao?.totalRealizaramProva ?? "-"}
+                        </div>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </>
+            );
+          })()}
         </Row>
         <div className="info-blue">
           Informações da{" "}
@@ -531,14 +544,15 @@ const Comparativo: React.FC = () => {
 
       {dadosTurma.map((item: any, index: number) => (
         <ComparativoTabela
+          key={todasTurmas[index]?.turma || index}
           index={index}
           exibirMais={exibirMais}
           dadosTurma={dadosTurma[index]}
           turmaSelecionada={todasTurmas[index].turma}
           componentesCurricularSelecionado={componentesCurricularSelecionado}
         />
-      ))}
-    </Spin>
+      ))}  
+    </>
   );
 };
 
