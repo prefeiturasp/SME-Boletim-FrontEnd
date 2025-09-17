@@ -1,10 +1,178 @@
-import React from "react";
+import { Breadcrumb, Card, Col, Row, Select } from "antd";
+import { Header } from "antd/es/layout/layout";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
+const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import "./compararDados.css";
 
 const CompararDados: React.FC = () => {
+  const [aplicacoes, setAplicacoes] = useState<any[]>([
+    {
+      value: "2025",
+      label: "2025",
+    },
+  ]);
+  const [anos, setAnos] = useState([
+    {
+      value: "5",
+      label: "5 ano",
+    },
+  ]);
+  const [ComponentesCurriculares, setComponentesCurriculares] = useState([
+    {
+      value: "5",
+      label: "Lingua Portuguesa",
+    },
+  ]);
+
+  const [aplicacaoSelecionada, setAplicacaoSelecionada] = useState({
+    value: "2025",
+    label: "2025",
+  });
+  const [componenteSelecionado, setComponenteCurricularSelecionado] = useState({
+    value: "5",
+    label: "Lingua Portuguesa",
+  });
+  const [anoSelecionado, setAnoSelecionado] = useState({
+    value: "5",
+    label: "5 ano",
+  });
+
   return (
-    <></>
+    <>
+      <div className="app-container">
+        <Row>
+          <Header className="cabecalho">
+            <div className="linha-superior">
+              <Link to={linkRetorno} className="retornar">
+                <ArrowLeftOutlined className="icone-retorno" />
+                <span className="texto-retorno">Retornar à tela inicial</span>
+              </Link>
+              <span className="titulo-principal">Boletim de provas</span>
+            </div>
+            <div className="barra-azul">
+              <Breadcrumb
+                className="breadcrumb"
+                items={[
+                  { title: "Home" },
+                  { title: "Provas" },
+                  { title: "Boletim de provas" },
+                  { title: "Comparativo de Resultados" },
+                ]}
+              />
+              <span className="titulo-secundario">
+                Comparativo de Resultados
+              </span>
+            </div>
+          </Header>
+        </Row>
+
+        <Row>
+          <div className="imagem-header">
+            <img src={imagemFluxoDRE} alt="Fluxo DRE" />
+          </div>
+        </Row>
+
+        <div className="conteudo-principal-dres">
+          <Row gutter={[16, 16]}>
+            <Col span={24}>
+              <h2 className="titulo-ue-sme">
+                Secretaria Municipal de Educação
+              </h2>
+
+              <div className="ajustes-padding-cards">
+                <Card title="" variant="borderless" className="card-body-dre">
+                  <p style={{ marginTop: "0", marginBottom: "32px" }}>
+                    Aqui, você pode acompanhar a evolução do nível de
+                    proficiência da SME nas diferentes aplicações da Prova São
+                    Paulo e da Prova Saberes e Aprendizagens.
+                  </p>
+
+                  <div className="comparar-dados-caixa-cinza">
+                    <div className="comparar-dados-caixa-texto">
+                      {" "}
+                      Para começar, selecione o componente curricular, o ano
+                      escolar e o ano de aplicação que deseja visualizar. Caso o
+                      ano ainda esteja em andamento, só serão exibidos os
+                      resultados disponíveis até agora.
+                    </div>
+
+                    <div className="comparar-dados-filtros-card">
+                      <div className="comparar-dados-selects">
+                        <label className="label-filtro-dre">
+                          Ano da Aplicação
+                        </label>
+                        <Select
+                          data-testid="select-aplicacao"
+                          showSearch
+                          placeholder="Selecione uma aplicação..."
+                          className="select-custom"
+                          onChange={(value) => {
+                            setAplicacaoSelecionada(value);
+                          }}
+                          value={aplicacaoSelecionada || undefined}
+                          notFoundContent="Nenhuma aplicação encontrada"
+                          filterOption={(input, option) =>
+                            option?.label
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          options={aplicacoes}
+                        />
+                      </div>
+                      <div className="comparar-dados-selects">
+                        <label className="label-filtro-dre">
+                          Componente Curricular
+                        </label>
+                        <Select
+                          data-testid="select-aplicacao"
+                          showSearch
+                          placeholder="Selecione uma aplicação..."
+                          className="select-custom"
+                          onChange={(value) => {
+                            setComponenteCurricularSelecionado(value);
+                          }}
+                          value={componenteSelecionado || undefined}
+                          notFoundContent="Nenhuma aplicação encontrada"
+                          filterOption={(input, option: any) =>
+                            (option?.label ?? "")
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          options={ComponentesCurriculares}
+                        />
+                      </div>
+                      <div className="comparar-dados-selects">
+                        <label className="label-filtro-dre">Ano</label>
+                        <Select
+                          showSearch
+                          placeholder="Ano escolar"
+                          className="select-custom"
+                          onChange={(value) => {
+                            setAnoSelecionado(value);
+                          }}
+                          value={anoSelecionado || undefined}
+                          notFoundContent="Nenhum ano encontrado"
+                          filterOption={(input, option: any) =>
+                            (option?.label ?? "")
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          options={anos}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </>
   );
 };
-
 
 export default CompararDados;

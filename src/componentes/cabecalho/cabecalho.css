@@ -64,3 +64,43 @@
 .ant-breadcrumb-separator {
   color: #fff !important;
 }
+
+.barra-comparar-dados {
+  margin: 0px !important;
+  background: white;
+  width: 100%;
+  padding: 24px 35px;
+  z-index: 3000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.barra-comparar-dados-conteudo {
+  flex: 1;
+}
+
+.barra-comparar-dados-titulo {
+  color: #595959;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.barra-comparar-dados-texto {
+  padding-top: 8px;
+  font-size: 14px;
+  color: #595959;
+}
+
+.barra-comparar-dados-botao {
+  flex-shrink: 0;
+}
+
+.barra-comparar-dados-botao button {
+  width: 254px;
+  height: 38px;
+  border-radius: 4px;
+  background: #5a94d8;
+  color: white;
+}

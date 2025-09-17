@@ -138,6 +138,12 @@
   padding-top: 190px;
 }
 
+.conteudo-principal-dres {
+  margin-right: 35px;
+  margin-left: 35px;
+  padding-top: 0px;
+}
+
 .informacao-blue {
   background: #5A94D8;
   color: white;
