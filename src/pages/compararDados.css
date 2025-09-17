@@ -1,21 +1,19 @@
 .comparar-dados-caixa-cinza {
-  background-color: #f5f5f5;
+  background-color: #F5F5F5;
   border-radius: 4px 4px 4px 4px;
   padding: 16px 24px 16px 24px;
   display: flex;
 }
 
 .comparar-dados-caixa-texto {
-  width: 49%;
 }
 
 .comparar-dados-filtros-card {
   margin-left: 32px;
   display: flex;
-  width: 49%;
-  gap: 3%;
 }
 
 .comparar-dados-selects {
+  padding-left: 8px;
   width: 192px;
 }
