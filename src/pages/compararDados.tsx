@@ -6,6 +6,7 @@ import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDados.css";
+import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<any[]>([
@@ -169,8 +170,16 @@ const CompararDados: React.FC = () => {
               </div>
             </Col>
           </Row>
+          <br />
+          <Card>
+            <TabelaComparativa
+              aplicacaoSelecionada={aplicacaoSelecionada}
+              componenteSelecionado={componenteSelecionado}
+              anoSelecionado={anoSelecionado}
+            />
+          </Card>  
         </div>
-      </div>
+      </div>          
     </>
   );
 };

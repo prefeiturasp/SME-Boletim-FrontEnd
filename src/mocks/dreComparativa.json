@@ -1,0 +1,21 @@
+{
+  "variacao": 19.85,
+  "Aplicacao": [
+    {
+      "descricao": "PSP",
+      "mes": "Jan",
+      "valorProficiencia": 232.8,
+      "nivelProficiencia": "Adequado",
+      "Qtde UE": "601",
+      "Qtde Estudante": "526.55"
+    },
+    {
+      "descricao": "PSP",
+      "mes": "Fev",
+      "valorProficiencia": 210.5,
+      "nivelProficiencia": "Básico",
+      "Qtde UE": "500",
+      "Qtde Estudante": "420.3"
+    }
+  ]
+}
