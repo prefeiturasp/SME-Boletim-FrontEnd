@@ -103,36 +103,12 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
 };
 export default ComparativoTabela;
 
-const pegaCoresBarraProgresso = (
-  valor: number,
-  disciplina: string,
-  ano: number
-) => {
-  if (disciplina === "Lingua portuguesa" && ano === 5) {
-    if (valor < 150) return "#FF5959";
-    if (valor < 200) return "#FEDE99";
-    if (valor < 250) return "#5A94D8";
-    return "#99FF99";
-  }
-  if (disciplina === "Lingua portuguesa" && ano === 9) {
-    if (valor < 200) return "#FF5959";
-    if (valor < 275) return "#FEDE99";
-    if (valor < 325) return "#5A94D8";
-    return "#99FF99";
-  }
-  if (disciplina === "Matemática" && ano === 5) {
-    if (valor < 175) return "#FF5959";
-    if (valor < 225) return "#FEDE99";
-    if (valor < 275) return "#5A94D8";
-    return "#99FF99";
-  }
-  if (disciplina === "Matemática" && ano === 9) {
-    if (valor < 225) return "#FF5959";
-    if (valor < 300) return "#FEDE99";
-    if (valor < 350) return "#5A94D8";
-    return "#99FF99";
-  }
-  return "default";
+const pegaCoresBarraProgresso = (nivelProficiencia: string) => {  
+    if (nivelProficiencia === "Abaixo do Básico") return "#FF5959";
+    if (nivelProficiencia === "Básico") return "#FEDE99";
+    if (nivelProficiencia === "Adequado") return "#9999FF";
+    if (nivelProficiencia === "Avançado") return "#99FF99";
+    return "#B0B0B0";
 };
 
 const getVariationTag = (valor: number) => {
@@ -180,13 +156,10 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span>{psp.valor.toFixed(2)}</span>
                 <Progress
-                  percent={100}
+                  percent={psp.valor}
                   showInfo={false}
-                  strokeColor={pegaCoresBarraProgresso(
-                    psp.valor,
-                    disciplina,
-                    ano
-                  )}
+                  strokeColor={pegaCoresBarraProgresso(psp.nivelProficiencia)}
+                  trailColor="#B0B0B0"
                   style={{ width: 60 }}
                 />
               </div>
@@ -208,13 +181,10 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span>{psa.valor.toFixed(2)}</span>
                 <Progress
-                  percent={100}
+                  percent={psa.valor}
                   showInfo={false}
-                  strokeColor={pegaCoresBarraProgresso(
-                    psa.valor,
-                    disciplina,
-                    ano
-                  )}
+                  strokeColor={pegaCoresBarraProgresso(psa.nivelProficiencia)}
+                  trailColor="#B0B0B0"
                   style={{ width: 60 }}
                 />
               </div>
