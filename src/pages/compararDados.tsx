@@ -85,6 +85,25 @@ const CompararDados: React.FC = () => {
 
               <div className="ajustes-padding-cards">
                 <Card title="" variant="borderless" className="card-body-dre">
+                  <div style={{ marginBottom: 32 }}>
+                    <Link
+                      to="/ues"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                        color: "#1976d2",
+                        textDecoration: "none",
+                        margin: "0px",
+                        fontSize: 14,
+                      }}
+                      className="botao-voltar-ues"
+                    >
+                      <ArrowLeftOutlined style={{ fontSize: 18 }} />
+                      Voltar a tela anterior
+                    </Link>
+                  </div>
+
                   <p style={{ marginTop: "0", marginBottom: "32px" }}>
                     Aqui, você pode acompanhar a evolução do nível de
                     proficiência da SME nas diferentes aplicações da Prova São
