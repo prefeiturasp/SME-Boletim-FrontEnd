@@ -31,71 +31,71 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
   return (
     <>
       {estaCarregando && <LoadingBox />}
-        <div className="bloco-secao-tabela-comparativo">
-          <div className="secao-tabela-comparativo">
-            <b>
-              Estudantes da Turma {turmaSelecionada} em{" "}
-              {componentesCurricularSelecionado}
-            </b>
-          </div>
-          <div>
-            <div className="legendas">
-              <div className="texto">
-                <span className="desempenho-por-materia-negrito">Níveis:</span>
-              </div>
-              <div className="caixa-vermelha"></div>{" "}
-              <div className="texto">1 - Abaixo do basico</div>
-              <div className="caixa-amarela"></div>{" "}
-              <div className="texto">2 - Básico</div>
-              <div className="caixa-azul"></div>{" "}
-              <div className="texto">3 - Adequado</div>
-              <div className="caixa-verde"></div>{" "}
-              <div className="texto">4 - Avançado</div>
+      <div className="bloco-secao-tabela-comparativo">
+        <div className="secao-tabela-comparativo">
+          <b>
+            Estudantes da Turma {turmaSelecionada} em{" "}
+            {componentesCurricularSelecionado}
+          </b>
+        </div>
+        <div>
+          <div className="legendas">
+            <div className="texto">
+              <span className="desempenho-por-materia-negrito">Níveis:</span>
             </div>
+            <div className="caixa-vermelha"></div>{" "}
+            <div className="texto">1 - Abaixo do basico</div>
+            <div className="caixa-amarela"></div>{" "}
+            <div className="texto">2 - Básico</div>
+            <div className="caixa-azul"></div>{" "}
+            <div className="texto">3 - Adequado</div>
+            <div className="caixa-verde"></div>{" "}
+            <div className="texto">4 - Avançado</div>
           </div>
         </div>
-        <br />
-        <Table
-          columns={constroiColunas(disciplina, ano, dadosTurma.itens)}
-          dataSource={dadosTurma.itens.map((item: any, idx: any) => ({
-            ...item,
-            key: idx,
-          }))}
-          pagination={false}
-          scroll={{ x: "max-content" }}
-          bordered
-        />
+      </div>
+      <br />
+      <Table
+        columns={constroiColunas(disciplina, ano, dadosTurma.itens)}
+        dataSource={dadosTurma.itens.map((item: any, idx: any) => ({
+          ...item,
+          key: idx,
+        }))}
+        pagination={false}
+        scroll={{ x: "max-content" }}
+        bordered
+      />
 
-        <>
-          <br></br>
-          <br></br>
-          <br></br>
-          {dadosTurma.itens.length >= 5 && (
-            <div className="transparent-bottom-ue">
-              <Button
-                variant="outlined"
-                className="btn-exibir-mais-ue"
-                loading={loadingMaisUes}
-                onClick={() => exibirMais(index)}
-                style={{
-                  minWidth: 160,
-                  height: 40,
-                  fontWeight: 600,
-                  fontSize: 16,
-                  zIndex: 2,
-                }}
-              >
-                <img
-                  src={iconeMais}
-                  alt="Ícone dados"
-                  className="disciplina-icon"
-                />
-                Exibir mais
-              </Button>
-            </div>
-          )}
-        </>
-      
+      <>
+        <br></br>
+        <br></br>
+        <br></br>
+        {dadosTurma.itens.length >= 5 && (
+          <div className="transparent-bottom-ue">
+            <Button
+              variant="outlined"
+              className="btn-exibir-mais-ue"
+              loading={loadingMaisUes}
+              onClick={() => exibirMais(index)}
+              style={{
+                minWidth: 160,
+                height: 40,
+                fontWeight: 600,
+                fontSize: 16,
+                zIndex: 2,
+              }}
+            >
+              <img
+                src={iconeMais}
+                alt="Ícone dados"
+                className="disciplina-icon"
+              />
+              Exibir mais
+            </Button>
+          </div>
+        )}
+      </>
+
 
       <div className="espacamento-tabela-comparativo"></div>
     </>
@@ -103,12 +103,12 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
 };
 export default ComparativoTabela;
 
-const pegaCoresBarraProgresso = (nivelProficiencia: string) => {  
-    if (nivelProficiencia === "Abaixo do Básico") return "#FF5959";
-    if (nivelProficiencia === "Básico") return "#FEDE99";
-    if (nivelProficiencia === "Adequado") return "#9999FF";
-    if (nivelProficiencia === "Avançado") return "#99FF99";
-    return "#B0B0B0";
+const pegaCoresBarraProgresso = (nivelProficiencia: string) => {
+  if (nivelProficiencia === "Abaixo do Básico") return "#FF5959";
+  if (nivelProficiencia === "Básico") return "#FEDE99";
+  if (nivelProficiencia === "Adequado") return "#9999FF";
+  if (nivelProficiencia === "Avançado") return "#99FF99";
+  return "#B0B0B0";
 };
 
 const getVariationTag = (valor: number) => {
