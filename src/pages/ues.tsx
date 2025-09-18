@@ -420,13 +420,39 @@ const UesPage: React.FC = () => {
                       />
             <span className="titulo-secundario">Boletim de provas</span>
           </div>
-          <div className="imagem-header">
-            <img src={imagemFluxoDRE} alt="Fluxo DRE" />
-          </div>
         </Header>
       </Row>
 
-      <div className="conteudo-principal-ues" ref={containerRef}>
+      <Row>
+              <div className="imagem-header">
+                <img src={imagemFluxoDRE} alt="Fluxo DRE" />
+              </div>
+      
+              <div className="barra-comparar-dados">
+                <div className="barra-comparar-dados-conteudo">
+                  <div className="barra-comparar-dados-titulo">
+                    Comparativo de resultados
+                  </div>
+                  <div className="barra-comparar-dados-texto">
+                    Acompanhe a proficiência de todas as Diretorias Regionais de
+                    Educação (DREs) nas diferentes aplicações da Prova São Paulo e
+                    Prova Saberes e Aprendizagens.
+                  </div>
+                </div>
+                <div className="barra-comparar-dados-botao">
+                  <Button
+                    onClick={() => {
+                      navigate(`/comparar-dados`);
+                      window.scrollTo(0, 0);
+                    }}
+                  >
+                    Comparar Dados
+                  </Button>
+                </div>
+              </div>
+            </Row>
+
+      <div className="conteudo-principal-ue" ref={containerRef}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <h2 className="titulo-ue-sme">{dreSelecionadaNome}</h2>

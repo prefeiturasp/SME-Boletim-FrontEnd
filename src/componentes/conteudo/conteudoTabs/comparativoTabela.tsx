@@ -2,7 +2,7 @@ import { Children, useState } from "react";
 import { Table, Progress, Tag, Spin, Button } from "antd";
 import "./comparativoTabela.css";
 import iconeMais from "./../../../assets/icon-mais.svg";
-import LoadingBox from "../../loadingBox/loadingBox";
+//import LoadingBox from "../../loadingBox/loadingBox";
 
 interface ComparativoTabelaProps {
   index: number;
@@ -30,7 +30,7 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
 
   return (
     <>
-      {estaCarregando && <LoadingBox />}
+      <Spin spinning={estaCarregando} tip="Carregando...">
         <div className="bloco-secao-tabela-comparativo">
           <div className="secao-tabela-comparativo">
             <b>
@@ -64,38 +64,46 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
           pagination={false}
           scroll={{ x: "max-content" }}
           bordered
+          locale={{
+            emptyText: (
+              <div className="comparativo-tabela-vazia">
+                NENHUM ESTUDANTE ENCONTRADO PARA ESTA TURMA
+              </div>
+            ),
+          }}
         />
 
         <>
           <br></br>
           <br></br>
           <br></br>
-          {dadosTurma.itens.length >= 5 && (
-            <div className="transparent-bottom-ue">
-              <Button
-                variant="outlined"
-                className="btn-exibir-mais-ue"
-                loading={loadingMaisUes}
-                onClick={() => exibirMais(index)}
-                style={{
-                  minWidth: 160,
-                  height: 40,
-                  fontWeight: 600,
-                  fontSize: 16,
-                  zIndex: 2,
-                }}
-              >
-                <img
-                  src={iconeMais}
-                  alt="Ícone dados"
-                  className="disciplina-icon"
-                />
-                Exibir mais
-              </Button>
-            </div>
-          )}
+          {dadosTurma.itens.length >= 5 &&
+            dadosTurma.total > dadosTurma.itens.length && (
+              <div className="transparent-bottom-ue">
+                <Button
+                  variant="outlined"
+                  className="btn-exibir-mais-ue"
+                  loading={loadingMaisUes}
+                  onClick={() => exibirMais(index)}
+                  style={{
+                    minWidth: 160,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: 16,
+                    zIndex: 2,
+                  }}
+                >
+                  <img
+                    src={iconeMais}
+                    alt="Ícone dados"
+                    className="disciplina-icon"
+                  />
+                  Exibir mais
+                </Button>
+              </div>
+            )}
         </>
-      
+      </Spin>
 
       <div className="espacamento-tabela-comparativo"></div>
     </>
@@ -103,12 +111,12 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
 };
 export default ComparativoTabela;
 
-const pegaCoresBarraProgresso = (nivelProficiencia: string) => {  
-    if (nivelProficiencia === "Abaixo do Básico") return "#FF5959";
-    if (nivelProficiencia === "Básico") return "#FEDE99";
-    if (nivelProficiencia === "Adequado") return "#9999FF";
-    if (nivelProficiencia === "Avançado") return "#99FF99";
-    return "#B0B0B0";
+const pegaCoresBarraProgresso = (nivelProficiencia: string) => {
+  if (nivelProficiencia === "Abaixo do Básico") return "#FF5959";
+  if (nivelProficiencia === "Básico") return "#FEDE99";
+  if (nivelProficiencia === "Adequado") return "#9999FF";
+  if (nivelProficiencia === "Avançado") return "#99FF99";
+  return "#B0B0B0";
 };
 
 const getVariationTag = (valor: number) => {
