@@ -1,20 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
-
-.tabela-titulo{
-   text-align: center;
-   font-weight: 700;
-   font-size: 16px;
-   border-bottom: none;
-   padding-top: 5px;
-   padding-bottom: 5px;
-   color: #595959;
+.tabela-titulo {
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  border-bottom: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #595959;
 }
 
-.ant-table-title{
+.ant-table-title {
   padding: 0 !important;
   border: none !important;
-  background: #F5F5F5 !important;  
+  background: #f5f5f5 !important;
 }
 
 /* Remove todas as bordas verticais internas da tabela */
@@ -33,44 +32,42 @@
   height: 32px;
   line-height: 32px;
   padding-top: 0 !important;
-  padding-bottom: 0 !important;  
+  padding-bottom: 0 !important;
   border: none !important;
 }
 
 .ant-table-thead > tr > th.coluna-nome-header:first-child,
 .ant-table-thead > tr > th.variacao-header:last-child,
-.ant-table-thead > tr > th.aplicacao-psa-header{
-  background: #F5F5F5 !important;
+.ant-table-thead > tr > th.aplicacao-psa-header {
+  background: #f5f5f5 !important;
 }
 
 .ant-table-thead > tr > th.psp-header,
-.ant-table-thead > tr > th.psa-header{
-  background: #FFFFFF !important;
+.ant-table-thead > tr > th.psa-header {
+  background: #ffffff !important;
 }
-
 
 /* primeira coluna sempre bold */
 .coluna-nome-header {
   color: #595959 !important;
   font-weight: 700 !important;
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: center !important;
 }
-
 
 .variacao-header {
   color: #595959 !important;
   font-weight: 700 !important;
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: center !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
 .variacao-header .variacao-tag {
-  color: #FFFFFF;
+  color: #ffffff;
   background: bgColor;
   font-weight: 700;
   border-radius: 6;
@@ -103,7 +100,7 @@
   line-height: 33px;
 }
 
-.bloco-secao-tabela-comparativo{
+.bloco-secao-tabela-comparativo {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -114,61 +111,60 @@
   color: #595959;
 }
 
-.espacamento-tabela-comparativo
-{
-  padding-bottom: 50px;
+.espacamento-tabela-comparativo {
+  padding-bottom: 10px;
 }
 
 .legendas {
-    background: #FFFFFF !important;
-    margin-top: 8px;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+  background: #ffffff !important;
+  margin-top: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .texto {
-    margin-right: 30px;
-    display: flex;
-    align-items: center;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .caixa-vermelha {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background-color: #FF5959;
-    margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #ff5959;
+  margin-right: 5px;
 }
 
 .caixa-amarela {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background-color: #FEDE99;
-    margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #fede99;
+  margin-right: 5px;
 }
 
 .caixa-azul {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background-color: #9999FF;
-    margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #9999ff;
+  margin-right: 5px;
 }
 
 .caixa-verde {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background-color: #99FF99;
-    margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #99ff99;
+  margin-right: 5px;
 }
 
-.transparent-bottom-ue{
-   position: absolute;
+.transparent-bottom-ue {
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
@@ -182,7 +178,7 @@
   );
 
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .transparent-bottom-ue .btn-exibir-mais-ue {
@@ -192,4 +188,12 @@
 
 .btn-exibir-mais-ue .btn-exibir-mais-ue {
   align-items: center;
+}
+
+.comparativo-tabela-vazia {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  user-select: none;
+  color: #595959;
 }

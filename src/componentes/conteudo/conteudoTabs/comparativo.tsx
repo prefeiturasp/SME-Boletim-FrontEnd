@@ -7,7 +7,6 @@ import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { servicos } from "../../../servicos";
 import ComparativoTabela from "./comparativoTabela";
-import turmaMock from "../../../mocks/turmaMock.json";
 import LoadingBox from "../../loadingBox/loadingBox";
 
 interface Turma {
@@ -15,6 +14,7 @@ interface Turma {
   turma: string;
   descricao: string;
   disciplina: string;
+  nivelProficiencia: string;
 }
 
 const Comparativo: React.FC = () => {
@@ -29,7 +29,7 @@ const Comparativo: React.FC = () => {
   const [tabelasCount, setTabelasCount] = useState<number[]>([]);
   const [todasTurmas, setTodasTurmas] = useState<any | null>([]);
   const [indexTabelaTurma, setIndexTabelaTurma] = useState(-1);
-  const limite = 20;
+  const limite = 10;
 
   const filtroCompleto = useSelector(
     (state: RootState) => state.filtroCompleto
@@ -79,7 +79,6 @@ const Comparativo: React.FC = () => {
 
   useEffect(() => {
     if (activeTab !== "5") return;
-
     if (
       aplicacaoSelecionada &&
       escolaSelecionada?.ueId &&
@@ -87,7 +86,7 @@ const Comparativo: React.FC = () => {
       anosEscolarSelecionadoId
     ) {
       buscarCardsComparacao();
-      buscaTodasTurmas();
+      if (todasTurmas.length === 0) buscaTodasTurmas();
     }
   }, [
     activeTab,
@@ -102,19 +101,16 @@ const Comparativo: React.FC = () => {
       setEstaCarregando(true);
       setResumoCardsComparacao(null);
 
-      const componenteId = componentesCurricularSelecionadoId;
-      const anoId = anosEscolarSelecionadoId;
-
       if (
         !aplicacaoSelecionada ||
         !escolaSelecionada?.ueId ||
-        !componenteId ||
-        !anoId
+        !componentesCurricularSelecionadoId ||
+        !anosEscolarSelecionadoId
       )
         return;
 
       const resposta = await servicos.get(
-        `/api/BoletimEscolar/proficienciaComparativoProvaSp/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componenteId}/${anoId}`
+        `/api/BoletimEscolar/proficienciaComparativoProvaSp/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`
       );
 
       setResumoCardsComparacao(resposta || null);
@@ -149,13 +145,12 @@ const Comparativo: React.FC = () => {
   useEffect(() => {
     if (activeTab !== "5") return;
     else buscaDadosTurma(indexTabelaTurma);
-  }, [
-    filtrosSelecionados,
-    indexTabelaTurma,
-    activeTab,
-    todasTurmas,
-    tabelasCount,
-  ]);
+  }, [indexTabelaTurma, activeTab, todasTurmas, tabelasCount]);
+
+  useEffect(() => {
+    if (activeTab !== "5") return;
+    buscaDadosTurma();
+  }, [filtrosSelecionados]);
 
   const buscaUnicaTurma = async (
     ano: string,
@@ -163,48 +158,31 @@ const Comparativo: React.FC = () => {
     limite: number
   ) => {
     try {
-      setEstaCarregando(true);
-      //const resposta = await servicos.get(`/api/pegaturmaunica`);
-      console.log(ano, turma, limite);
-
-      let resultado = { ...turmaMock };
-
       const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
       const nomeSelecionado = filtrosSelecionados?.nomeEstudante || [];
 
-      if (variacoesSelecionadas.length > 0 || nomeSelecionado) {
-        resultado = {
-          ...resultado,
-          itens: resultado.itens.filter((aluno: any) => {
-            let passouVariacao = true;
-            let passouNome = true;
+      let variacao = "null";
 
-            if (variacoesSelecionadas.length > 0) {
-              passouVariacao = variacoesSelecionadas.some((f: any) => {
-                if (f.valor === "positiva") return aluno.variacao > 0;
-                if (f.valor === "negativa") return aluno.variacao < 0;
-                if (f.valor === "neutra") return aluno.variacao === 0;
-                return false;
-              });
-            }
+      if (variacoesSelecionadas.length === 0) return {};
+      else if (
+        variacoesSelecionadas.find((x) => x.valor === "positiva") &&
+        variacoesSelecionadas.find((x) => x.valor === "negativa")
+      )
+        variacao = "";
+      else if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
+        variacao = "1";
+      else if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
+        variacao = "2";
+      else if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
+        variacao = "3";
 
-            if (nomeSelecionado) {
-              passouNome = aluno.nome.toLowerCase().includes(nomeSelecionado);
-            }
-
-            return passouVariacao && passouNome;
-          }),
-        };
-      }
-
-      resultado.itens = resultado.itens.slice(0, limite);
+      const resultado = await servicos.get(
+        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}&tipoVariacao=${variacao}`
+      );
 
       return resultado;
     } catch (error) {
       console.log(error);
-      setEstaCarregando(false);
-    } finally {
-      setEstaCarregando(false);
     }
   };
 
@@ -213,36 +191,26 @@ const Comparativo: React.FC = () => {
       setEstaCarregando(true);
 
       if (index === -1) {
-        //"TODO: CHAMA A API E PROCURA TODOS OS DADOS"
-
         const resultados = await Promise.all(
           todasTurmas.map((item: any) =>
-            buscaUnicaTurma(item.ano, item.turma, 20)
+            buscaUnicaTurma(item.ano, item.turma, limite)
           )
         );
-
         setDadosTurma(resultados || []);
       } else {
-        //"TODO: CHAMA A API E PROCURA OS DADOS DO INDICE"
-
-        const x = await buscaUnicaTurma(
+        const unicaTurma = await buscaUnicaTurma(
           todasTurmas[index].ano,
           todasTurmas[index].turma,
-          20
+          tabelasCount[index]
         );
 
-        if (!x || !x.itens) {
+        if (!unicaTurma) {
           setEstaCarregando(false);
           return;
         }
 
-        const mais5 = x.itens.slice(0, 5);
-
         const clone = [...dadosTurma];
-        clone[index] = {
-          ...clone[index],
-          itens: [...clone[index].itens, ...mais5],
-        };
+        clone[index] = unicaTurma;
         setDadosTurma(clone);
       }
     } catch (error) {
@@ -257,7 +225,7 @@ const Comparativo: React.FC = () => {
       setEstaCarregando(true);
       setTabelasCount((prev) => {
         const clone = [...prev];
-        clone[index] = clone[index] + 20;
+        clone[index] = clone[index] + 10;
         return clone;
       });
       setIndexTabelaTurma(index);
@@ -268,7 +236,6 @@ const Comparativo: React.FC = () => {
     }
   };
 
-  
   return (
     <>
       {estaCarregando && <LoadingBox />}
@@ -384,7 +351,10 @@ const Comparativo: React.FC = () => {
             return (
               <>
                 <Col xs={24} sm={24} md={24} lg={span} key="prova-sp">
-                  <Card className="card-conteudo-comparacao" style={{ padding: "0" }}>
+                  <Card
+                    className="card-conteudo-comparacao"
+                    style={{ padding: "0" }}
+                  >
                     <div className="cards-conteudo-titulo">
                       <span>Proficiência</span>
                       <div style={{ float: "right", fontSize: "12px" }}>
@@ -401,17 +371,22 @@ const Comparativo: React.FC = () => {
                               height: "10px",
                               borderRadius: "50%",
                               backgroundColor: getNivelColor(
-                                resumoCardsComparacao?.provaSP?.nivelProficiencia ??
-                                  ""
+                                resumoCardsComparacao?.provaSP
+                                  ?.nivelProficiencia ?? ""
                               ),
                             }}
                           ></span>
-                          {resumoCardsComparacao?.provaSP?.nivelProficiencia ?? "-"}
+                          {resumoCardsComparacao?.provaSP?.nivelProficiencia ??
+                            "-"}
                         </span>
                       </div>
                     </div>
                     <div
-                      style={{ width: "100%", fontSize: "38px", fontWeight: "700" }}
+                      style={{
+                        width: "100%",
+                        fontSize: "38px",
+                        fontWeight: "700",
+                      }}
                     >
                       {resumoCardsComparacao?.provaSP?.mediaProficiencia ?? "-"}
                     </div>
@@ -427,7 +402,9 @@ const Comparativo: React.FC = () => {
                         </span>
                       </div>
                       <div className="cards-conteudo-valores-valor-mes">
-                        <span>{resumoCardsComparacao?.provaSP?.periodo ?? "-"}</span>
+                        <span>
+                          {resumoCardsComparacao?.provaSP?.periodo ?? "-"}
+                        </span>
                       </div>
                     </div>
                     <div className="cards-conteudo-valores">
@@ -440,92 +417,102 @@ const Comparativo: React.FC = () => {
                         <span>Estudantes que realizaram a prova:</span>
                       </div>
                       <div className="cards-conteudo-valores-valor">
-                        {resumoCardsComparacao?.provaSP?.totalRealizaramProva ?? "-"}
+                        {resumoCardsComparacao?.provaSP?.totalRealizaramProva ??
+                          "-"}
                       </div>
                     </div>
                   </Card>
                 </Col>
                 {resumoCardsComparacao?.lotes
-                ?.slice()
-                .sort((a: any, b: any) => {
-                  const dataA = parsePeriodo(a?.periodo);
-                  const dataB = parsePeriodo(b?.periodo);
-                  if (!dataA || !dataB) return 0;
-                  return dataA.getTime() - dataB.getTime();
-                })
-                .map((comparacao: any, idx: number) => (
-                  <Col
-                    key={idx}
-                    xs={24}
-                    sm={24}
-                    md={24}
-                    lg={span}
-                    style={{ paddingLeft: "0px" }}
-                  >
-                    <Card className="card-conteudo-comparacao" style={{ padding: 0 }}>
-                      <div className="cards-conteudo-titulo">
-                        <span>Proficiência</span>
-                        <div style={{ float: "right", fontSize: "12px" }}>
-                          <span
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "8px",
-                            }}
-                          >
+                  ?.slice()
+                  .sort((a: any, b: any) => {
+                    const dataA = parsePeriodo(a?.periodo);
+                    const dataB = parsePeriodo(b?.periodo);
+                    if (!dataA || !dataB) return 0;
+                    return dataA.getTime() - dataB.getTime();
+                  })
+                  .map((comparacao: any, idx: number) => (
+                    <Col
+                      key={idx}
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={span}
+                      style={{ paddingLeft: "0px" }}
+                    >
+                      <Card
+                        className="card-conteudo-comparacao"
+                        style={{ padding: 0 }}
+                      >
+                        <div className="cards-conteudo-titulo">
+                          <span>Proficiência</span>
+                          <div style={{ float: "right", fontSize: "12px" }}>
                             <span
                               style={{
-                                width: "10px",
-                                height: "10px",
-                                borderRadius: "50%",
-                                backgroundColor: getNivelColor(
-                                  comparacao?.nivelProficiencia ?? ""
-                                ),
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
                               }}
-                            ></span>
-                            {comparacao?.nivelProficiencia ?? "-"}
-                          </span>
+                            >
+                              <span
+                                style={{
+                                  width: "10px",
+                                  height: "10px",
+                                  borderRadius: "50%",
+                                  backgroundColor: getNivelColor(
+                                    comparacao?.nivelProficiencia ?? ""
+                                  ),
+                                }}
+                              ></span>
+                              {comparacao?.nivelProficiencia ?? "-"}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        style={{ width: "100%", fontSize: "38px", fontWeight: "700" }}
-                      >
-                        {comparacao?.mediaProficiencia ?? "-"}
-                      </div>
-                      <div className="cards-conteudo-valores">
-                        <div className="cards-conteudo-valores-label">
-                          <img
-                            src={iconeDados}
-                            alt="Ícone disciplina"
-                            className="cards-conteudo-valores-icon"
-                          />
-                          <span
-                            style={{ paddingBottom: "0.2em" }}
-                            title={`Prova ${comparacao?.nomeAplicacao ?? "-"}`}
-                          >
-                            Prova {comparacao?.nomeAplicacao ?? "-"}
-                          </span>
+                        <div
+                          style={{
+                            width: "100%",
+                            fontSize: "38px",
+                            fontWeight: "700",
+                          }}
+                        >
+                          {comparacao?.mediaProficiencia ?? "-"}
                         </div>
-                        <div className="cards-conteudo-valores-valor-mes">
-                          <span>{comparacao?.periodo ?? "-"}</span>
+                        <div className="cards-conteudo-valores">
+                          <div className="cards-conteudo-valores-label">
+                            <img
+                              src={iconeDados}
+                              alt="Ícone disciplina"
+                              className="cards-conteudo-valores-icon"
+                            />
+                            <span
+                              style={{ paddingBottom: "0.2em" }}
+                              title={`Prova ${
+                                comparacao?.nomeAplicacao ?? "-"
+                              }`}
+                            >
+                              Prova {comparacao?.nomeAplicacao ?? "-"}
+                            </span>
+                          </div>
+                          <div className="cards-conteudo-valores-valor-mes">
+                            <span>{comparacao?.periodo ?? "-"}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="cards-conteudo-valores">
-                        <div className="cards-conteudo-valores-label">
-                          <img
-                            src={iconeAlunos}
-                            alt="Ícone disciplina"
-                            className="cards-conteudo-valores-icon"
-                          />
-                          <span>Estudantes que realizaram a prova:</span>
+                        <div className="cards-conteudo-valores">
+                          <div className="cards-conteudo-valores-label">
+                            <img
+                              src={iconeAlunos}
+                              alt="Ícone disciplina"
+                              className="cards-conteudo-valores-icon"
+                            />
+                            <span>Estudantes que realizaram a prova:</span>
+                          </div>
+                          <div className="cards-conteudo-valores-valor">
+                            {comparacao?.totalRealizaramProva ?? "-"}
+                          </div>
                         </div>
-                        <div className="cards-conteudo-valores-valor">
-                          {comparacao?.totalRealizaramProva ?? "-"}
-                        </div>
-                      </div>
-                    </Card>
-                  </Col>
-                ))}
+                      </Card>
+                    </Col>
+                  ))}
               </>
             );
           })()}
@@ -551,7 +538,7 @@ const Comparativo: React.FC = () => {
           turmaSelecionada={todasTurmas[index].turma}
           componentesCurricularSelecionado={componentesCurricularSelecionado}
         />
-      ))}  
+      ))}
     </>
   );
 };
