@@ -162,9 +162,10 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
             if (!psp) return null;
             return (
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span>{psp.valor.toFixed(2)}</span>
+                <span className="valorPspPsa">{psp.valor.toFixed(2)}</span>
                 <Progress
                   percent={psp.valor}
+                  strokeWidth={10}
                   showInfo={false}
                   strokeColor={pegaCoresBarraProgresso(psp.nivelProficiencia)}
                   trailColor="#B0B0B0"
@@ -190,6 +191,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
                 <span>{psa.valor.toFixed(2)}</span>
                 <Progress
                   percent={psa.valor}
+                  strokeWidth={10}
                   showInfo={false}
                   strokeColor={pegaCoresBarraProgresso(psa.nivelProficiencia)}
                   trailColor="#B0B0B0"

@@ -56,6 +56,11 @@
   text-align: center !important;
 }
 
+.valorPspPsa{
+  width: 41px !important;
+  text-align: right !important;  
+}
+
 .variacao-header {
   color: #595959 !important;
   font-weight: 700 !important;
