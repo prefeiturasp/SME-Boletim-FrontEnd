@@ -37,7 +37,10 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
             dataIndex: colKey,
             key: colKey,
             align: "left" as const,
-            width: 120,
+            width: 120,            
+            onHeaderCell: () => ({
+                className: "tabela-comparativa-header", // 🔹 aplica sua classe
+            }),
         };
     });
 
@@ -56,6 +59,7 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
                 percent={Math.min(100, (item.valorProficiencia / 300) * 100)} // Exemplo de cálculo
                 size="small"
                 showInfo={false}
+                strokeWidth={9}
                 strokeColor={
                     item.nivelProficiencia === "Adequado"
                     ? "green"
@@ -85,9 +89,12 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
             key: "aplicacao",
             fixed: "left" as const,
             width: 120,
-            ellipsis: true,          // 🔹 corta texto se passar do limite
+            ellipsis: true,
+            onHeaderCell: () => ({
+                className: "tabela-comparativa-header",
+            }),
             render: (text: string) => (
-            <div style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <div style={{color: "#595959", fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {text}
             </div>
             ),
@@ -106,9 +113,9 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
             A tabela exibe a proficiência da Secretaria Municipal de Educação nas aplicações da Prova São Paulo e da Prova Saberes e Aprendizagens.
         </div>
         <div className="tabela-comparativa-labels">
-            <div className="tabela-comparativa-labels-item">{componenteSelecionado?.label}</div>
-            <div className="tabela-comparativa-labels-item">{anoSelecionado?.label}</div>
-            <div className="tabela-comparativa-labels-item">{aplicacaoSelecionada?.label}</div>            
+            <div className="tabela-comparativa-labels-item" style={{ width: "130px" }}>{componenteSelecionado?.label}</div>
+            <div className="tabela-comparativa-labels-item" style={{ width: "38px" }}>{anoSelecionado?.label}</div>
+            <div className="tabela-comparativa-labels-item" style={{ width: "31px" }}>{aplicacaoSelecionada?.label}</div>            
         </div>
      </div>
      <br />    
