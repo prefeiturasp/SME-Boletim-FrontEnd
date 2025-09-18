@@ -150,7 +150,7 @@ const Comparativo: React.FC = () => {
   useEffect(() => {
     if (activeTab !== "5") return;
     buscaDadosTurma();
-  }, [filtrosSelecionados]);
+  }, [filtrosSelecionados, turmaSelecionada]);
 
   const buscaUnicaTurma = async (
     ano: string,
@@ -192,26 +192,32 @@ const Comparativo: React.FC = () => {
 
       if (index === -1) {
         const resultados = await Promise.all(
-          todasTurmas.map((item: any) =>
-            buscaUnicaTurma(item.ano, item.turma, limite)
-          )
+          todasTurmas.map((item: any) => {
+            if (turmaSelecionada === "Todas")
+              return buscaUnicaTurma(item.ano, item.turma, limite);
+            else if (
+              turmaSelecionada !== "Todas" &&
+              turmaSelecionada === item.turma
+            )
+              return buscaUnicaTurma(item.ano, item.turma, limite);
+          })
         );
-        setDadosTurma(resultados || []);
+        setDadosTurma(resultados.filter(x => x != undefined) || []);
       } else {
         const unicaTurma = await buscaUnicaTurma(
-          todasTurmas[index].ano,
-          todasTurmas[index].turma,
-          tabelasCount[index]
-        );
+            todasTurmas[index].ano,
+            todasTurmas[index].turma,
+            tabelasCount[index]
+          );
 
         if (!unicaTurma) {
           setEstaCarregando(false);
           return;
         }
 
-        const clone = [...dadosTurma];
-        clone[index] = unicaTurma;
-        setDadosTurma(clone);
+          const clone = [...dadosTurma];
+          clone[index] = unicaTurma;
+          setDadosTurma(clone);
       }
     } catch (error) {
       console.error("Erro ao buscar dados da turma:", error);
@@ -529,16 +535,23 @@ const Comparativo: React.FC = () => {
       <br />
       <br />
 
-      {dadosTurma.map((item: any, index: number) => (
-        <ComparativoTabela
+      {dadosTurma.map((item: any, index: number) => {
+
+        let turma = ''
+        if(turmaSelecionada === "Todas")
+          turma = todasTurmas[index].turma
+        else 
+          turma = turmaSelecionada
+
+        return <ComparativoTabela
           key={todasTurmas[index]?.turma || index}
           index={index}
           exibirMais={exibirMais}
           dadosTurma={dadosTurma[index]}
-          turmaSelecionada={todasTurmas[index].turma}
+          turmaSelecionada={turma}
           componentesCurricularSelecionado={componentesCurricularSelecionado}
         />
-      ))}
+      })}
     </>
   );
 };
