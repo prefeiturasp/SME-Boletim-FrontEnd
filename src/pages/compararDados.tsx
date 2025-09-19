@@ -7,6 +7,7 @@ const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDados.css";
 import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
+import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<any[]>([
@@ -196,6 +197,8 @@ const CompararDados: React.FC = () => {
               componenteSelecionado={componenteSelecionado}
               anoSelecionado={anoSelecionado}
             />
+            <br />
+            <CardsComparativa objeto={null} />
           </Card>  
         </div>
       </div>          
