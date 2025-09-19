@@ -35,7 +35,7 @@ const FiltroComparativoUes: React.FC<FiltroComparativoParametros> = ({
               {componenteSelecionado?.label}
             </div>
             <div className="filtro-comparativo-tags-item filtro-comparativo-tags-turma">
-              {anoSelecionado?.label}
+              {anoSelecionado?.label}º ano
             </div>
             <div className="filtro-comparativo-tags-item filtro-comparativo-tags-ano">
               {aplicacaoSelecionada?.label}
