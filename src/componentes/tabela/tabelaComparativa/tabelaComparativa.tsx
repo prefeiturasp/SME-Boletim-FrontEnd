@@ -21,15 +21,13 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
     aplicacaoSelecionada, componenteSelecionado, anoSelecionado
 }) => {
 
-    // 🔹 Linhas fixas
     const linhasFixas = [
         { key: "proficiencia", aplicacao: "Proficiência" },
         { key: "qtdeUE", aplicacao: "Qtde UE" },
         { key: "qtdeEstudante", aplicacao: "Qtde Estudantes" },
     ];
-
-    // 🔹 Monta colunas dinâmicas
-    const colunasDinamicas = dreComparativa.Aplicacao.map((item, index) => {
+    
+    const colunasDinamicas = dreComparativa.aplicacao.map((item, index) => {
         const colKey = `${item.descricao}-${item.mes || index}`;
         return {
             title: item.mes ? `${item.descricao} (${item.mes})` : item.descricao,
@@ -38,16 +36,23 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
             align: "left" as const,
             width: 120,
             onHeaderCell: () => ({
-                className: "tabela-comparativa-header", // 🔹 aplica sua classe
+                className: "tabela-comparativa-header",
             }),
         };
     });
 
-    // 🔹 Monta o dataSource transposto
+    const pegaCoresBarraProgresso = (nivelProficiencia: string) => {
+        if (nivelProficiencia === "Abaixo do Básico") return "#FF5959";
+        if (nivelProficiencia === "Básico") return "#FEDE99";
+        if (nivelProficiencia === "Adequado") return "#9999FF";
+        if (nivelProficiencia === "Avançado") return "#99FF99";
+        return "#B0B0B0";
+    };
+
     const dataSource = linhasFixas.map((linha) => {
         const row: any = { key: linha.key, aplicacao: linha.aplicacao };
 
-        dreComparativa.Aplicacao.forEach((item, index) => {
+        dreComparativa.aplicacao.forEach((item, index) => {
             const colKey = `${item.descricao}-${item.mes || index}`;
 
             if (linha.key === "proficiencia") {
@@ -55,17 +60,11 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
                         <div>{item.valorProficiencia}</div>
                         <Progress
-                            percent={Math.min(100, (item.valorProficiencia / 300) * 100)} // Exemplo de cálculo
+                            percent={Math.min(100, (item.valorProficiencia / 300) * 100)}
                             size="small"
                             showInfo={false}
                             strokeWidth={9}
-                            strokeColor={
-                                item.nivelProficiencia === "Adequado"
-                                    ? "green"
-                                    : item.nivelProficiencia === "Básico"
-                                        ? "orange"
-                                        : "red"
-                            }
+                            strokeColor={pegaCoresBarraProgresso(item.nivelProficiencia)}
                             style={{ width: "100%", paddingLeft: 8 }}
                         />
                     </div>
