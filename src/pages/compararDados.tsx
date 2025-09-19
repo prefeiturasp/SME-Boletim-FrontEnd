@@ -7,6 +7,7 @@ const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDados.css";
 import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
+import FiltroComparativoUes from "../componentes/filtro/filtroComparativoUEs/filtroComparativoUes";
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<any[]>([
@@ -40,6 +41,25 @@ const CompararDados: React.FC = () => {
     value: "5",
     label: "5 ano",
   });
+
+  const [listaUes, setListaUes] = useState([
+    {
+      value: "12345",
+      label: "DRE SA - EMEF ARMANDO ARRUDA PEREIRA",
+    },
+  ]);
+
+  const [ueSelecionada, setUeSelecionada] = useState([
+    {
+      value: "12345",
+      label: "DRE SA - EMEF ARMANDO ARRUDA PEREIRA",
+    },
+  ]);
+
+  const alterarUe = async () => {
+    //TODO: quando a api estiver pronta iremos trocar os valores do select aqui
+    //setUeSelecionada(???)
+  };
 
   return (
     <>
@@ -196,9 +216,18 @@ const CompararDados: React.FC = () => {
               componenteSelecionado={componenteSelecionado}
               anoSelecionado={anoSelecionado}
             />
-          </Card>  
+            <br />
+            <FiltroComparativoUes
+              dados={listaUes}
+              valorSelecionado={ueSelecionada}
+              alterarUe={alterarUe}
+              aplicacaoSelecionada={aplicacaoSelecionada}
+              componenteSelecionado={componenteSelecionado}
+              anoSelecionado={anoSelecionado}
+            />
+          </Card>
         </div>
-      </div>          
+      </div>
     </>
   );
 };
