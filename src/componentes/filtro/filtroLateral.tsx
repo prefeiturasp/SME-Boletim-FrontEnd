@@ -375,10 +375,10 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
             <Divider className="separador" />
 
             <div className="filtro-secao">
-              <h3 className="filtro-titulo">Nome do estudante</h3>
+              <h3 className="filtro-titulo">Nome do estudante:</h3>
               <Input
                 className="filtro-input"
-                placeholder="Digite o nome do estudante"
+                placeholder="Digite o nome do aluno"
                 data-testid="input-nome-estudante"
                 value={selectedFilters.nomeEstudante}
                 onChange={(e) =>
