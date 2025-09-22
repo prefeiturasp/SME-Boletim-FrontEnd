@@ -48,7 +48,6 @@
 
 .cards-comparativa-variacao-valor {
     background: #21C45D;
-    /*quando tiver o valor criar a regra*/
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     color: #ffffff;
@@ -58,6 +57,17 @@
     border-radius: 4px;
     text-align: center;
     font-weight: 700;
+}
+
+.cards-comparativa-coluna {
+    padding-left: 0px !important;
+}
+
+
+@media (max-width: 985px) {
+    .cards-comparativa-coluna {
+        padding-left: 8px !important;
+    }
 }
 
 .cards-comparativa-blocos {
@@ -74,6 +84,7 @@
 
 .cards-comparativa-bloco-cinza-header {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
     padding: 8px;
@@ -175,23 +186,23 @@
     margin-right: 0.3em;
 }
 
-.cards-comparativa-nivel-texto span{
+.cards-comparativa-nivel-texto span {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 14px;
     color: #595959;
 }
 
-.cards-comparativa-nivel-texto p{
+.cards-comparativa-nivel-texto p {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 12px;
     color: #595959;
     margin: 0;
     line-height: 12px;
-} 
+}
 
-.cards-comparativa-rodape{
+.cards-comparativa-rodape {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -199,7 +210,7 @@
     margin-top: 9px;
 }
 
-.cards-comparativa-rodape div p{
+.cards-comparativa-rodape div p {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -209,11 +220,11 @@
 .cards-comparativa-rodape .cards-comparativa-rodape-btn {
     display: flex;
     justify-content: space-between;
-    align-items: center;    
+    align-items: center;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
-    color: #595959; 
+    color: #595959;
     padding: 7px 24px 7px 24px;
     background: #5A94D8;
     color: #ffffff;

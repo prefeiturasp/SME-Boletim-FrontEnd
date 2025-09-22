@@ -101,7 +101,7 @@ const CardsComparativa: React.FC<CardsComparativaProps> = ({
                                             sm={24}
                                             md={24}
                                             lg={span}
-                                            style={{ paddingLeft: "0px" }}
+                                            className="cards-comparativa-coluna"                                            
                                         >
                                             <div className="cards-comparativa-bloco-cinza">
                                                 <div className="cards-comparativa-bloco-cinza-header">
