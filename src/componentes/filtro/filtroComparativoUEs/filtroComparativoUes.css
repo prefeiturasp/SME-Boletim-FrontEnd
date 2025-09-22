@@ -49,6 +49,10 @@
   min-width: 31px;
 }
 
+.filtro-comparativo-funcionalidade {
+  margin-top:16px;
+}
+
 .filtro-comparativo-funcionalidade-texto {
   padding-top: 16px;
   font-size: 14px;
