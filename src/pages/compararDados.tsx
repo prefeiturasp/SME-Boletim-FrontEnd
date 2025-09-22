@@ -159,7 +159,7 @@ const CompararDados: React.FC = () => {
                 ]}
               />
               <span className="titulo-secundario">
-                Comparativo de Resultados
+                Comparativo de resultados
               </span>
             </div>
           </Header>
@@ -199,7 +199,7 @@ const CompararDados: React.FC = () => {
                     </Link>
                   </div>
 
-                  <p style={{ marginTop: "0", marginBottom: "32px" }}>
+                  <p className="global-texto-padrao" style={{ marginTop: "0", marginBottom: "32px" }}>
                     Aqui, você pode acompanhar a evolução do nível de
                     proficiência da SME nas diferentes aplicações da Prova São
                     Paulo e da Prova Saberes e Aprendizagens.
@@ -217,7 +217,7 @@ const CompararDados: React.FC = () => {
                     <div className="comparar-dados-filtros-card">
                       <div className="comparar-dados-selects">
                         <label className="label-filtro-dre">
-                          Ano da Aplicação
+                          Ano da aplicação
                         </label>
                         <Select
                           data-testid="select-aplicacao"
@@ -239,7 +239,7 @@ const CompararDados: React.FC = () => {
                       </div>
                       <div className="comparar-dados-selects">
                         <label className="label-filtro-dre">
-                          Componente Curricular
+                          Componente curricular
                         </label>
                         <Select
                           data-testid="select-aplicacao"

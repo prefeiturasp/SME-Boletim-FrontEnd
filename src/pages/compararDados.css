@@ -10,6 +10,7 @@
 .comparar-dados-caixa-texto {
   flex: 1;
   min-width: 250px;
+  color:#595959
 }
 
 .comparar-dados-filtros-card {

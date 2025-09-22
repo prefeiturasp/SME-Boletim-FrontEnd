@@ -3,7 +3,7 @@
   font-size: 20px;
   font-weight: 700;
   height: 32px;
-  padding-top:16px;
+  padding-top: 16px;
 }
 
 .filtro-comparativo-conteudo {
@@ -52,6 +52,7 @@
 .filtro-comparativo-funcionalidade-texto {
   padding-top: 16px;
   font-size: 14px;
+  color: #595959;
 }
 
 .filtro-comparativo-funcionalidade-select {
@@ -59,7 +60,9 @@
   padding-bottom: 16px;
 }
 
-
+.filtro-comparativo-funcionalidade-select .ant-select-selection-item {
+  color: #595959;
+}
 
 /* para tablets */
 @media (max-width: 768px) {

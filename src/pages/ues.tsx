@@ -446,7 +446,7 @@ const UesPage: React.FC = () => {
                       window.scrollTo(0, 0);
                     }}
                   >
-                    Comparar Dados
+                    Comparar dados
                   </Button>
                 </div>
               </div>
