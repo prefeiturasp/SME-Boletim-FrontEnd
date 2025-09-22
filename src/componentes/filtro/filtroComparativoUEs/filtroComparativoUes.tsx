@@ -26,7 +26,7 @@ const FiltroComparativoUes: React.FC<FiltroComparativoParametros> = ({
           Evolução por Unidade Educacional (UE)
         </div>
         <div className="filtro-comparativo-conteudo">
-          <div className="tabela-comparativa-descricao-subtitulo">
+          <div className="filtro-comparativo-subtitulo">
             Confira a média de proficiência das UEs na aplicação da Prova São
             Paulo e nas três aplicações da Prova Saberes e Aprendizagens.
           </div>
