@@ -1,22 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-.cards-comparativa-corpo .ant-card-body{
+.cards-comparativa-corpo .ant-card-body {
     padding: 16px !important;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important; 
-    border-radius: 8px !important; 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 8px !important;
 }
 
-.cards-comparativa-header{
+.cards-comparativa-header {
     border-bottom: solid 1px #D5D5D5;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 7px;
 }
 
 @media (max-width: 768px) {
-  .cards-comparativa-header {
-    flex-direction: column;
-  }
+    .cards-comparativa-header {
+        flex-direction: column;
+    }
 }
 
 .cards-comparativa-titulo b {
@@ -27,30 +28,31 @@
     /* height: 24px; */
 }
 
-.cards-comparativa-variacao{
+.cards-comparativa-variacao {
     display: flex;
     justify-content: flex-end;
-    align-items: center;   
+    align-items: center;
     width: 154px;
     padding: 5px 8px 5px 8px;
 }
 
-.cards-comparativa-variacao-label{
+.cards-comparativa-variacao-label {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-style: normal;
-    color: #595959;      
+    color: #595959;
     padding: 0px 8px 5px 8px;
-    height: 20px;   
+    height: 20px;
     border-radius: 4px;
 }
 
-.cards-comparativa-variacao-valor{
-    background: #21C45D; /*quando tiver o valor criar a regra*/
+.cards-comparativa-variacao-valor {
+    background: #21C45D;
+    /*quando tiver o valor criar a regra*/
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;    
+    font-size: 14px;
     color: #ffffff;
-    margin-left: 0.5em;       
+    margin-left: 0.5em;
     height: 20px;
     width: 62px;
     border-radius: 4px;
@@ -58,58 +60,162 @@
     font-weight: 700;
 }
 
-.cards-comparativa-blocos{
+.cards-comparativa-blocos {
     display: flex;
-    flex-wrap: wrap;    
-    margin-top: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
 }
 
-.cards-comparativa-bloco-cinza{
-      background: #F5F5F5;
-      border-radius: 4px;
-      padding: 4px 7px 2px 7px;
+.cards-comparativa-bloco-cinza {
+    background: #F5F5F5;
+    border-radius: 4px;
+    padding: 4px 7px 2px 7px;
 }
 
-.cards-comparativa-bloco-cinza-header{    
+.cards-comparativa-bloco-cinza-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 8px;    
+    align-items: baseline;
+    padding: 8px;
 }
 
-.cards-comparativa-prova-data{
+.cards-comparativa-prova-data {
     display: flex;
     flex-direction: column;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    color: #595959;    
+    color: #595959;
 }
 
-.cards-comparativa-prova-data b{
+.cards-comparativa-prova-data b {
     padding: 0;
+    width: 140px;
+    line-height: 1.3em;
 }
 
-.cards-comparativa-prova-data span{
+.cards-comparativa-prova-data span {
     padding: 0;
-    line-height: 0.5em;
+    line-height: 2em;
 }
 
-.cards-comparativa-valor{
+.cards-comparativa-valor {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     font-family: 'Roboto', sans-serif;
 }
 
-.cards-comparativa-valor span{
-   color: #595959;
-   font-size: 12px;
-   font-weight: 400;
+.cards-comparativa-valor span {
+    color: #595959;
+    font-size: 12px;
+    font-weight: 400;
 }
 
-.cards-comparativa-valor div{
-   color: #5a94d8;
-   font-size: 24px;
-   font-weight: 700;
-   line-height: 1em;
+.cards-comparativa-valor div {
+    color: #5a94d8;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1em;
 }
 
+.cards-comparativa-quantidade-corpo {
+    display: flex;
+    margin: 15px 8px 8px 8px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.cards-comparativa-quantidade-corpo-sp {
+    display: flex;
+    margin: 33px 8px 8px 8px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.cards-comparativa-quantidade-texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cards-comparativa-quantidade-icone img {
+    padding-right: 0.5em;
+}
+
+.cards-comparativa-quantidade-texto p {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #595959;
+}
+
+.cards-comparativa-quantidade-texto span {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #595959;
+}
+
+.cards-comparativa-nivel-corpo {
+    display: flex;
+    /* margin: 15px 8px 8px 8px; */
+    padding: 8px;
+}
+
+.cards-comparativa-nivel-icone span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 0.5em;
+    margin-right: 0.3em;
+}
+
+.cards-comparativa-nivel-texto span{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #595959;
+}
+
+.cards-comparativa-nivel-texto p{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #595959;
+    margin: 0;
+    line-height: 12px;
+} 
+
+.cards-comparativa-rodape{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 9px;
+}
+
+.cards-comparativa-rodape div p{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #595959;
+}
+
+.cards-comparativa-rodape .cards-comparativa-rodape-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #595959; 
+    padding: 7px 24px 7px 24px;
+    background: #5A94D8;
+    color: #ffffff;
+    border-radius: 4px;
+}

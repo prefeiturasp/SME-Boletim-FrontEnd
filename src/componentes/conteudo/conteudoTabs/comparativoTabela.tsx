@@ -177,7 +177,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
         },
         // Criar colunas PSA dinamicamente
         ...Array.from(mesesUnicos).map((mes) => ({
-          title: `PSA (${mes} 2025)`,
+          title: `PSA (${mes})`,
           key: `psa-${mes}`,
           width: 80,
           className: "psa-header",

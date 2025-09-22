@@ -2,33 +2,33 @@
   "dre": "DRE CS - EMEF BELKICE MANHAES REIS, PROFA.",
   "variacao": 19.85,
   "provaSp": {
-      "descricaoProva": "PSP",
+      "nomeAplicacao": "Prova São Paulo",
       "mesAno": "Janeiro 2025",
       "valorProficiencia": 232.8,
       "nivelProficiencia": "Adequado",      
-      "Qtde Estudante": "526.55"
+      "QtdeEstudante": "526.55"
   },
   "aplicacao": [
     {
-      "descricaoProva": "PSA",
+      "nomeAplicacao": "Prova Saberes e Aprendizagens",
       "mesAno": "Janeiro 2025",
       "valorProficiencia": 232.8,
       "nivelProficiencia": "Adequado",      
-      "Qtde Estudante": "526.55"
+      "QtdeEstudante": "526.55"
     },
     {
-      "descricaoProva": "PSA",
+      "nomeAplicacao": "Prova Saberes e Aprendizagens",
       "mesAno": "Janeiro 2025",
       "valorProficiencia": 232.8,
       "nivelProficiencia": "Adequado",      
-      "Qtde Estudante": "526.55"
+      "QtdeEstudante": "526.55"
     },
     {
-      "descricaoProva": "PSA",
+      "nomeAplicacao": "Prova Saberes e Aprendizagens",
       "mesAno": "Janeiro 2025",
       "valorProficiencia": 232.8,
       "nivelProficiencia": "Adequado",      
-      "Qtde Estudante": "526.55"
+      "QtdeEstudante": "526.55"
     }
   ]
 }
