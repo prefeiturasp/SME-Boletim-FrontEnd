@@ -199,7 +199,7 @@ const CompararDados: React.FC = () => {
                     </Link>
                   </div>
 
-                  <p className="global-texto-padrao" style={{ marginTop: "0", marginBottom: "32px" }}>
+                  <p className="global-texto-padrao" style={{ marginTop: "0", marginBottom: "16px" }}>
                     Aqui, você pode acompanhar a evolução do nível de
                     proficiência da SME nas diferentes aplicações da Prova São
                     Paulo e da Prova Saberes e Aprendizagens.
