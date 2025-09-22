@@ -161,23 +161,18 @@ const Comparativo: React.FC = () => {
       const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
       const nomeSelecionado = filtrosSelecionados?.nomeEstudante || [];
 
-      let variacao = "null";
+      let variacao = "";
 
       if (variacoesSelecionadas.length === 0) return {};
-      else if (
-        variacoesSelecionadas.find((x) => x.valor === "positiva") &&
-        variacoesSelecionadas.find((x) => x.valor === "negativa")
-      )
-        variacao = "";
-      else if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
-        variacao = "1";
-      else if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
-        variacao = "2";
-      else if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
-        variacao = "3";
+      if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
+        variacao += "&tiposVariacao=1";
+      if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
+        variacao += "&tiposVariacao=2";
+      if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
+        variacao += "&tiposVariacao=3";
 
       const resultado = await servicos.get(
-        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}&tipoVariacao=${variacao}`
+        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`
       );
 
       return resultado;
@@ -202,22 +197,22 @@ const Comparativo: React.FC = () => {
               return buscaUnicaTurma(item.ano, item.turma, limite);
           })
         );
-        setDadosTurma(resultados.filter(x => x != undefined) || []);
+        setDadosTurma(resultados.filter((x) => x != undefined) || []);
       } else {
         const unicaTurma = await buscaUnicaTurma(
-            todasTurmas[index].ano,
-            todasTurmas[index].turma,
-            tabelasCount[index]
-          );
+          todasTurmas[index].ano,
+          todasTurmas[index].turma,
+          tabelasCount[index]
+        );
 
         if (!unicaTurma) {
           setEstaCarregando(false);
           return;
         }
 
-          const clone = [...dadosTurma];
-          clone[index] = unicaTurma;
-          setDadosTurma(clone);
+        const clone = [...dadosTurma];
+        clone[index] = unicaTurma;
+        setDadosTurma(clone);
       }
     } catch (error) {
       console.error("Erro ao buscar dados da turma:", error);
@@ -536,21 +531,20 @@ const Comparativo: React.FC = () => {
       <br />
 
       {dadosTurma.map((item: any, index: number) => {
+        let turma = "";
+        if (turmaSelecionada === "Todas") turma = todasTurmas[index].turma;
+        else turma = turmaSelecionada;
 
-        let turma = ''
-        if(turmaSelecionada === "Todas")
-          turma = todasTurmas[index].turma
-        else 
-          turma = turmaSelecionada
-
-        return <ComparativoTabela
-          key={todasTurmas[index]?.turma || index}
-          index={index}
-          exibirMais={exibirMais}
-          dadosTurma={dadosTurma[index]}
-          turmaSelecionada={turma}
-          componentesCurricularSelecionado={componentesCurricularSelecionado}
-        />
+        return (
+          <ComparativoTabela
+            key={todasTurmas[index]?.turma || index}
+            index={index}
+            exibirMais={exibirMais}
+            dadosTurma={dadosTurma[index]}
+            turmaSelecionada={turma}
+            componentesCurricularSelecionado={componentesCurricularSelecionado}
+          />
+        );
       })}
     </>
   );

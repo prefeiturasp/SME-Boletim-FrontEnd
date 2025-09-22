@@ -3,7 +3,7 @@
   "aplicacao": [
     {
       "descricao": "PSP",
-      "mes": "Jan",
+      "mes": "Janeiro",
       "valorProficiencia": 232.8,
       "nivelProficiencia": "Adequado",
       "Qtde UE": "601",
@@ -11,7 +11,7 @@
     },
     {
       "descricao": "PSA",
-      "mes": "Fev",
+      "mes": "Fevereiro",
       "valorProficiencia": 210.5,
       "nivelProficiencia": "Básico",
       "Qtde UE": "500",
@@ -19,7 +19,7 @@
     },
     {
       "descricao": "PSA",
-      "mes": "Fev",
+      "mes": "Março",
       "valorProficiencia": 210.5,
       "nivelProficiencia": "Básico",
       "Qtde UE": "500",
@@ -27,7 +27,7 @@
     },
     {
       "descricao": "PSA",
-      "mes": "Fev",
+      "mes": "Abril",
       "valorProficiencia": 210.5,
       "nivelProficiencia": "Básico",
       "Qtde UE": "500",

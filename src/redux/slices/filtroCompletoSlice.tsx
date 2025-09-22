@@ -44,7 +44,7 @@ const initialState: Filtro = {
   variacoes: [
     { valor: "positiva", texto: "Variação positiva" },
     { valor: "negativa", texto: "Variação negativa" },
-    { valor: "neutra", texto: "Sem Variação" },
+    { valor: "neutra", texto: "Sem variação" },
   ],
   nivelMinimoEscolhido: 0,
   nivelMaximoEscolhido: 0,

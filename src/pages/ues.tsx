@@ -442,11 +442,11 @@ const UesPage: React.FC = () => {
                 <div className="barra-comparar-dados-botao">
                   <Button
                     onClick={() => {
-                      navigate(`/comparar-dados`);
+                      navigate(`/comparar-dados/?dreUrlSelecionada=${dreSelecionada}`);
                       window.scrollTo(0, 0);
                     }}
                   >
-                    Comparar Dados
+                    Comparar dados
                   </Button>
                 </div>
               </div>

@@ -1,46 +1,143 @@
 import { Breadcrumb, Card, Col, Row, Select } from "antd";
 import { Header } from "antd/es/layout/layout";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDados.css";
 import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
+import FiltroComparativoUes from "../componentes/filtro/filtroComparativoUEs/filtroComparativoUes";
+import {
+  getAnosAplicacaoDre,
+  getAnosEscolaresUe,
+  getComponentesCurricularesDre,
+} from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
+
+
 const CompararDados: React.FC = () => {
-  const [aplicacoes, setAplicacoes] = useState<any[]>([
+  const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
+  const [aplicacaoSelecionada, setAplicacaoSelecionada] =
+    useState<ParametrosPadraoAntDesign | null>();
+
+  const [componentesCurriculares, setComponentesCurriculares] = useState<
+    ParametrosPadraoAntDesign[]
+  >([]);
+  const [componenteSelecionado, setComponenteCurricularSelecionado] =
+    useState<ParametrosPadraoAntDesign | null>();
+  const [anos, setAnos] = useState<ParametrosPadraoAntDesign[]>([]);
+
+  const [anoSelecionado, setAnoSelecionado] =
+    useState<ParametrosPadraoAntDesign | null>();
+
+  const [listaUes, setListaUes] = useState([
     {
-      value: "2025",
-      label: "2025",
-    },
-  ]);
-  const [anos, setAnos] = useState([
-    {
-      value: "5",
-      label: "5 ano",
-    },
-  ]);
-  const [ComponentesCurriculares, setComponentesCurriculares] = useState([
-    {
-      value: "5",
-      label: "Lingua Portuguesa",
+      value: "12345",
+      label: "DRE SA - EMEF ARMANDO ARRUDA PEREIRA",
     },
   ]);
 
-  const [aplicacaoSelecionada, setAplicacaoSelecionada] = useState({
-    value: "2025",
-    label: "2025",
-  });
-  const [componenteSelecionado, setComponenteCurricularSelecionado] = useState({
-    value: "5",
-    label: "Lingua Portuguesa",
-  });
-  const [anoSelecionado, setAnoSelecionado] = useState({
-    value: "5",
-    label: "5 ano",
-  });
+  const [ueSelecionada, setUeSelecionada] = useState([
+    {
+      value: "12345",
+      label: "DRE SA - EMEF ARMANDO ARRUDA PEREIRA",
+    },
+  ]);
+
+  const [dreSelecionada, setDreSelecionada] = useState(0);
+  const [searchParams] = useSearchParams();
+
+  const buscaAplicacoes = async () => {
+    try {
+      const aplicacoes: number[] = await getAnosAplicacaoDre(dreSelecionada);
+
+      const listaAplicacoes: ParametrosPadraoAntDesign[] = [];
+      aplicacoes.map((item) => {
+        listaAplicacoes.push({
+          value: item,
+          label: item.toString(),
+        });
+      });
+      setAplicacoes(listaAplicacoes);
+      if (listaAplicacoes.length > 0)
+        setAplicacaoSelecionada(listaAplicacoes[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const buscaComponentesCurriculares = async () => {
+    try {
+      let listaAnt: ParametrosPadraoAntDesign[] = [];
+      const materiasEscolares: FiltroChaveValor[] =
+        await getComponentesCurricularesDre(
+          dreSelecionada,
+          Number(aplicacaoSelecionada!.value)
+        );
+
+      listaAnt = materiasEscolares.map((item) => ({
+        value: item.valor,
+        label: item.texto,
+      }));
+
+      setComponentesCurriculares(listaAnt);
+      if (listaAnt.length > 0) setComponenteCurricularSelecionado(listaAnt[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const buscaAnosEscolares = async () => {
+    try {
+      let listaAnt: ParametrosPadraoAntDesign[] = [];
+      const anosEscolares: FiltroChaveValor[] = await getAnosEscolaresUe(
+        dreSelecionada,
+        Number(aplicacaoSelecionada!.value),
+        Number(componenteSelecionado!.value)
+      );
+
+      listaAnt = anosEscolares.map((item) => ({
+        value: item.valor,
+        label: item.texto,
+      }));
+
+      setAnos(listaAnt);
+      if (anosEscolares.length > 0) setAnoSelecionado(listaAnt[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const dreParam = searchParams.get("dreUrlSelecionada");
+    if (!dreParam) return;
+
+    const optNum = Number(dreParam);
+    if (Number.isNaN(optNum)) return;
+
+    setDreSelecionada(optNum);
+  }, []);
+
+  useEffect(() => {
+    if (dreSelecionada != 0) buscaAplicacoes();
+  }, [dreSelecionada]);
+
+  useEffect(() => {
+    if (dreSelecionada != 0 && aplicacaoSelecionada)
+      buscaComponentesCurriculares();
+  }, [dreSelecionada, aplicacaoSelecionada]);
+
+  useEffect(() => {
+    if (dreSelecionada != 0 && aplicacaoSelecionada && componenteSelecionado)
+      buscaAnosEscolares();
+  }, [dreSelecionada, aplicacaoSelecionada, componenteSelecionado]);
+
+  const alterarUe = async () => {
+    //TODO: quando a api estiver pronta iremos trocar os valores do select aqui
+    //setUeSelecionada(???)
+  };
 
   return (
     <>
@@ -65,7 +162,7 @@ const CompararDados: React.FC = () => {
                 ]}
               />
               <span className="titulo-secundario">
-                Comparativo de Resultados
+                Comparativo de resultados
               </span>
             </div>
           </Header>
@@ -105,7 +202,7 @@ const CompararDados: React.FC = () => {
                     </Link>
                   </div>
 
-                  <p style={{ marginTop: "0", marginBottom: "32px" }}>
+                  <p className="global-texto-padrao" style={{ marginTop: "0", marginBottom: "16px" }}>
                     Aqui, você pode acompanhar a evolução do nível de
                     proficiência da SME nas diferentes aplicações da Prova São
                     Paulo e da Prova Saberes e Aprendizagens.
@@ -123,7 +220,7 @@ const CompararDados: React.FC = () => {
                     <div className="comparar-dados-filtros-card">
                       <div className="comparar-dados-selects">
                         <label className="label-filtro-dre">
-                          Ano da Aplicação
+                          Ano da aplicação
                         </label>
                         <Select
                           data-testid="select-aplicacao"
@@ -131,12 +228,12 @@ const CompararDados: React.FC = () => {
                           placeholder="Selecione uma aplicação..."
                           className="select-custom"
                           onChange={(value) => {
-                            setAplicacaoSelecionada(value);
+                            setAplicacaoSelecionada(aplicacoes.find(x => x.value === Number(value)));
                           }}
                           value={aplicacaoSelecionada || undefined}
                           notFoundContent="Nenhuma aplicação encontrada"
-                          filterOption={(input, option) =>
-                            option?.label
+                          filterOption={(input, option: any) =>
+                            (option?.label ?? "")
                               .toLowerCase()
                               .includes(input.toLowerCase())
                           }
@@ -145,15 +242,15 @@ const CompararDados: React.FC = () => {
                       </div>
                       <div className="comparar-dados-selects">
                         <label className="label-filtro-dre">
-                          Componente Curricular
+                          Componente curricular
                         </label>
                         <Select
                           data-testid="select-aplicacao"
                           showSearch
                           placeholder="Selecione uma aplicação..."
                           className="select-custom"
-                          onChange={(value) => {
-                            setComponenteCurricularSelecionado(value);
+                          onChange={(value) => {                            
+                            setComponenteCurricularSelecionado(componentesCurriculares.find(x => x.value === Number(value)));
                           }}
                           value={componenteSelecionado || undefined}
                           notFoundContent="Nenhuma aplicação encontrada"
@@ -162,7 +259,7 @@ const CompararDados: React.FC = () => {
                               .toLowerCase()
                               .includes(input.toLowerCase())
                           }
-                          options={ComponentesCurriculares}
+                          options={componentesCurriculares}
                         />
                       </div>
                       <div className="comparar-dados-selects">
@@ -172,7 +269,7 @@ const CompararDados: React.FC = () => {
                           placeholder="Ano escolar"
                           className="select-custom"
                           onChange={(value) => {
-                            setAnoSelecionado(value);
+                            setAnoSelecionado(anos.find(x => x.value === Number(value)));
                           }}
                           value={anoSelecionado || undefined}
                           notFoundContent="Nenhum ano encontrado"
@@ -198,10 +295,19 @@ const CompararDados: React.FC = () => {
               anoSelecionado={anoSelecionado}
             />
             <br />
+            <FiltroComparativoUes
+              dados={listaUes}
+              valorSelecionado={ueSelecionada}
+              alterarUe={alterarUe}
+              aplicacaoSelecionada={aplicacaoSelecionada}
+              componenteSelecionado={componenteSelecionado}
+              anoSelecionado={anoSelecionado}
+            />
+            <br />
             <CardsComparativa objeto={null} />
           </Card>  
         </div>
-      </div>          
+      </div>
     </>
   );
 };

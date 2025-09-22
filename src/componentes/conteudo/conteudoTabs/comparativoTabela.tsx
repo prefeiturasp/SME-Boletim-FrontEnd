@@ -25,7 +25,12 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
   const [loadingMaisUes, setLoadingMaisUes] = useState(false);
 
   if (!dadosTurma || !dadosTurma.itens) {
-    return <>NÃO EXISTEM DADOS PARA SEREM EXIBIDOS...</>;
+    return (
+      <div className="comparativo-tabela-estudante-nao-encontrado">
+        Não existem dados para os estudantes da turma {turmaSelecionada} em{" "}
+        {componentesCurricularSelecionado}
+      </div>
+    );
   }
 
   return (

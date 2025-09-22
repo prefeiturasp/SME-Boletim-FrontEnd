@@ -112,7 +112,7 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
                 </div>
                 <div className="tabela-comparativa-labels">
                     <div className="tabela-comparativa-labels-item" style={{ width: "130px" }}>{componenteSelecionado?.label}</div>
-                    <div className="tabela-comparativa-labels-item" style={{ width: "38px" }}>{anoSelecionado?.label}</div>
+                    <div className="tabela-comparativa-labels-item" style={{ width: "45px" }}>{anoSelecionado?.label + "º ano"}</div>
                     <div className="tabela-comparativa-labels-item" style={{ width: "31px" }}>{aplicacaoSelecionada?.label}</div>
                 </div>
             </div>
