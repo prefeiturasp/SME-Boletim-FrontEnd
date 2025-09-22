@@ -32,7 +32,7 @@ const initialState: Filtro = {
   variacoes: [
     { valor: "positiva", texto: "Variação positiva" },
     { valor: "negativa", texto: "Variação negativa" },
-    { valor: "neutra", texto: "Sem Variação" },
+    { valor: "neutra", texto: "Sem variação" },
   ],
   nomeEstudante: "",
   eolEstudante: "",
