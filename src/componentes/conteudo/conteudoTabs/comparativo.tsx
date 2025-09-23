@@ -563,7 +563,7 @@ export const getNivelColor = (nivel: string) => {
     case "Adequado":
       return "#9999FF";
     default:
-      return "black";
+      return "#B0B0B0";
   }
 };
 
