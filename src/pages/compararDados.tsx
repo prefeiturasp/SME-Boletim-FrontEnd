@@ -13,6 +13,9 @@ import {
   getAnosEscolaresUe,
   getComponentesCurricularesDre,
 } from "../servicos/compararDados/compararDadosService";
+import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
+
+
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -300,7 +303,9 @@ const CompararDados: React.FC = () => {
               componenteSelecionado={componenteSelecionado}
               anoSelecionado={anoSelecionado}
             />
-          </Card>
+            <br />
+            <CardsComparativa objeto={null} />
+          </Card>  
         </div>
       </div>
     </>

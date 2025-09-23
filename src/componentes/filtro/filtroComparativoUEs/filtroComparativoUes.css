@@ -76,7 +76,7 @@
   }
 
   .filtro-comparativo-conteudo {
-    flex-direction: column;
+    display: block;
     align-items: flex-start;
   }
 

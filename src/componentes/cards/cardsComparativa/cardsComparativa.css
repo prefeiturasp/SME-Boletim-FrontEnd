@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.cards-comparativa-corpo .ant-card-body {
+    padding: 16px !important;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 8px !important;
+}
+
+.cards-comparativa-header {
+    border-bottom: solid 1px #D5D5D5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 7px;
+}
+
+@media (max-width: 768px) {
+    .cards-comparativa-header {
+        flex-direction: column;
+    }
+}
+
+.cards-comparativa-titulo b {
+    color: #595959;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    /* height: 24px; */
+}
+
+.cards-comparativa-variacao {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 154px;
+    padding: 5px 8px 5px 8px;
+}
+
+.cards-comparativa-variacao-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    color: #595959;
+    padding: 0px 8px 5px 8px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.cards-comparativa-variacao-valor {
+    background: #21C45D;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    margin-left: 0.5em;
+    height: 20px;
+    width: 62px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.cards-comparativa-coluna {
+    padding-left: 0px !important;
+}
+
+
+@media (max-width: 985px) {
+    .cards-comparativa-coluna {
+        padding-left: 8px !important;
+    }
+}
+
+.cards-comparativa-blocos {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.cards-comparativa-bloco-cinza {
+    background: #F5F5F5;
+    border-radius: 4px;
+    padding: 4px 7px 2px 7px;
+}
+
+.cards-comparativa-bloco-cinza-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px;
+}
+
+.cards-comparativa-prova-data {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #595959;
+}
+
+.cards-comparativa-prova-data b {
+    padding: 0;
+    width: 140px;
+    line-height: 1.3em;
+}
+
+.cards-comparativa-prova-data span {
+    padding: 0;
+    line-height: 2em;
+}
+
+.cards-comparativa-valor {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
+.cards-comparativa-valor span {
+    color: #595959;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.cards-comparativa-valor div {
+    color: #5a94d8;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1em;
+}
+
+.cards-comparativa-quantidade-corpo {
+    display: flex;
+    margin: 15px 8px 8px 8px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.cards-comparativa-quantidade-corpo-sp {
+    display: flex;
+    margin: 33px 8px 8px 8px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.cards-comparativa-quantidade-texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cards-comparativa-quantidade-icone img {
+    padding-right: 0.5em;
+}
+
+.cards-comparativa-quantidade-texto p {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #595959;
+}
+
+.cards-comparativa-quantidade-texto span {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #595959;
+}
+
+.cards-comparativa-nivel-corpo {
+    display: flex;
+    /* margin: 15px 8px 8px 8px; */
+    padding: 8px;
+}
+
+.cards-comparativa-nivel-icone span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 0.5em;
+    margin-right: 0.3em;
+}
+
+.cards-comparativa-nivel-texto span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #595959;
+}
+
+.cards-comparativa-nivel-texto p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #595959;
+    margin: 0;
+    line-height: 12px;
+}
+
+.cards-comparativa-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 9px;
+}
+
+.cards-comparativa-rodape div p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #595959;
+}
+
+.cards-comparativa-rodape .cards-comparativa-rodape-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #595959;
+    padding: 7px 24px 7px 24px;
+    background: #5A94D8;
+    color: #ffffff;
+    border-radius: 4px;
+}
