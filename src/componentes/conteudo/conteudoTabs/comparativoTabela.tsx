@@ -202,8 +202,8 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
             );
             if (!psa) return null;
             return (
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span>{psa.valor.toFixed(2)}</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 8}}>
+                <span className="valorPspPsa">{psa.valor.toFixed(2)}</span>
                 <Progress
                   percent={psa.valor}
                   strokeWidth={10}
