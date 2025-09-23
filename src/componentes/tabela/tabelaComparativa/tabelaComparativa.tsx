@@ -78,8 +78,7 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
 
         return row;
     });
-
-    // 🔹 Colunas finais
+    
     const columns = [
         {
             title: "Aplicação",

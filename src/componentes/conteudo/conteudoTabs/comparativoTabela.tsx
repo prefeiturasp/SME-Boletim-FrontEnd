@@ -39,23 +39,33 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
         <div className="bloco-secao-tabela-comparativo">
           <div className="secao-tabela-comparativo">
             <b>
-              Estudantes da Turma {turmaSelecionada} em{" "}
+              Estudantes da turma {turmaSelecionada} em{" "}
               {componentesCurricularSelecionado}
             </b>
           </div>
           <div>
-            <div className="legendas">
-              <div className="texto">
+            <div className="legendas-niveis-cores">
+              <div className="texto-niveis-cores">
                 <span className="desempenho-por-materia-negrito">Níveis:</span>
               </div>
-              <div className="caixa-vermelha"></div>{" "}
-              <div className="texto">1 - Abaixo do basico</div>
-              <div className="caixa-amarela"></div>{" "}
-              <div className="texto">2 - Básico</div>
-              <div className="caixa-azul"></div>{" "}
-              <div className="texto">3 - Adequado</div>
-              <div className="caixa-verde"></div>{" "}
-              <div className="texto">4 - Avançado</div>
+              <div className="niveis-cores">
+                <div className="niveis-cores-caixa">
+                  <div className="caixa-vermelha"></div>{" "}
+                  <div className="texto-legenda-nivel">1 - Abaixo do básico</div>
+                </div>
+                <div className="niveis-cores-caixa">
+                  <div className="caixa-amarela"></div>{" "}
+                  <div className="texto-legenda-nivel">2 - Básico</div>
+                </div>
+                <div className="niveis-cores-caixa">
+                  <div className="caixa-azul"></div>{" "}
+                  <div className="texto-legenda-nivel">3 - Adequado</div>
+                </div>
+                <div className="niveis-cores-caixa">
+                  <div className="caixa-verde"></div>{" "}
+                  <div className="texto-legenda-nivel">4 - Avançado</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -145,11 +155,11 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
 
   const colunas: any[] = [
     {
-      title: "Nome do Estudante",
+      title: "Nome do estudante",
       dataIndex: "nome",
       key: "nome",
       className: "coluna-nome-header",
-      width: 284,
+      width: 260,
     },
     {
       title: "Aplicação PSA",
@@ -180,7 +190,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
             );
           },
         },
-        // Criar colunas PSA dinamicamente
+
         ...Array.from(mesesUnicos).map((mes) => ({
           title: `PSA (${mes})`,
           key: `psa-${mes}`,
@@ -211,7 +221,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
   ];
 
   colunas.push({
-    title: "Variacão",
+    title: "Variação",
     key: "variacao",
     width: 80,
     aling: "center",
