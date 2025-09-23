@@ -1,24 +1,21 @@
-interface CardsComparativaProps{
-    objeto: { 
-        dre: string; 
-        variacao?: number;
-        provaSp: {
-            descricaoProva: string,
-            mesAno: string,
-            valorProficiencia?: number,
-            nivelProficiencia: string,
-            qtdeEstudante: string
-        },
-        aplicacao: [
-            {
-                descricao: string,
-                mes: string,
-                valorProficiencia?: number,
-                nivelProficiencia: string,
-                qtdeUE: string,
-                qtdeEstudante: string
-            }
-        ]
-
-    } | null;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface CardsComparativaProps {
+  dre: string;
+  variacao?: number;
+  provaSp: {
+    nomeAplicacao: string;
+    mesAno: string;
+    valorProficiencia?: number;
+    nivelProficiencia: string;
+    qtdeEstudante: string;
+  };
+  aplicacao: [
+    {
+      nomeAplicacao: string;
+      mesAno: string;
+      valorProficiencia: number;
+      nivelProficiencia: string;
+      qtdeEstudante: string;
+    }
+  ];
 }
