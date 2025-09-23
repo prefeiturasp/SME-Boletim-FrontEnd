@@ -346,8 +346,8 @@ const Comparativo: React.FC = () => {
         <Row gutter={[16, 16]} className="cards-container-comparacao">
           {(() => {
             const dinamicos = resumoCardsComparacao?.lotes?.length ?? 0;
-            const totalCards = 1 + dinamicos; // 1 fixo + dinâmicos
-            const span = 24 / totalCards; // divide o grid igualmente
+            const totalCards = 1 + dinamicos;
+            const span = 24 / totalCards;
 
             return (
               <>
@@ -439,7 +439,7 @@ const Comparativo: React.FC = () => {
                       sm={24}
                       md={24}
                       lg={span}
-                      style={{ paddingLeft: "0px" }}
+                      className="card-bloco-comparacao"
                     >
                       <Card
                         className="card-conteudo-comparacao"
@@ -563,7 +563,7 @@ export const getNivelColor = (nivel: string) => {
     case "Adequado":
       return "#9999FF";
     default:
-      return "black";
+      return "#B0B0B0";
   }
 };
 
