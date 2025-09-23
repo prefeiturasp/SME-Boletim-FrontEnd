@@ -1,4 +1,4 @@
-import { Breadcrumb, Card, Col, Row, Select } from "antd";
+import { Breadcrumb, Button, Card, Col, Row, Select } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -15,7 +15,8 @@ import {
 } from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
-
+import mock from "../mocks/cardsComparativas.json";
+import iconeMais from "../assets/icon-mais.svg";
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -28,6 +29,7 @@ const CompararDados: React.FC = () => {
   const [componenteSelecionado, setComponenteCurricularSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
   const [anos, setAnos] = useState<ParametrosPadraoAntDesign[]>([]);
+  const [ues, setUes] = useState<CardsComparativaProps[]>(mock as CardsComparativaProps[]);
 
   const [anoSelecionado, setAnoSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
@@ -139,6 +141,11 @@ const CompararDados: React.FC = () => {
     //setUeSelecionada(???)
   };
 
+  const exibirMais = async () => {
+    //TODO: CHAMAR A API AQUI QUANDO ELA FICAR PRONTA
+    setUes((prev) => [...prev, ...ues]); 
+  }
+
   return (
     <>
       <div className="app-container">
@@ -202,7 +209,10 @@ const CompararDados: React.FC = () => {
                     </Link>
                   </div>
 
-                  <p className="global-texto-padrao" style={{ marginTop: "0", marginBottom: "16px" }}>
+                  <p
+                    className="global-texto-padrao"
+                    style={{ marginTop: "0", marginBottom: "16px" }}
+                  >
                     Aqui, você pode acompanhar a evolução do nível de
                     proficiência da SME nas diferentes aplicações da Prova São
                     Paulo e da Prova Saberes e Aprendizagens.
@@ -228,7 +238,9 @@ const CompararDados: React.FC = () => {
                           placeholder="Selecione uma aplicação..."
                           className="select-custom"
                           onChange={(value) => {
-                            setAplicacaoSelecionada(aplicacoes.find(x => x.value === Number(value)));
+                            setAplicacaoSelecionada(
+                              aplicacoes.find((x) => x.value === Number(value))
+                            );
                           }}
                           value={aplicacaoSelecionada || undefined}
                           notFoundContent="Nenhuma aplicação encontrada"
@@ -249,8 +261,12 @@ const CompararDados: React.FC = () => {
                           showSearch
                           placeholder="Selecione uma aplicação..."
                           className="select-custom"
-                          onChange={(value) => {                            
-                            setComponenteCurricularSelecionado(componentesCurriculares.find(x => x.value === Number(value)));
+                          onChange={(value) => {
+                            setComponenteCurricularSelecionado(
+                              componentesCurriculares.find(
+                                (x) => x.value === Number(value)
+                              )
+                            );
                           }}
                           value={componenteSelecionado || undefined}
                           notFoundContent="Nenhuma aplicação encontrada"
@@ -269,7 +285,9 @@ const CompararDados: React.FC = () => {
                           placeholder="Ano escolar"
                           className="select-custom"
                           onChange={(value) => {
-                            setAnoSelecionado(anos.find(x => x.value === Number(value)));
+                            setAnoSelecionado(
+                              anos.find((x) => x.value === Number(value))
+                            );
                           }}
                           value={anoSelecionado || undefined}
                           notFoundContent="Nenhum ano encontrado"
@@ -288,7 +306,7 @@ const CompararDados: React.FC = () => {
             </Col>
           </Row>
           <br />
-          <Card>
+          <Card className="comparar-dados-card-conteudo">
             <TabelaComparativa
               aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
@@ -304,8 +322,33 @@ const CompararDados: React.FC = () => {
               anoSelecionado={anoSelecionado}
             />
             <br />
-            <CardsComparativa objeto={null} />
-          </Card>  
+
+            {ues.map((item: CardsComparativaProps, index: number) => {
+              return <CardsComparativa key={index} dados={item} />;
+            })}
+
+            <div className="comparar-dados-transparente">
+                <Button
+                  variant="outlined"
+                  className="comparar-dados-transparente-exibir-mais"
+                  onClick={() => exibirMais()}
+                  style={{
+                    minWidth: 160,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: 16,
+                    zIndex: 2,
+                  }}
+                >
+                  <img
+                    src={iconeMais}
+                    alt="Ícone dados"
+                    className="disciplina-icon"
+                  />
+                  Exibir mais
+                </Button>
+              </div>
+          </Card>
         </div>
       </div>
     </>
