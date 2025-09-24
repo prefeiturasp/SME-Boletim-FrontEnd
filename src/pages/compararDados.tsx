@@ -12,11 +12,16 @@ import {
   getAnosAplicacaoDre,
   getAnosEscolaresUe,
   getComponentesCurricularesDre,
+  getComporativoUe,
 } from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
 import mock from "../mocks/cardsComparativas.json";
 import iconeMais from "../assets/icon-mais.svg";
+import {
+  CardsComparativaProps,
+  CardsComparativaUnidadeEducacionalProps,
+} from "../interfaces/cardsComparativaProps";
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -29,7 +34,7 @@ const CompararDados: React.FC = () => {
   const [componenteSelecionado, setComponenteCurricularSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
   const [anos, setAnos] = useState<ParametrosPadraoAntDesign[]>([]);
-  const [ues, setUes] = useState<CardsComparativaProps[]>(mock as CardsComparativaProps[]);
+  const [ues, setUes] = useState<CardsComparativaProps>();
 
   const [anoSelecionado, setAnoSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
@@ -49,6 +54,7 @@ const CompararDados: React.FC = () => {
   ]);
 
   const [dreSelecionada, setDreSelecionada] = useState(0);
+  const [itensPorPagina, setItensPorPagina] = useState(10);
   const [searchParams] = useSearchParams();
 
   const buscaAplicacoes = async () => {
@@ -136,15 +142,41 @@ const CompararDados: React.FC = () => {
       buscaAnosEscolares();
   }, [dreSelecionada, aplicacaoSelecionada, componenteSelecionado]);
 
+  useEffect(() => {
+    if (dreSelecionada != 0 && aplicacaoSelecionada && componenteSelecionado)
+      preencheCardsUe();
+  }, [
+    dreSelecionada,
+    aplicacaoSelecionada,
+    componenteSelecionado,
+    anoSelecionado,
+    itensPorPagina,
+  ]);
+
   const alterarUe = async () => {
     //TODO: quando a api estiver pronta iremos trocar os valores do select aqui
     //setUeSelecionada(???)
   };
 
+  const preencheCardsUe = async () => {
+    try {
+      const getUesComparativas: CardsComparativaProps = await getComporativoUe(
+        dreSelecionada,
+        Number(componenteSelecionado!.value),
+        Number(aplicacaoSelecionada!.value),
+        Number(anoSelecionado?.value),
+        itensPorPagina
+      );
+      setUes(getUesComparativas);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const exibirMais = async () => {
-    //TODO: CHAMAR A API AQUI QUANDO ELA FICAR PRONTA
-    setUes((prev) => [...prev, ...ues]); 
-  }
+    const limite = itensPorPagina + 10;
+    setItensPorPagina(limite);
+  };
 
   return (
     <>
@@ -323,31 +355,37 @@ const CompararDados: React.FC = () => {
             />
             <br />
 
-            {ues.map((item: CardsComparativaProps, index: number) => {
-              return <CardsComparativa key={index} dados={item} />;
-            })}
+            {ues != undefined &&
+              ues.ues.map(
+                (
+                  item: CardsComparativaUnidadeEducacionalProps,
+                  index: number
+                ) => {
+                  return <CardsComparativa key={index} dados={item} />;
+                }
+              )}
 
             <div className="comparar-dados-transparente">
-                <Button
-                  variant="outlined"
-                  className="comparar-dados-transparente-exibir-mais"
-                  onClick={() => exibirMais()}
-                  style={{
-                    minWidth: 160,
-                    height: 40,
-                    fontWeight: 600,
-                    fontSize: 16,
-                    zIndex: 2,
-                  }}
-                >
-                  <img
-                    src={iconeMais}
-                    alt="Ícone dados"
-                    className="disciplina-icon"
-                  />
-                  Exibir mais
-                </Button>
-              </div>
+              <Button
+                variant="outlined"
+                className="comparar-dados-transparente-exibir-mais"
+                onClick={() => exibirMais()}
+                style={{
+                  minWidth: 160,
+                  height: 40,
+                  fontWeight: 600,
+                  fontSize: 16,
+                  zIndex: 2,
+                }}
+              >
+                <img
+                  src={iconeMais}
+                  alt="Ícone dados"
+                  className="disciplina-icon"
+                />
+                Exibir mais
+              </Button>
+            </div>
           </Card>
         </div>
       </div>

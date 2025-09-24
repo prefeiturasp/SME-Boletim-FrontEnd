@@ -1,0 +1,1291 @@
+{
+  "total": 42,
+  "pagina": 1,
+  "itensPorPagina": 42,
+  "dreId": 3,
+  "dreAbreviacao": "DRE - BT",
+  "ues": [
+    {
+      "ueId": 141,
+      "ueNome": "DRE BT - CEU EMEF BUTANTA",
+      "disciplinaid": 5,
+      "variacao": -2.21,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 182.05,
+        "realizaramProva": 35,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 192.12,
+          "realizaramProva": 51,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 178.03,
+          "realizaramProva": 60,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 99,
+      "ueNome": "DRE BT - CEU EMEF CESAR ARRUDA CASTANHO, DEP.",
+      "disciplinaid": 5,
+      "variacao": 7.25,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 165.85,
+        "realizaramProva": 22,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 175.72,
+          "realizaramProva": 25,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 177.87,
+          "realizaramProva": 93,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 4271,
+      "ueNome": "DRE BT - CEU EMEF PARAISOPOLIS",
+      "disciplinaid": 5,
+      "variacao": 13.23,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 152.76,
+        "realizaramProva": 122,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 175.22,
+          "realizaramProva": 140,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 172.97,
+          "realizaramProva": 137,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 17134,
+      "ueNome": "DRE BT - EMEF ADALGIZA SEGURADO DA SILVEIRA, PROFA.",
+      "disciplinaid": 5,
+      "variacao": 7.92,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 166.76,
+        "realizaramProva": 59,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 178.55,
+          "realizaramProva": 67,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 179.96,
+          "realizaramProva": 66,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 17239,
+      "ueNome": "DRE BT - EMEF ADOLFINO DE ARRUDA CASTANHO, PROF.",
+      "disciplinaid": 5,
+      "variacao": 0,
+      "aplicacaoPsp": null,
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 115.3,
+          "realizaramProva": 1,
+          "nivelProficiencia": "Abaixo do Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 145,
+      "ueNome": "DRE BT - EMEF ALCIDES GONCALVES ETCHEGOYEN, GEN.",
+      "disciplinaid": 5,
+      "variacao": 0.24,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 188.09,
+        "realizaramProva": 16,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 193.82,
+          "realizaramProva": 27,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 188.55,
+          "realizaramProva": 27,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 127,
+      "ueNome": "DRE BT - EMEF ALIPIO ANDRADA SERPA, TTE.",
+      "disciplinaid": 5,
+      "variacao": 2.74,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 190.62,
+        "realizaramProva": 30,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 196.64,
+          "realizaramProva": 45,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 195.84,
+          "realizaramProva": 48,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 135,
+      "ueNome": "DRE BT - EMEF ALIPIO CORREA NETO, PROF.",
+      "disciplinaid": 5,
+      "variacao": 1.65,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 184.33,
+        "realizaramProva": 47,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 189.53,
+          "realizaramProva": 62,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 187.37,
+          "realizaramProva": 60,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 103,
+      "ueNome": "DRE BT - EMEF ALVARO SILVA BRAGA, GEN.",
+      "disciplinaid": 5,
+      "variacao": 2.38,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 181.32,
+        "realizaramProva": 61,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 189.53,
+          "realizaramProva": 82,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 185.64,
+          "realizaramProva": 83,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 121,
+      "ueNome": "DRE BT - EMEF AMORIM LIMA, DES.",
+      "disciplinaid": 5,
+      "variacao": 12.77,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 176.33,
+        "realizaramProva": 70,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 198.74,
+          "realizaramProva": 83,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 198.85,
+          "realizaramProva": 76,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 115,
+      "ueNome": "DRE BT - EMEF ARTHUR WHITAKER, DES.",
+      "disciplinaid": 5,
+      "variacao": 1.51,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 183.63,
+        "realizaramProva": 70,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 192.72,
+          "realizaramProva": 85,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 186.41,
+          "realizaramProva": 89,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 143,
+      "ueNome": "DRE BT - EMEF BRASIL-JAPAO",
+      "disciplinaid": 5,
+      "variacao": 21.17,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 150.37,
+        "realizaramProva": 18,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 220.15,
+          "realizaramProva": 26,
+          "nivelProficiencia": "Adequado"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 182.2,
+          "realizaramProva": 51,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 139,
+      "ueNome": "DRE BT - EMEF DAISY AMADIO FUJIWARA, PROFA.",
+      "disciplinaid": 5,
+      "variacao": 4.53,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 176.65,
+        "realizaramProva": 47,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 183.52,
+          "realizaramProva": 65,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 184.66,
+          "realizaramProva": 58,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 105,
+      "ueNome": "DRE BT - EMEF DEODORO DA FONSECA, MAL.",
+      "disciplinaid": 5,
+      "variacao": -4.74,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 184.76,
+        "realizaramProva": 71,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 182.03,
+          "realizaramProva": 87,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 176.01,
+          "realizaramProva": 88,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 154,
+      "ueNome": "DRE BT - EMEF EDA TEREZINHA CHICA MEDEIROS, PROFA.",
+      "disciplinaid": 5,
+      "variacao": 19.97,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 150.99,
+        "realizaramProva": 70,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 151.905,
+          "realizaramProva": 168,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 181.15,
+          "realizaramProva": 78,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 152,
+      "ueNome": "DRE BT - EMEF EDUCANDARIO DOM DUARTE, ANEXA AO",
+      "disciplinaid": 5,
+      "variacao": 5.29,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 155.37,
+        "realizaramProva": 28,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 167.18,
+          "realizaramProva": 31,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 163.59,
+          "realizaramProva": 30,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 123,
+      "ueNome": "DRE BT - EMEF EUCLYDES DE OLIVEIRA FIGUEIREDO, GEN.",
+      "disciplinaid": 5,
+      "variacao": 8.38,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 181.31,
+        "realizaramProva": 45,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 174.18,
+          "realizaramProva": 104,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 196.51,
+          "realizaramProva": 55,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 4215,
+      "ueNome": "DRE BT - EMEF FRANCISCO REBOLO",
+      "disciplinaid": 5,
+      "variacao": 1.87,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 182.64,
+        "realizaramProva": 80,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 190.58,
+          "realizaramProva": 86,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 186.05,
+          "realizaramProva": 93,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 101,
+      "ueNome": "DRE BT - EMEF IBRAHIM NOBRE",
+      "disciplinaid": 5,
+      "variacao": -10.11,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 169.56,
+        "realizaramProva": 28,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 150.38,
+          "realizaramProva": 46,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 152.42,
+          "realizaramProva": 38,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 147,
+      "ueNome": "DRE BT - EMEF ILEUSA CAETANO DA SILVA, PROFA.",
+      "disciplinaid": 5,
+      "variacao": 8.77,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 179.89,
+        "realizaramProva": 20,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 190.78,
+          "realizaramProva": 26,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 195.66,
+          "realizaramProva": 23,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 107,
+      "ueNome": "DRE BT - EMEF JARDIM PAULO VI",
+      "disciplinaid": 5,
+      "variacao": 12.31,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 166.63,
+        "realizaramProva": 53,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 196.62,
+          "realizaramProva": 74,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 187.15,
+          "realizaramProva": 71,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 125,
+      "ueNome": "DRE BT - EMEF JOAO XXIII",
+      "disciplinaid": 5,
+      "variacao": 5.85,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 176.62,
+        "realizaramProva": 103,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 192.18,
+          "realizaramProva": 120,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 186.95,
+          "realizaramProva": 117,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 95,
+      "ueNome": "DRE BT - EMEF JOSE DE ALCANTARA MACHADO FILHO",
+      "disciplinaid": 5,
+      "variacao": 8.37,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 151.52,
+        "realizaramProva": 74,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 162.67,
+          "realizaramProva": 87,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 164.2,
+          "realizaramProva": 64,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 133,
+      "ueNome": "DRE BT - EMEF JOSE DIAS DA SILVEIRA, DR.",
+      "disciplinaid": 5,
+      "variacao": 3.07,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 169.57,
+        "realizaramProva": 106,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 178.58,
+          "realizaramProva": 122,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 174.77,
+          "realizaramProva": 123,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 97,
+      "ueNome": "DRE BT - EMEF JULIO MESQUITA",
+      "disciplinaid": 5,
+      "variacao": 0.12,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 177.91,
+        "realizaramProva": 86,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 181.07,
+          "realizaramProva": 100,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 178.12,
+          "realizaramProva": 100,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 17133,
+      "ueNome": "DRE BT - EMEF LUIZ CINTRA DO PRADO, PROF.",
+      "disciplinaid": 5,
+      "variacao": -2.05,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 192.7,
+        "realizaramProva": 1,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 188.75,
+          "realizaramProva": 22,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 117,
+      "ueNome": "DRE BT - EMEF LUIZ EDUARDO MATARAZZO, CDE.",
+      "disciplinaid": 5,
+      "variacao": 4.81,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 180.82,
+        "realizaramProva": 65,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 193.48,
+          "realizaramProva": 89,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 189.52,
+          "realizaramProva": 88,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 137,
+      "ueNome": "DRE BT - EMEF MARIA ALICE BORGES GHION, PROFA.",
+      "disciplinaid": 5,
+      "variacao": 7.59,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 186.4,
+        "realizaramProva": 1,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 200.54,
+          "realizaramProva": 89,
+          "nivelProficiencia": "Adequado"
+        }
+      ]
+    },
+    {
+      "ueId": 151,
+      "ueNome": "DRE BT - EMEF MARIA ANTONIETA D'ALKIMIN BASTO, PROFA.",
+      "disciplinaid": 5,
+      "variacao": 4.85,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 196.81,
+        "realizaramProva": 34,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 211.89,
+          "realizaramProva": 49,
+          "nivelProficiencia": "Adequado"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 206.36,
+          "realizaramProva": 50,
+          "nivelProficiencia": "Adequado"
+        }
+      ]
+    },
+    {
+      "ueId": 17240,
+      "ueNome": "DRE BT - EMEF MARIA LUISA MONTEIRO DA CUNHA, BIBLIOTECARIA",
+      "disciplinaid": 5,
+      "variacao": 0,
+      "aplicacaoPsp": null,
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 186.29,
+          "realizaramProva": 98,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 129,
+      "ueNome": "DRE BT - EMEF OLAVO PEZZOTTI, PROF.",
+      "disciplinaid": 5,
+      "variacao": -6.84,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 219.08,
+        "realizaramProva": 12,
+        "nivelProficiencia": "Adequado"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 215.1,
+          "realizaramProva": 18,
+          "nivelProficiencia": "Adequado"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 204.09,
+          "realizaramProva": 18,
+          "nivelProficiencia": "Adequado"
+        }
+      ]
+    },
+    {
+      "ueId": 4264,
+      "ueNome": "DRE BT - EMEF PAULO FREIRE, PROF.",
+      "disciplinaid": 5,
+      "variacao": 1.36,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 163.45,
+        "realizaramProva": 48,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 173.01,
+          "realizaramProva": 56,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 165.68,
+          "realizaramProva": 61,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 119,
+      "ueNome": "DRE BT - EMEF PEDRO NAVA",
+      "disciplinaid": 5,
+      "variacao": 19.84,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 155.51,
+        "realizaramProva": 45,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 188.81,
+          "realizaramProva": 51,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 186.36,
+          "realizaramProva": 54,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 4213,
+      "ueNome": "DRE BT - EMEF PERIMETRAL",
+      "disciplinaid": 5,
+      "variacao": 9.4,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 156.32,
+        "realizaramProva": 88,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 171.02,
+          "realizaramProva": 113,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 111,
+      "ueNome": "DRE BT - EMEF ROBERTO MANGE, PROF.",
+      "disciplinaid": 5,
+      "variacao": 8.3,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 129.23,
+        "realizaramProva": 4,
+        "nivelProficiencia": "Abaixo do Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 139.96,
+          "realizaramProva": 39,
+          "nivelProficiencia": "Abaixo do Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 93,
+      "ueNome": "DRE BT - EMEF SOLANO TRINDADE",
+      "disciplinaid": 5,
+      "variacao": -5.81,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 184.2,
+        "realizaramProva": 4,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 185.7,
+          "realizaramProva": 12,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 173.49,
+          "realizaramProva": 83,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 113,
+      "ueNome": "DRE BT - EMEF TARSILA DO AMARAL",
+      "disciplinaid": 5,
+      "variacao": 0.38,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 173.65,
+        "realizaramProva": 41,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 184.81,
+          "realizaramProva": 52,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 174.31,
+          "realizaramProva": 55,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 149,
+      "ueNome": "DRE BT - EMEF TEOFILO BENEDITO OTTONI",
+      "disciplinaid": 5,
+      "variacao": 3.04,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 198.85,
+        "realizaramProva": 76,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 203.27,
+          "realizaramProva": 85,
+          "nivelProficiencia": "Adequado"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 204.89,
+          "realizaramProva": 93,
+          "nivelProficiencia": "Adequado"
+        }
+      ]
+    },
+    {
+      "ueId": 131,
+      "ueNome": "DRE BT - EMEF THEODOMIRO DIAS, DES.",
+      "disciplinaid": 5,
+      "variacao": -11.01,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 178.52,
+        "realizaramProva": 39,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 178.53,
+          "realizaramProva": 110,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 158.86,
+          "realizaramProva": 80,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 4263,
+      "ueNome": "DRE BT - EMEF VEREMUNDO TOTH, DOM",
+      "disciplinaid": 5,
+      "variacao": 15.99,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 155.04,
+        "realizaramProva": 90,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 175.6,
+          "realizaramProva": 119,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 179.83,
+          "realizaramProva": 104,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 109,
+      "ueNome": "DRE BT - EMEF VIANNA MOOG",
+      "disciplinaid": 5,
+      "variacao": -31,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 234.2,
+        "realizaramProva": 1,
+        "nivelProficiencia": "Adequado"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 192.57,
+          "realizaramProva": 1,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 161.59,
+          "realizaramProva": 62,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "ueId": 265,
+      "ueNome": "DRE BT - EMEF VILA MUNCK",
+      "disciplinaid": 5,
+      "variacao": 5.55,
+      "aplicacaoPsp": {
+        "loteId": 0,
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 175.61,
+        "realizaramProva": 43,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "loteId": 4,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 181.95,
+          "realizaramProva": 58,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "loteId": 5,
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 185.36,
+          "realizaramProva": 62,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    }
+  ]
+}
