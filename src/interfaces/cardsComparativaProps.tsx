@@ -1,7 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface CardsComparativaProps {
-  dre: string;
+  ueId: string;
+  ueNome: string;
   variacao?: number;
+  disciplinaid?: number;
   provaSp: {
     nomeAplicacao: string;
     mesAno: string;
@@ -11,6 +13,7 @@ interface CardsComparativaProps {
   };
   aplicacao: [
     {
+      loteId: number;
       nomeAplicacao: string;
       mesAno: string;
       valorProficiencia: number;

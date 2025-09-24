@@ -1,7 +1,10 @@
 [
   {
-    "dre": "DRE CS - EMEF BELKICE MANHAES REIS, PROFA.",
+    "ueId": "135",
+    "ueNome": "DRE BT - EMEF ALIPIO CORREA NETO, PROF.",
     "variacao": 19.85,
+    "disciplinaid": 4,
+    "anoSerie": 9,
     "provaSp": {
       "nomeAplicacao": "Prova São Paulo",
       "mesAno": "Janeiro 2025",
@@ -11,6 +14,7 @@
     },
     "aplicacao": [
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -18,6 +22,7 @@
         "qtdeEstudante": "526.55"
       },
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -25,6 +30,7 @@
         "qtdeEstudante": "526.55"
       },
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -34,6 +40,9 @@
     ]
   },
   {
+    "ueId": "135",
+    "ueNome": "DRE BT - EMEF ALIPIO CORREA NETO, PROF.",
+    "disciplinaid": 5,
     "dre": "DRE CS - AAA.",
     "variacao": 19.85,
     "provaSp": {
@@ -45,6 +54,7 @@
     },
     "aplicacao": [
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -52,6 +62,7 @@
         "qtdeEstudante": "526.55"
       },
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -59,6 +70,7 @@
         "qtdeEstudante": "526.55"
       },
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -68,6 +80,9 @@
     ]
   },
   {
+    "ueId": "135",
+    "ueNome": "DRE BT - EMEF ALIPIO CORREA NETO, PROF.",
+    "disciplinaid": 5,
     "dre": "DRE CS - BBB.",
     "variacao": 19.85,
     "provaSp": {
@@ -79,6 +94,7 @@
     },
     "aplicacao": [
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -86,6 +102,7 @@
         "qtdeEstudante": "526.55"
       },
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,
@@ -93,6 +110,7 @@
         "qtdeEstudante": "526.55"
       },
       {
+        "loteId": 5,
         "nomeAplicacao": "Prova Saberes e Aprendizagens",
         "mesAno": "Janeiro 2025",
         "valorProficiencia": 232.8,

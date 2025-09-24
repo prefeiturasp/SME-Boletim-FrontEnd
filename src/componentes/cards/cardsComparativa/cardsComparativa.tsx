@@ -3,22 +3,20 @@ import "./cardsComparativa.css";
 import Card from "antd/es/card/Card";
 import { Col, Row } from "antd";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
-import { Button } from "antd";
+import BotaoIrParaComparativo from "../../botao/botaoIrParaComparativo/botaoIrParaComparativo";
+
 
 const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
   dados,
 }) => {
-  const abrirComparativo = () => {
-    // const url = `https://boletim.sme.prefeitura.sp.gov.br/comparativo-dre?dre=${cardsComparativa.dre}`;
-    // window.open(url, '_blank');
-  };
+  
 
   return (
     <>
       <Card className="cards-comparativa-corpo">
         <div className="cards-comparativa-header">
           <div className="cards-comparativa-titulo">
-            <b>{dados.dre}</b>
+            <b>{dados.ueNome}</b>
           </div>
           <div className="cards-comparativa-variacao">
             <span className="cards-comparativa-variacao-label">Variação:</span>
@@ -31,8 +29,8 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
         <Row gutter={[16, 16]} className="cards-comparativa-blocos">
           {(() => {
             const dinamicos = dados?.aplicacao?.length ?? 0;
-            const totalCards = 1 + dinamicos; // 1 fixo + dinâmicos
-            const span = 24 / totalCards; // divide o grid igualmente
+            const totalCards = 1 + dinamicos;
+            const span = 24 / totalCards;
 
             return (
               <>
@@ -142,13 +140,11 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
             </p>
           </div>
           <div>
-            <Button
-              type="primary"
-              onClick={abrirComparativo}
-              className="cards-comparativa-rodape-btn"
-            >
-              Conferir dados da UE
-            </Button>
+            <BotaoIrParaComparativo
+              escola={{ ueId: dados.ueId, descricao: dados.ueNome }}
+              aplicacaoId={dados.aplicacao.find(x => x)?.loteId ?? 0}
+              componenteCurricularId={dados.disciplinaid ?? 0}
+            />
           </div>
         </div>
       </Card>

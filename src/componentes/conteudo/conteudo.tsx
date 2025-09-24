@@ -12,6 +12,11 @@ import { setNomeAplicacao } from "../../redux/slices/nomeAplicacaoSlice";
 import { servicos } from "../../servicos";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import Comparativo from "./conteudoTabs/comparativo";
+import { useLocation } from "react-router-dom";
+import { selecionarEscola } from "../../redux/slices/escolaSlice";
+//import { atualizarCampos } from "../../redux/slices/filtroCompletoSlice";
+import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
+
 
 const Conteudo: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,6 +42,48 @@ const Conteudo: React.FC = () => {
       setShowVoltarUes(false);
     }
   }, []);
+
+  const location = useLocation();
+  // useEffect(() => {
+  //   if (location.state?.abrirComparativo) {
+  //     const { aplicacaoId, componenteCurricularId, ueId } = location.state;
+  //     dispatch(selecionarEscola({ ueId, descricao: "-" }));
+  //     dispatch(setNomeAplicacao({ id: aplicacaoId, nome: "-", tipoTai: true, dataInicioLote: new Date().toISOString() }));
+  //     dispatch(atualizarCampos({ componentesCurriculares: [{ valor: componenteCurricularId, texto: "-" }] }));
+  //     dispatch(setActiveTab("5"));
+  //   }
+  // }, [location.state, dispatch]);
+
+  useEffect(() => {
+    if (location.state?.abrirComparativo) {      
+      dispatch(setActiveTab("5"));
+
+      // carrega os filtros
+      if (location.state.ueId) {
+        dispatch(selecionarEscola({ ueId: location.state.ueId, descricao: "-" }));
+      }
+      if (location.state.aplicacaoId) {
+        dispatch(
+          setNomeAplicacao({
+            id: location.state.aplicacaoId,
+            nome: "-",
+            tipoTai: true,
+            dataInicioLote: new Date().toISOString(),
+          })
+        );
+      }
+      if (location.state.componenteCurricularId) {
+        dispatch(
+          setFiltroDados({
+            componentesCurriculares: [
+              { valor: location.state.componenteCurricularId, texto: "-" },
+            ],
+          } as any)
+        );
+      }
+    }
+  }, [location.state, dispatch]);
+
 
   const buscarAplicacoes = async () => {
     try {
@@ -146,7 +193,7 @@ const Conteudo: React.FC = () => {
             }
             variant="borderless"
           >
-           <Tabs
+            <Tabs
               activeKey={activeTab}
               onChange={(key) => dispatch(setActiveTab(key))}
               items={[

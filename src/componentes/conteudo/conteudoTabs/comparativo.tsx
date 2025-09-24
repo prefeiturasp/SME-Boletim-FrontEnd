@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import iconeDados from "../../../assets/icon-dados.svg";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { RootState } from "../../../redux/store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { servicos } from "../../../servicos";
 import ComparativoTabela from "./comparativoTabela";
 import LoadingBox from "../../loadingBox/loadingBox";
+import { useLocation } from "react-router-dom";
+//import { atualizarCampos } from "../../../redux/slices/filtroCompletoSlice";
+
 
 interface Turma {
   ano: number;
@@ -18,6 +21,7 @@ interface Turma {
 }
 
 const Comparativo: React.FC = () => {
+  const dispatch = useDispatch();
   const [estaCarregando, setEstaCarregando] = useState(false);
 
   //Confirmar como vai ficar
@@ -95,6 +99,21 @@ const Comparativo: React.FC = () => {
     componentesCurricularSelecionadoId,
     anosEscolarSelecionadoId,
   ]);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state?.abrirComparativo) {
+      const { aplicacaoId, componenteCurricularId, ueId } = location.state;
+      // dispatch(selecionarEscola({ ueId, descricao: "-" }));
+      // dispatch(setNomeAplicacao({ id: aplicacaoId, nome: "-", tipoTai: true, dataInicioLote: new Date().toISOString() }));
+      //dispatch(atualizarCampos({ componentesCurriculares: [{ valor: componenteCurricularId, texto: "-" }] }));
+      // dispatch(setActiveTab("5"));
+      if (location.state.componenteCurricularId) {
+        setComponentesCurricularId(componenteCurricularId);
+        setComponentesCurricular(componentesOrdenados.find(item => item.valor === componenteCurricularId)?.texto || "");
+      }
+    }
+  }, [location.state, dispatch]);
 
   const buscarCardsComparacao = async () => {
     try {
@@ -487,9 +506,8 @@ const Comparativo: React.FC = () => {
                             />
                             <span
                               style={{ paddingBottom: "0.2em" }}
-                              title={`Prova ${
-                                comparacao?.nomeAplicacao ?? "-"
-                              }`}
+                              title={`Prova ${comparacao?.nomeAplicacao ?? "-"
+                                }`}
                             >
                               Prova {comparacao?.nomeAplicacao ?? "-"}
                             </span>

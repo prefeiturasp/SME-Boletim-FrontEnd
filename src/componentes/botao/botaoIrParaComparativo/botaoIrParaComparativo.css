@@ -1,0 +1,13 @@
+.cards-comparativa-rodape-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #595959;
+  padding: 7px 24px 7px 24px;
+  background: #5a94d8;
+  color: #ffffff;
+  border-radius: 4px;
+}
