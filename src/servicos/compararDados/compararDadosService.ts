@@ -11,3 +11,6 @@ export const getComponentesCurricularesDre = async (dreId: number, anoAplicacao:
 
 export const getAnosEscolaresUe = async (dreId: number,anoAplicacao: number,disciplinaId: number) =>
    await servicos.get(`/api/BoletimEscolar/anos-escolares-dre/${dreId}/${anoAplicacao}/${disciplinaId}`);
+
+export const getComporativoUe = async (dreId: number,disciplinaId: number, anoLetivo: number, anoEscolar: number, limite: number) =>
+   await servicos.get(`/api/BoletimEscolar/comparativo-ue/${dreId}/${disciplinaId}/${anoLetivo}/${anoEscolar}?pagina=1&itensPorPagina=${limite}`);
