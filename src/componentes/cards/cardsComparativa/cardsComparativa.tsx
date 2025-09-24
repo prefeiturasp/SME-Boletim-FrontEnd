@@ -3,10 +3,10 @@ import "./cardsComparativa.css";
 import Card from "antd/es/card/Card";
 import { Col, Row } from "antd";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
+import { CardsComparativaAplicacaoProps, CardsComparativaUnidadeEducacionalProps } from "../../../interfaces/cardsComparativaProps";
 import BotaoIrParaComparativo from "../../botao/botaoIrParaComparativo/botaoIrParaComparativo";
 
-
-const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
+const CardsComparativa: React.FC<{ dados: CardsComparativaUnidadeEducacionalProps }> = ({
   dados,
 }) => {
   
@@ -28,7 +28,7 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
 
         <Row gutter={[16, 16]} className="cards-comparativa-blocos">
           {(() => {
-            const dinamicos = dados?.aplicacao?.length ?? 0;
+            const dinamicos = dados?.aplicacoesPsa?.length ?? 0;
             const totalCards = 1 + dinamicos;
             const span = 24 / totalCards;
 
@@ -38,12 +38,12 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                   <div className="cards-comparativa-bloco-cinza">
                     <div className="cards-comparativa-bloco-cinza-header">
                       <div className="cards-comparativa-prova-data">
-                        <b>{dados.provaSp.nomeAplicacao}</b>
-                        <span>{dados.provaSp.mesAno}</span>
+                        <b>{dados.aplicacaoPsp?.nomeAplicacao}</b>
+                        <span>{dados.aplicacaoPsp?.periodo}</span>
                       </div>
                       <div className="cards-comparativa-valor">
                         <span>Proficiência:</span>
-                        <div>{dados.provaSp.valorProficiencia}</div>
+                        <div>{dados.aplicacaoPsp?.mediaProficiencia}</div>
                       </div>
                     </div>
                     <div className="cards-comparativa-quantidade-corpo-sp">
@@ -52,7 +52,7 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                       </div>
                       <div className="cards-comparativa-quantidade-texto">
                         <p>Estudantes que realizaram a prova:</p>
-                        <span>{dados.provaSp.qtdeEstudante}</span>
+                        <span>{dados.aplicacaoPsp?.realizaramProva}</span>
                       </div>
                     </div>
                     <div className="cards-comparativa-nivel-corpo">
@@ -60,19 +60,19 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                         <span
                           style={{
                             backgroundColor: getNivelColor(
-                              dados?.provaSp?.nivelProficiencia ?? ""
+                              dados?.aplicacaoPsp?.nivelProficiencia.toString() ?? ""
                             ),
                           }}
                         ></span>
                       </div>
                       <div className="cards-comparativa-nivel-texto">
-                        <span>{dados.provaSp.nivelProficiencia}</span>
+                        <span>{dados.aplicacaoPsp?.nivelProficiencia}</span>
                         <p>Nível de proficiência</p>
                       </div>
                     </div>
                   </div>
                 </Col>
-                {dados?.aplicacao
+                {dados?.aplicacoesPsa
                   ?.slice()
                   .sort((a: any, b: any) => {
                     const dataA = parsePeriodo(a?.periodo);
@@ -80,7 +80,7 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                     if (!dataA || !dataB) return 0;
                     return dataA.getTime() - dataB.getTime();
                   })
-                  .map((comparacao: any, idx: number) => (
+                  .map((comparacao: CardsComparativaAplicacaoProps, idx: number) => (
                     <Col
                       key={idx}
                       xs={24}
@@ -93,11 +93,11 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                         <div className="cards-comparativa-bloco-cinza-header">
                           <div className="cards-comparativa-prova-data">
                             <b>{comparacao.nomeAplicacao}</b>
-                            <span>{comparacao.mesAno}</span>
+                            <span>{comparacao.periodo}</span>
                           </div>
                           <div className="cards-comparativa-valor">
                             <span>Proficiência:</span>
-                            <div>{comparacao.valorProficiencia}</div>
+                            <div>{comparacao.mediaProficiencia}</div>
                           </div>
                         </div>
                         <div className="cards-comparativa-quantidade-corpo">
@@ -106,7 +106,7 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                           </div>
                           <div className="cards-comparativa-quantidade-texto">
                             <p>Estudantes que realizaram a prova:</p>
-                            <span>{comparacao.qtdeEstudante}</span>
+                            <span>{comparacao.realizaramProva}</span>
                           </div>
                         </div>
                         <div className="cards-comparativa-nivel-corpo">
@@ -114,13 +114,13 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
                             <span
                               style={{
                                 backgroundColor: getNivelColor(
-                                  dados.provaSp.nivelProficiencia ?? ""
+                                  dados.aplicacaoPsp?.nivelProficiencia.toString() ?? ""
                                 ),
                               }}
                             ></span>
                           </div>
                           <div className="cards-comparativa-nivel-texto">
-                            <span>{dados.provaSp.nivelProficiencia}</span>
+                            <span>{dados.aplicacaoPsp?.nivelProficiencia}</span>
                             <p>Nível de proficiência</p>
                           </div>
                         </div>
@@ -141,8 +141,8 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaProps }> = ({
           </div>
           <div>
             <BotaoIrParaComparativo
-              escola={{ ueId: dados.ueId, descricao: dados.ueNome }}
-              aplicacaoId={dados.aplicacao.find(x => x)?.loteId ?? 0}
+              escola={{ ueId: dados.ueId.toString(), descricao: dados.ueNome }}
+              aplicacaoId={dados.aplicacoesPsa.find(x => x)?.loteId ?? 0}
               componenteCurricularId={dados.disciplinaid ?? 0}
             />
           </div>
