@@ -180,11 +180,11 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
                 <span className="valorPspPsa">{psp.valor.toFixed(2)}</span>
                 <Progress
                   percent={psp.valor}
-                  strokeWidth={10}
+                  size={{ width: 120, height: 10 }}
                   showInfo={false}
                   strokeColor={pegaCoresBarraProgresso(psp.nivelProficiencia)}
                   trailColor="#B0B0B0"
-                  style={{ width: 60 }}
+                  style={{ width: 60, marginBottom: 2 }}
                 />
               </div>
             );
@@ -206,11 +206,11 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
                 <span className="valorPspPsa">{psa.valor.toFixed(2)}</span>
                 <Progress
                   percent={psa.valor}
-                  strokeWidth={10}
+                  size={{ width: 120, height: 10 }}
                   showInfo={false}
                   strokeColor={pegaCoresBarraProgresso(psa.nivelProficiencia)}
                   trailColor="#B0B0B0"
-                  style={{ width: 60 }}
+                  style={{ width: 60, marginBottom: 2 }}
                 />
               </div>
             );

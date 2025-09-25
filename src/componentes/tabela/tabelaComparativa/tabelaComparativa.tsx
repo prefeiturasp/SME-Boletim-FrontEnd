@@ -25,11 +25,11 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
             );
             console.log(ValueTabela);
             
-            const dadosTratados = tratamentoItemRepetido(ValueTabela);
-            tratamentoDescricao(dadosTratados);
-            
-            // const dadosTratados = ValueTabela;
+            // const dadosTratados = tratamentoItemRepetido(ValueTabela);
             // tratamentoDescricao(dadosTratados);
+            
+            const dadosTratados = ValueTabela;
+            tratamentoDescricao(dadosTratados);
 
             setDadosTabela(dadosTratados);
         } catch (error) {

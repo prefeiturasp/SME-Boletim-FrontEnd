@@ -100,6 +100,7 @@ const Comparativo: React.FC = () => {
     anosEscolarSelecionadoId,
   ]);
 
+  //pega só o componente curricular e o ano
   const location = useLocation();
   useEffect(() => {
     if (location.state?.abrirComparativo) {
@@ -548,14 +549,28 @@ const Comparativo: React.FC = () => {
       <br />
       <br />
 
+      {/* {todasTurmas.map((turmaItem: any, index: number) => (
+        <ComparativoTabela
+          key={turmaItem?.turma || index}
+          index={index}
+          exibirMais={exibirMais}
+          dadosTurma={dadosTurma?.[index]}
+          turmaSelecionada={turmaSelecionada === "Todas" ? turmaItem?.turma : turmaSelecionada}
+          componentesCurricularSelecionado={componentesCurricularSelecionado}
+        />
+      ))} */}
+
       {dadosTurma.map((item: any, index: number) => {
         let turma = "";
-        if (turmaSelecionada === "Todas") turma = todasTurmas[index].turma;
-        else turma = turmaSelecionada;
+        if (turmaSelecionada === "Todas") {
+          turma = todasTurmas?.[index]?.turma ?? "";
+        } else {
+          turma = turmaSelecionada;
+        }
 
         return (
           <ComparativoTabela
-            key={todasTurmas[index]?.turma || index}
+            key={todasTurmas?.[index]?.turma || index}
             index={index}
             exibirMais={exibirMais}
             dadosTurma={dadosTurma[index]}
@@ -564,6 +579,7 @@ const Comparativo: React.FC = () => {
           />
         );
       })}
+
     </>
   );
 };

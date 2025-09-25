@@ -8,22 +8,39 @@ const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
     dreId,
     escola,
     aplicacaoId,
-    componenteCurricularId,    
+    componenteCurricularId,
     ano
 }) => {
+
     const navigate = useNavigate();
 
+    //manda urid por url
     const handleClick = () => {
-        navigate("/", {
-            state: {
-                abrirComparativo: true,
-                dreId: dreId,
-                ueId: escola.ueId,                
-                aplicacaoId,
-                componenteCurricularId,
-                ano,
-            },
-        });
+
+        try {            
+            navigate(`/?ueSelecionada=${escola.ueId}&dreUrlSelecionada=${dreId}`, {
+                state: {
+                    abrirComparativo: true,
+                    componenteCurricularId,
+                    ano,
+                }
+            });
+            window.scrollTo(0, 0);
+
+            // navigate("/", {
+            //     state: {
+            //         abrirComparativo: true,
+            //         dreId: dreId,
+            //         ueId: escola.ueId,                
+            //         aplicacaoId,
+            //         componenteCurricularId,
+            //         ano,
+            //     },
+            // });
+
+        } catch (error) {
+            console.error("Erro ao processar os parâmetros da URL:", error);
+        }
     };
 
     return (
