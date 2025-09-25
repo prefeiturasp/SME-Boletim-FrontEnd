@@ -156,7 +156,7 @@ const Conteudo: React.FC = () => {
 
   const handleClick = () => {
     if (location.state?.abrirComparativo) {
-      navigate(`/comparar-dados/?dreUrlSelecionada=${dreId}`);
+      navigate(`/comparar-dados/?dreUrlSelecionada=${dreId}&dreSelecionadaNome=${escolaSelecionada.descricao}`);
     } else {
       navigate("/ues");
     }
