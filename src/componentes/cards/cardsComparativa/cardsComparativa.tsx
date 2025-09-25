@@ -6,10 +6,15 @@ import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { CardsComparativaAplicacaoProps, CardsComparativaUnidadeEducacionalProps } from "../../../interfaces/cardsComparativaProps";
 import BotaoIrParaComparativo from "../../botao/botaoIrParaComparativo/botaoIrParaComparativo";
 
-const CardsComparativa: React.FC<{ dados: CardsComparativaUnidadeEducacionalProps }> = ({
+const CardsComparativa: React.FC<{ 
+  dados: CardsComparativaUnidadeEducacionalProps, 
+  dreId: number, 
+  ano: ParametrosPadraoAntDesign | null
+}> = ({
   dados,
-}) => {
-  
+  dreId,
+  ano
+}) => {  
 
   return (
     <>
@@ -140,10 +145,12 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaUnidadeEducacionalProp
             </p>
           </div>
           <div>
-            <BotaoIrParaComparativo
-              escola={{ ueId: dados.ueId.toString(), descricao: dados.ueNome }}
+            <BotaoIrParaComparativo              
+              dreId={dreId}
+              escola={{ ueId: dados.ueId.toString(), descricao: dados.ueNome }} 
               aplicacaoId={dados.aplicacoesPsa.find(x => x)?.loteId ?? 0}
               componenteCurricularId={dados.disciplinaid ?? 0}
+              ano={ano}
             />
           </div>
         </div>

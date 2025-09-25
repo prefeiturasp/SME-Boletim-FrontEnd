@@ -363,7 +363,12 @@ const CompararDados: React.FC = () => {
                   item: CardsComparativaUnidadeEducacionalProps,
                   index: number
                 ) => {
-                  return <CardsComparativa key={index} dados={item} />;
+                  return <CardsComparativa 
+                    key={index} 
+                    dados={item} 
+                    dreId={ues.dreId}
+                    ano={anoSelecionado || null}
+                  />;
                 }
               )}
 

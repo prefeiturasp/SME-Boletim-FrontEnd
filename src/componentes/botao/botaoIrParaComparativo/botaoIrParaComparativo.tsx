@@ -2,17 +2,14 @@ import React from "react";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./botaoIrParaComparativo.css";
+import { BtnConferirDadosProps } from "../../../interfaces/btnConferirDadosProps";
 
-interface Props {
-    escola: { ueId: string; descricao: string };
-    aplicacaoId: number;
-    componenteCurricularId: number;
-}
-
-const BotaoIrParaComparativo: React.FC<Props> = ({
+const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
+    dreId,
     escola,
     aplicacaoId,
-    componenteCurricularId,
+    componenteCurricularId,    
+    ano
 }) => {
     const navigate = useNavigate();
 
@@ -20,9 +17,11 @@ const BotaoIrParaComparativo: React.FC<Props> = ({
         navigate("/", {
             state: {
                 abrirComparativo: true,
+                dreId: dreId,
+                ueId: escola.ueId,                
                 aplicacaoId,
                 componenteCurricularId,
-                ueId: escola.ueId,
+                ano,
             },
         });
     };

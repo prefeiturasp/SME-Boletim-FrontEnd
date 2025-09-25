@@ -33,6 +33,7 @@ const Conteudo: React.FC = () => {
   const abasDesabilitadas = !filtrosCarregados.carregado;
 
   const [showVoltarUes, setShowVoltarUes] = useState(false);
+  const [dreId, setDreId] = useState<number | null>(null);
 
   useEffect(() => {
     const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
@@ -44,23 +45,17 @@ const Conteudo: React.FC = () => {
   }, []);
 
   const location = useLocation();
-  // useEffect(() => {
-  //   if (location.state?.abrirComparativo) {
-  //     const { aplicacaoId, componenteCurricularId, ueId } = location.state;
-  //     dispatch(selecionarEscola({ ueId, descricao: "-" }));
-  //     dispatch(setNomeAplicacao({ id: aplicacaoId, nome: "-", tipoTai: true, dataInicioLote: new Date().toISOString() }));
-  //     dispatch(atualizarCampos({ componentesCurriculares: [{ valor: componenteCurricularId, texto: "-" }] }));
-  //     dispatch(setActiveTab("5"));
-  //   }
-  // }, [location.state, dispatch]);
 
   useEffect(() => {
-    if (location.state?.abrirComparativo) {      
+    if (location.state?.abrirComparativo) {
       dispatch(setActiveTab("5"));
-
-      // carrega os filtros
+      
       if (location.state.ueId) {
         dispatch(selecionarEscola({ ueId: location.state.ueId, descricao: "-" }));
+      }
+      if (location.state.dreId) {
+        setDreId(location.state.dreId);
+        //dispatch(atualizarCampos({ dre: { valor: location.state.dreId, texto: "-" } } as any));
       }
       if (location.state.aplicacaoId) {
         dispatch(
@@ -147,7 +142,11 @@ const Conteudo: React.FC = () => {
                 {showVoltarUes && (
                   <div style={{ marginBottom: 12 }}>
                     <Link
-                      to="/ues"
+                      to={
+                        location.state?.abrirComparativo && location.state?.dreId
+                          ? `/comparar-dados/?dreUrlSelecionada=${dreId}`
+                          : "/ues"
+                      }
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -163,6 +162,7 @@ const Conteudo: React.FC = () => {
                       Voltar a tela anterior
                     </Link>
                   </div>
+
                 )}
                 <span
                   style={{

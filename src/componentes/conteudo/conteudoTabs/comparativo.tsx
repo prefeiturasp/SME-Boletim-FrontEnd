@@ -103,14 +103,14 @@ const Comparativo: React.FC = () => {
   const location = useLocation();
   useEffect(() => {
     if (location.state?.abrirComparativo) {
-      const { aplicacaoId, componenteCurricularId, ueId } = location.state;
-      // dispatch(selecionarEscola({ ueId, descricao: "-" }));
-      // dispatch(setNomeAplicacao({ id: aplicacaoId, nome: "-", tipoTai: true, dataInicioLote: new Date().toISOString() }));
-      //dispatch(atualizarCampos({ componentesCurriculares: [{ valor: componenteCurricularId, texto: "-" }] }));
-      // dispatch(setActiveTab("5"));
+      const { componenteCurricularId } = location.state;
       if (location.state.componenteCurricularId) {
         setComponentesCurricularId(componenteCurricularId);
         setComponentesCurricular(componentesOrdenados.find(item => item.valor === componenteCurricularId)?.texto || "");
+      }
+      if (location.state.ano) {
+        setAnoEscolarId(location.state.ano.value);
+        setAnoEscolar(location.state.ano.label);
       }
     }
   }, [location.state, dispatch]);
