@@ -50,6 +50,7 @@
 .comparar-dados-transparente .comparar-dados-transparente-exibir-mais {
   position: relative;
   margin-bottom: 20px;
+  color: #5A94D6;
 }
 
 @media (max-width: 1024px) {
