@@ -6,112 +6,68 @@ import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { CardsComparativaAplicacaoProps, CardsComparativaUnidadeEducacionalProps } from "../../../interfaces/cardsComparativaProps";
 import BotaoIrParaComparativo from "../../botao/botaoIrParaComparativo/botaoIrParaComparativo";
 
-const CardsComparativa: React.FC<{ 
-  dados: CardsComparativaUnidadeEducacionalProps, 
-  dreId: number, 
+const CardsComparativa: React.FC<{
+  dados: CardsComparativaUnidadeEducacionalProps,
+  dreId: number,
   ano: ParametrosPadraoAntDesign | null
 }> = ({
   dados,
   dreId,
   ano
-}) => {  
+}) => {
 
-  return (
-    <>
-      <Card className="cards-comparativa-corpo">
-        <div className="cards-comparativa-header">
-          <div className="cards-comparativa-titulo">
-            <b>{dados.ueNome}</b>
-          </div>
-          <div className="cards-comparativa-variacao">
-            <span className="cards-comparativa-variacao-label">Variação:</span>
-            <div className="cards-comparativa-variacao-valor">
-              +{dados.variacao}%
+  const ultimaAplicacao = [...(dados.aplicacoesPsa ?? [])]
+  .sort((a, b) => {
+    const dataA = parsePeriodo(a.periodo)?.getTime() ?? 0;
+    const dataB = parsePeriodo(b.periodo)?.getTime() ?? 0;
+    return dataB - dataA; // mais recente primeiro
+  })[0];
+
+    
+    return (
+      <>
+        <Card className="cards-comparativa-corpo">
+          <div className="cards-comparativa-header">
+            <div className="cards-comparativa-titulo">
+              <b>{dados.ueNome}</b>
+            </div>
+            <div className="cards-comparativa-variacao">
+              <span className="cards-comparativa-variacao-label">Variação:</span>
+              <div className="cards-comparativa-variacao-valor">
+                +{dados.variacao}%
+              </div>
             </div>
           </div>
-        </div>
 
-        <Row gutter={[16, 16]} className="cards-comparativa-blocos">
-          {(() => {
-            const dinamicos = dados?.aplicacoesPsa?.length ?? 0;
-            const totalCards = 1 + dinamicos;
-            const span = 24 / totalCards;
+          <Row gutter={[16, 16]} className="cards-comparativa-blocos">
+            {(() => {
+              // const dinamicos = dados?.aplicacoesPsa?.length ?? 0;
+              const temPsp = !!dados?.aplicacaoPsp;
+              const totalCards = (temPsp ? 1 : 0) + (dados?.aplicacoesPsa ? dados.aplicacoesPsa.length : 0);
+              const span = totalCards > 0 ? Math.floor(24 / totalCards) : 24;
 
-            return (
-              <>
-                <Col xs={24} sm={24} md={24} lg={span} key="prova-sp">
-                  <div className="cards-comparativa-bloco-cinza">
-                    <div className="cards-comparativa-bloco-cinza-header">
-                      <div className="cards-comparativa-prova-data">
-                        <b>{dados.aplicacaoPsp?.nomeAplicacao}</b>
-                        <span>{dados.aplicacaoPsp?.periodo}</span>
-                      </div>
-                      <div className="cards-comparativa-valor">
-                        <span>Proficiência:</span>
-                        <div>{dados.aplicacaoPsp?.mediaProficiencia}</div>
-                      </div>
-                    </div>
-                    <div className="cards-comparativa-quantidade-corpo-sp">
-                      <div className="cards-comparativa-quantidade-icone">
-                        <img src={iconeAlunos} alt="Ícone disciplina" />
-                      </div>
-                      <div className="cards-comparativa-quantidade-texto">
-                        <p>Estudantes que realizaram a prova:</p>
-                        <span>{dados.aplicacaoPsp?.realizaramProva}</span>
-                      </div>
-                    </div>
-                    <div className="cards-comparativa-nivel-corpo">
-                      <div className="cards-comparativa-nivel-icone">
-                        <span
-                          style={{
-                            backgroundColor: getNivelColor(
-                              dados?.aplicacaoPsp?.nivelProficiencia.toString() ?? ""
-                            ),
-                          }}
-                        ></span>
-                      </div>
-                      <div className="cards-comparativa-nivel-texto">
-                        <span>{dados.aplicacaoPsp?.nivelProficiencia}</span>
-                        <p>Nível de proficiência</p>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-                {dados?.aplicacoesPsa
-                  ?.slice()
-                  .sort((a: any, b: any) => {
-                    const dataA = parsePeriodo(a?.periodo);
-                    const dataB = parsePeriodo(b?.periodo);
-                    if (!dataA || !dataB) return 0;
-                    return dataA.getTime() - dataB.getTime();
-                  })
-                  .map((comparacao: CardsComparativaAplicacaoProps, idx: number) => (
-                    <Col
-                      key={idx}
-                      xs={24}
-                      sm={24}
-                      md={24}
-                      lg={span}
-                      className="cards-comparativa-coluna"
-                    >
+              return (
+                <>
+                  {temPsp  && (
+                    <Col xs={24} sm={24} md={24} lg={span} key="prova-sp">
                       <div className="cards-comparativa-bloco-cinza">
                         <div className="cards-comparativa-bloco-cinza-header">
                           <div className="cards-comparativa-prova-data">
-                            <b>{comparacao.nomeAplicacao}</b>
-                            <span>{comparacao.periodo}</span>
+                            <b>{dados.aplicacaoPsp?.nomeAplicacao}</b>
+                            <span>{dados.aplicacaoPsp?.periodo}</span>
                           </div>
                           <div className="cards-comparativa-valor">
                             <span>Proficiência:</span>
-                            <div>{comparacao.mediaProficiencia}</div>
+                            <div>{dados.aplicacaoPsp?.mediaProficiencia}</div>
                           </div>
                         </div>
-                        <div className="cards-comparativa-quantidade-corpo">
+                        <div className="cards-comparativa-quantidade-corpo-sp">
                           <div className="cards-comparativa-quantidade-icone">
                             <img src={iconeAlunos} alt="Ícone disciplina" />
                           </div>
                           <div className="cards-comparativa-quantidade-texto">
                             <p>Estudantes que realizaram a prova:</p>
-                            <span>{comparacao.realizaramProva}</span>
+                            <span>{dados.aplicacaoPsp?.realizaramProva}</span>
                           </div>
                         </div>
                         <div className="cards-comparativa-nivel-corpo">
@@ -119,7 +75,7 @@ const CardsComparativa: React.FC<{
                             <span
                               style={{
                                 backgroundColor: getNivelColor(
-                                  dados.aplicacaoPsp?.nivelProficiencia.toString() ?? ""
+                                  dados?.aplicacaoPsp?.nivelProficiencia?.toString() ?? ""
                                 ),
                               }}
                             ></span>
@@ -131,33 +87,88 @@ const CardsComparativa: React.FC<{
                         </div>
                       </div>
                     </Col>
-                  ))}
-              </>
-            );
-          })()}
-        </Row>
+                  )}
+                  {dados?.aplicacoesPsa
+                    ?.slice()
+                    .sort((a: any, b: any) => {
+                      const dataA = parsePeriodo(a?.periodo);
+                      const dataB = parsePeriodo(b?.periodo);
+                      if (!dataA || !dataB) return 0;
+                      return dataA.getTime() - dataB.getTime();
+                    })
+                    .map((comparacao: CardsComparativaAplicacaoProps, idx: number) => (
+                      <Col
+                        key={idx}
+                        xs={24}
+                        sm={24}
+                        md={24}
+                        lg={span}
+                        className="cards-comparativa-coluna"
+                      >
+                        <div className="cards-comparativa-bloco-cinza">
+                          <div className="cards-comparativa-bloco-cinza-header">
+                            <div className="cards-comparativa-prova-data">
+                              <b>{comparacao.nomeAplicacao}</b>
+                              <span>{comparacao.periodo}</span>
+                            </div>
+                            <div className="cards-comparativa-valor">
+                              <span>Proficiência:</span>
+                              <div>{comparacao.mediaProficiencia}</div>
+                            </div>
+                          </div>
+                          <div className="cards-comparativa-quantidade-corpo">
+                            <div className="cards-comparativa-quantidade-icone">
+                              <img src={iconeAlunos} alt="Ícone disciplina" />
+                            </div>
+                            <div className="cards-comparativa-quantidade-texto">
+                              <p>Estudantes que realizaram a prova:</p>
+                              <span>{comparacao.realizaramProva}</span>
+                            </div>
+                          </div>
+                          <div className="cards-comparativa-nivel-corpo">
+                            <div className="cards-comparativa-nivel-icone">
+                              <span
+                                style={{
+                                  backgroundColor: getNivelColor(
+                                    comparacao?.nivelProficiencia?.toString() ?? ""
+                                  ),
+                                }}
+                              ></span>
+                            </div>
+                            <div className="cards-comparativa-nivel-texto">
+                              <span>{dados.aplicacaoPsp?.nivelProficiencia ?? "-"}</span>
+                              <p>Nível de proficiência</p>
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                    ))}
+                </>
+              );
+            })()}
+          </Row>
 
-        <div className="cards-comparativa-rodape">
-          <div>
-            <p>
-              Para conferir os dados de proficiência dos estudantes desta
-              Unidade Educaional, clique no botão "Conferir dados da UE"
-            </p>
+          <div className="cards-comparativa-rodape">
+            <div>
+              <p>
+                Para conferir os dados de proficiência dos estudantes desta
+                Unidade Educaional, clique no botão "Conferir dados da UE"
+              </p>
+            </div>
+            <div>
+              <BotaoIrParaComparativo
+                dreId={dreId}
+                escola={{ ueId: dados.ueId.toString(), descricao: dados.ueNome }}
+                aplicacaoId={ultimaAplicacao?.loteId ?? 0}
+                componenteCurricularId={dados.disciplinaid ?? 0}
+                ano={ano}
+              />
+            </div>
           </div>
-          <div>
-            <BotaoIrParaComparativo              
-              dreId={dreId}
-              escola={{ ueId: dados.ueId.toString(), descricao: dados.ueNome }} 
-              aplicacaoId={dados.aplicacoesPsa.find(x => x)?.loteId ?? 0}
-              componenteCurricularId={dados.disciplinaid ?? 0}
-              ano={ano}
-            />
-          </div>
-        </div>
-      </Card>
-    </>
-  );
-};
+        </Card>
+      </>
+    );
+  };
 
 export default CardsComparativa;
 
@@ -172,7 +183,7 @@ export const getNivelColor = (nivel: string) => {
     case "Adequado":
       return "#9999FF";
     default:
-      return "black";
+      return "#B0B0B0";
   }
 };
 
