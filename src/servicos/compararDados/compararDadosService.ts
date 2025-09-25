@@ -14,3 +14,6 @@ export const getAnosEscolaresUe = async (dreId: number,anoAplicacao: number,disc
 
 export const getComporativoUe = async (dreId: number,disciplinaId: number, anoLetivo: number, anoEscolar: number, limite: number) =>
    await servicos.get(`/api/BoletimEscolar/comparativo-ue/${dreId}/${disciplinaId}/${anoLetivo}/${anoEscolar}?pagina=1&itensPorPagina=${limite}`);
+
+export const getDadosTabela = async (dreId: number, anoAplicacao: number, disciplinaId: number, anoEscolar: number) =>
+   await servicos.get(`/api/BoletimEscolar/dres-comparacao-por-dre/${dreId}/${anoAplicacao}/${disciplinaId}/${anoEscolar}`);

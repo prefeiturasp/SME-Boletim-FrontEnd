@@ -13,6 +13,7 @@ import {
   getAnosEscolaresUe,
   getComponentesCurricularesDre,
   getComporativoUe,
+  getDadosTabela,
 } from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
@@ -340,9 +341,10 @@ const CompararDados: React.FC = () => {
           <br />
           <Card className="comparar-dados-card-conteudo">
             <TabelaComparativa
+              dreSelecionada={dreSelecionada}
               aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
-              anoSelecionado={anoSelecionado}
+              anoSelecionado={anoSelecionado}              
             />
             <br />
             <FiltroComparativoUes
