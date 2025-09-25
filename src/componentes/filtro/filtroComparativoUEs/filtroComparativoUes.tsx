@@ -5,7 +5,7 @@ import "./filtroComparativoUes.css";
 interface FiltroComparativoParametros {
   dados: any;
   valorSelecionado: any;
-  alterarUe: () => void;
+  alterarUe: (value: string, option: any) => void;
   aplicacaoSelecionada: any;
   componenteSelecionado: any;
   anoSelecionado: any;

@@ -13,6 +13,8 @@ import {
   getAnosEscolaresUe,
   getComponentesCurricularesDre,
   getComporativoUe,
+  getListaUes,
+  getUes,
 } from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
@@ -35,26 +37,28 @@ const CompararDados: React.FC = () => {
     useState<ParametrosPadraoAntDesign | null>();
   const [anos, setAnos] = useState<ParametrosPadraoAntDesign[]>([]);
   const [ues, setUes] = useState<CardsComparativaProps>();
+  const [ues2, setUes2] = useState<ParametrosPadraoAntDesign[]>([]);
 
   const [anoSelecionado, setAnoSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
 
-  const [listaUes, setListaUes] = useState([
+  const [listaUes, setListaUes] = useState<ParametrosPadraoAntDesign[]>([
     {
-      value: "12345",
-      label: "DRE SA - EMEF ARMANDO ARRUDA PEREIRA",
+      value: "0",
+      label: "Todas",
     },
   ]);
-
-  const [ueSelecionada, setUeSelecionada] = useState([
+  const [ueSelecionada, setUeSelecionada] = useState<ParametrosPadraoAntDesign>(
     {
-      value: "12345",
-      label: "DRE SA - EMEF ARMANDO ARRUDA PEREIRA",
-    },
-  ]);
+      value: "0",
+      label: "Todas",
+    }
+  );
 
   const [dreSelecionada, setDreSelecionada] = useState(0);
+  const [dreSelecionadaNome, setDreSelecionadaNome] = useState(0);
   const [itensPorPagina, setItensPorPagina] = useState(10);
+  const [mostrarExibirMais, setMostrarExibirMais] = useState(true);
   const [searchParams] = useSearchParams();
 
   const buscaAplicacoes = async () => {
@@ -120,12 +124,19 @@ const CompararDados: React.FC = () => {
 
   useEffect(() => {
     const dreParam = searchParams.get("dreUrlSelecionada");
-    if (!dreParam) return;
+    const dreParam2 = searchParams.get("dreSelecionadaNome");
+
+    if (!dreParam || !dreParam2) return;
 
     const optNum = Number(dreParam);
     if (Number.isNaN(optNum)) return;
 
+    
+    if (!dreParam2) return;
+    const optNum2 = dreParam2;
+
     setDreSelecionada(optNum);
+    setDreSelecionadaNome(optNum2)
   }, []);
 
   useEffect(() => {
@@ -143,7 +154,29 @@ const CompararDados: React.FC = () => {
   }, [dreSelecionada, aplicacaoSelecionada, componenteSelecionado]);
 
   useEffect(() => {
-    if (dreSelecionada != 0 && aplicacaoSelecionada && componenteSelecionado)
+    if (
+      dreSelecionada != 0 &&
+      aplicacaoSelecionada &&
+      componenteSelecionado &&
+      anoSelecionado
+    )
+      getUes();
+  }, [
+    dreSelecionada,
+    aplicacaoSelecionada,
+    componenteSelecionado,
+    anoSelecionado,
+  ]);
+
+  useEffect(() => {
+    if (
+      dreSelecionada != 0 &&
+      aplicacaoSelecionada &&
+      componenteSelecionado &&
+      anoSelecionado &&
+      itensPorPagina &&
+      ueSelecionada
+    )
       preencheCardsUe();
   }, [
     dreSelecionada,
@@ -151,31 +184,66 @@ const CompararDados: React.FC = () => {
     componenteSelecionado,
     anoSelecionado,
     itensPorPagina,
+    ueSelecionada,
   ]);
 
-  const alterarUe = async () => {
-    //TODO: quando a api estiver pronta iremos trocar os valores do select aqui
-    //setUeSelecionada(???)
+  const getUes = async () => {
+    try {
+      const resposta: any[] = await getListaUes(
+        dreSelecionada,
+        Number(aplicacaoSelecionada?.value),
+        Number(componenteSelecionado?.value),
+        Number(anoSelecionado?.value)
+      );
+
+      const opcoesUe = (resposta ?? []).map((item: any) => ({
+        value: item.ueId,
+        label: item.ueNome,
+      }));
+
+      setListaUes([{ value: 0, label: "Todas" }, ...opcoesUe]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const alterarUe = async (value: string, option: any) => {
+    const ueSelecionada: ParametrosPadraoAntDesign = {
+      label: option.label,
+      value: value,
+    };
+    setUeSelecionada(ueSelecionada);
   };
 
   const preencheCardsUe = async () => {
     try {
+      const ueEscolhida =
+        ueSelecionada && ueSelecionada.value != 0
+          ? ueSelecionada.value.toString()
+          : "";
+
       const getUesComparativas: CardsComparativaProps = await getComporativoUe(
         dreSelecionada,
         Number(componenteSelecionado!.value),
         Number(aplicacaoSelecionada!.value),
         Number(anoSelecionado?.value),
-        itensPorPagina
+        itensPorPagina,
+        ueEscolhida
       );
       setUes(getUesComparativas);
+
+      if (getUesComparativas.ues.length < 10) setMostrarExibirMais(false);
+      else setMostrarExibirMais(true);
     } catch (error) {
       console.log(error);
     }
   };
 
   const exibirMais = async () => {
-    const limite = itensPorPagina + 10;
-    setItensPorPagina(limite);
+    if (ues) {
+      if (itensPorPagina >= ues.total) setMostrarExibirMais(false);
+      else setItensPorPagina(itensPorPagina + 10);
+    }
   };
 
   return (
@@ -207,17 +275,13 @@ const CompararDados: React.FC = () => {
           </Header>
         </Row>
 
-        <Row>
-          <div className="imagem-header">
-            <img src={imagemFluxoDRE} alt="Fluxo DRE" />
-          </div>
-        </Row>
+        
 
         <div className="conteudo-principal-dres">
           <Row gutter={[16, 16]}>
             <Col span={24}>
               <h2 className="titulo-ue-sme">
-                Secretaria Municipal de Educação
+                {dreSelecionadaNome}
               </h2>
 
               <div className="ajustes-padding-cards">
@@ -365,27 +429,31 @@ const CompararDados: React.FC = () => {
                 }
               )}
 
-            <div className="comparar-dados-transparente">
-              <Button
-                variant="outlined"
-                className="comparar-dados-transparente-exibir-mais"
-                onClick={() => exibirMais()}
-                style={{
-                  minWidth: 160,
-                  height: 40,
-                  fontWeight: 600,
-                  fontSize: 16,
-                  zIndex: 2,
-                }}
-              >
-                <img
-                  src={iconeMais}
-                  alt="Ícone dados"
-                  className="disciplina-icon"
-                />
-                Exibir mais
-              </Button>
-            </div>
+            {mostrarExibirMais == true ? (
+              <div className="comparar-dados-transparente">
+                <Button
+                  variant="outlined"
+                  className="comparar-dados-transparente-exibir-mais"
+                  onClick={exibirMais}
+                  style={{
+                    minWidth: 160,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: 16,
+                    zIndex: 2,
+                  }}
+                >
+                  <img
+                    src={iconeMais}
+                    alt="Ícone dados"
+                    className="disciplina-icon"
+                  />
+                  Exibir mais
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
           </Card>
         </div>
       </div>
