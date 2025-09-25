@@ -3,16 +3,18 @@ import "./cardsComparativa.css";
 import Card from "antd/es/card/Card";
 import { Col, Row } from "antd";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
-import { Button } from "antd";
 import { CardsComparativaAplicacaoProps, CardsComparativaUnidadeEducacionalProps } from "../../../interfaces/cardsComparativaProps";
+import BotaoIrParaComparativo from "../../botao/botaoIrParaComparativo/botaoIrParaComparativo";
 
-const CardsComparativa: React.FC<{ dados: CardsComparativaUnidadeEducacionalProps }> = ({
+const CardsComparativa: React.FC<{ 
+  dados: CardsComparativaUnidadeEducacionalProps, 
+  dreId: number, 
+  ano: ParametrosPadraoAntDesign | null
+}> = ({
   dados,
-}) => {
-  const abrirComparativo = () => {
-    // const url = `https://boletim.sme.prefeitura.sp.gov.br/comparativo-dre?dre=${cardsComparativa.dre}`;
-    // window.open(url, '_blank');
-  };
+  dreId,
+  ano
+}) => {  
 
   return (
     <>
@@ -32,8 +34,8 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaUnidadeEducacionalProp
         <Row gutter={[16, 16]} className="cards-comparativa-blocos">
           {(() => {
             const dinamicos = dados?.aplicacoesPsa?.length ?? 0;
-            const totalCards = 1 + dinamicos; // 1 fixo + dinâmicos
-            const span = 24 / totalCards; // divide o grid igualmente
+            const totalCards = 1 + dinamicos;
+            const span = 24 / totalCards;
 
             return (
               <>
@@ -143,13 +145,13 @@ const CardsComparativa: React.FC<{ dados: CardsComparativaUnidadeEducacionalProp
             </p>
           </div>
           <div>
-            <Button
-              type="primary"
-              onClick={abrirComparativo}
-              className="cards-comparativa-rodape-btn"
-            >
-              Conferir dados da UE
-            </Button>
+            <BotaoIrParaComparativo              
+              dreId={dreId}
+              escola={{ ueId: dados.ueId.toString(), descricao: dados.ueNome }} 
+              aplicacaoId={dados.aplicacoesPsa.find(x => x)?.loteId ?? 0}
+              componenteCurricularId={dados.disciplinaid ?? 0}
+              ano={ano}
+            />
           </div>
         </div>
       </Card>

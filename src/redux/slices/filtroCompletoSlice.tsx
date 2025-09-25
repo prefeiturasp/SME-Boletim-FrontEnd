@@ -59,8 +59,11 @@ const filtroCompletoSlice = createSlice({
     setFiltroDados: (state, action: PayloadAction<Filtro>) => {
       return { ...state, ...action.payload };
     },
+    // atualizarCampos: (state, action: PayloadAction<Partial<Filtro>>) => {
+    //   return { ...state, ...action.payload };
+    // },
   },
 });
-
-export const { setFiltroDados } = filtroCompletoSlice.actions;
+//, atualizarCampos
+export const { setFiltroDados} = filtroCompletoSlice.actions;
 export default filtroCompletoSlice.reducer;

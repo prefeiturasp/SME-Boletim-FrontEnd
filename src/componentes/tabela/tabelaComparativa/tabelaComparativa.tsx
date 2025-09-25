@@ -1,34 +1,84 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./tabelaComparativa.css";
 import { Card, Table, Progress } from "antd";
-import dreComparativa from "../../../mocks/dreComparativa.json"
+import {
+    ParametrosTabelaComparativaProps,
+    ValueTabelaComparativaProps
+} from "../../../interfaces/tabelaComparativaProps";
+import { getDadosTabela } from "../../../servicos/compararDados/compararDadosService";
 
-interface AplicacaoItem {
-    descricao: string;
-    mes: string;
-    valorProficiencia: number;
-    nivelProficiencia: string;
-    ["Qtde UE"]: string;
-    ["Qtde Estudante"]: string;
-}
-
-interface Payload {
-    variacao: number;
-    Aplicacao: AplicacaoItem[];
-}
-
-const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
-    aplicacaoSelecionada, componenteSelecionado, anoSelecionado
+const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
+    dreSelecionada,
+    aplicacaoSelecionada,
+    componenteSelecionado,
+    anoSelecionado
 }) => {
+    const [dadosTabela, setDadosTabela] = React.useState<ValueTabelaComparativaProps>();
+
+    const preencheTabela = async () => {
+        try {
+            const ValueTabela: ValueTabelaComparativaProps = await getDadosTabela(
+                Number(dreSelecionada ?? 0),
+                Number(aplicacaoSelecionada!.value ?? 0),
+                Number(componenteSelecionado!.value ?? 0),
+                Number(anoSelecionado?.value ?? 0),
+            );
+            console.log(ValueTabela);
+            
+            // const dadosTratados = tratamentoItemRepetido(ValueTabela);
+            // tratamentoDescricao(dadosTratados);
+            
+            const dadosTratados = ValueTabela;
+            tratamentoDescricao(dadosTratados);
+
+            setDadosTabela(dadosTratados);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const tratamentoItemRepetido = (
+        dados: ValueTabelaComparativaProps
+    ): ValueTabelaComparativaProps => {
+        const vistos = new Set<string>();
+        const aplicacaoUnica = dados.aplicacao.filter((item) => {
+            if (vistos.has(item.mes)) return false;
+            vistos.add(item.mes);
+            return true;
+        });
+
+        return { ...dados, aplicacao: aplicacaoUnica };
+    };
+
+    const tratamentoDescricao = (dados: ValueTabelaComparativaProps) => {
+        dados.aplicacao.forEach((item) => {
+            if (item.descricao) {
+                item.descricao = item.descricao
+                    .replace("Prova São Paulo", "PSP")
+                    .replace("Prova Saberes e Aprendizagens", "PSA");
+            }
+        });
+    };
+
+    useEffect(() => {
+        if (dreSelecionada != 0 && dreSelecionada !== null && aplicacaoSelecionada &&
+            componenteSelecionado && anoSelecionado)
+            preencheTabela();
+    }, [
+        dreSelecionada,
+        aplicacaoSelecionada,
+        componenteSelecionado,
+        anoSelecionado,
+    ]);
 
     const linhasFixas = [
         { key: "proficiencia", aplicacao: "Proficiência" },
         { key: "qtdeUE", aplicacao: "Qtde UE" },
         { key: "qtdeEstudante", aplicacao: "Qtde Estudantes" },
     ];
-    
-    const colunasDinamicas = dreComparativa.aplicacao.map((item, index) => {
-        const colKey = `${item.descricao}-${item.mes || index}`;
+
+    const colunasDinamicas = dadosTabela?.aplicacao?.map((item, index) => {
+        const colKey = `${item.descricao}-${item.mes}-${index}`;
         return {
             title: item.mes ? `${item.descricao} (${item.mes})` : item.descricao,
             dataIndex: colKey,
@@ -52,33 +102,32 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
     const dataSource = linhasFixas.map((linha) => {
         const row: any = { key: linha.key, aplicacao: linha.aplicacao };
 
-        dreComparativa.aplicacao.forEach((item, index) => {
-            const colKey = `${item.descricao}-${item.mes || index}`;
+        dadosTabela?.aplicacao?.forEach((item, index) => {
+            const colKey = `${item.descricao}-${item.mes}-${index}`;
 
             if (linha.key === "proficiencia") {
                 row[colKey] = (
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
                         <div>{item.valorProficiencia}</div>
                         <Progress
-                            percent={Math.min(100, (item.valorProficiencia / 300) * 100)}
-                            size="small"
+                            percent={Math.min(100, (item.valorProficiencia / 300) * 100)}                            
                             showInfo={false}
-                            strokeWidth={9}
+                            size={{ width: 120, height: 10 }}
                             strokeColor={pegaCoresBarraProgresso(item.nivelProficiencia)}
-                            style={{ width: "100%", paddingLeft: 8 }}
+                            style={{ width: "100%", paddingLeft: 8, marginTop:  3 }}
                         />
                     </div>
                 );
             } else if (linha.key === "qtdeUE") {
-                row[colKey] = item["Qtde UE"] || "-";
+                row[colKey] = item["qtdeUe"] || "-";
             } else if (linha.key === "qtdeEstudante") {
-                row[colKey] = item["Qtde Estudante"] || "-";
+                row[colKey] = item["qtdeEstudante"] || "-";
             }
         });
 
         return row;
     });
-    
+
     const columns = [
         {
             title: "Aplicação",
@@ -96,7 +145,7 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
                 </div>
             ),
         },
-        ...colunasDinamicas,
+        ...(colunasDinamicas ?? []),
     ];
 
 
@@ -119,7 +168,13 @@ const TabelaComparativa: React.FC<TabelaComparativaProps> = ({
             <Card className="tabela-comparativa-variacao-card">
                 <div className="tabela-comparativa-variacao">
                     <div className="tabela-comparativa-variacao-label">Variação</div>
-                    <div className="tabela-comparativa-variacao-valor">{dreComparativa.variacao > 0 ? `+${dreComparativa.variacao}%` : `${dreComparativa.variacao}%`}</div>
+                    <div className="tabela-comparativa-variacao-valor">
+                        {
+                            dadosTabela?.variacao && dadosTabela?.variacao > 0 ?
+                                `+${dadosTabela.variacao}%` :
+                                `${dadosTabela?.variacao}%`
+                        }
+                    </div>
                 </div>
                 <Table
                     columns={columns}

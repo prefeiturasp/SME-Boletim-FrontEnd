@@ -27,6 +27,7 @@ const EscolherEscola = () => {
     nivelMaximo: 0,
     nivelMaximoEscolhido: 0,
     turmas: [],
+    variacoes: [],
     nomeEstudante: "",
     eolEstudante: "",
   });

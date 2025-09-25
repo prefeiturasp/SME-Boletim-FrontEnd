@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import iconeDados from "../../../assets/icon-dados.svg";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { RootState } from "../../../redux/store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { servicos } from "../../../servicos";
 import ComparativoTabela from "./comparativoTabela";
 import LoadingBox from "../../loadingBox/loadingBox";
+import { useLocation } from "react-router-dom";
+//import { atualizarCampos } from "../../../redux/slices/filtroCompletoSlice";
+
 
 interface Turma {
   ano: number;
@@ -18,6 +21,7 @@ interface Turma {
 }
 
 const Comparativo: React.FC = () => {
+  const dispatch = useDispatch();
   const [estaCarregando, setEstaCarregando] = useState(false);
 
   //Confirmar como vai ficar
@@ -95,6 +99,22 @@ const Comparativo: React.FC = () => {
     componentesCurricularSelecionadoId,
     anosEscolarSelecionadoId,
   ]);
+
+  //pega só o componente curricular e o ano
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state?.abrirComparativo) {
+      const { componenteCurricularId } = location.state;
+      if (location.state.componenteCurricularId) {
+        setComponentesCurricularId(componenteCurricularId);
+        setComponentesCurricular(componentesOrdenados.find(item => item.valor === componenteCurricularId)?.texto || "");
+      }
+      if (location.state.ano) {
+        setAnoEscolarId(location.state.ano.value);
+        setAnoEscolar(location.state.ano.label);
+      }
+    }
+  }, [location.state, dispatch]);
 
   const buscarCardsComparacao = async () => {
     try {
@@ -487,9 +507,8 @@ const Comparativo: React.FC = () => {
                             />
                             <span
                               style={{ paddingBottom: "0.2em" }}
-                              title={`Prova ${
-                                comparacao?.nomeAplicacao ?? "-"
-                              }`}
+                              title={`Prova ${comparacao?.nomeAplicacao ?? "-"
+                                }`}
                             >
                               Prova {comparacao?.nomeAplicacao ?? "-"}
                             </span>
@@ -530,14 +549,28 @@ const Comparativo: React.FC = () => {
       <br />
       <br />
 
+      {/* {todasTurmas.map((turmaItem: any, index: number) => (
+        <ComparativoTabela
+          key={turmaItem?.turma || index}
+          index={index}
+          exibirMais={exibirMais}
+          dadosTurma={dadosTurma?.[index]}
+          turmaSelecionada={turmaSelecionada === "Todas" ? turmaItem?.turma : turmaSelecionada}
+          componentesCurricularSelecionado={componentesCurricularSelecionado}
+        />
+      ))} */}
+
       {dadosTurma.map((item: any, index: number) => {
         let turma = "";
-        if (turmaSelecionada === "Todas") turma = todasTurmas[index].turma;
-        else turma = turmaSelecionada;
+        if (turmaSelecionada === "Todas") {
+          turma = todasTurmas?.[index]?.turma ?? "";
+        } else {
+          turma = turmaSelecionada;
+        }
 
         return (
           <ComparativoTabela
-            key={todasTurmas[index]?.turma || index}
+            key={todasTurmas?.[index]?.turma || index}
             index={index}
             exibirMais={exibirMais}
             dadosTurma={dadosTurma[index]}
@@ -546,6 +579,7 @@ const Comparativo: React.FC = () => {
           />
         );
       })}
+
     </>
   );
 };

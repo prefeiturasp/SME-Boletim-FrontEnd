@@ -13,6 +13,7 @@ import {
   getAnosEscolaresUe,
   getComponentesCurricularesDre,
   getComporativoUe,
+  getDadosTabela,
   getListaUes,
   getUes,
 } from "../servicos/compararDados/compararDadosService";
@@ -404,9 +405,10 @@ const CompararDados: React.FC = () => {
           <br />
           <Card className="comparar-dados-card-conteudo">
             <TabelaComparativa
+              dreSelecionada={dreSelecionada}
               aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
-              anoSelecionado={anoSelecionado}
+              anoSelecionado={anoSelecionado}              
             />
             <br />
             <FiltroComparativoUes
@@ -425,7 +427,12 @@ const CompararDados: React.FC = () => {
                   item: CardsComparativaUnidadeEducacionalProps,
                   index: number
                 ) => {
-                  return <CardsComparativa key={index} dados={item} />;
+                  return <CardsComparativa 
+                    key={index} 
+                    dados={item} 
+                    dreId={ues.dreId}
+                    ano={anoSelecionado || null}
+                  />;
                 }
               )}
 
