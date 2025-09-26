@@ -51,7 +51,6 @@
 }
 
 .cards-comparativa-variacao-valor {
-  background: #21c45d;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   color: #ffffff;
@@ -61,6 +60,18 @@
   border-radius: 4px;
   text-align: center;
   font-weight: 700;
+}
+
+.cards-variacao-positiva {
+    background: #21C45D;
+}
+
+.cards-variacao-negativa {
+    background: #FF5959;
+}
+
+.cards-variacao-neutra {
+    background: #B0B0B0;
 }
 
 .cards-comparativa-coluna {

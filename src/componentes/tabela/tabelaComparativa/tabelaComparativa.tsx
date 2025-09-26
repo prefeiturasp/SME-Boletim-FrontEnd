@@ -14,7 +14,7 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
     anoSelecionado
 }) => {
     const [dadosTabela, setDadosTabela] = React.useState<ValueTabelaComparativaProps>();
-
+    
     const preencheTabela = async () => {
         try {
             const ValueTabela: ValueTabelaComparativaProps = await getDadosTabela(
@@ -24,14 +24,15 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
                 Number(anoSelecionado?.value ?? 0),
             );
             console.log(ValueTabela);
-            
+
             // const dadosTratados = tratamentoItemRepetido(ValueTabela);
             // tratamentoDescricao(dadosTratados);
-            
+
             const dadosTratados = ValueTabela;
             tratamentoDescricao(dadosTratados);
 
-            setDadosTabela(dadosTratados);
+            setDadosTabela(dadosTratados);           
+
         } catch (error) {
             console.log(error);
         }
@@ -99,6 +100,18 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
         return "#B0B0B0";
     };
 
+    function getClasseVariacao(variacao: number): string {
+        if (variacao > 0) return "variacao-positiva";
+        if (variacao < 0) return "variacao-negativa";
+        return "variacao-neutra";
+    }
+
+    function formatarVariacao(variacao: number): string {
+        if (variacao > 0) return `+${variacao}%`;
+        if (variacao < 0) return `${variacao}%`;
+        return "0%";
+    }
+
     const dataSource = linhasFixas.map((linha) => {
         const row: any = { key: linha.key, aplicacao: linha.aplicacao };
 
@@ -110,11 +123,11 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
                         <div>{item.valorProficiencia}</div>
                         <Progress
-                            percent={Math.min(100, (item.valorProficiencia / 300) * 100)}                            
+                            percent={Math.min(100, (item.valorProficiencia / 300) * 100)}
                             showInfo={false}
                             size={{ width: 120, height: 10 }}
                             strokeColor={pegaCoresBarraProgresso(item.nivelProficiencia)}
-                            style={{ width: "100%", paddingLeft: 8, marginTop:  3 }}
+                            style={{ width: "100%", paddingLeft: 8, marginTop: 3 }}
                         />
                     </div>
                 );
@@ -168,12 +181,8 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
             <Card className="tabela-comparativa-variacao-card">
                 <div className="tabela-comparativa-variacao">
                     <div className="tabela-comparativa-variacao-label">Variação</div>
-                    <div className="tabela-comparativa-variacao-valor">
-                        {
-                            dadosTabela?.variacao && dadosTabela?.variacao > 0 ?
-                                `+${dadosTabela.variacao}%` :
-                                `${dadosTabela?.variacao}%`
-                        }
+                    <div className={`tabela-comparativa-variacao-valor ${getClasseVariacao(dadosTabela?.variacao ?? 0)}`}>
+                        {formatarVariacao(dadosTabela?.variacao ?? 0)}
                     </div>
                 </div>
                 <Table
