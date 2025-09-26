@@ -11,7 +11,6 @@ import LoadingBox from "../../loadingBox/loadingBox";
 import { useLocation } from "react-router-dom";
 //import { atualizarCampos } from "../../../redux/slices/filtroCompletoSlice";
 
-
 interface Turma {
   ano: number;
   turma: string;
@@ -178,24 +177,24 @@ const Comparativo: React.FC = () => {
     limite: number
   ) => {
     try {
-      const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
-      const nomeSelecionado = filtrosSelecionados?.nomeEstudante || [];
+        const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
+        const nomeSelecionado = filtrosSelecionados?.nomeEstudante || [];
 
-      let variacao = "";
+        let variacao = "";
 
-      if (variacoesSelecionadas.length === 0) return {};
-      if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
-        variacao += "&tiposVariacao=1";
-      if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
-        variacao += "&tiposVariacao=2";
-      if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
-        variacao += "&tiposVariacao=3";
+        if (variacoesSelecionadas.length === 0) return {};
+        if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
+          variacao += "&tiposVariacao=1";
+        if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
+          variacao += "&tiposVariacao=2";
+        if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
+          variacao += "&tiposVariacao=3";
 
-      const resultado = await servicos.get(
-        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`
-      );
+        const resultado = await servicos.get(
+          `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`
+        );
 
-      return resultado;
+        return resultado;
     } catch (error) {
       console.log(error);
     }
@@ -215,7 +214,7 @@ const Comparativo: React.FC = () => {
               turmaSelecionada === item.turma
             )
               return buscaUnicaTurma(item.ano, item.turma, limite);
-          })
+            })
         );
         setDadosTurma(resultados.filter((x) => x != undefined) || []);
       } else {
@@ -243,6 +242,8 @@ const Comparativo: React.FC = () => {
 
   const exibirMais = async (index: number) => {
     try {
+      if(turmaSelecionada != "Todas" && tabelasCount.length > 1)
+        setTabelasCount([10]);
       setEstaCarregando(true);
       setTabelasCount((prev) => {
         const clone = [...prev];
@@ -349,14 +350,28 @@ const Comparativo: React.FC = () => {
                   .includes(input.toLowerCase())
               }
             >
-              {filtroCompleto.turmas
+              <Select.Option key="Todas" value="Todas">Todas</Select.Option>
+                {todasTurmas.map((item: any) => (
+                  <Select.Option key={item.turma} value={item.turma}>
+                    {item.turma}
+                  </Select.Option>
+                ))}
+
+
+
+              {/*todasTurmas.map((item: any) => (
+                <Select.Option key={item.turma} value={item.turma}>
+                  {item.turma}
+                </Select.Option>
+              ))*/}
+              {/*filtroCompleto.turmas
                 .slice()
                 .sort((a, b) => a.texto.localeCompare(b.texto))
                 .map((item) => (
                   <Select.Option key={item.valor} value={item.texto}>
                     {item.texto}
                   </Select.Option>
-                ))}
+                ))*/}
             </Select>
           </div>
         </div>
@@ -508,7 +523,7 @@ const Comparativo: React.FC = () => {
                             <span
                               style={{ paddingBottom: "0.2em" }}
                               title={`Prova ${comparacao?.nomeAplicacao ?? "-"
-                                }`}
+                              }`}
                             >
                               Prova {comparacao?.nomeAplicacao ?? "-"}
                             </span>
@@ -579,7 +594,6 @@ const Comparativo: React.FC = () => {
           />
         );
       })}
-
     </>
   );
 };
