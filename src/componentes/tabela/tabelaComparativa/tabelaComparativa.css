@@ -14,9 +14,9 @@
 }
 
 @media (max-width: 768px) {
-  .tabela-comparativa-descricao {
-    flex-direction: column;
-  }
+    .tabela-comparativa-descricao {
+        flex-direction: column;
+    }
 }
 
 .tabela-comparativa-descricao-texto {
@@ -24,29 +24,29 @@
     color: #595959;
 }
 
-.tabela-comparativa-labels{
+.tabela-comparativa-labels {
     display: flex;
     justify-content: flex-end;
 }
 
-.tabela-comparativa-labels-item{
+.tabela-comparativa-labels-item {
     font-size: 14px;
     font-weight: 700;
     color: #595959;
-    margin-left: 0.5em;   
+    margin-left: 0.5em;
     padding: 0px 8px 5px 8px;
     height: 20px;
     border: solid 1px #5A94D8;
     border-radius: 4px;
 }
 
-.tabela-comparativa-variacao-card .ant-card-body{
+.tabela-comparativa-variacao-card .ant-card-body {
     padding: 16px !important;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important; 
-    border-radius: 8px !important; 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 8px !important;
 }
 
-.tabela-comparativa-variacao{
+.tabela-comparativa-variacao {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -58,7 +58,7 @@
     margin-bottom: 25px;
 }
 
-.tabela-comparativa-variacao-label{
+.tabela-comparativa-variacao-label {
     color: #595959;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -68,24 +68,34 @@
     height: 17px;
     width: 56px;
     float: right;
-    
+
 }
 
-.tabela-comparativa-variacao-valor{
-      background: #21C45D;
-      color: #ffffff;
-      font-family: 'Roboto', sans-serif;
-      float: right;
-      margin-left: 0.5em;
-      border-radius: 4px;
-      width: 94px;
-      text-align: center;
-      font-weight: 700;
+.tabela-comparativa-variacao-valor {
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    float: right;
+    margin-left: 0.5em;
+    border-radius: 4px;
+    width: 94px;
+    text-align: center;
+    font-weight: 700;
 }
 
-.tabela-comparativa-header{
+.variacao-positiva {
+    background: #21C45D;
+}
+
+.variacao-negativa {
+    background: #FF5959;
+}
+
+.variacao-neutra {
+    background: #B0B0B0;
+}
+
+.tabela-comparativa-header {
     color: #595959;
     background: #ffffff !important;
     font-weight: 700 !important;
 }
-

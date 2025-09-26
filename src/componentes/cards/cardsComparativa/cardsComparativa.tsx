@@ -16,14 +16,26 @@ const CardsComparativa: React.FC<{
   ano
 }) => {
 
-  const ultimaAplicacao = [...(dados.aplicacoesPsa ?? [])]
-  .sort((a, b) => {
-    const dataA = parsePeriodo(a.periodo)?.getTime() ?? 0;
-    const dataB = parsePeriodo(b.periodo)?.getTime() ?? 0;
-    return dataB - dataA; // mais recente primeiro
-  })[0];
+    const ultimaAplicacao = [...(dados.aplicacoesPsa ?? [])]
+      .sort((a, b) => {
+        const dataA = parsePeriodo(a.periodo)?.getTime() ?? 0;
+        const dataB = parsePeriodo(b.periodo)?.getTime() ?? 0;
+        return dataB - dataA; // mais recente primeiro
+      })[0];
 
-    
+    function getClasseVariacao(variacao: number): string {
+      if (variacao > 0) return "cards-variacao-positiva";
+      if (variacao < 0) return "cards-variacao-negativa";
+      return "cards-variacao-neutra";
+    }
+
+    function formatarVariacao(variacao: number): string {
+      if (variacao > 0) return `+${variacao}%`;
+      if (variacao < 0) return `${variacao}%`;
+      return "0%";
+    }
+
+
     return (
       <>
         <Card className="cards-comparativa-corpo">
@@ -33,8 +45,10 @@ const CardsComparativa: React.FC<{
             </div>
             <div className="cards-comparativa-variacao">
               <span className="cards-comparativa-variacao-label">Variação:</span>
-              <div className="cards-comparativa-variacao-valor">
-                +{dados.variacao}%
+              <div className="">
+                <div className={`cards-comparativa-variacao-valor ${getClasseVariacao(dados.variacao)}`}>
+                  {formatarVariacao(dados.variacao)}
+                </div>
               </div>
             </div>
           </div>
@@ -48,7 +62,7 @@ const CardsComparativa: React.FC<{
 
               return (
                 <>
-                  {temPsp  && (
+                  {temPsp && (
                     <Col xs={24} sm={24} md={24} lg={span} key="prova-sp">
                       <div className="cards-comparativa-bloco-cinza">
                         <div className="cards-comparativa-bloco-cinza-header">
