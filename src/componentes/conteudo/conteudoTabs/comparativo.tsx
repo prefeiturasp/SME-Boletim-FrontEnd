@@ -242,14 +242,29 @@ const Comparativo: React.FC = () => {
 
   const exibirMais = async (index: number) => {
     try {
-      if(turmaSelecionada != "Todas" && tabelasCount.length > 1)
-        setTabelasCount([10]);
       setEstaCarregando(true);
-      setTabelasCount((prev) => {
-        const clone = [...prev];
-        clone[index] = clone[index] + 10;
-        return clone;
-      });
+
+      if(turmaSelecionada != "Todas" && tabelasCount.length > 1)
+        setTabelasCount([20]);
+      else if(dadosTurma.length != tabelasCount.length)
+      {
+        const registrosPorTabela: number[] = [];
+        dadosTurma.map((item:any, indexItem:any) => {
+          if(indexItem == index)
+            registrosPorTabela.push(limite+ 10);
+          else
+            registrosPorTabela.push(limite);
+        });
+        setTabelasCount(registrosPorTabela);
+      }
+      else{
+        setTabelasCount((prev) => {
+          const clone = [...prev];
+          clone[index] = clone[index] + 10;
+          return clone;
+        });
+        
+      }
       setIndexTabelaTurma(index);
     } catch (error) {
       console.error("Erro ao buscar cards de comparação:", error);
