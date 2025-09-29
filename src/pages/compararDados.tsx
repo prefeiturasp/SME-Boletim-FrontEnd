@@ -1,8 +1,8 @@
 import { Breadcrumb, Button, Card, Col, Row, Select } from "antd";
-import { Header } from "antd/es/layout/layout";
+import { Layout } from "antd";
+const { Header } = Layout;
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import imagemFluxoDRE from "../assets/Imagem_fluxo_DRE_2.jpg";
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDados.css";
@@ -13,9 +13,7 @@ import {
   getAnosEscolaresUe,
   getComponentesCurricularesDre,
   getComporativoUe,
-  getDadosTabela,
   getListaUes,
-  getUes,
 } from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
@@ -38,7 +36,6 @@ const CompararDados: React.FC = () => {
     useState<ParametrosPadraoAntDesign | null>();
   const [anos, setAnos] = useState<ParametrosPadraoAntDesign[]>([]);
   const [ues, setUes] = useState<CardsComparativaProps>();
-  const [ues2, setUes2] = useState<ParametrosPadraoAntDesign[]>([]);
 
   const [anoSelecionado, setAnoSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
@@ -57,7 +54,7 @@ const CompararDados: React.FC = () => {
   );
 
   const [dreSelecionada, setDreSelecionada] = useState(0);
-  const [dreSelecionadaNome, setDreSelecionadaNome] = useState(0);
+  const [dreSelecionadaNome, setDreSelecionadaNome] = useState('');
   const [itensPorPagina, setItensPorPagina] = useState(10);
   const [mostrarExibirMais, setMostrarExibirMais] = useState(true);
   const [searchParams] = useSearchParams();
@@ -134,7 +131,7 @@ const CompararDados: React.FC = () => {
 
     
     if (!dreParam2) return;
-    const optNum2 = dreParam2;
+    const optNum2:string = dreParam2;
 
     setDreSelecionada(optNum);
     setDreSelecionadaNome(optNum2)
