@@ -10,8 +10,7 @@
     "preview": "vite preview",
     "test": "jest  --coverage",
     "testfile": "npm run test src/componentes/grafico/desempenhoPorMediaProficiencia.test.tsx --coverage",
-    "test:ci": "jest --ci",
-    "teste2": "yarn run test src/pages/compararDadosSme.test.tsx"
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
