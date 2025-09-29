@@ -27,17 +27,6 @@ const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
             });
             window.scrollTo(0, 0);
 
-            // navigate("/", {
-            //     state: {
-            //         abrirComparativo: true,
-            //         dreId: dreId,
-            //         ueId: escola.ueId,                
-            //         aplicacaoId,
-            //         componenteCurricularId,
-            //         ano,
-            //     },
-            // });
-
         } catch (error) {
             console.error("Erro ao processar os parâmetros da URL:", error);
         }

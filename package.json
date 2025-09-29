@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest  --coverage",
-    "testfile": "npm run test src/pages/compararDados.test.tsx --coverage",
-    "test:ci": "jest --ci"
+    "testfile": "npm run test src/componentes/grafico/desempenhoPorMediaProficiencia.test.tsx --coverage",
+    "test:ci": "jest --ci"  
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
