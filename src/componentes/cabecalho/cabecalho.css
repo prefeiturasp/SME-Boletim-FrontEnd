@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 .cabecalho {
   width: 100%;
   padding: 0;
@@ -85,12 +87,14 @@
   color: #595959;
   font-size: 20px;
   font-weight: 700;
+  font-family: Roboto;
 }
 
 .barra-comparar-dados-texto {
   padding-top: 8px;
   font-size: 14px;
   color: #595959;
+  font-family: Roboto;
 }
 
 .barra-comparar-dados-botao {
