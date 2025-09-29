@@ -371,7 +371,7 @@ const DresPage: React.FC = () => {
   }, []);
 
   const compararDados = () => {
-    navigate(`/comparar-dados/?dreUrlSelecionada=${dreSelecionada}&dreSelecionadaNome=${dreSelecionadaNome}`);
+    navigate(`/comparar-dados-dre/?dreUrlSelecionada=${dreSelecionada}&dreSelecionadaNome=${dreSelecionadaNome}`);
     window.scrollTo(0, 0);
   };
 

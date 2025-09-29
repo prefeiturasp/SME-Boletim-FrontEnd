@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
-.cabecalho {
+.cabecalho-compara-dre {
   width: 100%;
   padding: 0;
   background: #ededed;
@@ -8,7 +8,7 @@
   height: 200px;
 }
 
-.linha-superior {
+.linha-superior-compara-dre {
   background-color: white;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@
   position: relative;
 }
 
-.titulo-principal {
+.titulo-principal-compara-dre {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -28,37 +28,37 @@
   font-size: 24px;
 }
 
-.retornar {
+.retornar-compara-dre {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.icone-retorno {
+.icone-retorno-compara-dre {
   font-size: 16px;
   margin-right: 8px;
   color: #5a94d8;
 }
 
-.texto-retorno {
+.texto-retorno-compara-dre {
   color: #5a94d8;
   font-size: 14px;
 }
 
-.barra-azul {
+.barra-azul-compara-dre {
   background: #5a94d8;
   padding: 20px 20px 20px 35px;
 }
 
-.breadcrumb {
+.breadcrumb-compara-dre {
   color: #fff;
 }
 
-.breadcrumb .ant-breadcrumb-link {
+.breadcrumb-compara-dre .ant-breadcrumb-link {
   color: #fff !important;
 }
 
-.titulo-secundario {
+.titulo-secundario-compara-dre {
   color: #fff;
   margin-top: 10px;
   font-size: 30px;
