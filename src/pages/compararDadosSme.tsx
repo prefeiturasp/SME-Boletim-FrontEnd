@@ -63,7 +63,7 @@ const CompararDadosSme: React.FC = () => {
                                 <Card title="" variant="borderless" className="card-body-dre">
                                     <div style={{ marginBottom: 32 }}>
                                         <Link
-                                            to="/ues"
+                                            to="/dres"
                                             style={{
                                                 display: "flex",
                                                 alignItems: "center",
