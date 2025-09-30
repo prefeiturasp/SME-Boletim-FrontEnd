@@ -1,27 +1,138 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Button, Card, Col, Row, Select } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDadosSme.css";
+import {
+    getAnosAplicacaoVisaoSme,
+    getAnosEscolaresUeVisaoSme,
+    getComponentesCurricularesVisaoSme
+} from '../servicos/compararDadosSme/compararDadosSme';
 
 
 const CompararDadosSme: React.FC = () => {
 
+    const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
+    const [componentesCurriculares, setComponentesCurriculares] = useState<
+        ParametrosPadraoAntDesign[]
+    >([]);
+    const [anos, setAnos] = useState<ParametrosPadraoAntDesign[]>([]);
+
+
+    const [dreSelecionada, setDreSelecionada] = useState(0);
+
+    const [dreSelecionadaNome, setDreSelecionadaNome] = useState(0);
+
+    const [aplicacaoSelecionada, setAplicacaoSelecionada] =
+        useState<ParametrosPadraoAntDesign | null>();
+
+    const [componenteSelecionado, setComponenteCurricularSelecionado] =
+        useState<ParametrosPadraoAntDesign | null>();
+
+    const [anoSelecionado, setAnoSelecionado] =
+        useState<ParametrosPadraoAntDesign | null>();
+
     const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
     const [searchParams] = useSearchParams();
 
-    let dreSelecionada = "";
-    let dreSelecionadaNome = "";
+    useEffect(() => {
+        try {
+            const dreParam = searchParams.get("dreUrlSelecionada");
+            const dreParam2 = searchParams.get("dreSelecionadaNome");
 
-    try {
-        dreSelecionada = searchParams?.get("dreUrlSelecionada") || "";
-        dreSelecionadaNome = searchParams?.get("dreSelecionadaNome") || "";
-    } catch (error) {
-        console.warn("Erro ao acessar searchParams:", error);
-        dreSelecionada = "";
-        dreSelecionadaNome = "";
-    }
+            if (!dreParam || !dreParam2) return;
+
+            const optNum = Number(dreParam);
+            if (Number.isNaN(optNum)) return;
+
+
+            if (!dreParam2) return;
+            const optNum2 = dreParam2;
+
+            setDreSelecionada(optNum);
+            setDreSelecionadaNome(Number(optNum2));
+
+        }
+        catch (error) {
+            console.warn("Erro ao acessar searchParams:", error);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (dreSelecionada != 0) buscaAplicacoes();
+    }, [dreSelecionada]);
+
+    useEffect(() => {
+        if (dreSelecionada != 0 && aplicacaoSelecionada)
+            buscaComponentesCurriculares();
+    }, [dreSelecionada, aplicacaoSelecionada]);
+
+    useEffect(() => {
+        if (dreSelecionada != 0 && aplicacaoSelecionada && componenteSelecionado)
+            buscaAnosEscolares();
+    }, [dreSelecionada, aplicacaoSelecionada, componenteSelecionado]);
+
+    const buscaAplicacoes = async () => {
+        try {
+            const aplicacoes: number[] = await getAnosAplicacaoVisaoSme(dreSelecionada);
+
+            const listaAplicacoes: ParametrosPadraoAntDesign[] = [];
+            aplicacoes.map((item) => {
+                listaAplicacoes.push({
+                    value: item,
+                    label: item.toString(),
+                });
+            });
+            setAplicacoes(listaAplicacoes);
+            if (listaAplicacoes.length > 0)
+                setAplicacaoSelecionada(listaAplicacoes[0]);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const buscaComponentesCurriculares = async () => {
+        try {
+            let listaAnt: ParametrosPadraoAntDesign[] = [];
+            const materiasEscolares: FiltroChaveValor[] =
+                await getComponentesCurricularesVisaoSme(
+                    dreSelecionada,
+                    Number(aplicacaoSelecionada!.value)
+                );
+
+            listaAnt = materiasEscolares.map((item) => ({
+                value: item.valor,
+                label: item.texto,
+            }));
+
+            setComponentesCurriculares(listaAnt);
+            if (listaAnt.length > 0) setComponenteCurricularSelecionado(listaAnt[0]);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const buscaAnosEscolares = async () => {
+        try {
+            let listaAnt: ParametrosPadraoAntDesign[] = [];
+            const anosEscolares: FiltroChaveValor[] = await getAnosEscolaresUeVisaoSme(
+                dreSelecionada,
+                Number(aplicacaoSelecionada!.value),
+                Number(componenteSelecionado!.value)
+            );
+
+            listaAnt = anosEscolares.map((item) => ({
+                value: item.valor,
+                label: item.texto,
+            }));
+
+            setAnos(listaAnt);
+            if (anosEscolares.length > 0) setAnoSelecionado(listaAnt[0]);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
 
     return (
