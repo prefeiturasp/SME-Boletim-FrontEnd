@@ -8,7 +8,7 @@ import {
     getAnosAplicacaoVisaoSme,
     getAnosEscolaresUeVisaoSme,
     getComponentesCurricularesVisaoSme
-} from '../servicos/compararDadosSme/compararDadosSme';
+} from '../servicos/compararDadosSme/compararDadosSmeService';
 
 
 const CompararDadosSme: React.FC = () => {
