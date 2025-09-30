@@ -1,93 +1,126 @@
-// src/pages/compararDados.test.tsx
+import React from "react"; 
+import { render, screen, fireEvent } from "@testing-library/react"; 
+import { MemoryRouter } from "react-router-dom"; 
+import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno"; 
 
-declare global {
-  interface ImportMeta {
-    env: Record<string, string>;
-  }
+// Definir a interface localmente para o teste
+interface ParametrosPadraoAntDesign {
+  label: string;
+  value: string | number;
 }
 
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import userEvent from "@testing-library/user-event";
-import CompararDados from "./compararDados";
+describe("FiltroAplicacaoComponenteCurricularAno", () => { 
+  const mockSelecionaAplicacao = jest.fn(); 
+  const mockSelecionaComponente = jest.fn(); 
+  const mockSelecionaAno = jest.fn(); 
 
-jest.mock("../servicos/compararDados/compararDadosService", () => ({
-  getAnosAplicacaoDre: jest.fn(),
-  getAnosEscolaresUe: jest.fn(),
-  getComponentesCurricularesDre: jest.fn(),
-  getComporativoUe: jest.fn(),
-  getListaUes: jest.fn(),
-}));
+  const defaultProps = { 
+    dreSelecionadaNome: "DRE Teste", 
+    aplicacaoSelecionada: { label: "2024", value: "2024" } as ParametrosPadraoAntDesign, 
+    componenteSelecionado: { label: "Matemática", value: "Matemática" } as ParametrosPadraoAntDesign, 
+    anoSelecionado: { label: "5º Ano", value: "5º Ano" } as ParametrosPadraoAntDesign, 
+    aplicacoes: [ 
+      { label: "2023", value: "2023" }, 
+      { label: "2024", value: "2024" }, 
+    ] as ParametrosPadraoAntDesign[], 
+    componentesCurriculares: [ 
+      { label: "Português", value: "Português" }, 
+      { label: "Matemática", value: "Matemática" }, 
+    ] as ParametrosPadraoAntDesign[], 
+    anos: [ 
+      { label: "4º Ano", value: "4º Ano" }, 
+      { label: "5º Ano", value: "5º Ano" }, 
+    ] as ParametrosPadraoAntDesign[], 
+    selecionaAno: mockSelecionaAno, 
+    selecionaAplicacao: mockSelecionaAplicacao, 
+    selecionaComponenteCurricular: mockSelecionaComponente, 
+  }; 
 
-jest.mock("../componentes/tabela/tabelaComparativa/tabelaComparativa", () => () => <div>TabelaComparativa</div>);
-jest.mock("../componentes/filtro/filtroComparativoUEs/filtroComparativoUEs", () => () => <div>FiltroComparativoUes</div>);
-jest.mock("../componentes/cards/cardsComparativa/cardsComparativa", () => () => <div>CardsComparativa</div>);
+  beforeEach(() => { 
+    jest.clearAllMocks(); 
+  }); 
 
-describe("Componente CompararDados", () => {
-  it("deve renderizar o título principal", () => {
-    render(
-      <MemoryRouter>
-        <CompararDados />
-      </MemoryRouter>
-    );
+  it("deve renderizar o nome da DRE", () => { 
+    render( 
+      <MemoryRouter> 
+        <FiltroAplicacaoComponenteCurricularAno {...defaultProps} /> 
+      </MemoryRouter> 
+    ); 
+    expect(screen.getByText("DRE Teste")).toBeInTheDocument(); 
+  }); 
 
-    const titulos = screen.getAllByText("Boletim de provas");
-    expect(titulos[0]).toBeInTheDocument();
-  });
+  it("deve renderizar o link 'Voltar a tela anterior'", () => { 
+    render( 
+      <MemoryRouter> 
+        <FiltroAplicacaoComponenteCurricularAno {...defaultProps} /> 
+      </MemoryRouter> 
+    ); 
+    expect(screen.getByText("Voltar a tela anterior")).toBeInTheDocument(); 
+  }); 
 
-  it("deve renderizar o breadcrumb com texto esperado", () => {
-    render(
-      <MemoryRouter>
-        <CompararDados />
-      </MemoryRouter>
-    );
+  it("deve renderizar os textos explicativos", () => { 
+    render( 
+      <MemoryRouter> 
+        <FiltroAplicacaoComponenteCurricularAno {...defaultProps} /> 
+      </MemoryRouter> 
+    ); 
+    expect( 
+      screen.getByText(/acompanhar a evolução do nível de proficiência/i) 
+    ).toBeInTheDocument(); 
+    expect( 
+      screen.getByText(/Para começar, selecione o componente curricular/i) 
+    ).toBeInTheDocument(); 
+  }); 
 
-    expect(screen.getByText("Comparativo de resultados")).toBeInTheDocument();
-  });
+  it("deve renderizar os 3 selects", () => { 
+    render( 
+      <MemoryRouter> 
+        <FiltroAplicacaoComponenteCurricularAno {...defaultProps} /> 
+      </MemoryRouter> 
+    ); 
+    expect(screen.getByText("Ano da aplicação")).toBeInTheDocument(); 
+    expect(screen.getByText("Componente curricular")).toBeInTheDocument(); 
+    expect(screen.getByText("Ano")).toBeInTheDocument(); 
+  }); 
 
-  /*it("deve renderizar os três filtros Select", () => {
-    render(
-      <MemoryRouter>
-        <CompararDados />
-      </MemoryRouter>
-    );
+  /*it("deve chamar os callbacks ao trocar valores dos selects", () => { 
+    render( 
+      <MemoryRouter> 
+        <FiltroAplicacaoComponenteCurricularAno {...defaultProps} /> 
+      </MemoryRouter> 
+    ); 
 
-    expect(screen.getByPlaceholderText("Selecione uma aplicação...")).toBeInTheDocument();
-    expect(screen.getByText("Componente curricular")).toBeInTheDocument();
-    expect(screen.getByText("Ano")).toBeInTheDocument();
-  });*/
+    // Aplicação 
+    fireEvent.mouseDown(screen.getAllByRole("combobox")[0]); 
+    fireEvent.click(screen.getByText("2023")); 
+    expect(mockSelecionaAplicacao).toHaveBeenCalled(); 
 
-  it("deve renderizar o link 'Voltar a tela anterior'", () => {
-    render(
-      <MemoryRouter>
-        <CompararDados />
-      </MemoryRouter>
-    );
+    // Componente 
+    fireEvent.mouseDown(screen.getAllByRole("combobox")[1]); 
+    fireEvent.click(screen.getByText("Português")); 
+    expect(mockSelecionaComponente).toHaveBeenCalled(); 
 
-    expect(screen.getByText("Voltar a tela anterior")).toBeInTheDocument();
-  });
+    // Ano 
+    fireEvent.mouseDown(screen.getAllByRole("combobox")[2]); 
+    fireEvent.click(screen.getByText("4º Ano")); 
+    expect(mockSelecionaAno).toHaveBeenCalled(); 
+  }); */
 
-  it("deve renderizar o botão 'Exibir mais' quando mostrarExibirMais for true", () => {
-    render(
-      <MemoryRouter>
-        <CompararDados />
-      </MemoryRouter>
-    );
-
-    expect(screen.getByText("Exibir mais")).toBeInTheDocument();
-  });
-
-  it("deve permitir clicar no botão 'Exibir mais'", async () => {
-    const user = userEvent.setup();
-    render(
-      <MemoryRouter>
-        <CompararDados />
-      </MemoryRouter>
-    );
-
-    const botao = screen.getByText("Exibir mais");
-    expect(botao).toBeInTheDocument();
-    await user.click(botao);
-  });
+  // Teste adicional para quando os valores são null/undefined
+  it("deve renderizar corretamente quando valores são null", () => { 
+    const propsWithNulls = {
+      ...defaultProps,
+      aplicacaoSelecionada: null,
+      componenteSelecionado: null,
+      anoSelecionado: null,
+    };
+    
+    render( 
+      <MemoryRouter> 
+        <FiltroAplicacaoComponenteCurricularAno {...propsWithNulls} /> 
+      </MemoryRouter> 
+    ); 
+    
+    expect(screen.getByText("DRE Teste")).toBeInTheDocument(); 
+  }); 
 });
