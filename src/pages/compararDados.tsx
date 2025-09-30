@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Card, Col, Row, Select } from "antd";
+import { Breadcrumb, Button, Card, Row } from "antd";
 import { Layout } from "antd";
 const { Header } = Layout;
 import React, { useEffect, useState } from "react";
@@ -17,12 +17,12 @@ import {
 } from "../servicos/compararDados/compararDadosService";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 
-import mock from "../mocks/cardsComparativas.json";
 import iconeMais from "../assets/icon-mais.svg";
 import {
   CardsComparativaProps,
   CardsComparativaUnidadeEducacionalProps,
 } from "../interfaces/cardsComparativaProps";
+import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno";
 
 const CompararDados: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -54,7 +54,7 @@ const CompararDados: React.FC = () => {
   );
 
   const [dreSelecionada, setDreSelecionada] = useState(0);
-  const [dreSelecionadaNome, setDreSelecionadaNome] = useState('');
+  const [dreSelecionadaNome, setDreSelecionadaNome] = useState("");
   const [itensPorPagina, setItensPorPagina] = useState(10);
   const [mostrarExibirMais, setMostrarExibirMais] = useState(true);
   const [searchParams] = useSearchParams();
@@ -129,12 +129,11 @@ const CompararDados: React.FC = () => {
     const optNum = Number(dreParam);
     if (Number.isNaN(optNum)) return;
 
-    
     if (!dreParam2) return;
-    const optNum2:string = dreParam2;
+    const optNum2: string = dreParam2;
 
     setDreSelecionada(optNum);
-    setDreSelecionadaNome(optNum2)
+    setDreSelecionadaNome(optNum2);
   }, []);
 
   useEffect(() => {
@@ -244,6 +243,30 @@ const CompararDados: React.FC = () => {
     }
   };
 
+  const selecionaAno = async (value: string, option: any) => {
+    const obj: ParametrosPadraoAntDesign = {
+      label: option.label,
+      value: value,
+    };
+    setAnoSelecionado(obj);
+  };
+
+  const selecionaAplicacao = async (value: string, option: any) => {
+    const obj: ParametrosPadraoAntDesign = {
+      label: option.label,
+      value: value,
+    };
+    setAplicacaoSelecionada(obj);
+  };
+
+  const selecionaComponenteCurricular = async (value: string, option: any) => {
+    const obj: ParametrosPadraoAntDesign = {
+      label: option.label,
+      value: value,
+    };
+    setComponenteCurricularSelecionado(obj);
+  };
+
   return (
     <>
       <div className="app-container">
@@ -273,139 +296,26 @@ const CompararDados: React.FC = () => {
           </Header>
         </Row>
 
-        
-
         <div className="conteudo-principal-dres">
-          <Row gutter={[16, 16]}>
-            <Col span={24}>
-              <h2 className="titulo-ue-sme">
-                {dreSelecionadaNome}
-              </h2>
-
-              <div className="ajustes-padding-cards">
-                <Card title="" variant="borderless" className="card-body-dre">
-                  <div style={{ marginBottom: 32 }}>
-                    <Link
-                      to="/ues"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 6,
-                        color: "#1976d2",
-                        textDecoration: "none",
-                        margin: "0px",
-                        fontSize: 14,
-                      }}
-                      className="botao-voltar-ues"
-                    >
-                      <ArrowLeftOutlined style={{ fontSize: 18 }} />
-                      Voltar a tela anterior
-                    </Link>
-                  </div>
-
-                  <p
-                    className="global-texto-padrao"
-                    style={{ marginTop: "0", marginBottom: "16px" }}
-                  >
-                    Aqui, você pode acompanhar a evolução do nível de
-                    proficiência da SME nas diferentes aplicações da Prova São
-                    Paulo e da Prova Saberes e Aprendizagens.
-                  </p>
-
-                  <div className="comparar-dados-caixa-cinza">
-                    <div className="comparar-dados-caixa-texto">
-                      {" "}
-                      Para começar, selecione o componente curricular, o ano
-                      escolar e o ano de aplicação que deseja visualizar. Caso o
-                      ano ainda esteja em andamento, só serão exibidos os
-                      resultados disponíveis até agora.
-                    </div>
-
-                    <div className="comparar-dados-filtros-card">
-                      <div className="comparar-dados-selects">
-                        <label className="label-filtro-dre">
-                          Ano da aplicação
-                        </label>
-                        <Select
-                          data-testid="select-aplicacao"
-                          showSearch
-                          placeholder="Selecione uma aplicação..."
-                          className="select-custom"
-                          onChange={(value) => {
-                            setAplicacaoSelecionada(
-                              aplicacoes.find((x) => x.value === Number(value))
-                            );
-                          }}
-                          value={aplicacaoSelecionada || undefined}
-                          notFoundContent="Nenhuma aplicação encontrada"
-                          filterOption={(input, option: any) =>
-                            (option?.label ?? "")
-                              .toLowerCase()
-                              .includes(input.toLowerCase())
-                          }
-                          options={aplicacoes}
-                        />
-                      </div>
-                      <div className="comparar-dados-selects">
-                        <label className="label-filtro-dre">
-                          Componente curricular
-                        </label>
-                        <Select
-                          data-testid="select-aplicacao"
-                          showSearch
-                          placeholder="Selecione uma aplicação..."
-                          className="select-custom"
-                          onChange={(value) => {
-                            setComponenteCurricularSelecionado(
-                              componentesCurriculares.find(
-                                (x) => x.value === Number(value)
-                              )
-                            );
-                          }}
-                          value={componenteSelecionado || undefined}
-                          notFoundContent="Nenhuma aplicação encontrada"
-                          filterOption={(input, option: any) =>
-                            (option?.label ?? "")
-                              .toLowerCase()
-                              .includes(input.toLowerCase())
-                          }
-                          options={componentesCurriculares}
-                        />
-                      </div>
-                      <div className="comparar-dados-selects">
-                        <label className="label-filtro-dre">Ano</label>
-                        <Select
-                          showSearch
-                          placeholder="Ano escolar"
-                          className="select-custom"
-                          onChange={(value) => {
-                            setAnoSelecionado(
-                              anos.find((x) => x.value === Number(value))
-                            );
-                          }}
-                          value={anoSelecionado || undefined}
-                          notFoundContent="Nenhum ano encontrado"
-                          filterOption={(input, option: any) =>
-                            (option?.label ?? "")
-                              .toLowerCase()
-                              .includes(input.toLowerCase())
-                          }
-                          options={anos}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </Col>
-          </Row>
+          <FiltroAplicacaoComponenteCurricularAno
+            dreSelecionadaNome={dreSelecionadaNome}
+            aplicacaoSelecionada={aplicacaoSelecionada}
+            componenteSelecionado={componenteSelecionado}
+            anoSelecionado={anoSelecionado}
+            aplicacoes={aplicacoes}
+            componentesCurriculares={componentesCurriculares}
+            anos={anos}
+            selecionaAno={selecionaAno}
+            selecionaAplicacao={selecionaAplicacao}
+            selecionaComponenteCurricular={selecionaComponenteCurricular}
+          ></FiltroAplicacaoComponenteCurricularAno>
           <br />
           <Card className="comparar-dados-card-conteudo">
             <TabelaComparativa
               dreSelecionada={dreSelecionada}
               aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
-              anoSelecionado={anoSelecionado}              
+              anoSelecionado={anoSelecionado}
             />
             <br />
             <FiltroComparativoUes
@@ -424,12 +334,14 @@ const CompararDados: React.FC = () => {
                   item: CardsComparativaUnidadeEducacionalProps,
                   index: number
                 ) => {
-                  return <CardsComparativa 
-                    key={index} 
-                    dados={item} 
-                    dreId={ues.dreId}
-                    ano={anoSelecionado || null}
-                  />;
+                  return (
+                    <CardsComparativa
+                      key={index}
+                      dados={item}
+                      dreId={ues.dreId}
+                      ano={anoSelecionado || null}
+                    />
+                  );
                 }
               )}
 
