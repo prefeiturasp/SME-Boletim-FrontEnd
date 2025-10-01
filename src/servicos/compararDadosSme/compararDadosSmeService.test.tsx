@@ -32,7 +32,7 @@ describe('compararDadosSmeService', () => {
             mockServicos.get.mockResolvedValueOnce(mockResponse);
 
             const dreId = 123;
-            const resultado = await getAnosAplicacaoVisaoSme(dreId);
+            const resultado = await getAnosAplicacaoVisaoSme();
 
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-aplicacao-sme');
             expect(mockServicos.get).toHaveBeenCalledTimes(1);
@@ -48,7 +48,7 @@ describe('compararDadosSmeService', () => {
 
             mockServicos.get.mockResolvedValueOnce(dadosEsperados);
 
-            const resultado = await getAnosAplicacaoVisaoSme(456);
+            const resultado = await getAnosAplicacaoVisaoSme();
 
             expect(resultado).toEqual(dadosEsperados);
             expect(Array.isArray(resultado)).toBe(true);
@@ -64,7 +64,7 @@ describe('compararDadosSmeService', () => {
 
             for (const dreId of dreIds) {
                 mockServicos.get.mockClear();
-                await getAnosAplicacaoVisaoSme(dreId);
+                await getAnosAplicacaoVisaoSme();
 
                 // A URL deve ser sempre a mesma, dreId não é usado
                 expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-aplicacao-sme');
@@ -76,7 +76,7 @@ describe('compararDadosSmeService', () => {
             const erro = new Error('Erro na API');
             mockServicos.get.mockRejectedValueOnce(erro);
 
-            await expect(getAnosAplicacaoVisaoSme(789))
+            await expect(getAnosAplicacaoVisaoSme())
                 .rejects
                 .toThrow('Erro na API');
 
@@ -86,7 +86,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta vazia da API', async () => {
             mockServicos.get.mockResolvedValueOnce([]);
 
-            const resultado = await getAnosAplicacaoVisaoSme(123);
+            const resultado = await getAnosAplicacaoVisaoSme();
 
             expect(resultado).toEqual([]);
             expect(Array.isArray(resultado)).toBe(true);
@@ -96,7 +96,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta null da API', async () => {
             mockServicos.get.mockResolvedValueOnce(null);
 
-            const resultado = await getAnosAplicacaoVisaoSme(123);
+            const resultado = await getAnosAplicacaoVisaoSme();
 
             expect(resultado).toBeNull();
         });
@@ -104,7 +104,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta undefined da API', async () => {
             mockServicos.get.mockResolvedValueOnce(undefined);
 
-            const resultado = await getAnosAplicacaoVisaoSme(123);
+            const resultado = await getAnosAplicacaoVisaoSme();
 
             expect(resultado).toBeUndefined();
         });
@@ -129,7 +129,7 @@ describe('compararDadosSmeService', () => {
 
             for (const dreId of testCases) {
                 mockServicos.get.mockClear();
-                const resultado = await getAnosAplicacaoVisaoSme(dreId as number);
+                const resultado = await getAnosAplicacaoVisaoSme();
 
                 expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-aplicacao-sme');
                 expect(resultado).toEqual(mockResponse);
@@ -148,7 +148,7 @@ describe('compararDadosSmeService', () => {
 
             const dreId = 123;
             const anoAplicacao = 2025;
-            const resultado = await getComponentesCurricularesVisaoSme(dreId, anoAplicacao);
+            const resultado = await getComponentesCurricularesVisaoSme(anoAplicacao);
 
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/componentes-curriculares-sme/2025');
             expect(mockServicos.get).toHaveBeenCalledTimes(1);
@@ -171,7 +171,7 @@ describe('compararDadosSmeService', () => {
             for (const testCase of testCases) {
                 mockServicos.get.mockClear();
 
-                await getComponentesCurricularesVisaoSme(testCase.dreId, testCase.anoAplicacao);
+                await getComponentesCurricularesVisaoSme(testCase.anoAplicacao);
 
                 expect(mockServicos.get).toHaveBeenCalledWith(testCase.expectedUrl);
                 expect(mockServicos.get).toHaveBeenCalledTimes(1);
@@ -187,7 +187,7 @@ describe('compararDadosSmeService', () => {
 
             for (const dreId of dreIds) {
                 mockServicos.get.mockClear();
-                await getComponentesCurricularesVisaoSme(dreId, anoAplicacao);
+                await getComponentesCurricularesVisaoSme(anoAplicacao);
 
                 // dreId não aparece na URL, apenas anoAplicacao
                 expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/componentes-curriculares-sme/2025');
@@ -204,7 +204,7 @@ describe('compararDadosSmeService', () => {
 
             mockServicos.get.mockResolvedValueOnce(dadosEsperados);
 
-            const resultado = await getComponentesCurricularesVisaoSme(123, 2025);
+            const resultado = await getComponentesCurricularesVisaoSme(2025);
 
             expect(resultado).toEqual(dadosEsperados);
             expect(Array.isArray(resultado)).toBe(true);
@@ -215,7 +215,7 @@ describe('compararDadosSmeService', () => {
             const erro = new Error('Erro 500 - Internal Server Error');
             mockServicos.get.mockRejectedValueOnce(erro);
 
-            await expect(getComponentesCurricularesVisaoSme(123, 2025))
+            await expect(getComponentesCurricularesVisaoSme(2025))
                 .rejects
                 .toThrow('Erro 500 - Internal Server Error');
 
@@ -227,7 +227,7 @@ describe('compararDadosSmeService', () => {
             mockServicos.get.mockResolvedValue(mockResponse);
 
             // JavaScript converte automaticamente número para string na interpolação
-            await getComponentesCurricularesVisaoSme(123, 2025);
+            await getComponentesCurricularesVisaoSme(2025);
 
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/componentes-curriculares-sme/2025');
         });
@@ -245,7 +245,7 @@ describe('compararDadosSmeService', () => {
 
             for (const testCase of testCases) {
                 mockServicos.get.mockClear();
-                await getComponentesCurricularesVisaoSme(123, testCase.anoAplicacao);
+                await getComponentesCurricularesVisaoSme(testCase.anoAplicacao);
 
                 expect(mockServicos.get).toHaveBeenCalledWith(testCase.expectedUrl);
             }
@@ -254,7 +254,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta null da API', async () => {
             mockServicos.get.mockResolvedValueOnce(null);
 
-            const resultado = await getComponentesCurricularesVisaoSme(123, 2025);
+            const resultado = await getComponentesCurricularesVisaoSme(2025);
 
             expect(resultado).toBeNull();
         });
@@ -262,7 +262,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta vazia da API', async () => {
             mockServicos.get.mockResolvedValueOnce([]);
 
-            const resultado = await getComponentesCurricularesVisaoSme(123, 2025);
+            const resultado = await getComponentesCurricularesVisaoSme(2025);
 
             expect(resultado).toEqual([]);
         });
@@ -280,7 +280,7 @@ describe('compararDadosSmeService', () => {
             const dreId = 123;
             const anoAplicacao = 2025;
             const disciplinaId = 1;
-            const resultado = await getAnosEscolaresUeVisaoSme(dreId, anoAplicacao, disciplinaId);
+            const resultado = await getAnosEscolaresUeVisaoSme(anoAplicacao, disciplinaId);
 
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-escolares-sme/2025/1');
             expect(mockServicos.get).toHaveBeenCalledTimes(1);
@@ -302,7 +302,7 @@ describe('compararDadosSmeService', () => {
             for (const testCase of testCases) {
                 mockServicos.get.mockClear();
 
-                await getAnosEscolaresUeVisaoSme(testCase.dreId, testCase.anoAplicacao, testCase.disciplinaId);
+                await getAnosEscolaresUeVisaoSme(testCase.anoAplicacao, testCase.disciplinaId);
 
                 expect(mockServicos.get).toHaveBeenCalledWith(testCase.expectedUrl);
                 expect(mockServicos.get).toHaveBeenCalledTimes(1);
@@ -319,7 +319,7 @@ describe('compararDadosSmeService', () => {
 
             for (const dreId of dreIds) {
                 mockServicos.get.mockClear();
-                await getAnosEscolaresUeVisaoSme(dreId, anoAplicacao, disciplinaId);
+                await getAnosEscolaresUeVisaoSme(anoAplicacao, disciplinaId);
 
                 // dreId não aparece na URL, apenas anoAplicacao e disciplinaId
                 expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-escolares-sme/2025/1');
@@ -338,7 +338,7 @@ describe('compararDadosSmeService', () => {
 
             mockServicos.get.mockResolvedValueOnce(dadosEsperados);
 
-            const resultado = await getAnosEscolaresUeVisaoSme(123, 2025, 1);
+            const resultado = await getAnosEscolaresUeVisaoSme(2025, 1);
 
             expect(resultado).toEqual(dadosEsperados);
             expect(Array.isArray(resultado)).toBe(true);
@@ -349,7 +349,7 @@ describe('compararDadosSmeService', () => {
             const erro = new Error('Erro 404 - Not Found');
             mockServicos.get.mockRejectedValueOnce(erro);
 
-            await expect(getAnosEscolaresUeVisaoSme(123, 2025, 1))
+            await expect(getAnosEscolaresUeVisaoSme(2025, 1))
                 .rejects
                 .toThrow('Erro 404 - Not Found');
 
@@ -360,7 +360,7 @@ describe('compararDadosSmeService', () => {
             const mockResponse = [{ ano: 5 }];
             mockServicos.get.mockResolvedValueOnce(mockResponse);
 
-            const resultado = await getAnosEscolaresUeVisaoSme(123, 2025.7, 1.3);
+            const resultado = await getAnosEscolaresUeVisaoSme(2025.7, 1.3);
 
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-escolares-sme/2025.7/1.3');
             expect(resultado).toEqual(mockResponse);
@@ -378,7 +378,7 @@ describe('compararDadosSmeService', () => {
 
             for (const testCase of testCases) {
                 mockServicos.get.mockClear();
-                await getAnosEscolaresUeVisaoSme(123, testCase.anoAplicacao, testCase.disciplinaId);
+                await getAnosEscolaresUeVisaoSme(testCase.anoAplicacao, testCase.disciplinaId);
 
                 const expectedUrl = `/api/BoletimEscolar/anos-escolares-sme/${testCase.anoAplicacao}/${testCase.disciplinaId}`;
                 expect(mockServicos.get).toHaveBeenCalledWith(expectedUrl);
@@ -388,7 +388,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta vazia da API', async () => {
             mockServicos.get.mockResolvedValueOnce([]);
 
-            const resultado = await getAnosEscolaresUeVisaoSme(123, 2025, 1);
+            const resultado = await getAnosEscolaresUeVisaoSme(2025, 1);
 
             expect(resultado).toEqual([]);
             expect(Array.isArray(resultado)).toBe(true);
@@ -398,7 +398,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta null da API', async () => {
             mockServicos.get.mockResolvedValueOnce(null);
 
-            const resultado = await getAnosEscolaresUeVisaoSme(123, 2025, 1);
+            const resultado = await getAnosEscolaresUeVisaoSme(2025, 1);
 
             expect(resultado).toBeNull();
         });
@@ -406,7 +406,7 @@ describe('compararDadosSmeService', () => {
         it('lida com resposta undefined da API', async () => {
             mockServicos.get.mockResolvedValueOnce(undefined);
 
-            const resultado = await getAnosEscolaresUeVisaoSme(123, 2025, 1);
+            const resultado = await getAnosEscolaresUeVisaoSme(2025, 1);
 
             expect(resultado).toBeUndefined();
         });
@@ -427,15 +427,15 @@ describe('compararDadosSmeService', () => {
             const dreId = 123;
 
             // 1. Busca anos de aplicação
-            const anos = await getAnosAplicacaoVisaoSme(dreId);
+            const anos = await getAnosAplicacaoVisaoSme();
             expect(anos).toEqual(anosResponse);
 
             // 2. Busca componentes curriculares para o primeiro ano
-            const componentes = await getComponentesCurricularesVisaoSme(dreId, anos[0].ano);
+            const componentes = await getComponentesCurricularesVisaoSme(anos[0].ano);
             expect(componentes).toEqual(componentesResponse);
 
             // 3. Busca anos escolares para o primeiro componente
-            const anosEscolares = await getAnosEscolaresUeVisaoSme(dreId, anos[0].ano, componentes[0].id);
+            const anosEscolares = await getAnosEscolaresUeVisaoSme(anos[0].ano, componentes[0].id);
             expect(anosEscolares).toEqual(anosEscolaresResponse);
 
             // Verifica se todas as chamadas foram feitas corretamente
@@ -459,9 +459,9 @@ describe('compararDadosSmeService', () => {
 
             // Executa todas as funções simultaneamente
             const promises = [
-                getAnosAplicacaoVisaoSme(123),
-                getComponentesCurricularesVisaoSme(456, 2025),
-                getAnosEscolaresUeVisaoSme(789, 2025, 1),
+                getAnosAplicacaoVisaoSme(),
+                getComponentesCurricularesVisaoSme(2025),
+                getAnosEscolaresUeVisaoSme(2025, 1),
             ];
 
             const resultados = await Promise.all(promises);
@@ -479,9 +479,9 @@ describe('compararDadosSmeService', () => {
                 .mockResolvedValueOnce([{ ano: 5 }]);
 
             const promises = [
-                getAnosAplicacaoVisaoSme(123),
-                getComponentesCurricularesVisaoSme(456, 2025),
-                getAnosEscolaresUeVisaoSme(789, 2025, 1),
+                getAnosAplicacaoVisaoSme(),
+                getComponentesCurricularesVisaoSme(2025),
+                getAnosEscolaresUeVisaoSme(2025, 1),
             ];
 
             const resultados = await Promise.allSettled(promises);
@@ -505,19 +505,19 @@ describe('compararDadosSmeService', () => {
 
             // Testa getAnosAplicacaoVisaoSme
             mockServicos.get.mockRejectedValueOnce(erro);
-            await expect(getAnosAplicacaoVisaoSme(123))
+            await expect(getAnosAplicacaoVisaoSme())
                 .rejects
                 .toThrow(`${status} - ${message}`);
 
             // Testa getComponentesCurricularesVisaoSme
             mockServicos.get.mockRejectedValueOnce(erro);
-            await expect(getComponentesCurricularesVisaoSme(123, 2025))
+            await expect(getComponentesCurricularesVisaoSme(2025))
                 .rejects
                 .toThrow(`${status} - ${message}`);
 
             // Testa getAnosEscolaresUeVisaoSme
             mockServicos.get.mockRejectedValueOnce(erro);
-            await expect(getAnosEscolaresUeVisaoSme(123, 2025, 1))
+            await expect(getAnosEscolaresUeVisaoSme(2025, 1))
                 .rejects
                 .toThrow(`${status} - ${message}`);
         });
@@ -527,19 +527,19 @@ describe('compararDadosSmeService', () => {
 
             // Testa getAnosAplicacaoVisaoSme
             mockServicos.get.mockRejectedValueOnce(timeoutError);
-            await expect(getAnosAplicacaoVisaoSme(123))
+            await expect(getAnosAplicacaoVisaoSme())
                 .rejects
                 .toThrow('Request timeout');
 
             // Testa getComponentesCurricularesVisaoSme
             mockServicos.get.mockRejectedValueOnce(timeoutError);
-            await expect(getComponentesCurricularesVisaoSme(123, 2025))
+            await expect(getComponentesCurricularesVisaoSme(2025))
                 .rejects
                 .toThrow('Request timeout');
 
             // Testa getAnosEscolaresUeVisaoSme
             mockServicos.get.mockRejectedValueOnce(timeoutError);
-            await expect(getAnosEscolaresUeVisaoSme(123, 2025, 1))
+            await expect(getAnosEscolaresUeVisaoSme(2025, 1))
                 .rejects
                 .toThrow('Request timeout');
         });
@@ -549,19 +549,19 @@ describe('compararDadosSmeService', () => {
 
             // Testa getAnosAplicacaoVisaoSme
             mockServicos.get.mockRejectedValueOnce(networkError);
-            await expect(getAnosAplicacaoVisaoSme(123))
+            await expect(getAnosAplicacaoVisaoSme())
                 .rejects
                 .toThrow('Network Error');
 
             // Testa getComponentesCurricularesVisaoSme
             mockServicos.get.mockRejectedValueOnce(networkError);
-            await expect(getComponentesCurricularesVisaoSme(123, 2025))
+            await expect(getComponentesCurricularesVisaoSme(2025))
                 .rejects
                 .toThrow('Network Error');
 
             // Testa getAnosEscolaresUeVisaoSme
             mockServicos.get.mockRejectedValueOnce(networkError);
-            await expect(getAnosEscolaresUeVisaoSme(123, 2025, 1))
+            await expect(getAnosEscolaresUeVisaoSme(2025, 1))
                 .rejects
                 .toThrow('Network Error');
         });
@@ -572,19 +572,19 @@ describe('compararDadosSmeService', () => {
             {
                 name: 'getAnosAplicacaoVisaoSme',
                 fn: getAnosAplicacaoVisaoSme,
-                params: [999] as const,
+                params: [] as const,
                 expectedUrl: '/api/BoletimEscolar/anos-aplicacao-sme',
             },
             {
                 name: 'getComponentesCurricularesVisaoSme',
                 fn: getComponentesCurricularesVisaoSme,
-                params: [999, 2025] as const,
+                params: [2025] as const,
                 expectedUrl: '/api/BoletimEscolar/componentes-curriculares-sme/2025',
             },
             {
                 name: 'getAnosEscolaresUeVisaoSme',
                 fn: getAnosEscolaresUeVisaoSme,
-                params: [999, 2025, 1] as const,
+                params: [2025, 1] as const,
                 expectedUrl: '/api/BoletimEscolar/anos-escolares-sme/2025/1',
             },
         ])('$name', ({ name, fn, params, expectedUrl }) => {
@@ -603,9 +603,9 @@ describe('compararDadosSmeService', () => {
         it('confirma que as funções retornam promises', () => {
             mockServicos.get.mockResolvedValue([]);
 
-            const result1 = getAnosAplicacaoVisaoSme(123);
-            const result2 = getComponentesCurricularesVisaoSme(123, 2025);
-            const result3 = getAnosEscolaresUeVisaoSme(123, 2025, 1);
+            const result1 = getAnosAplicacaoVisaoSme();
+            const result2 = getComponentesCurricularesVisaoSme(2025);
+            const result3 = getAnosEscolaresUeVisaoSme(2025, 1);
 
             expect(result1).toBeInstanceOf(Promise);
             expect(result2).toBeInstanceOf(Promise);
@@ -618,11 +618,11 @@ describe('compararDadosSmeService', () => {
             mockServicos.get.mockResolvedValue([]);
 
             // @ts-ignore - Testando valores extremos
-            await getComponentesCurricularesVisaoSme(123, NaN);
+            await getComponentesCurricularesVisaoSme(NaN);
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/componentes-curriculares-sme/NaN');
 
             // @ts-ignore - Testando valores extremos
-            await getAnosEscolaresUeVisaoSme(123, Infinity, -Infinity);
+            await getAnosEscolaresUeVisaoSme(Infinity, -Infinity);
             expect(mockServicos.get).toHaveBeenCalledWith('/api/BoletimEscolar/anos-escolares-sme/Infinity/-Infinity');
         });
 
@@ -633,7 +633,7 @@ describe('compararDadosSmeService', () => {
             // Simula muitas chamadas
             const promises = [];
             for (let i = 0; i < 100; i++) {
-                promises.push(getAnosAplicacaoVisaoSme(i));
+                promises.push(getAnosAplicacaoVisaoSme());
             }
 
             const resultados = await Promise.all(promises);
