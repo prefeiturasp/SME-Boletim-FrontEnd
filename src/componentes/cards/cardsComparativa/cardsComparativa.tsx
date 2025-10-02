@@ -150,7 +150,7 @@ const CardsComparativa: React.FC<{
                               ></span>
                             </div>
                             <div className="cards-comparativa-nivel-texto">
-                              <span>{dados.aplicacaoPsp?.nivelProficiencia ?? "-"}</span>
+                              <span>{comparacao.nivelProficiencia ?? "-"}</span>
                               <p>Nível de proficiência</p>
                             </div>
                           </div>
