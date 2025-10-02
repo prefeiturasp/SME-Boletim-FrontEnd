@@ -22,7 +22,7 @@ const FiltroAplicacaoComponenteCurricularAno: React.FC<
     <>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <h2 className="titulo-ue-sme">{dreSelecionadaNome ?? ""}</h2>
+          <h2 className="titulo-ue-sme">{dreSelecionadaNome ?? "Secretaria Municipal de Educação"}</h2>
 
           <div className="ajustes-padding-cards">
             <Card title="" variant="borderless" className="card-body-dre">
