@@ -216,8 +216,8 @@ const DresPage: React.FC = () => {
       uesSelecionadas.forEach((dre) => {
         parametros += "dresIds=" + dre.value + "&";
       });
-      
-        url = `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia?${parametros}`;
+
+      url = `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia?${parametros}`;
 
       const respostas = await servicos.get(url);
       setMediaProficiencia(respostas || []);
@@ -324,7 +324,7 @@ const DresPage: React.FC = () => {
     setUesSelecionadas(prev => (prev.length === 0 ? prev : []));
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
- const fetchDresListagem = async () => {
+  const fetchDresListagem = async () => {
     setDresDados([]);
 
     if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
@@ -351,7 +351,7 @@ const DresPage: React.FC = () => {
     fetchDresListagem();
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
-  
+
   const uesOptions = useMemo(() => {
     return ues.map((dre: any) => ({
       value: dre.value,
@@ -364,11 +364,16 @@ const DresPage: React.FC = () => {
   };
 
   useEffect(() => {
-      const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
-      if (tipoPerfil !== 5) {        
-        navigate("/ues");
-      }
-    }, []);
+    const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
+    if (tipoPerfil !== 5) {
+      navigate("/ues");
+    }
+  }, []);
+
+  const compararDados = () => {
+    navigate(`/comparar-dados-dre/?dreUrlSelecionada=${dreSelecionada}&dreSelecionadaNome=${dreSelecionadaNome}`);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="app-container">
@@ -382,14 +387,14 @@ const DresPage: React.FC = () => {
             <span className="titulo-principal">Boletim de Provas</span>
           </div>
           <div className="barra-azul">
-                      <Breadcrumb
-                        className="breadcrumb"
-                        items={[
-                          { title: 'Home' },
-                          { title: 'Provas' },
-                          { title: 'Boletim de provas' },
-                        ]}
-                      />
+            <Breadcrumb
+              className="breadcrumb"
+              items={[
+                { title: 'Home' },
+                { title: 'Provas' },
+                { title: 'Boletim de provas' },
+              ]}
+            />
             <span className="titulo-secundario">Boletim de provas</span>
           </div>
           <div className="imagem-header">
@@ -397,8 +402,27 @@ const DresPage: React.FC = () => {
           </div>
         </Header>
       </Row>
+      <Row>
+        <div className="comparativo-corpo-drePage">
+          <div className="comparativo-texto-drePage">
+            <div className="comparativo-titulo-drePage">
+              <p>Comparativo de resultados</p>
+            </div>
+            <div className="comparativo-descricao-drePage">
+              <p>Acompanhe a proficiência de todas as Diretorias Regionais de Educação (DREs) nas diferentes aplicações da Prova São Paulo e Prova Saberes e Aprendizagens.</p>
+            </div>
+          </div>
+          <div className="comparativo-botao-drePage">
+            <Button type="primary" onClick={compararDados} className="btnAzulPadrao">
+              Comparar dados
+            </Button>
+          </div>
+        </div>
+      </Row>
+
 
       <div className="conteudo-principal-ues" ref={containerRef}>
+
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <h2 className="titulo-ue-sme">Secretaria Municipal de Educação</h2>
@@ -508,8 +532,8 @@ const DresPage: React.FC = () => {
                 <DesempenhoPorMateria
                   dados={niveisProficiencia}
                   tipo={"DREs"}
-                />                
-                <div ref={sentinelRef} style={{ height: 1 }} />                
+                />
+                <div ref={sentinelRef} style={{ height: 1 }} />
                 <div ref={spacerRef} style={{ height: 0 }} aria-hidden />
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>
@@ -534,7 +558,7 @@ const DresPage: React.FC = () => {
                     }
                     options={uesOptions}
                     optionRender={(option) => {
-                      const selected = uesSelecionadas.some(                        
+                      const selected = uesSelecionadas.some(
                         (dre) => dre.value === option.value
                       );
                       return (
@@ -592,7 +616,7 @@ const DresPage: React.FC = () => {
                                           <img
                                             src={
                                               p.disciplina ===
-                                              "Língua portuguesa"
+                                                "Língua portuguesa"
                                                 ? iconePort
                                                 : iconeMat
                                             }
@@ -618,14 +642,14 @@ const DresPage: React.FC = () => {
                                         </span>
                                         <div className="prof-value">
                                           {typeof p.mediaProficiencia ===
-                                          "number"
+                                            "number"
                                             ? p.mediaProficiencia.toLocaleString(
-                                                "pt-BR",
-                                                {
-                                                  minimumFractionDigits: 2,
-                                                  maximumFractionDigits: 2,
-                                                }
-                                              )
+                                              "pt-BR",
+                                              {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                              }
+                                            )
                                             : "-"}
                                         </div>
                                         <div className="prof-label">
