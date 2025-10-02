@@ -28,32 +28,44 @@ jest.mock("../../../servicos", () => ({
 // Mock estável do estado
 const mockStableState = {
   escola: {
-    escolaSelecionada: { ueId: 123 }, // Valor primitivo estável
+    escolaSelecionada: { ueId: 123 },
   },
+  nomeAplicacao: { id: "APP1" },
   filtros: {
-    anosEscolares: [], // Array vazio estável
-    componentesCurriculares: [], // Array vazio estável
+    anosEscolares: [],
+    componentesCurriculares: [],
     niveisAbaPrincipal: [],
   },
   tab: {
-    activeTab: "2", // Valor fixo
+    activeTab: "2",
   },
 };
 
 describe("Turma Component - Testes Corrigidos", () => {
   beforeEach(() => {
-    // Mock do useSelector com valores estáveis
-    (useSelector as unknown as jest.Mock).mockImplementation((callback) => {
-      return callback(mockStableState);
+  jest.clearAllMocks();
+  (useSelector as unknown as jest.Mock).mockImplementation((selector) => selector(mockStableState));
+  (servicos.get as jest.Mock).mockImplementation((url: any) => {
+    if (url.includes("matematica")) return Promise.resolve({ /* dados */ });
+    return Promise.resolve({
+      provas: [
+        {
+          id: 1,
+          descricao: "Matemática",
+          niveis: [{ anoEscolar: "5º" }],
+          turmas: [{ turma: "A" }],
+        },
+      ],
     });
   });
+});
 
   test("renderiza sem loop infinito", async () => {
     render(<Turma />);
 
     await waitFor(() => {
-      expect(screen.getByText("Matemática")).toBeInTheDocument();
       expect(screen.queryByText(/Carregando.../i)).not.toBeInTheDocument();
     });
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
   });
 });

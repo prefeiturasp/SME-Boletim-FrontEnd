@@ -69,6 +69,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
       nivelMaximo: filtroDados.nivelMaximo,
       nivelMaximoEscolhido: filtroDados.nivelMaximo,
       turmas: [],
+      variacoes: [],
     });
   };
 
@@ -92,7 +93,8 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
         filterType === "componentesCurriculares" ||
         filterType === "turmas" ||
         filterType === "anosEscolaresRadio" ||
-        filterType === "componentesCurricularesRadio"
+        filterType === "componentesCurricularesRadio" ||
+        filterType === "variacoes"
       ) {
         const arrayFiltro = newFilters[filterType] as FiltroChaveValor[];
 
@@ -201,6 +203,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
               <Input
                 className="filtro-input"
                 placeholder="Digite o nome do estudante"
+                data-testid="input-nome-estudante"
                 value={selectedFilters.nomeEstudante}
                 onChange={(e) =>
                   handleFilterChange("nomeEstudante", e.target.value)
@@ -224,7 +227,7 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
           </>
         )}
 
-        {activeTab != "4" && (
+        {activeTab != "4" && activeTab != "5" && (
           <>
             <Divider className="separador" />
             <div className="filtro-secao">
@@ -265,7 +268,6 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
 
         {activeTab == "9" && (
           <>
-            <Divider className="separador" />
             <div className="filtro-secao">
               <h3 className="filtro-titulo">Ano</h3>
               {filtroDados.anosEscolares.map((ano) => (
@@ -341,13 +343,11 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
                   onChange={(value) =>
                     handleFilterChange("nivelMinimoEscolhido", value)
                   }
-                >
-                  {generateOptions().map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </Select>
+                  options={generateOptions().map((v) => ({
+                    value: v,
+                    label: v,
+                  }))}
+                ></Select>
               </div>
             </div>
             <div>
@@ -360,14 +360,55 @@ const FiltroLateral: React.FC<FilterDrawerProps> = ({
                   onChange={(value) =>
                     handleFilterChange("nivelMaximoEscolhido", value)
                   }
-                >
-                  {generateOptions().map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </Select>
+                  options={generateOptions().map((v) => ({
+                    value: v,
+                    label: v,
+                  }))}
+                ></Select>
               </div>
+            </div>
+          </>
+        )}
+
+        {activeTab == "5" && (
+          <>
+            <Divider className="separador" />
+
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Nome do estudante:</h3>
+              <Input
+                className="filtro-input"
+                placeholder="Digite o nome do aluno"
+                data-testid="input-nome-estudante"
+                value={selectedFilters.nomeEstudante}
+                onChange={(e) =>
+                  handleFilterChange("nomeEstudante", e.target.value)
+                }
+              />
+            </div>
+
+            <Divider className="separador" />
+            <div className="filtro-secao">
+              <h3 className="filtro-titulo">Variação</h3>
+
+              <p>
+                Estudantes que aumentaram, diminuiram ou não obtiveram variação
+                de proficiência nas aplicações.
+              </p>
+
+              {filtroDados.variacoes.map((variacoes) => (
+                <Checkbox
+                  key={variacoes.valor}
+                  checked={selectedFilters.variacoes.some(
+                    (item) => item.valor === variacoes.valor
+                  )}
+                  onChange={() =>
+                    handleFilterChange("variacoes", variacoes.valor)
+                  }
+                >
+                  {variacoes.texto}
+                </Checkbox>
+              ))}
             </div>
           </>
         )}

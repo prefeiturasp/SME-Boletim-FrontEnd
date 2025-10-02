@@ -22,7 +22,7 @@ const initialState: Filtro = {
       texto: "Avançado",
       valor: 4,
     },
-  ],  
+  ],
   anosEscolares: [
     { valor: 5, texto: "5" },
     { valor: 9, texto: "9" },
@@ -41,6 +41,11 @@ const initialState: Filtro = {
     { valor: "A", texto: "A" },
     { valor: "A", texto: "A" },
   ],
+  variacoes: [
+    { valor: "positiva", texto: "Variação positiva" },
+    { valor: "negativa", texto: "Variação negativa" },
+    { valor: "neutra", texto: "Sem variação" },
+  ],
   nivelMinimoEscolhido: 0,
   nivelMaximoEscolhido: 0,
   nomeEstudante: "",
@@ -54,8 +59,11 @@ const filtroCompletoSlice = createSlice({
     setFiltroDados: (state, action: PayloadAction<Filtro>) => {
       return { ...state, ...action.payload };
     },
+    // atualizarCampos: (state, action: PayloadAction<Partial<Filtro>>) => {
+    //   return { ...state, ...action.payload };
+    // },
   },
 });
-
-export const { setFiltroDados } = filtroCompletoSlice.actions;
+//, atualizarCampos
+export const { setFiltroDados} = filtroCompletoSlice.actions;
 export default filtroCompletoSlice.reducer;

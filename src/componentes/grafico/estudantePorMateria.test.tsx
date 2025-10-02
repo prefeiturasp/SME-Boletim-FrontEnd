@@ -2,6 +2,15 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import EstudantesPorMateria from "./estudantePorMateria";
 
+beforeAll(() => {
+  jest.spyOn(window, 'location', 'get').mockReturnValue({
+    ...window.location,
+    assign: jest.fn(),
+  });
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
+});
+
 // Mock do Recharts
 jest.mock("recharts", () => {
   const OriginalModule = jest.requireActual("recharts");

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./relatorioAlunosPorUe.css";
+import "./relatorioAlunosPorUes.css";
 import { Button, Modal, notification } from "antd";
 import { servicos } from "../../servicos";
 import {
@@ -49,8 +49,6 @@ const RelatorioAlunosPorUes: React.FC<DownloadRelatorioProps> = ({
     if (tipoSelecionado === "probabilidade") {
       return `/api/BoletimEscolar/download-dre-probabilidade/${aplicacaoSelecionada}/${dreSelecionada}`;
     }
-
-    return null;
   };
 
   const downloadDadosUesArquivo = async () => {

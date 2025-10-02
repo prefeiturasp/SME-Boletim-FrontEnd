@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+.tabela-titulo {
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  border-bottom: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #595959;
+}
+
+.ant-table-title {
+  padding: 0 !important;
+  border: none !important;
+  background: #f5f5f5 !important;
+}
+
+.ant-table-bordered .ant-table-cell {
+  border-right: none !important;
+}
+
+.ant-table-bordered .ant-table-container {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+.ant-table-thead > tr > th {
+  height: 32px;
+  line-height: 32px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border: none !important;
+}
+
+.ant-table-thead > tr > th.coluna-nome-header:first-child,
+.ant-table-thead > tr > th.variacao-header:last-child,
+.ant-table-thead > tr > th.aplicacao-psa-header {
+  background: #f5f5f5 !important;
+}
+
+.ant-table-thead > tr > th.psp-header,
+.ant-table-thead > tr > th.psa-header {
+  background: #ffffff !important;
+}
+
+.coluna-nome-header {
+  color: #595959 !important;
+  font-weight: 700 !important;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  text-align: center !important;
+}
+
+.valorPspPsa {
+  text-align: right !important;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400 !important;
+  color: #595959 !important;
+  width: 48px;
+}
+
+.variacao-header {
+  color: #595959 !important;
+  font-weight: 700 !important;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.variacao-header .variacao-tag {
+  color: #ffffff;
+  background: bgColor;
+  font-weight: 700;
+  border-radius: 6;
+  text-align: center;
+  display: inline-block;
+  margin-top: 0.4em;
+
+  width: 100% !important;
+  height: 24px !important;
+  border-radius: 6px;
+  line-height: 25px !important;
+}
+
+.ant-table-tbody > tr > td:not(:first-child) {
+  font-weight: 400 !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: none !important;
+}
+
+.ant-table-tbody > tr > td {
+  height: 33px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+  line-height: 33px;
+}
+
+.bloco-secao-tabela-comparativo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 1000px) {
+  .bloco-secao-tabela-comparativo {
+    display: block;
+  }
+}
+
+.niveis-cores{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.niveis-cores-caixa{
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+}
+
+
+.secao-tabela-comparativo {
+  font-size: 20px;
+  color: #595959;
+}
+
+.espacamento-tabela-comparativo {
+  padding-bottom: 10px;
+}
+
+.texto-niveis-cores {
+  padding-right: 1em;
+  text-align: center;
+  padding-bottom: 0.1em;
+}
+
+.legendas-niveis-cores {
+  background: #ffffff !important;
+  margin-top: 8px;
+  padding: 8px 0px 8px 0px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+ @media (max-width: 768px) {
+  .legendas-niveis-cores,
+  .niveis-cores {
+    display: block;
+  }
+  .niveis-cores-caixa{
+    padding: 0.5em 0 0 0 !important;
+  }
+} 
+
+.texto-legenda-nivel {
+  display: flex;
+  align-items: center;
+  color: #595959;
+  font-family: Roboto;
+  font-size: 14px;
+}
+
+.caixa-vermelha {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #ff5959;
+  margin-right: 5px;
+}
+
+.caixa-amarela {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #fede99;
+  margin-right: 5px;
+}
+
+.caixa-azul {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #9999ff;
+  margin-right: 5px;
+}
+
+.caixa-verde {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #99ff99;
+  margin-right: 5px;
+}
+
+.transparent-bottom-ue {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 250px;
+  z-index: auto !important;
+  pointer-events: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.8) 40%
+  );
+
+  display: flex;
+  justify-content: center;
+}
+
+.transparent-bottom-ue .btn-exibir-mais-ue {
+  position: absolute;
+  bottom: -30px;
+}
+
+.btn-exibir-mais-ue .btn-exibir-mais-ue {
+  align-items: center;
+}
+
+.comparativo-tabela-vazia {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  user-select: none;
+  color: #595959;
+}
+
+.comparativo-tabela-estudante-nao-encontrado {
+  text-align: center;
+  width: 100%;
+  color: #595959;
+  font-size: 14px;
+  padding: 30px 0px;
+  background-color: #eeeeee;
+  margin-bottom: 5px;
+  font-weight: 700;
+}

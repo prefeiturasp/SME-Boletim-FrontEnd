@@ -382,11 +382,14 @@ const DresPage: React.FC = () => {
             <span className="titulo-principal">Boletim de Provas</span>
           </div>
           <div className="barra-azul">
-            <Breadcrumb className="breadcrumb">
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>Provas</Breadcrumb.Item>
-              <Breadcrumb.Item>Boletim de provas</Breadcrumb.Item>
-            </Breadcrumb>
+                      <Breadcrumb
+                        className="breadcrumb"
+                        items={[
+                          { title: 'Home' },
+                          { title: 'Provas' },
+                          { title: 'Boletim de provas' },
+                        ]}
+                      />
             <span className="titulo-secundario">Boletim de provas</span>
           </div>
           <div className="imagem-header">

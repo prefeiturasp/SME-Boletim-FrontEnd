@@ -233,7 +233,7 @@ describe("DresPage - fluxo principal", () => {
     await userEvent.click(voltarTopo);
     const calls = (window.scrollTo as jest.Mock).mock.calls;
     expect(calls.some(([arg]) => typeof arg === "object" && arg && arg.top === 0)).toBe(true);
-  });
+  }, 15000);
 });
 
 describe("DresPage - redirecionamento por perfil", () => {

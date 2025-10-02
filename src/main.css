@@ -138,6 +138,17 @@
   padding-top: 190px;
 }
 
+.conteudo-principal-ue {
+  margin-right: 35px;
+  margin-left: 35px;
+}
+
+.conteudo-principal-dres {
+  margin-right: 35px;
+  margin-left: 35px;
+  padding-top: 0px;
+}
+
 .informacao-blue {
   background: #5A94D8;
   color: white;
@@ -161,4 +172,8 @@
 .btnAzulPadrao:disabled{  
   background: #d9d9d9 !important;
   color: #ffffff !important;
+}
+
+.global-texto-padrao {
+  color:#595959;
 }

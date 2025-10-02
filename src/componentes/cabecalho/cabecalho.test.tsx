@@ -3,6 +3,15 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Cabecalho from "./cabecalho";
 
+beforeAll(() => {
+  jest.spyOn(window, 'location', 'get').mockReturnValue({
+    ...window.location,
+    assign: jest.fn(),
+  });
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
+});
+
 describe("Cabecalho Component", () => {
   test("link de retorno possui href correto", () => {
     render(

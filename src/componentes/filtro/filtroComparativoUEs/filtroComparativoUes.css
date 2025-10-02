@@ -1,0 +1,106 @@
+.filtro-comparativo-titulo {
+  color: #595959;
+  font-size: 20px;
+  font-weight: 700;
+  height: 32px;
+  padding-top: 16px;
+}
+
+.filtro-comparativo-conteudo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filtro-comparativo-subtitulo {
+  font-size: 14px;
+  color: #595959;
+  flex: 1 1 250px;
+}
+
+.filtro-comparativo-tags {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filtro-comparativo-tags-item {
+  font-size: 14px;
+  font-weight: 700;
+  color: #595959;
+  padding: 2px 8px;
+  border: solid 1px #5a94d8;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* fixed widths replaced by min-width to adapt better */
+.filtro-comparativo-tags-componente-curricular {
+  min-width: 110px;
+}
+.filtro-comparativo-tags-turma {
+  min-width: 38px;
+}
+.filtro-comparativo-tags-ano {
+  min-width: 31px;
+}
+
+.filtro-comparativo-funcionalidade {
+  margin-top:16px;
+}
+
+.filtro-comparativo-funcionalidade-texto {
+  padding-top: 16px;
+  font-size: 14px;
+  color: #595959;
+}
+
+.filtro-comparativo-funcionalidade-select {
+  padding-top: 10px;
+  padding-bottom: 16px;
+}
+
+.filtro-comparativo-funcionalidade-select .ant-select-selection-item {
+  color: #595959;
+}
+
+/* para tablets */
+@media (max-width: 768px) {
+  .filtro-comparativo-titulo {
+    font-size: 18px;
+    height: auto;
+  }
+
+  .filtro-comparativo-conteudo {
+    display: block;
+    align-items: flex-start;
+  }
+
+  .filtro-comparativo-subtitulo {
+    font-size: 13px;
+  }
+
+  .filtro-comparativo-tags {
+    justify-content: flex-start;
+  }
+}
+
+/* para mobile */
+@media (max-width: 480px) {
+  .filtro-comparativo-titulo {
+    font-size: 16px;
+  }
+
+  .filtro-comparativo-subtitulo {
+    font-size: 12px;
+  }
+
+  .filtro-comparativo-tags-item {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+}

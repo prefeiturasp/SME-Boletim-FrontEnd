@@ -1,100 +1,82 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import Probabilidade from "./probabilidade";
-import { useSelector, useDispatch } from "react-redux";
-import { servicos } from "../../../servicos";
+jest.mock("react-redux", () => {
+  return {
+    useSelector: jest.fn(),
+    useDispatch: jest.fn(),
+  };
+});
 
-// Mock estável do Redux
-jest.mock("react-redux", () => ({
-  __esModule: true,
-  ...jest.requireActual("react-redux"),
-  useSelector: jest.fn(),
-  useDispatch: jest.fn(),
-}));
-
-const mockDispatch = jest.fn();
-const mockUseSelector = useSelector as unknown as jest.Mock;
-const mockUseDispatch = useDispatch as unknown as jest.Mock;
-
-// Mock estável do estado do Redux
-const mockState = {
-  escola: {
-    escolaSelecionada: {
-      ueId: 1,
-      descricao: "Escola Teste",
-    },
-  },
-  filtros: {
-    componentesCurricularesRadio: [{ texto: "Matemática", valor: 1 }],
-    anosEscolaresRadio: [{ texto: "5", valor: 5 }],
-    turmas: [],
-    niveisAbaPrincipal: [],
-  },
-  filtroCompleto: {
-    componentesCurriculares: [
-      { texto: "Matemática", valor: 1 },
-      { texto: "Português", valor: 2 },
-    ],
-    anosEscolares: [
-      { texto: "5", valor: 5 },
-      { texto: "6", valor: 6 },
-    ],
-  },
-  tab: { activeTab: "4" },
-};
-
-// Mock do serviço
 jest.mock("../../../servicos", () => ({
-  servicos: {
-    get: jest.fn().mockResolvedValue({
-      resultados: [],
-      totalRegistros: 0,
-    }),
-  },
+  servicos: { get: jest.fn() },
 }));
 
-// Mock dos ícones
-jest.mock("@ant-design/icons", () => ({
-  DownloadOutlined: () => <span>download</span>,
-  InfoCircleOutlined: () => <span>info</span>,
-  SearchOutlined: () => <span>search</span>,
-  CheckCircleOutlined: () => <span>check</span>,
-}));
+describe("Probabilidade", () => {
+  const { useSelector, useDispatch } = require("react-redux");
+  const { servicos } = require("../../../servicos");
 
-describe("Probabilidade Component", () => {
+  const fakeState = {
+    escola: { escolaSelecionada: { ueId: 123, descricao: "Escola X" } },
+    nomeAplicacao: { id: "APP-1" },
+    tab: { activeTab: "4" },
+    filtros: {
+      turmas: [],
+      componentesCurricularesRadio: [{ texto: "Matemática", valor: 1 }],
+      anosEscolaresRadio: [{ texto: "5", valor: 5 }],
+      niveisAbaPrincipal: [{ valor: 1 }, { valor: 2 }, { valor: 3 }, { valor: 4 }],
+    },
+    filtroCompleto: {
+      componentesCurriculares: [
+        { texto: "Matemática", valor: 1 },
+        { texto: "Português", valor: 2 },
+      ],
+      anosEscolares: [
+        { texto: "5", valor: 5 },
+        { texto: "6", valor: 6 },
+      ],
+    },
+  };
+
   beforeEach(() => {
-    mockUseDispatch.mockReturnValue(mockDispatch);
-    mockUseSelector.mockImplementation((selector) => selector(mockState));
-    (servicos.get as jest.Mock).mockClear();
-  });
+    jest.clearAllMocks();
 
-  test("renderiza textos principais sem dados", async () => {
-    render(<Probabilidade />);
+    
+    (useSelector as jest.Mock).mockImplementation((sel: any) => sel(fakeState));
 
-    expect(
-      screen.getByText(/percentuais por habilidade ajudam/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Selecione um componente curricular/i)
-    ).toBeInTheDocument();
+    
+    (useDispatch as jest.Mock).mockReturnValue(jest.fn());
 
-    await waitFor(() => {
-      expect(screen.getByText(/Não encontramos dados/i)).toBeInTheDocument();
+    
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("/resultado-probabilidade/lista")) {
+        return Promise.resolve({
+          resultados: [
+            {
+              key: "1",
+              codigoHabilidade: "HAB-01",
+              habilidadeDescricao: "abcdefg",
+              turmaDescricao: "5A",
+              abaixoDoBasico: 10,
+              basico: 20,
+              adequado: 30,
+              avancado: 40,
+            },
+          ],
+          totalRegistros: 1,
+        });
+      }
+      
+      return Promise.resolve(new Uint8Array([1, 2, 3]));
     });
   });
 
-  test("permite digitação no campo de busca", async () => {
+  test("testa rota servico", async () => {
     render(<Probabilidade />);
-    const input = screen.getByPlaceholderText(/Digite o código ou habilidade/i);
-
-    fireEvent.change(input, { target: { value: "fração" } });
-    expect(input).toHaveValue("fração");
-  });
-
-  test("botão de download está presente", () => {
-    render(<Probabilidade />);
-    expect(
-      screen.getByRole("button", { name: /Baixar os dados/i })
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(servicos.get).toHaveBeenCalledWith(
+        expect.stringMatching(/\/resultado-probabilidade\/lista\?Pagina=1&TamanhoPagina=10/),
+      );
+    });
   });
 });

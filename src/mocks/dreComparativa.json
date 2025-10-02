@@ -1,0 +1,37 @@
+{
+  "variacao": 19.85,
+  "aplicacao": [
+    {
+      "descricao": "PSP",
+      "mes": "Janeiro",
+      "valorProficiencia": 232.8,
+      "nivelProficiencia": "Adequado",
+      "Qtde UE": "601",
+      "Qtde Estudante": "526.55"
+    },
+    {
+      "descricao": "PSA",
+      "mes": "Fevereiro",
+      "valorProficiencia": 210.5,
+      "nivelProficiencia": "Básico",
+      "Qtde UE": "500",
+      "Qtde Estudante": "420.3"
+    },
+    {
+      "descricao": "PSA",
+      "mes": "Março",
+      "valorProficiencia": 210.5,
+      "nivelProficiencia": "Básico",
+      "Qtde UE": "500",
+      "Qtde Estudante": "420.3"
+    },
+    {
+      "descricao": "PSA",
+      "mes": "Abril",
+      "valorProficiencia": 210.5,
+      "nivelProficiencia": "Básico",
+      "Qtde UE": "500",
+      "Qtde Estudante": "420.3"
+    }
+  ]
+}
