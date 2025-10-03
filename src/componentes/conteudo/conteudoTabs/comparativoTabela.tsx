@@ -51,7 +51,9 @@ const ComparativoTabela: React.FC<ComparativoTabelaProps> = ({
               <div className="niveis-cores">
                 <div className="niveis-cores-caixa">
                   <div className="caixa-vermelha"></div>{" "}
-                  <div className="texto-legenda-nivel">1 - Abaixo do básico</div>
+                  <div className="texto-legenda-nivel">
+                    1 - Abaixo do básico
+                  </div>
                 </div>
                 <div className="niveis-cores-caixa">
                   <div className="caixa-amarela"></div>{" "}
@@ -146,11 +148,38 @@ const getVariationTag = (valor: number) => {
 };
 
 const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
-  const mesesUnicos = new Set<string>();
+  const mesesUnicos: string[] = [];
   dados.forEach((item) => {
     item.proficiencias.forEach((p: any) => {
-      if (p.descricao === "PSA" && p.mes) mesesUnicos.add(p.mes);
+      if (p.descricao === "PSA" && p.mes && !mesesUnicos.includes(p.mes)) {
+        mesesUnicos.push(p.mes);
+      }
     });
+  });
+
+  mesesUnicos.sort((a, b) => {
+    const [mesA, anoA] = a.split(" ");
+    const [mesB, anoB] = b.split(" ");
+
+    const meses = [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
+    ];
+
+    const dateA = new Date(parseInt(anoA), meses.indexOf(mesA));
+    const dateB = new Date(parseInt(anoB), meses.indexOf(mesB));
+
+    return dateA.getTime() - dateB.getTime();
   });
 
   const colunas: any[] = [
@@ -191,7 +220,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
           },
         },
 
-        ...Array.from(mesesUnicos).map((mes) => ({
+        ...mesesUnicos.map((mes) => ({
           title: `PSA (${mes})`,
           key: `psa-${mes}`,
           width: 80,
@@ -202,7 +231,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
             );
             if (!psa) return null;
             return (
-              <div style={{ display: "flex", alignItems: "center", gap: 8}}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span className="valorPspPsa">{psa.valor.toFixed(2)}</span>
                 <Progress
                   percent={psa.valor}
@@ -224,7 +253,7 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
     title: "Variação",
     key: "variacao",
     width: 80,
-    aling: "center",
+    align: "center",
     render: (_: any, record: any) => getVariationTag(record.variacao),
     className: "variacao-header",
   });
