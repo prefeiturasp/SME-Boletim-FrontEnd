@@ -88,8 +88,8 @@ const Comparativo: React.FC = () => {
       componentesCurricularSelecionadoId &&
       anosEscolarSelecionadoId
     ) {
-      buscarCardsComparacao();
-      if (todasTurmas.length === 0) buscaTodasTurmas();
+      buscarCardsComparacao();      
+      buscaTodasTurmas();
     }
   }, [
     activeTab,
@@ -106,7 +106,11 @@ const Comparativo: React.FC = () => {
       const { componenteCurricularId } = location.state;
       if (location.state.componenteCurricularId) {
         setComponentesCurricularId(componenteCurricularId);
-        setComponentesCurricular(componentesOrdenados.find(item => item.valor === componenteCurricularId)?.texto || "");
+        setComponentesCurricular(
+          componentesOrdenados.find(
+            (item) => item.valor === componenteCurricularId
+          )?.texto || ""
+        );
       }
       if (location.state.ano) {
         setAnoEscolarId(location.state.ano.value);
@@ -169,7 +173,12 @@ const Comparativo: React.FC = () => {
   useEffect(() => {
     if (activeTab !== "5") return;
     buscaDadosTurma();
-  }, [filtrosSelecionados, turmaSelecionada]);
+  }, [
+    filtrosSelecionados,
+    anosEscolarSelecionado,
+    turmaSelecionada,
+    aplicacaoSelecionada,
+  ]);
 
   const buscaUnicaTurma = async (
     ano: string,
@@ -177,24 +186,24 @@ const Comparativo: React.FC = () => {
     limite: number
   ) => {
     try {
-        const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
-        const nomeSelecionado = filtrosSelecionados?.nomeEstudante || [];
+      const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
+      const nomeSelecionado = filtrosSelecionados?.nomeEstudante || [];
 
-        let variacao = "";
+      let variacao = "";
 
-        if (variacoesSelecionadas.length === 0) return {};
-        if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
-          variacao += "&tiposVariacao=1";
-        if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
-          variacao += "&tiposVariacao=2";
-        if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
-          variacao += "&tiposVariacao=3";
+      if (variacoesSelecionadas.length === 0) return {};
+      if (variacoesSelecionadas.find((x) => x.valor === "positiva"))
+        variacao += "&tiposVariacao=1";
+      if (variacoesSelecionadas.find((x) => x.valor === "negativa"))
+        variacao += "&tiposVariacao=2";
+      if (variacoesSelecionadas.find((x) => x.valor === "neutra"))
+        variacao += "&tiposVariacao=3";
 
-        const resultado = await servicos.get(
-          `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`
-        );
+      const resultado = await servicos.get(
+        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`
+      );
 
-        return resultado;
+      return resultado;
     } catch (error) {
       console.log(error);
     }
@@ -214,7 +223,7 @@ const Comparativo: React.FC = () => {
               turmaSelecionada === item.turma
             )
               return buscaUnicaTurma(item.ano, item.turma, limite);
-            })
+          })
         );
         setDadosTurma(resultados.filter((x) => x != undefined) || []);
       } else {
@@ -244,26 +253,21 @@ const Comparativo: React.FC = () => {
     try {
       setEstaCarregando(true);
 
-      if(turmaSelecionada != "Todas" && tabelasCount.length > 1)
+      if (turmaSelecionada != "Todas" && tabelasCount.length > 1)
         setTabelasCount([20]);
-      else if(dadosTurma.length != tabelasCount.length)
-      {
+      else if (dadosTurma.length != tabelasCount.length) {
         const registrosPorTabela: number[] = [];
-        dadosTurma.map((item:any, indexItem:any) => {
-          if(indexItem == index)
-            registrosPorTabela.push(limite+ 10);
-          else
-            registrosPorTabela.push(limite);
+        dadosTurma.map((item: any, indexItem: any) => {
+          if (indexItem == index) registrosPorTabela.push(limite + 10);
+          else registrosPorTabela.push(limite);
         });
         setTabelasCount(registrosPorTabela);
-      }
-      else{
+      } else {
         setTabelasCount((prev) => {
           const clone = [...prev];
           clone[index] = clone[index] + 10;
           return clone;
         });
-        
       }
       setIndexTabelaTurma(index);
     } catch (error) {
@@ -365,14 +369,14 @@ const Comparativo: React.FC = () => {
                   .includes(input.toLowerCase())
               }
             >
-              <Select.Option key="Todas" value="Todas">Todas</Select.Option>
-                {todasTurmas.map((item: any) => (
-                  <Select.Option key={item.turma} value={item.turma}>
-                    {item.turma}
-                  </Select.Option>
-                ))}
-
-
+              <Select.Option key="Todas" value="Todas">
+                Todas
+              </Select.Option>
+              {todasTurmas.map((item: any) => (
+                <Select.Option key={item.turma} value={item.turma}>
+                  {item.turma}
+                </Select.Option>
+              ))}
 
               {/*todasTurmas.map((item: any) => (
                 <Select.Option key={item.turma} value={item.turma}>
@@ -537,7 +541,8 @@ const Comparativo: React.FC = () => {
                             />
                             <span
                               style={{ paddingBottom: "0.2em" }}
-                              title={`Prova ${comparacao?.nomeAplicacao ?? "-"
+                              title={`Prova ${
+                                comparacao?.nomeAplicacao ?? "-"
                               }`}
                             >
                               Prova {comparacao?.nomeAplicacao ?? "-"}
