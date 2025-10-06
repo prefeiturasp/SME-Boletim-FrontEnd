@@ -3,6 +3,7 @@ import { Table, Progress, Tag, Spin, Button } from "antd";
 import "./comparativoTabela.css";
 import iconeMais from "./../../../assets/icon-mais.svg";
 //import LoadingBox from "../../loadingBox/loadingBox";
+import TooltipVariacao from "../../tooltip/tooltipGeral/tooltipGeral";
 
 interface ComparativoTabelaProps {
   index: number;
@@ -221,7 +222,11 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
   ];
 
   colunas.push({
-    title: "Variação",
+   title: (
+    <TooltipVariacao texto="Variação de desempenho entre PSP e PSA mais recente">
+      <span style={{ cursor: "help" }}>Variação ℹ️</span>
+    </TooltipVariacao>
+  ),
     key: "variacao",
     width: 80,
     aling: "center",
