@@ -1,33 +1,27 @@
 import { Select } from "antd";
 import React from "react";
-import "./filtroComparativoDresUes.css";
+import "./filtroComparativoUes.css";
 
 interface FiltroComparativoParametros {
   dados: any;
   valorSelecionado: any;
-  alterarDreUe: (value: string, option: any) => void;
+  alterarUe: (value: string, option: any) => void;
   aplicacaoSelecionada: any;
   componenteSelecionado: any;
   anoSelecionado: any;
-  visao: string;
 }
 
-const FiltroComparativoDresUes: React.FC<FiltroComparativoParametros> = ({
+const FiltroComparativoUes: React.FC<FiltroComparativoParametros> = ({
   dados,
   valorSelecionado,
-  alterarDreUe,
+  alterarUe,
   aplicacaoSelecionada,
   componenteSelecionado,
   anoSelecionado,
-  visao
 }) => {
   return (
     <>
-
-    {visao == "sme" ? <></> :
-    
-
-    <div className="filtro-comparativo">
+      <div className="filtro-comparativo">
         <div className="filtro-comparativo-titulo">
           Evolução por Unidade Educacional (UE)
         </div>
@@ -49,14 +43,10 @@ const FiltroComparativoDresUes: React.FC<FiltroComparativoParametros> = ({
           </div>
         </div>
       </div>
-    
-    
-    }
-      
 
       <div className="filtro-comparativo-funcionalidade">
         <div className="filtro-comparativo-funcionalidade-texto">
-          {visao === "sme" ? "Você pode filtrar por Diretoria Regional de Educação (DRE)." : "Você pode filtrar por Unidade Educacional (UE)"}
+          Você pode filtrar por Unidade Educacional (UE)
         </div>
 
         <div className="filtro-comparativo-funcionalidade-select">
@@ -64,7 +54,7 @@ const FiltroComparativoDresUes: React.FC<FiltroComparativoParametros> = ({
             showSearch
             placeholder="Selecione ou digite a DRE ou UE..."
             style={{ width: "100%" }}
-            onChange={alterarDreUe}
+            onChange={alterarUe}
             value={valorSelecionado}
             notFoundContent="Não encontramos nenhuma DRE ou UE com o nome digitado..."
             filterOption={(input, option) =>
@@ -80,4 +70,4 @@ const FiltroComparativoDresUes: React.FC<FiltroComparativoParametros> = ({
   );
 };
 
-export default FiltroComparativoDresUes;
+export default FiltroComparativoUes;

@@ -1,12 +1,5 @@
 import "@testing-library/jest-dom";
 
-global.ResizeObserver = class {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
-
-
 global.matchMedia = jest.fn().mockImplementation((query) => ({
   matches: false,
   media: query,
