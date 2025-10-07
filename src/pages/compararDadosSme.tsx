@@ -10,6 +10,7 @@ import {
   getComponentesCurricularesVisaoSme,
 } from "../servicos/compararDadosSme/compararDadosSmeService";
 import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno";
+import FiltroComparativoDresUes from "../componentes/filtro/filtroComparativoDresUEs/filtroComparativoDresUes";
 
 const CompararDadosSme: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -27,6 +28,18 @@ const CompararDadosSme: React.FC = () => {
   const [anoSelecionado, setAnoSelecionado] =
     useState<ParametrosPadraoAntDesign | null>();
 
+  const [listaDres, setListaDres] = useState<ParametrosPadraoAntDesign[]>([
+    {
+      value: "0",
+      label: "Todas",
+    },
+  ]);
+  const [dreSelecionada, setDreSelecionada] =
+    useState<ParametrosPadraoAntDesign>({
+      value: "0",
+      label: "Todas",
+    });
+
   const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 
   useEffect(() => {
@@ -34,13 +47,11 @@ const CompararDadosSme: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (aplicacaoSelecionada)
-      buscaComponentesCurriculares();
+    if (aplicacaoSelecionada) buscaComponentesCurriculares();
   }, [aplicacaoSelecionada]);
 
   useEffect(() => {
-    if (aplicacaoSelecionada && componenteSelecionado)
-      buscaAnosEscolares();
+    if (aplicacaoSelecionada && componenteSelecionado) buscaAnosEscolares();
   }, [aplicacaoSelecionada, componenteSelecionado]);
 
   const buscaAplicacoes = async () => {
@@ -127,6 +138,14 @@ const CompararDadosSme: React.FC = () => {
     setComponenteCurricularSelecionado(obj);
   };
 
+  const alterarDreUe = async (value: string, option: any) => {
+    const ueSelecionada: ParametrosPadraoAntDesign = {
+      label: option.label,
+      value: value,
+    };
+    setDreSelecionada(ueSelecionada);
+  };
+
   return (
     <>
       <div className="app-container">
@@ -174,6 +193,17 @@ const CompararDadosSme: React.FC = () => {
             selecionaComponenteCurricular={selecionaComponenteCurricular}
           ></FiltroAplicacaoComponenteCurricularAno>
           <br />
+          <Card className="comparar-dados-card-conteudo">
+            <FiltroComparativoDresUes
+              dados={listaDres}
+              valorSelecionado={dreSelecionada}
+              alterarDreUe={alterarDreUe}
+              aplicacaoSelecionada={aplicacaoSelecionada}
+              componenteSelecionado={componenteSelecionado}
+              anoSelecionado={anoSelecionado}
+              visao="sme"
+            />
+          </Card>
         </div>
       </div>
     </>

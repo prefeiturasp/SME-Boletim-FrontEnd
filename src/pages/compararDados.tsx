@@ -7,7 +7,7 @@ const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./compararDados.css";
 import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
-import FiltroComparativoUes from "../componentes/filtro/filtroComparativoUEs/filtroComparativoUes";
+import FiltroComparativoDresUes from "../componentes/filtro/filtroComparativoDresUEs/filtroComparativoDresUes";
 import {
   getAnosAplicacaoDre,
   getAnosEscolaresUe,
@@ -204,7 +204,7 @@ const CompararDados: React.FC = () => {
     }
   };
 
-  const alterarUe = async (value: string, option: any) => {
+  const alterarDreUe = async (value: string, option: any) => {
     const ueSelecionada: ParametrosPadraoAntDesign = {
       label: option.label,
       value: value,
@@ -317,14 +317,16 @@ const CompararDados: React.FC = () => {
               componenteSelecionado={componenteSelecionado}
               anoSelecionado={anoSelecionado}
             />
+
             <br />
-            <FiltroComparativoUes
+            <FiltroComparativoDresUes
               dados={listaUes}
               valorSelecionado={ueSelecionada}
-              alterarUe={alterarUe}
+              alterarDreUe={alterarDreUe}
               aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
               anoSelecionado={anoSelecionado}
+              visao="dre"
             />
             <br />
 
