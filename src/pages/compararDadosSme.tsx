@@ -15,6 +15,8 @@ import { CardsComparativaProps, CardsComparativaUnidadeEducacionalProps } from "
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 import iconeMais from "../assets/icon-mais.svg";
 import mock from "../mocks/cardsComparativasDres.json"
+import mock2 from "../mocks/graficoEvolucaoDre.json"
+import GraficoEvolucaoDre from "../componentes/grafico/GraficoEvolucaoDre";
 
 const CompararDadosSme: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -254,6 +256,18 @@ const CompararDadosSme: React.FC = () => {
           ></FiltroAplicacaoComponenteCurricularAno>
           <br />
           <Card className="comparar-dados-card-conteudo">
+
+                <GraficoEvolucaoDre
+
+                dados={mock2}   
+                aplicacaoSelecionada={aplicacaoSelecionada}
+              componenteSelecionado={componenteSelecionado}
+              anoSelecionado={anoSelecionado}             
+                ></GraficoEvolucaoDre>
+
+
+
+
             <FiltroComparativoDresUes
               dados={listaDres}
               valorSelecionado={dreSelecionada}
