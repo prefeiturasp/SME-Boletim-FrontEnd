@@ -4,4 +4,5 @@ export interface BtnConferirDadosProps {
     componenteCurricularId: number;
     dreId?: number;
     ano?: ParametrosPadraoAntDesign | null;
+    visao:string
 }

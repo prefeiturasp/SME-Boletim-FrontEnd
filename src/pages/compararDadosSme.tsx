@@ -11,6 +11,10 @@ import {
 } from "../servicos/compararDadosSme/compararDadosSmeService";
 import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno";
 import FiltroComparativoDresUes from "../componentes/filtro/filtroComparativoDresUEs/filtroComparativoDresUes";
+import { CardsComparativaProps, CardsComparativaUnidadeEducacionalProps } from "../interfaces/cardsComparativaProps";
+import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
+import iconeMais from "../assets/icon-mais.svg";
+import mock from "../mocks/cardsComparativasDres.json"
 
 const CompararDadosSme: React.FC = () => {
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
@@ -42,6 +46,11 @@ const CompararDadosSme: React.FC = () => {
 
   const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 
+  const [dres, setDres] = useState<CardsComparativaProps>();
+  const [mostrarExibirMais, setMostrarExibirMais] = useState(true);
+    const [itensPorPagina, setItensPorPagina] = useState(10);
+  
+
   useEffect(() => {
     buscaAplicacoes();
   }, []);
@@ -53,6 +62,23 @@ const CompararDadosSme: React.FC = () => {
   useEffect(() => {
     if (aplicacaoSelecionada && componenteSelecionado) buscaAnosEscolares();
   }, [aplicacaoSelecionada, componenteSelecionado]);
+
+   useEffect(() => {
+      if (
+        dreSelecionada &&
+        aplicacaoSelecionada &&
+        componenteSelecionado &&
+        anoSelecionado &&
+        itensPorPagina
+      )
+        preencheCardsDre();
+    }, [
+      dreSelecionada,
+      aplicacaoSelecionada,
+      componenteSelecionado,
+      anoSelecionado,
+      itensPorPagina,
+    ]);
 
   const buscaAplicacoes = async () => {
     try {
@@ -146,6 +172,40 @@ const CompararDadosSme: React.FC = () => {
     setDreSelecionada(ueSelecionada);
   };
 
+  const exibirMais = async () => {
+    if (dres) {
+      if (itensPorPagina >= dres.total) setMostrarExibirMais(false);
+      else setItensPorPagina(itensPorPagina + 10);
+    }
+  };
+
+  const preencheCardsDre = async () => {
+      try {
+        const dreEscolhida =
+          dreSelecionada && dreSelecionada.value != 0
+            ? dreSelecionada.value.toString()
+            : "";
+
+
+        const getDresComparativas = mock
+  
+        /*const getUesComparativas: CardsComparativaProps = await getComporativoUe(
+          dreSelecionada,
+          Number(componenteSelecionado!.value),
+          Number(aplicacaoSelecionada!.value),
+          Number(anoSelecionado?.value),
+          itensPorPagina,
+          ueEscolhida
+        );*/
+        setDres(getDresComparativas);
+  
+        if (getDresComparativas.ues.length < 10) setMostrarExibirMais(false);
+        else setMostrarExibirMais(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   return (
     <>
       <div className="app-container">
@@ -203,7 +263,70 @@ const CompararDadosSme: React.FC = () => {
               anoSelecionado={anoSelecionado}
               visao="sme"
             />
+
+            <br>
+            
+            
+            
+            </br>
+          
+          
+
+
+
+          {dres != undefined &&
+              dres.ues.map(
+                (
+                  item: CardsComparativaUnidadeEducacionalProps,
+                  index: number
+                ) => {
+                  return (
+                    <CardsComparativa
+                      key={index}
+                      dados={item}
+                      dreId={dres.dreId}
+                      ano={anoSelecionado || null}
+                      visao="sme"
+                    />
+                  );
+                }
+              )}
+
+            {mostrarExibirMais == true ? (
+              <div className="comparar-dados-transparente">
+                <Button
+                  variant="outlined"
+                  className="comparar-dados-transparente-exibir-mais"
+                  onClick={exibirMais}
+                  style={{
+                    minWidth: 160,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: 16,
+                    zIndex: 2,
+                  }}
+                >
+                  <img
+                    src={iconeMais}
+                    alt="Ícone dados"
+                    className="disciplina-icon"
+                  />
+                  Exibir mais
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
+
+
           </Card>
+
+          
+          
+          
+
+
+
         </div>
       </div>
     </>
