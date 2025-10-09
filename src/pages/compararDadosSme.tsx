@@ -11,11 +11,14 @@ import {
 } from "../servicos/compararDadosSme/compararDadosSmeService";
 import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno";
 import FiltroComparativoDresUes from "../componentes/filtro/filtroComparativoDresUEs/filtroComparativoDresUes";
-import { CardsComparativaProps, CardsComparativaUnidadeEducacionalProps } from "../interfaces/cardsComparativaProps";
+import {
+  CardsComparativaProps,
+  CardsComparativaUnidadeEducacionalProps,
+} from "../interfaces/cardsComparativaProps";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 import iconeMais from "../assets/icon-mais.svg";
-import mock from "../mocks/cardsComparativasDres.json"
-import mock2 from "../mocks/graficoEvolucaoDre.json"
+import mock from "../mocks/cardsComparativasDres.json";
+import mock2 from "../mocks/graficoEvolucaoDre.json";
 import GraficoEvolucaoDre from "../componentes/grafico/GraficoEvolucaoDre";
 
 const CompararDadosSme: React.FC = () => {
@@ -50,8 +53,7 @@ const CompararDadosSme: React.FC = () => {
 
   const [dres, setDres] = useState<CardsComparativaProps>();
   const [mostrarExibirMais, setMostrarExibirMais] = useState(true);
-    const [itensPorPagina, setItensPorPagina] = useState(10);
-  
+  const [itensPorPagina, setItensPorPagina] = useState(10);
 
   useEffect(() => {
     buscaAplicacoes();
@@ -65,22 +67,22 @@ const CompararDadosSme: React.FC = () => {
     if (aplicacaoSelecionada && componenteSelecionado) buscaAnosEscolares();
   }, [aplicacaoSelecionada, componenteSelecionado]);
 
-   useEffect(() => {
-      if (
-        dreSelecionada &&
-        aplicacaoSelecionada &&
-        componenteSelecionado &&
-        anoSelecionado &&
-        itensPorPagina
-      )
-        preencheCardsDre();
-    }, [
-      dreSelecionada,
-      aplicacaoSelecionada,
-      componenteSelecionado,
-      anoSelecionado,
-      itensPorPagina,
-    ]);
+  useEffect(() => {
+    if (
+      dreSelecionada &&
+      aplicacaoSelecionada &&
+      componenteSelecionado &&
+      anoSelecionado &&
+      itensPorPagina
+    )
+      preencheCardsDre();
+  }, [
+    dreSelecionada,
+    aplicacaoSelecionada,
+    componenteSelecionado,
+    anoSelecionado,
+    itensPorPagina,
+  ]);
 
   const buscaAplicacoes = async () => {
     try {
@@ -182,16 +184,15 @@ const CompararDadosSme: React.FC = () => {
   };
 
   const preencheCardsDre = async () => {
-      try {
-        const dreEscolhida =
-          dreSelecionada && dreSelecionada.value != 0
-            ? dreSelecionada.value.toString()
-            : "";
+    try {
+      const dreEscolhida =
+        dreSelecionada && dreSelecionada.value != 0
+          ? dreSelecionada.value.toString()
+          : "";
 
+      const getDresComparativas = mock;
 
-        const getDresComparativas = mock
-  
-        /*const getUesComparativas: CardsComparativaProps = await getComporativoUe(
+      /*const getUesComparativas: CardsComparativaProps = await getComporativoUe(
           dreSelecionada,
           Number(componenteSelecionado!.value),
           Number(aplicacaoSelecionada!.value),
@@ -199,14 +200,14 @@ const CompararDadosSme: React.FC = () => {
           itensPorPagina,
           ueEscolhida
         );*/
-        setDres(getDresComparativas);
-  
-        if (getDresComparativas.ues.length < 10) setMostrarExibirMais(false);
-        else setMostrarExibirMais(true);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+      setDres(getDresComparativas);
+
+      if (getDresComparativas.ues.length < 10) setMostrarExibirMais(false);
+      else setMostrarExibirMais(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -256,17 +257,12 @@ const CompararDadosSme: React.FC = () => {
           ></FiltroAplicacaoComponenteCurricularAno>
           <br />
           <Card className="comparar-dados-card-conteudo">
-
-                <GraficoEvolucaoDre
-
-                dados={mock2}   
-                aplicacaoSelecionada={aplicacaoSelecionada}
+            <GraficoEvolucaoDre
+              dados={mock2}
+              aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
-              anoSelecionado={anoSelecionado}             
-                ></GraficoEvolucaoDre>
-
-
-
+              anoSelecionado={anoSelecionado}
+            ></GraficoEvolucaoDre>
 
             <FiltroComparativoDresUes
               dados={listaDres}
@@ -278,17 +274,9 @@ const CompararDadosSme: React.FC = () => {
               visao="sme"
             />
 
-            <br>
-            
-            
-            
-            </br>
-          
-          
+            <br></br>
 
-
-
-          {dres != undefined &&
+            {dres != undefined &&
               dres.ues.map(
                 (
                   item: CardsComparativaUnidadeEducacionalProps,
@@ -331,16 +319,7 @@ const CompararDadosSme: React.FC = () => {
             ) : (
               <></>
             )}
-
-
           </Card>
-
-          
-          
-          
-
-
-
         </div>
       </div>
     </>
