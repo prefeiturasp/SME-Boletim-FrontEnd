@@ -15,23 +15,17 @@ import {
 } from "../servicos/compararDadosSme/compararDadosSmeService";
 import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno";
 import FiltroComparativoDresUes from "../componentes/filtro/filtroComparativoDresUEs/filtroComparativoDresUes";
-import {
-  CardsComparativaProps,
-  CardsComparativaUnidadeEducacionalProps,
-} from "../interfaces/cardsComparativaProps";
 import CardsComparativa from "../componentes/cards/cardsComparativa/cardsComparativa";
 import iconeMais from "../assets/icon-mais.svg";
-import mock from "../mocks/cardsComparativasDres.json";
-import mock2 from "../mocks/graficoEvolucaoDre.json";
-import GraficoEvolucaoDre from "../componentes/grafico/GraficoEvolucaoDre";
+
 import {
   CardsComparativaDiretoriaReginalProps,
   CardsComparativaSMEProps,
 } from "../interfaces/cardsComparativaSMEProps";
 import LoadingBox from "../componentes/loadingBox/loadingBox";
-import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
 import { ValueTabelaComparativaProps } from "../interfaces/tabelaComparativaProps";
 import TabelaComparativaSME from "../componentes/tabela/tabelaComparativaSme/tabelaComparativaSme";
+import GraficoEvolucaoDre from "../componentes/grafico/graficoEvolucaoDre";
 
 const CompararDadosSme: React.FC = () => {
   const [estaCarregando, setEstaCarregando] = useState(false);
