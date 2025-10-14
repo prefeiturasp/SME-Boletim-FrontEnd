@@ -9,6 +9,7 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
+import TooltipMediaProficiencia from "./conteudo/tooltipMediaProficiencia";
 
 interface GraficoEvolucaoDreProps {
   dados: any;
@@ -157,6 +158,15 @@ const GraficoEvolucaoDre: React.FC<GraficoEvolucaoDreProps> = ({ dados, componen
               }}
             />
           </YAxis>
+
+          <Tooltip
+          content={<TooltipMediaProficiencia showPercentage={false}/>}
+            wrapperStyle={{
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              borderRadius: "5px",
+              color: "#fff",
+            }}
+          />
 
           <Tooltip
             cursor={{ fill: "rgba(0,0,0,0.05)" }}

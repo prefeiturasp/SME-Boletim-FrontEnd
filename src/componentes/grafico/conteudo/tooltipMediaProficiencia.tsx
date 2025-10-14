@@ -20,7 +20,8 @@ const TooltipMediaProficiencia: React.FC<TooltipProps> = ({ active, payload, lab
         <div className="tooltip-label-media-proficiencia">{label}</div>
         {payload.map((entry, index) => (
           <p key={index} className="tooltip-item-media-proficiencia">
-            {labelMap[entry.name] || entry.name}: {entry.value}{showPercentage == true ? '%' : ''}
+            {labelMap[entry.name] || entry.name}: {Number(entry.value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}{showPercentage ? '%' : ''}
+
           </p>
         ))}
       </div>
