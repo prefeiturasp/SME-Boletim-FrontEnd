@@ -1,234 +1,170 @@
 {
-  "total": 42,
+  "total": 13,
   "pagina": 1,
-  "itensPorPagina": 42,
-  "dreId": 3,
-  "dreAbreviacao": "DRE - BT",
-  "ues": [
+  "itensPorPagina": 5,
+  "dres": [
     {
-      "ueId": 141,
-      "ueNome": "DRE Butantã",
-      "disciplinaid": 5,
-      "variacao": -2.21,
+      "dreAbreviacao": "DRE - BT",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO BUTANTA",
+      "variacao": 12.71,
       "aplicacaoPsp": {
-        "loteId": 0,
         "nomeAplicacao": "Prova São Paulo",
         "periodo": "2024",
-        "mediaProficiencia": 182.05,
-        "realizaramProva": 35,
-        "nivelProficiencia": "Básico"
+        "mediaProficiencia": 170.72,
+        "realizaramProva": 2001,
+        "quantidadeUes": 40,
+        "nivelProficiencia": "Abaixo do Básico"
       },
       "aplicacoesPsa": [
         {
-          "loteId": 4,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Abril 2025",
-          "mediaProficiencia": 192.12,
-          "realizaramProva": 51,
+          "mediaProficiencia": 184.66,
+          "realizaramProva": 2721,
+          "quantidadeUes": 39,
           "nivelProficiencia": "Básico"
         },
         {
-          "loteId": 5,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Junho 2025",
-          "mediaProficiencia": 178.03,
-          "realizaramProva": 60,
+          "mediaProficiencia": 192.42,
+          "realizaramProva": 2688,
+          "quantidadeUes": 39,
           "nivelProficiencia": "Básico"
         }
       ]
     },
     {
-      "ueId": 99,
-      "ueNome": "DRE Campo Limpo",
-      "disciplinaid": 5,
-      "variacao": 7.25,
+      "dreAbreviacao": "DRE - CL",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO CAMPO LIMPO",
+      "variacao": 9.91,
       "aplicacaoPsp": {
-        "loteId": 0,
         "nomeAplicacao": "Prova São Paulo",
         "periodo": "2024",
-        "mediaProficiencia": 165.85,
-        "realizaramProva": 22,
+        "mediaProficiencia": 175.87,
+        "realizaramProva": 5042,
+        "quantidadeUes": 66,
         "nivelProficiencia": "Básico"
       },
       "aplicacoesPsa": [
         {
-          "loteId": 4,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Abril 2025",
-          "mediaProficiencia": 175.72,
-          "realizaramProva": 25,
+          "mediaProficiencia": 187.8,
+          "realizaramProva": 5916,
+          "quantidadeUes": 65,
           "nivelProficiencia": "Básico"
         },
         {
-          "loteId": 5,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
-          "periodo": "Junho 2025",
-          "mediaProficiencia": 177.87,
-          "realizaramProva": 93,
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 192.54,
+          "realizaramProva": 48,
+          "quantidadeUes": 1,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 181.28,
+          "realizaramProva": 56,
+          "quantidadeUes": 1,
           "nivelProficiencia": "Básico"
         }
       ]
     },
     {
-      "ueId": 4271,
-      "ueNome": "DRE Capela do Socorro",
-      "disciplinaid": 5,
-      "variacao": 13.23,
+      "dreAbreviacao": "DRE - CS",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO CAPELA DO SOCORRO",
+      "variacao": 9.92,
       "aplicacaoPsp": {
-        "loteId": 0,
         "nomeAplicacao": "Prova São Paulo",
         "periodo": "2024",
-        "mediaProficiencia": 152.76,
-        "realizaramProva": 122,
+        "mediaProficiencia": 176.33,
+        "realizaramProva": 2841,
+        "quantidadeUes": 39,
         "nivelProficiencia": "Básico"
       },
       "aplicacoesPsa": [
         {
-          "loteId": 4,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Abril 2025",
-          "mediaProficiencia": 175.22,
-          "realizaramProva": 140,
+          "mediaProficiencia": 184.98,
+          "realizaramProva": 3573,
+          "quantidadeUes": 39,
           "nivelProficiencia": "Básico"
         },
         {
-          "loteId": 5,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Junho 2025",
-          "mediaProficiencia": 172.97,
-          "realizaramProva": 137,
+          "mediaProficiencia": 193.82,
+          "realizaramProva": 3443,
+          "quantidadeUes": 38,
           "nivelProficiencia": "Básico"
         }
       ]
     },
     {
-      "ueId": 17134,
-      "ueNome": "DRE Freguesia/Brasilândia",
-      "disciplinaid": 5,
-      "variacao": 7.92,
+      "dreAbreviacao": "DRE - FB",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO FREGUESIA/BRASILANDIA",
+      "variacao": 12.08,
       "aplicacaoPsp": {
-        "loteId": 0,
         "nomeAplicacao": "Prova São Paulo",
         "periodo": "2024",
-        "mediaProficiencia": 166.76,
-        "realizaramProva": 59,
-        "nivelProficiencia": "Básico"
+        "mediaProficiencia": 169.65,
+        "realizaramProva": 2423,
+        "quantidadeUes": 38,
+        "nivelProficiencia": "Abaixo do Básico"
       },
       "aplicacoesPsa": [
         {
-          "loteId": 4,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Abril 2025",
-          "mediaProficiencia": 178.55,
-          "realizaramProva": 67,
+          "mediaProficiencia": 181.17,
+          "realizaramProva": 3060,
+          "quantidadeUes": 39,
           "nivelProficiencia": "Básico"
         },
         {
-          "loteId": 5,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Junho 2025",
-          "mediaProficiencia": 179.96,
-          "realizaramProva": 66,
+          "mediaProficiencia": 190.14,
+          "realizaramProva": 3378,
+          "quantidadeUes": 41,
           "nivelProficiencia": "Básico"
         }
       ]
     },
     {
-      "ueId": 141,
-      "ueNome": "DRE Butantã",
-      "disciplinaid": 5,
-      "variacao": -2.21,
+      "dreAbreviacao": "DRE - G",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO GUAIANASES",
+      "variacao": 13.54,
       "aplicacaoPsp": {
-        "loteId": 0,
         "nomeAplicacao": "Prova São Paulo",
         "periodo": "2024",
-        "mediaProficiencia": 182.05,
-        "realizaramProva": 35,
-        "nivelProficiencia": "Básico"
+        "mediaProficiencia": 165.42,
+        "realizaramProva": 2018,
+        "quantidadeUes": 34,
+        "nivelProficiencia": "Abaixo do Básico"
       },
       "aplicacoesPsa": [
         {
-          "loteId": 4,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Abril 2025",
-          "mediaProficiencia": 192.12,
-          "realizaramProva": 51,
+          "mediaProficiencia": 177.93,
+          "realizaramProva": 2714,
+          "quantidadeUes": 32,
           "nivelProficiencia": "Básico"
         },
         {
-          "loteId": 5,
           "nomeAplicacao": "Prova Saberes e Aprendizagens",
           "periodo": "Junho 2025",
-          "mediaProficiencia": 178.03,
-          "realizaramProva": 60,
-          "nivelProficiencia": "Básico"
-        }
-      ]
-    },
-    {
-      "ueId": 99,
-      "ueNome": "DRE Campo Limpo",
-      "disciplinaid": 5,
-      "variacao": 7.25,
-      "aplicacaoPsp": {
-        "loteId": 0,
-        "nomeAplicacao": "Prova São Paulo",
-        "periodo": "2024",
-        "mediaProficiencia": 165.85,
-        "realizaramProva": 22,
-        "nivelProficiencia": "Básico"
-      },
-      "aplicacoesPsa": [
-        {
-          "loteId": 4,
-          "nomeAplicacao": "Prova Saberes e Aprendizagens",
-          "periodo": "Abril 2025",
-          "mediaProficiencia": 175.72,
-          "realizaramProva": 25,
-          "nivelProficiencia": "Básico"
-        },
-        {
-          "loteId": 5,
-          "nomeAplicacao": "Prova Saberes e Aprendizagens",
-          "periodo": "Junho 2025",
-          "mediaProficiencia": 177.87,
-          "realizaramProva": 93,
-          "nivelProficiencia": "Básico"
-        }
-      ]
-    },
-    {
-      "ueId": 4271,
-      "ueNome": "DRE Capela do Socorro",
-      "disciplinaid": 5,
-      "variacao": 13.23,
-      "aplicacaoPsp": {
-        "loteId": 0,
-        "nomeAplicacao": "Prova São Paulo",
-        "periodo": "2024",
-        "mediaProficiencia": 152.76,
-        "realizaramProva": 122,
-        "nivelProficiencia": "Básico"
-      },
-      "aplicacoesPsa": [
-        {
-          "loteId": 4,
-          "nomeAplicacao": "Prova Saberes e Aprendizagens",
-          "periodo": "Abril 2025",
-          "mediaProficiencia": 175.22,
-          "realizaramProva": 140,
-          "nivelProficiencia": "Básico"
-        },
-        {
-          "loteId": 5,
-          "nomeAplicacao": "Prova Saberes e Aprendizagens",
-          "periodo": "Junho 2025",
-          "mediaProficiencia": 172.97,
-          "realizaramProva": 137,
+          "mediaProficiencia": 187.82,
+          "realizaramProva": 3633,
+          "quantidadeUes": 39,
           "nivelProficiencia": "Básico"
         }
       ]
     }
-    
   ]
 }

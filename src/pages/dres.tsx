@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import RelatorioAlunosPorDres from "../componentes/relatorio/relatorioAlunosPorDres";
 import DesempenhoPorMediaProficiencia from "../componentes/grafico/desempenhoPorMediaProficiencia";
+import { useSearchParams } from "react-router-dom";
 const { Header } = Layout;
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
@@ -80,7 +81,21 @@ const DresPage: React.FC = () => {
     (state: RootState) => state.nomeAplicacao.id
   );
 
+  const [queryStringUtilizada, setQueryStringUtilizada] = useState(false); 
+  const [dreUrl, setDreUrl] = useState(''); 
+  
+  
+  
+  
+
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  /*useEffect(() => {
+    const dreUrl = searchParams.get("dreUrlSelecionada") ?? '';
+    setDreUrl(dreUrl)
+    setQueryStringUtilizada(true)
+  }, []);*/
 
   useEffect(() => {
     const el = stickyRef.current;
@@ -323,6 +338,35 @@ const DresPage: React.FC = () => {
     buscarUes();
     setUesSelecionadas(prev => (prev.length === 0 ? prev : []));
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
+
+  useEffect(() => {
+    if(ues.length > 0)
+    checaQueryString();
+  }, [ues]);
+
+
+   
+
+
+    const checaQueryString = async () => {
+
+      const dreUrl = searchParams.get("dreUrlSelecionada") ?? "";
+
+        if (dreUrl !== "" && queryStringUtilizada == false) {
+          const obj = ues.find((x: any) => x.value === Number(dreUrl));
+
+          if (obj) {
+            //setDreSelecionada(obj.value);
+            //setDreSeleciondaNome(obj.label);
+            setUesSelecionadas([obj])
+          } 
+
+          setQueryStringUtilizada(true);
+        }
+
+    }
+
+
 
   const fetchDresListagem = async () => {
     setDresDados([]);

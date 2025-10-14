@@ -7,7 +7,11 @@ import "./compararDadosSme.css";
 import {
   getAnosAplicacaoVisaoSme,
   getAnosEscolaresUeVisaoSme,
+  getCardsDre,
   getComponentesCurricularesVisaoSme,
+  getDadosTabelaSME,
+  getGraficoSME,
+  getListaDres,
 } from "../servicos/compararDadosSme/compararDadosSmeService";
 import FiltroAplicacaoComponenteCurricularAno from "../componentes/filtro/filtroCompararDados/filtroAplicacaoComponenteCurricularAno";
 import FiltroComparativoDresUes from "../componentes/filtro/filtroComparativoDresUEs/filtroComparativoDresUes";
@@ -20,8 +24,17 @@ import iconeMais from "../assets/icon-mais.svg";
 import mock from "../mocks/cardsComparativasDres.json";
 import mock2 from "../mocks/graficoEvolucaoDre.json";
 import GraficoEvolucaoDre from "../componentes/grafico/GraficoEvolucaoDre";
+import {
+  CardsComparativaDiretoriaReginalProps,
+  CardsComparativaSMEProps,
+} from "../interfaces/cardsComparativaSMEProps";
+import LoadingBox from "../componentes/loadingBox/loadingBox";
+import TabelaComparativa from "../componentes/tabela/tabelaComparativa/tabelaComparativa";
+import { ValueTabelaComparativaProps } from "../interfaces/tabelaComparativaProps";
+import TabelaComparativaSME from "../componentes/tabela/tabelaComparativaSme/tabelaComparativaSme";
 
 const CompararDadosSme: React.FC = () => {
+  const [estaCarregando, setEstaCarregando] = useState(false);
   const [aplicacoes, setAplicacoes] = useState<ParametrosPadraoAntDesign[]>([]);
   const [componentesCurriculares, setComponentesCurriculares] = useState<
     ParametrosPadraoAntDesign[]
@@ -49,11 +62,15 @@ const CompararDadosSme: React.FC = () => {
       label: "Todas",
     });
 
+  const [dadosGrafico, setDadosGrafico] = useState<any>();
+
   const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
 
-  const [dres, setDres] = useState<CardsComparativaProps>();
+  const [cardsDres, setCardsDres] = useState<CardsComparativaSMEProps>();
   const [mostrarExibirMais, setMostrarExibirMais] = useState(true);
   const [itensPorPagina, setItensPorPagina] = useState(10);
+  const [dadosTabela, setDadosTabela] =
+    React.useState<ValueTabelaComparativaProps>();
 
   useEffect(() => {
     buscaAplicacoes();
@@ -66,6 +83,21 @@ const CompararDadosSme: React.FC = () => {
   useEffect(() => {
     if (aplicacaoSelecionada && componenteSelecionado) buscaAnosEscolares();
   }, [aplicacaoSelecionada, componenteSelecionado]);
+
+  useEffect(() => {
+    if (!aplicacaoSelecionada || !componenteSelecionado || !anoSelecionado)
+      return;
+    (async () => {
+      setEstaCarregando(true);
+      await Promise.all([
+        getDres(),
+        preencheGraficoSME(),
+        preencheTabela(),
+        preencheCardsDre(),
+      ]);
+      setEstaCarregando(false);
+    })();
+  }, [aplicacaoSelecionada, componenteSelecionado, anoSelecionado]);
 
   useEffect(() => {
     if (
@@ -168,6 +200,25 @@ const CompararDadosSme: React.FC = () => {
     setComponenteCurricularSelecionado(obj);
   };
 
+  const getDres = async () => {
+    try {
+      const resposta: any[] = await getListaDres(
+        Number(aplicacaoSelecionada?.value),
+        Number(componenteSelecionado?.value),
+        Number(anoSelecionado?.value)
+      );
+
+      const opcoesDre = (resposta ?? []).map((item: any) => ({
+        value: item.dreId,
+        label: item.dreNome,
+      }));
+
+      setListaDres([{ value: 0, label: "Todas" }, ...opcoesDre]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const alterarDreUe = async (value: string, option: any) => {
     const ueSelecionada: ParametrosPadraoAntDesign = {
       label: option.label,
@@ -177,40 +228,98 @@ const CompararDadosSme: React.FC = () => {
   };
 
   const exibirMais = async () => {
-    if (dres) {
-      if (itensPorPagina >= dres.total) setMostrarExibirMais(false);
+    if (cardsDres) {
+      if (itensPorPagina >= cardsDres.total) setMostrarExibirMais(false);
       else setItensPorPagina(itensPorPagina + 10);
+    }
+  };
+
+  const preencheGraficoSME = async () => {
+    try {
+      setEstaCarregando(true);
+
+      const retorno = await getGraficoSME(
+        Number(aplicacaoSelecionada!.value),
+        Number(componenteSelecionado!.value),
+        Number(anoSelecionado?.value)
+      );
+
+      setDadosGrafico(retorno);
+    } catch (error) {
+      console.log(error);
+      setEstaCarregando(false);
     }
   };
 
   const preencheCardsDre = async () => {
     try {
+      setEstaCarregando(true);
       const dreEscolhida =
-        dreSelecionada && dreSelecionada.value != 0
-          ? dreSelecionada.value.toString()
-          : "";
+        dreSelecionada.label === "Todas" ? 0 : Number(dreSelecionada.value);
 
-      const getDresComparativas = mock;
+      const getDresComparativas: CardsComparativaSMEProps = await getCardsDre(
+        dreEscolhida,
 
-      /*const getUesComparativas: CardsComparativaProps = await getComporativoUe(
-          dreSelecionada,
-          Number(componenteSelecionado!.value),
-          Number(aplicacaoSelecionada!.value),
-          Number(anoSelecionado?.value),
-          itensPorPagina,
-          ueEscolhida
-        );*/
-      setDres(getDresComparativas);
+        Number(aplicacaoSelecionada!.value),
+        Number(componenteSelecionado!.value),
+        Number(anoSelecionado?.value),
+        itensPorPagina
+      );
 
-      if (getDresComparativas.ues.length < 10) setMostrarExibirMais(false);
+      setCardsDres(getDresComparativas);
+
+      if (getDresComparativas.dres.length < 10) setMostrarExibirMais(false);
       else setMostrarExibirMais(true);
+      setEstaCarregando(false);
+    } catch (error) {
+      console.log(error);
+      setEstaCarregando(false);
+    }
+  };
+
+  const preencheTabela = async () => {
+    try {
+      const ValueTabela: ValueTabelaComparativaProps = await getDadosTabelaSME(
+        Number(aplicacaoSelecionada!.value ?? 0),
+        Number(componenteSelecionado!.value ?? 0),
+        Number(anoSelecionado?.value ?? 0)
+      );
+
+      const dadosTratados = ValueTabela;
+      tratamentoDescricao(dadosTratados);
+
+      setDadosTabela(dadosTratados);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const tratamentoItemRepetido = (
+    dados: ValueTabelaComparativaProps
+  ): ValueTabelaComparativaProps => {
+    const vistos = new Set<string>();
+    const aplicacaoUnica = dados.aplicacao.filter((item) => {
+      if (vistos.has(item.mes)) return false;
+      vistos.add(item.mes);
+      return true;
+    });
+
+    return { ...dados, aplicacao: aplicacaoUnica };
+  };
+
+  const tratamentoDescricao = (dados: ValueTabelaComparativaProps) => {
+    dados.aplicacao.forEach((item) => {
+      if (item.descricao) {
+        item.descricao = item.descricao
+          .replace("Prova São Paulo", "PSP")
+          .replace("Prova Saberes e Aprendizagens", "PSA");
+      }
+    });
+  };
+
   return (
     <>
+      {estaCarregando && <LoadingBox />}
       <div className="app-container">
         <Row>
           <Header className="cabecalho-compara-dre">
@@ -257,8 +366,16 @@ const CompararDadosSme: React.FC = () => {
           ></FiltroAplicacaoComponenteCurricularAno>
           <br />
           <Card className="comparar-dados-card-conteudo">
+            <TabelaComparativaSME
+              dados={dadosTabela}
+              aplicacaoSelecionada={aplicacaoSelecionada}
+              componenteSelecionado={componenteSelecionado}
+              anoSelecionado={anoSelecionado}
+            />
+
+            <br />
             <GraficoEvolucaoDre
-              dados={mock2}
+              dados={dadosGrafico}
               aplicacaoSelecionada={aplicacaoSelecionada}
               componenteSelecionado={componenteSelecionado}
               anoSelecionado={anoSelecionado}
@@ -276,17 +393,17 @@ const CompararDadosSme: React.FC = () => {
 
             <br></br>
 
-            {dres != undefined &&
-              dres.ues.map(
+            {cardsDres != undefined &&
+              cardsDres.dres.map(
                 (
-                  item: CardsComparativaUnidadeEducacionalProps,
+                  item: CardsComparativaDiretoriaReginalProps,
                   index: number
                 ) => {
                   return (
                     <CardsComparativa
                       key={index}
                       dados={item}
-                      dreId={dres.dreId}
+                      dreId={item.dreId}
                       ano={anoSelecionado || null}
                       visao="sme"
                     />
