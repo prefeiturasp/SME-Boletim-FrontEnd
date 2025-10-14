@@ -1,9 +1,9 @@
 import React from "react";
 import "./tabelaComparativaSme.css";
 import { Card, Table, Progress } from "antd";
-import { AAAParametrosTabelaComparativaProps } from "../../../interfaces/tabelaComparativaPropsNova";
+import { ParametrosTabelaComparativaNovaProps } from "../../../interfaces/tabelaComparativaPropsNova";
 
-const TabelaComparativaSME: React.FC<AAAParametrosTabelaComparativaProps> = ({
+const TabelaComparativaSME: React.FC<ParametrosTabelaComparativaNovaProps> = ({
   dados,
   aplicacaoSelecionada,
   componenteSelecionado,

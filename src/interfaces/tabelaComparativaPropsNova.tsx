@@ -1,4 +1,4 @@
-export interface AAAParametrosTabelaComparativaProps {
+export interface ParametrosTabelaComparativaNovaProps {
     dados: any;
     aplicacaoSelecionada: { label: string; value: string | number } | null | undefined;
     componenteSelecionado: { label: string; value: string | number } | null | undefined;
@@ -6,12 +6,12 @@ export interface AAAParametrosTabelaComparativaProps {
     //quantidadeDres: number;
 }
 
-export interface AAAValueTabelaComparativaProps {
+export interface ValueTabelaComparativaNovaProps {
     variacao: number;
-    aplicacao: AAAAplicacaoItem[];
+    aplicacao: AplicacaoItemNova[];
 }
 
-export interface AAAAplicacaoItem {
+export interface AplicacaoItemNova {
     descricao: string;
     mes: string;
     valorProficiencia: number;

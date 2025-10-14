@@ -84,7 +84,7 @@ const CompararDadosSme: React.FC = () => {
     if (aplicacaoSelecionada && componenteSelecionado) buscaAnosEscolares();
   }, [aplicacaoSelecionada, componenteSelecionado]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!aplicacaoSelecionada || !componenteSelecionado || !anoSelecionado)
       return;
     (async () => {
@@ -97,6 +97,14 @@ const CompararDadosSme: React.FC = () => {
       ]);
       setEstaCarregando(false);
     })();
+  }, [aplicacaoSelecionada, componenteSelecionado, anoSelecionado]);*/
+
+  useEffect(() => {
+    if (aplicacaoSelecionada && componenteSelecionado && anoSelecionado) {
+      preencheGraficoSME();
+      preencheTabela();
+      preencheCardsDre();
+    }
   }, [aplicacaoSelecionada, componenteSelecionado, anoSelecionado]);
 
   useEffect(() => {

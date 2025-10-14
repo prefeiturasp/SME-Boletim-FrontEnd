@@ -81,12 +81,8 @@ const DresPage: React.FC = () => {
     (state: RootState) => state.nomeAplicacao.id
   );
 
-  const [queryStringUtilizada, setQueryStringUtilizada] = useState(false); 
-  const [dreUrl, setDreUrl] = useState(''); 
-  
-  
-  
-  
+  const [queryStringUtilizada, setQueryStringUtilizada] = useState(false);
+  const [dreUrl, setDreUrl] = useState("");
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -336,37 +332,26 @@ const DresPage: React.FC = () => {
 
   useEffect(() => {
     buscarUes();
-    setUesSelecionadas(prev => (prev.length === 0 ? prev : []));
+    setUesSelecionadas((prev) => (prev.length === 0 ? prev : []));
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
   useEffect(() => {
-    if(ues.length > 0)
-    checaQueryString();
+    if (ues.length > 0) checaQueryString();
   }, [ues]);
 
+  const checaQueryString = async () => {
+    const dreUrl = searchParams.get("dreUrlSelecionada") ?? "";
 
-   
+    if (dreUrl !== "" && queryStringUtilizada == false) {
+      const dreEncontrada = ues.find((x: any) => x.value === Number(dreUrl));
 
+      if (dreEncontrada) {
+        setUesSelecionadas([dreEncontrada]);
+      }
 
-    const checaQueryString = async () => {
-
-      const dreUrl = searchParams.get("dreUrlSelecionada") ?? "";
-
-        if (dreUrl !== "" && queryStringUtilizada == false) {
-          const obj = ues.find((x: any) => x.value === Number(dreUrl));
-
-          if (obj) {
-            //setDreSelecionada(obj.value);
-            //setDreSeleciondaNome(obj.label);
-            setUesSelecionadas([obj])
-          } 
-
-          setQueryStringUtilizada(true);
-        }
-
+      setQueryStringUtilizada(true);
     }
-
-
+  };
 
   const fetchDresListagem = async () => {
     setDresDados([]);
@@ -375,7 +360,9 @@ const DresPage: React.FC = () => {
 
     try {
       const params = new URLSearchParams();
-      uesSelecionadas.forEach((dre) => params.append("dreIds", String(dre.value)));
+      uesSelecionadas.forEach((dre) =>
+        params.append("dreIds", String(dre.value))
+      );
 
       const qs = params.toString();
       const url =
@@ -390,11 +377,9 @@ const DresPage: React.FC = () => {
     }
   };
 
-
   useEffect(() => {
     fetchDresListagem();
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
-
 
   const uesOptions = useMemo(() => {
     return ues.map((dre: any) => ({
@@ -434,9 +419,9 @@ const DresPage: React.FC = () => {
             <Breadcrumb
               className="breadcrumb"
               items={[
-                { title: 'Home' },
-                { title: 'Provas' },
-                { title: 'Boletim de provas' },
+                { title: "Home" },
+                { title: "Provas" },
+                { title: "Boletim de provas" },
               ]}
             />
             <span className="titulo-secundario">Boletim de provas</span>
@@ -453,20 +438,26 @@ const DresPage: React.FC = () => {
               <p>Comparativo de resultados</p>
             </div>
             <div className="comparativo-descricao-drePage">
-              <p>Acompanhe a proficiência de todas as Diretorias Regionais de Educação (DREs) nas diferentes aplicações da Prova São Paulo e Prova Saberes e Aprendizagens.</p>
+              <p>
+                Acompanhe a proficiência de todas as Diretorias Regionais de
+                Educação (DREs) nas diferentes aplicações da Prova São Paulo e
+                Prova Saberes e Aprendizagens.
+              </p>
             </div>
           </div>
           <div className="comparativo-botao-drePage">
-            <Button type="primary" onClick={compararDados} className="btnAzulPadrao">
+            <Button
+              type="primary"
+              onClick={compararDados}
+              className="btnAzulPadrao"
+            >
               Comparar dados
             </Button>
           </div>
         </div>
       </Row>
 
-
       <div className="conteudo-principal-ues" ref={containerRef}>
-
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <h2 className="titulo-ue-sme">Secretaria Municipal de Educação</h2>
@@ -660,7 +651,7 @@ const DresPage: React.FC = () => {
                                           <img
                                             src={
                                               p.disciplina ===
-                                                "Língua portuguesa"
+                                              "Língua portuguesa"
                                                 ? iconePort
                                                 : iconeMat
                                             }
@@ -686,14 +677,14 @@ const DresPage: React.FC = () => {
                                         </span>
                                         <div className="prof-value">
                                           {typeof p.mediaProficiencia ===
-                                            "number"
+                                          "number"
                                             ? p.mediaProficiencia.toLocaleString(
-                                              "pt-BR",
-                                              {
-                                                minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2,
-                                              }
-                                            )
+                                                "pt-BR",
+                                                {
+                                                  minimumFractionDigits: 2,
+                                                  maximumFractionDigits: 2,
+                                                }
+                                              )
                                             : "-"}
                                         </div>
                                         <div className="prof-label">
@@ -756,7 +747,11 @@ const DresPage: React.FC = () => {
                               </>
                             )}
                             <Button
-                              data-testid={dre.dreId ? `btn-acessar-${dre.dreId}` : undefined}
+                              data-testid={
+                                dre.dreId
+                                  ? `btn-acessar-${dre.dreId}`
+                                  : undefined
+                              }
                               className="btn-acessar-ue"
                               block
                               disabled={semDisciplinas}
@@ -764,7 +759,9 @@ const DresPage: React.FC = () => {
                                 navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
-                            >Acessar DRE</Button>
+                            >
+                              Acessar DRE
+                            </Button>
                           </Card>
                         </Col>
                       );
@@ -839,7 +836,12 @@ const DresPage: React.FC = () => {
       </div>
 
       <div className="rodape">
-        <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio} className="btnAzulPadrao">
+        <Button
+          type="primary"
+          icon={<UpOutlined />}
+          onClick={voltarAoInicio}
+          className="btnAzulPadrao"
+        >
           Voltar para o início
         </Button>
       </div>
