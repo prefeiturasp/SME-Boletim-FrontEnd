@@ -22,7 +22,7 @@ const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
             
             let url: string = ''
             if(visao === "sme")
-                url = `/?ueSelecionada=${escola.ueId}&dreUrlSelecionada=${dreId}`
+                url = `/dres?dreUrlSelecionada=${dreId}`
             else {
                 url = `/?ueSelecionada=${escola.ueId}&dreUrlSelecionada=${dreId}`
             }
