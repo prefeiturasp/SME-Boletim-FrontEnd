@@ -75,12 +75,11 @@ const GraficoEvolucaoDre: React.FC<GraficoEvolucaoDreProps> = ({ dados, componen
 
     <div className="filtro-comparativo">
         <div className="filtro-comparativo-titulo">
-          Evolução por Unidade Educacional (UE)
+          Evolução por Diretoria Regional de Educação (DRE)
         </div>
         <div className="filtro-comparativo-conteudo">
           <div className="filtro-comparativo-subtitulo">
-            Confira a média de proficiência das UEs na aplicação da Prova São
-            Paulo e nas três aplicações da Prova Saberes e Aprendizagens.
+            Confira a média de proficiência das DREs na aplicação da Prova São Paulo e nas três aplicações da Prova Saberes e Aprendizagens.
           </div>
           <div className="filtro-comparativo-tags">
             <div className="filtro-comparativo-tags-item filtro-comparativo-tags-componente-curricular">
