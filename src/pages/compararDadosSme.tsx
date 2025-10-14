@@ -98,6 +98,7 @@ const CompararDadosSme: React.FC = () => {
       preencheGraficoSME();
       preencheTabela();
       preencheCardsDre();
+      getDres();
     }
   }, [aplicacaoSelecionada, componenteSelecionado, anoSelecionado]);
 
