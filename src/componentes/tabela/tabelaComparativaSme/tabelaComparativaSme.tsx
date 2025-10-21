@@ -1,7 +1,8 @@
 import React from "react";
 import "./tabelaComparativaSme.css";
-import { Card, Table, Progress } from "antd";
+import { Card, Table, Progress, Tooltip } from "antd";
 import { ParametrosTabelaComparativaNovaProps } from "../../../interfaces/tabelaComparativaPropsNova";
+import { VARIACAO_DESCRICAO } from "../../../constantes/constantes";
 
 const TabelaComparativaSME: React.FC<ParametrosTabelaComparativaNovaProps> = ({
   dados,
@@ -152,16 +153,18 @@ const TabelaComparativaSME: React.FC<ParametrosTabelaComparativaNovaProps> = ({
       </div>
       <br />
       <Card className="tabela-comparativa-variacao-card">
-        <div className="tabela-comparativa-variacao">
-          <div className="tabela-comparativa-variacao-label">Variação</div>
-          <div
-            className={`tabela-comparativa-variacao-valor ${getClasseVariacao(
-              dados?.variacao ?? 0
-            )}`}
-          >
-            {formatarVariacao(dados?.variacao ?? 0)}
+        <Tooltip placement="top" title={VARIACAO_DESCRICAO} >
+          <div className="tabela-comparativa-variacao">
+            <div className="tabela-comparativa-variacao-label">Variação</div>
+            <div
+              className={`tabela-comparativa-variacao-valor ${getClasseVariacao(
+                dados?.variacao ?? 0
+              )}`}
+            >
+              {formatarVariacao(dados?.variacao ?? 0)}
+            </div>
           </div>
-        </div>
+        </Tooltip>
         <Table
           columns={columns}
           dataSource={dataSource}

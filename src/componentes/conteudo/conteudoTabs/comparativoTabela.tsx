@@ -1,7 +1,8 @@
 import { Children, useState } from "react";
-import { Table, Progress, Tag, Spin, Button } from "antd";
+import { Table, Progress, Tag, Spin, Button, Tooltip } from "antd";
 import "./comparativoTabela.css";
 import iconeMais from "./../../../assets/icon-mais.svg";
+import { VARIACAO_DESCRICAO } from "../../../constantes/constantes";
 //import LoadingBox from "../../loadingBox/loadingBox";
 
 interface ComparativoTabelaProps {
@@ -250,7 +251,11 @@ const constroiColunas = (disciplina: string, ano: number, dados: any[]) => {
   ];
 
   colunas.push({
-    title: "Variação",
+    title: (
+      <Tooltip placement="top" title={VARIACAO_DESCRICAO} >
+        <span>Variação</span>
+      </Tooltip>
+    ), 
     key: "variacao",
     width: 80,
     align: "center",
