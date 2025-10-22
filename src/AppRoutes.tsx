@@ -11,6 +11,7 @@ import UesPage from "./pages/ues";
 import { RootState } from "./redux/store";
 import DresPage from "./pages/dres";
 import CompararDados from "./pages/compararDados";
+import CompararDadosSme from "./pages/compararDadosSme";
 
 const AppLayout: React.FC = () => (
   <div className="app-container">
@@ -73,6 +74,14 @@ const AppRoutes: React.FC = () => (
           <CompararDados />
         </PrivateRoute>
       }
+    />
+    <Route
+      path="/comparar-dados-dre"
+      element={
+        <PrivateRoute>
+          <CompararDadosSme />
+        </PrivateRoute>
+      } 
     />
   </Routes>
 );
