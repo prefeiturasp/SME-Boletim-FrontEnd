@@ -152,7 +152,23 @@
 
 .cards-comparativa-quantidade-corpo-sp {
   display: flex;
+  margin: 15px 8px 8px 8px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 4px;
+}
+
+.cards-comparativa-quantidade-corpo-sp-original {
+  display: flex;
   margin: 33px 8px 8px 8px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 4px;
+}
+
+.cards-comparativa-quantidade-corpo-sp2 {
+  display: flex;
+  margin: 33px 8px 0px 8px;
   padding: 8px;
   background: #ffffff;
   border-radius: 4px;
@@ -230,3 +246,6 @@
   font-size: 14px;
   color: #595959;
 }
+
+
+

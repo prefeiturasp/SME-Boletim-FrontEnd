@@ -340,6 +340,7 @@ const CompararDados: React.FC = () => {
                       dados={item}
                       dreId={ues.dreId}
                       ano={anoSelecionado || null}
+                      visao="dre"
                     />
                   );
                 }

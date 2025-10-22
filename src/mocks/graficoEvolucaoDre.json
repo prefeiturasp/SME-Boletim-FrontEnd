@@ -1,0 +1,283 @@
+{
+  "todasAplicacoesDisponiveis": [
+    "Abril 2025 PSA",
+    "Junho 2025 PSA",
+    "2024 PSP"
+  ],
+
+  "dados": [
+    {
+      "dreAbreviacao": "DRE - MP",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO SAO MIGUEL",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 174.94
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 192.73016949152543
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 194.855
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - SA",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO SANTO AMARO",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 175.66
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 189.6164705882353
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 195.72333333333333
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - BT",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO BUTANTA",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 170.72
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 184.66309523809525
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 192.42410256410255
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - CL",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO CAMPO LIMPO",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 175.91
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 196.31
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 206.43
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - G",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO GUAIANASES",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 166.41
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 177.9285294117647
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 187.8176923076923
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - FB",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO FREGUESIA/BRASILANDIA",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 169.65
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 181.17439024390245
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 190.13658536585365
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - PE",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO PENHA",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 181.77
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 193.53697674418603
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 204.40829268292683
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - IQ",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO ITAQUERA",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 174.92
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 188.84025
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 196.48942857142856
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - SM",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO SAO MATEUS",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 175.07
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 186.29014925373136
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 197.48654545454545
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - IP",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO IPIRANGA",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 181.06
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 198.05439024390245
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 206.90487179487178
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - PJ",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO PIRITUBA/JARAGUA",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 176.34
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 192.665625
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 194.83446153846154
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - CS",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO CAPELA DO SOCORRO",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 176.33
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 184.9790243902439
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 193.82052631578946
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - JT",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO JACANA/TREMEMBE",
+      "listaProficienciaGraficoComparativoDto": [
+        {
+          "descricao": "Prova São Paulo",
+          "mes": "2024 PSA",
+          "valorProficiencia": 173.5
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Abril 2025 PSP",
+          "valorProficiencia": 182.09479166666668
+        },
+        {
+          "descricao": "Prova Saberes e Aprendizagens",
+          "mes": "Junho 2025 PSP",
+          "valorProficiencia": 194.12595238095238
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "total": 13,
+  "pagina": 1,
+  "itensPorPagina": 5,
+  "dres": [
+    {
+      "dreAbreviacao": "DRE - BT",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO BUTANTA",
+      "variacao": 12.71,
+      "aplicacaoPsp": {
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 170.72,
+        "realizaramProva": 2001,
+        "quantidadeUes": 40,
+        "nivelProficiencia": "Abaixo do Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 184.66,
+          "realizaramProva": 2721,
+          "quantidadeUes": 39,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 192.42,
+          "realizaramProva": 2688,
+          "quantidadeUes": 39,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - CL",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO CAMPO LIMPO",
+      "variacao": 9.91,
+      "aplicacaoPsp": {
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 175.87,
+        "realizaramProva": 5042,
+        "quantidadeUes": 66,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 187.8,
+          "realizaramProva": 5916,
+          "quantidadeUes": 65,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 192.54,
+          "realizaramProva": 48,
+          "quantidadeUes": 1,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 181.28,
+          "realizaramProva": 56,
+          "quantidadeUes": 1,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - CS",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO CAPELA DO SOCORRO",
+      "variacao": 9.92,
+      "aplicacaoPsp": {
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 176.33,
+        "realizaramProva": 2841,
+        "quantidadeUes": 39,
+        "nivelProficiencia": "Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 184.98,
+          "realizaramProva": 3573,
+          "quantidadeUes": 39,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 193.82,
+          "realizaramProva": 3443,
+          "quantidadeUes": 38,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - FB",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO FREGUESIA/BRASILANDIA",
+      "variacao": 12.08,
+      "aplicacaoPsp": {
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 169.65,
+        "realizaramProva": 2423,
+        "quantidadeUes": 38,
+        "nivelProficiencia": "Abaixo do Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 181.17,
+          "realizaramProva": 3060,
+          "quantidadeUes": 39,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 190.14,
+          "realizaramProva": 3378,
+          "quantidadeUes": 41,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    },
+    {
+      "dreAbreviacao": "DRE - G",
+      "dreNome": "DIRETORIA REGIONAL DE EDUCACAO GUAIANASES",
+      "variacao": 13.54,
+      "aplicacaoPsp": {
+        "nomeAplicacao": "Prova São Paulo",
+        "periodo": "2024",
+        "mediaProficiencia": 165.42,
+        "realizaramProva": 2018,
+        "quantidadeUes": 34,
+        "nivelProficiencia": "Abaixo do Básico"
+      },
+      "aplicacoesPsa": [
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Abril 2025",
+          "mediaProficiencia": 177.93,
+          "realizaramProva": 2714,
+          "quantidadeUes": 32,
+          "nivelProficiencia": "Básico"
+        },
+        {
+          "nomeAplicacao": "Prova Saberes e Aprendizagens",
+          "periodo": "Junho 2025",
+          "mediaProficiencia": 187.82,
+          "realizaramProva": 3633,
+          "quantidadeUes": 39,
+          "nivelProficiencia": "Básico"
+        }
+      ]
+    }
+  ]
+}

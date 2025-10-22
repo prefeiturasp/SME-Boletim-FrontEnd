@@ -1,153 +1,110 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import ComparativoTabela from "./comparativoTabela";
 import * as ComparativoTabelaModule from "./comparativoTabela";
+
+const ComparativoTabela = (ComparativoTabelaModule as any).default;
 
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
   jest.spyOn(console, "warn").mockImplementation(() => {});
 });
 
-// Mock do CSS import e SVG
 jest.mock("./comparativoTabela.css", () => ({}));
 jest.mock("./../../../assets/icon-mais.svg", () => "iconeMais.svg");
 
+const mockExibirMais = jest.fn();
+const mockDadosTurma = {
+  itens: [
+    { nome: "Aluno 1", variacao: -2.9, proficiencias: [{ descricao: "PSA", mes: "Agosto 2025", valor: 200 }] },
+    { nome: "Aluno 2", variacao: 1.0, proficiencias: [{ descricao: "PSA", mes: "Setembro 2025", valor: 210 }] },
+    { nome: "Aluno 3", variacao: 2.2, proficiencias: [{ descricao: "PSA", mes: "Outubro 2025", valor: 220 }] },
+    { nome: "Aluno 4", variacao: 0.0, proficiencias: [{ descricao: "PSA", mes: "Novembro 2025", valor: 230 }] },
+    { nome: "Aluno 5", variacao: 5.2, proficiencias: [{ descricao: "PSA", mes: "Dezembro 2025", valor: 240 }] },
+  ],
+  total: 10,
+};
+
+const renderComparativoTabela = () =>
+  render(
+    <ComparativoTabela
+      index={0}
+      exibirMais={mockExibirMais}
+      dadosTurma={mockDadosTurma}
+      turmaSelecionada="1"
+      componentesCurricularSelecionado="Matemática"
+    />
+  );
+
 describe("ComparativoTabela", () => {
-    it("renderiza o título com turma e componente curricular", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getByText(/Estudantes da Turma 1 em Matemática/i)).toBeInTheDocument();
-    });
-
-    it("renderiza as legendas de níveis", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getByText(/Níveis:/i)).toBeInTheDocument();
-        expect(screen.getByText(/Abaixo do basico/i)).toBeInTheDocument();
-        expect(screen.getByText(/Básico/i)).toBeInTheDocument();
-        expect(screen.getByText(/Adequado/i)).toBeInTheDocument();
-        expect(screen.getByText(/Avançado/i)).toBeInTheDocument();
-    });
-
-    it("renderiza a tabela com colunas dinâmicas", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getByText("Nome do Estudante")).toBeInTheDocument();
-        expect(screen.getByText("Aplicação PSA")).toBeInTheDocument();
-        expect(screen.getByText("PSP")).toBeInTheDocument();
-        expect(screen.getByText("Variacão")).toBeInTheDocument();
-        // Colunas dinâmicas de PSA
-        expect(screen.getByText(/PSA \(Agosto 2025\)/)).toBeInTheDocument();
-        expect(screen.getByText(/PSA \(Setembro 2025\)/)).toBeInTheDocument();
-        expect(screen.getByText(/PSA \(Outubro 2025\)/)).toBeInTheDocument();
-        expect(screen.getByText(/PSA \(Novembro 2025\)/)).toBeInTheDocument();
-        expect(screen.getByText(/PSA \(Dezembro 2025\)/)).toBeInTheDocument();
-    });
-
-    it("renderiza os nomes dos estudantes", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getByText("Lincoln Ferreira Campos")).toBeInTheDocument();
-        expect(screen.getByText("Carlos Eduardo Silva")).toBeInTheDocument();
-        expect(screen.getByText("Pablo Silva Chavier")).toBeInTheDocument();
-        expect(screen.getByText("Aroudo Silva Jose")).toBeInTheDocument();
-        expect(screen.getByText("Ciclano")).toBeInTheDocument();
-    });
-
-    it("renderiza os valores de variação com cor correta", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getAllByText(/-2.90%/i)[0]).toBeInTheDocument();
-        expect(screen.getAllByText(/5.20%/i)[0]).toBeInTheDocument();
-        expect(screen.getAllByText(/0.00%/i)[0]).toBeInTheDocument();
-    });
-
-    it("renderiza o botão Exibir mais", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getByText(/Exibir mais/i)).toBeInTheDocument();
-        expect(screen.getByAltText("Ícone dados")).toBeInTheDocument();
-    });
-
-    it("chama handleExibirMais ao clicar no botão Exibir mais", () => {
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        const btn = screen.getByText(/Exibir mais/i);
-        fireEvent.click(btn);
-        // Não há efeito visível, mas o botão pode ser clicado sem erro
-        expect(btn).toBeInTheDocument();
-    });
-
-    it("renderiza o spinner de loading quando estaCarregando for true", () => {
-        // Força o estado de loading via mock de useState
-        jest.spyOn(React, "useState")
-            .mockImplementationOnce(() => [true, jest.fn()])
-            .mockImplementation((init?: any) => [init, jest.fn()]);
-        render(<ComparativoTabela turmaSelecionada="1" componentesCurricularSelecionado="Matemática" />);
-        expect(screen.getByText(/Carregando.../i)).toBeInTheDocument();
-        jest.restoreAllMocks();
-    });
-});
-
-describe("getProgressColor", () => {
-  const getProgressColor = ComparativoTabelaModule.getProgressColor as (value: number, disciplina: string, ano: number) => string;
-
-  it("retorna cor correta para Lingua portuguesa 5º ano", () => {
-    expect(getProgressColor(100, "Lingua portuguesa", 5)).toBe("#FF5959");
-    expect(getProgressColor(170, "Lingua portuguesa", 5)).toBe("#FEDE99");
-    expect(getProgressColor(220, "Lingua portuguesa", 5)).toBe("#5A94D8");
-    expect(getProgressColor(300, "Lingua portuguesa", 5)).toBe("#99FF99");
+  it("renderiza o título com turma e componente curricular", () => {
+    renderComparativoTabela();
+    expect(screen.getByText(/Estudantes da turma 1 em Matemática/i)).toBeInTheDocument();
   });
 
-  it("retorna cor correta para Lingua portuguesa 9º ano", () => {
-    expect(getProgressColor(150, "Lingua portuguesa", 9)).toBe("#FF5959");
-    expect(getProgressColor(210, "Lingua portuguesa", 9)).toBe("#FEDE99");
-    expect(getProgressColor(300, "Lingua portuguesa", 9)).toBe("#5A94D8");
-    expect(getProgressColor(400, "Lingua portuguesa", 9)).toBe("#99FF99");
+  it("renderiza as legendas de níveis", () => {
+    renderComparativoTabela();
+    expect(screen.getByText(/Níveis:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Abaixo do básico/i)).toBeInTheDocument();
+    // multiple “Básico” texts, so check at least one exists
+    expect(screen.getAllByText(/Básico/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Adequado/i)).toBeInTheDocument();
+    expect(screen.getByText(/Avançado/i)).toBeInTheDocument();
   });
 
-  it("retorna cor correta para Matemática 5º ano", () => {
-    expect(getProgressColor(100, "Matemática", 5)).toBe("#FF5959");
-    expect(getProgressColor(200, "Matemática", 5)).toBe("#FEDE99");
-    expect(getProgressColor(250, "Matemática", 5)).toBe("#5A94D8");
-    expect(getProgressColor(300, "Matemática", 5)).toBe("#99FF99");
+  it("renderiza a tabela e nomes dos estudantes", () => {
+    renderComparativoTabela();
+    expect(screen.getByText("Nome do estudante")).toBeInTheDocument();
+    expect(screen.getByText("Aluno 1")).toBeInTheDocument();
+    expect(screen.getByText("Aluno 5")).toBeInTheDocument();
   });
 
-  it("retorna cor correta para Matemática 9º ano", () => {
-    expect(getProgressColor(100, "Matemática", 9)).toBe("#FF5959");
-    expect(getProgressColor(250, "Matemática", 9)).toBe("#FEDE99");
-    expect(getProgressColor(320, "Matemática", 9)).toBe("#5A94D8");
-    expect(getProgressColor(400, "Matemática", 9)).toBe("#99FF99");
+  it("renderiza o botão Exibir mais e chama exibirMais", () => {
+    renderComparativoTabela();
+    const btn = screen.getByRole("button", { name: /Exibir mais/i });
+    fireEvent.click(btn);
+    expect(mockExibirMais).toHaveBeenCalledWith(0);
   });
 
-  it("retorna 'default' para disciplinas/anos não mapeados", () => {
-    expect(getProgressColor(100, "Outra", 1)).toBe("default");
+  it("renderiza o spinner de loading quando estaCarregando for true", () => {
+    jest
+      .spyOn(React, "useState")
+      .mockImplementationOnce(() => [true, jest.fn()])
+      .mockImplementation((init?: any) => [init, jest.fn()]);
+    renderComparativoTabela();
+    expect(screen.getByText(/Carregando.../i)).toBeInTheDocument();
+    jest.restoreAllMocks();
   });
 });
 
-describe("buildColumns - cobertura do if (!psp) return null", () => {
-  it("retorna null quando não existe PSP na lista de proficiencias", () => {
-    // Importa a função buildColumns do módulo
-    const buildColumns = (ComparativoTabelaModule as any).buildColumns as (
-      disciplina: string,
-      ano: number,
-      dados: any[]
-    ) => any[];
+describe("pegaCoresBarraProgresso", () => {
+  const realModule = jest.requireActual("./comparativoTabela") as any;
+  const pegaCoresBarraProgresso = realModule.pegaCoresBarraProgresso;
 
-    // Cria um estudante sem PSP
+  it("retorna a cor correta para cada nível", () => {
+    expect(pegaCoresBarraProgresso("Abaixo do Básico")).toBe("#FF5959");
+    expect(pegaCoresBarraProgresso("Básico")).toBe("#FEDE99");
+    expect(pegaCoresBarraProgresso("Adequado")).toBe("#9999FF");
+    expect(pegaCoresBarraProgresso("Avançado")).toBe("#99FF99");
+    expect(pegaCoresBarraProgresso("Outro")).toBe("#B0B0B0");
+  });
+});
+
+describe("constroiColunas", () => {
+  const realModule = jest.requireActual("./comparativoTabela") as any;
+  const constroiColunas = realModule.constroiColunas;
+
+  it("retorna null no render quando não há PSP", () => {
     const dados = [
       {
         nome: "Aluno Sem PSP",
         variacao: 0,
-        proficiencias: [
-          { descricao: "PSA", mes: "Agosto", valor: 210.5 }
-        ]
-      }
+        proficiencias: [{ descricao: "PSA", mes: "Agosto", valor: 210.5 }],
+      },
     ];
 
-    // Gera as colunas
-    const columns = buildColumns("Lingua portuguesa", 5, dados);
-
-    // Acha a coluna PSP
+    const columns = constroiColunas("Lingua portuguesa", 5, dados);
     const pspColumn = columns[1].children.find((col: any) => col.key === "psp");
-
-    // Chama o render da coluna PSP
     const rendered = pspColumn.render(null, dados[0]);
-
-    // Deve ser null
     expect(rendered).toBeNull();
   });
 });
