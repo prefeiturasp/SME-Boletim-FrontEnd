@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import RelatorioAlunosPorDres from "../componentes/relatorio/relatorioAlunosPorDres";
 import DesempenhoPorMediaProficiencia from "../componentes/grafico/desempenhoPorMediaProficiencia";
+import { useSearchParams } from "react-router-dom";
 const { Header } = Layout;
 
 const linkRetorno = "https://serap.sme.prefeitura.sp.gov.br/";
@@ -80,7 +81,17 @@ const DresPage: React.FC = () => {
     (state: RootState) => state.nomeAplicacao.id
   );
 
+  const [queryStringUtilizada, setQueryStringUtilizada] = useState(false);
+  const [dreUrl, setDreUrl] = useState("");
+
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  /*useEffect(() => {
+    const dreUrl = searchParams.get("dreUrlSelecionada") ?? '';
+    setDreUrl(dreUrl)
+    setQueryStringUtilizada(true)
+  }, []);*/
 
   useEffect(() => {
     const el = stickyRef.current;
@@ -216,8 +227,8 @@ const DresPage: React.FC = () => {
       uesSelecionadas.forEach((dre) => {
         parametros += "dresIds=" + dre.value + "&";
       });
-      
-        url = `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia?${parametros}`;
+
+      url = `/api/BoletimEscolar/${aplicacaoSelecionada}/ano-escolar/${anoSelecionado}/grafico/media-proficiencia?${parametros}`;
 
       const respostas = await servicos.get(url);
       setMediaProficiencia(respostas || []);
@@ -321,17 +332,37 @@ const DresPage: React.FC = () => {
 
   useEffect(() => {
     buscarUes();
-    setUesSelecionadas(prev => (prev.length === 0 ? prev : []));
+    setUesSelecionadas((prev) => (prev.length === 0 ? prev : []));
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado]);
 
- const fetchDresListagem = async () => {
+  useEffect(() => {
+    if (ues.length > 0) checaQueryString();
+  }, [ues]);
+
+  const checaQueryString = async () => {
+    const dreUrl = searchParams.get("dreUrlSelecionada") ?? "";
+
+    if (dreUrl !== "" && queryStringUtilizada == false) {
+      const dreEncontrada = ues.find((x: any) => x.value === Number(dreUrl));
+
+      if (dreEncontrada) {
+        setUesSelecionadas([dreEncontrada]);
+      }
+
+      setQueryStringUtilizada(true);
+    }
+  };
+
+  const fetchDresListagem = async () => {
     setDresDados([]);
 
     if (!aplicacaoSelecionada || !dreSelecionada || !anoSelecionado) return;
 
     try {
       const params = new URLSearchParams();
-      uesSelecionadas.forEach((dre) => params.append("dreIds", String(dre.value)));
+      uesSelecionadas.forEach((dre) =>
+        params.append("dreIds", String(dre.value))
+      );
 
       const qs = params.toString();
       const url =
@@ -346,12 +377,10 @@ const DresPage: React.FC = () => {
     }
   };
 
-
   useEffect(() => {
     fetchDresListagem();
   }, [aplicacaoSelecionada, dreSelecionada, anoSelecionado, uesSelecionadas]);
 
-  
   const uesOptions = useMemo(() => {
     return ues.map((dre: any) => ({
       value: dre.value,
@@ -364,11 +393,16 @@ const DresPage: React.FC = () => {
   };
 
   useEffect(() => {
-      const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
-      if (tipoPerfil !== 5) {        
-        navigate("/ues");
-      }
-    }, []);
+    const tipoPerfil = parseInt(localStorage.getItem("tipoPerfil") || "0", 10);
+    if (tipoPerfil !== 5) {
+      navigate("/ues");
+    }
+  }, []);
+
+  const compararDados = () => {
+    navigate(`/comparar-dados-dre`);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="app-container">
@@ -382,20 +416,45 @@ const DresPage: React.FC = () => {
             <span className="titulo-principal">Boletim de Provas</span>
           </div>
           <div className="barra-azul">
-                      <Breadcrumb
-                        className="breadcrumb"
-                        items={[
-                          { title: 'Home' },
-                          { title: 'Provas' },
-                          { title: 'Boletim de provas' },
-                        ]}
-                      />
+            <Breadcrumb
+              className="breadcrumb"
+              items={[
+                { title: "Home" },
+                { title: "Provas" },
+                { title: "Boletim de provas" },
+              ]}
+            />
             <span className="titulo-secundario">Boletim de provas</span>
           </div>
           <div className="imagem-header">
             <img src={imagemFluxoDRE} alt="Fluxo DRE" />
           </div>
         </Header>
+      </Row>
+      <Row>
+        <div className="comparativo-corpo-drePage">
+          <div className="comparativo-texto-drePage">
+            <div className="comparativo-titulo-drePage">
+              <p>Comparativo de resultados</p>
+            </div>
+            <div className="comparativo-descricao-drePage">
+              <p>
+                Acompanhe a proficiência de todas as Diretorias Regionais de
+                Educação (DREs) nas diferentes aplicações da Prova São Paulo e
+                Prova Saberes e Aprendizagens.
+              </p>
+            </div>
+          </div>
+          <div className="comparativo-botao-drePage">
+            <Button
+              type="primary"
+              onClick={compararDados}
+              className="btnAzulPadrao"
+            >
+              Comparar dados
+            </Button>
+          </div>
+        </div>
       </Row>
 
       <div className="conteudo-principal-ues" ref={containerRef}>
@@ -508,8 +567,8 @@ const DresPage: React.FC = () => {
                 <DesempenhoPorMateria
                   dados={niveisProficiencia}
                   tipo={"DREs"}
-                />                
-                <div ref={sentinelRef} style={{ height: 1 }} />                
+                />
+                <div ref={sentinelRef} style={{ height: 1 }} />
                 <div ref={spacerRef} style={{ height: 0 }} aria-hidden />
                 <div ref={stickyRef} className="conteudo-fixo-dropdown">
                   <p>
@@ -534,7 +593,7 @@ const DresPage: React.FC = () => {
                     }
                     options={uesOptions}
                     optionRender={(option) => {
-                      const selected = uesSelecionadas.some(                        
+                      const selected = uesSelecionadas.some(
                         (dre) => dre.value === option.value
                       );
                       return (
@@ -688,7 +747,11 @@ const DresPage: React.FC = () => {
                               </>
                             )}
                             <Button
-                              data-testid={dre.dreId ? `btn-acessar-${dre.dreId}` : undefined}
+                              data-testid={
+                                dre.dreId
+                                  ? `btn-acessar-${dre.dreId}`
+                                  : undefined
+                              }
                               className="btn-acessar-ue"
                               block
                               disabled={semDisciplinas}
@@ -696,7 +759,9 @@ const DresPage: React.FC = () => {
                                 navigate(`/ues?dreUrlSelecionada=${dre.dreId}`);
                                 window.scrollTo(0, 0);
                               }}
-                            >Acessar DRE</Button>
+                            >
+                              Acessar DRE
+                            </Button>
                           </Card>
                         </Col>
                       );
@@ -771,7 +836,12 @@ const DresPage: React.FC = () => {
       </div>
 
       <div className="rodape">
-        <Button type="primary" icon={<UpOutlined />} onClick={voltarAoInicio} className="btnAzulPadrao">
+        <Button
+          type="primary"
+          icon={<UpOutlined />}
+          onClick={voltarAoInicio}
+          className="btnAzulPadrao"
+        >
           Voltar para o início
         </Button>
       </div>

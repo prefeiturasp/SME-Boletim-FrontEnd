@@ -9,7 +9,8 @@ const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
     escola,
     aplicacaoId,
     componenteCurricularId,
-    ano
+    ano,
+    visao
 }) => {
 
     const navigate = useNavigate();
@@ -17,8 +18,15 @@ const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
     //manda urid por url
     const handleClick = () => {
 
-        try {            
-            navigate(`/?ueSelecionada=${escola.ueId}&dreUrlSelecionada=${dreId}`, {
+        try {   
+            
+            let url: string = ''
+            if(visao === "sme")
+                url = `/dres?dreUrlSelecionada=${dreId}`
+            else {
+                url = `/?ueSelecionada=${escola.ueId}&dreUrlSelecionada=${dreId}`
+            }
+            navigate(url, {
                 state: {
                     abrirComparativo: true,
                     componenteCurricularId,
@@ -39,7 +47,7 @@ const BotaoIrParaComparativo: React.FC<BtnConferirDadosProps> = ({
                 onClick={handleClick}
                 className="cards-comparativa-rodape-btn"
             >
-                Conferir dados da UE
+                {visao === "sme" ? "Conferir dados da DRE" : "Conferir dados da UE"}
             </Button>
         </>)
 };
