@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import FiltroComparativoUes from "./filtroComparativoUes";
+import FiltroComparativoDresUes from "./filtroComparativoDresUes";
 
-describe("Componente FiltroComparativoUes", () => {
+describe("Componente FiltroComparativoDresUes", () => {
   const mockAlterarUe = jest.fn();
 
   const mockProps = {
@@ -12,10 +12,11 @@ describe("Componente FiltroComparativoUes", () => {
       { value: "2", label: "UE Teste 2" },
     ],
     valorSelecionado: { value: "1", label: "UE Teste 1" },
-    alterarUe: mockAlterarUe,
+    alterarDreUe: mockAlterarUe,
     aplicacaoSelecionada: { value: "2024", label: "2024" },
     componenteSelecionado: { value: "Matemática", label: "Matemática" },
     anoSelecionado: { value: "5", label: "5" },
+    visao: "dre",
   };
 
   beforeEach(() => {
@@ -23,22 +24,22 @@ describe("Componente FiltroComparativoUes", () => {
   });
 
   it("deve renderizar o título principal", () => {
-    render(<FiltroComparativoUes {...mockProps} />);
+    render(<FiltroComparativoDresUes {...mockProps} />);
     expect(
       screen.getByText("Evolução por Unidade Educacional (UE)")
     ).toBeInTheDocument();
   });
 
   it("deve renderizar os subtítulos de tags", () => {
-    render(<FiltroComparativoUes {...mockProps} />);
+    render(<FiltroComparativoDresUes {...mockProps} />);
     expect(screen.getByText("Matemática")).toBeInTheDocument();
     expect(screen.getByText("5º ano")).toBeInTheDocument();
     expect(screen.getByText("2024")).toBeInTheDocument();
   });
 
-  it("deve chamar alterarUe ao selecionar uma nova UE", async () => {
+  it("deve chamar alterarDreUe ao selecionar uma nova UE", async () => {
     const user = userEvent.setup();
-    render(<FiltroComparativoUes {...mockProps} />);
+    render(<FiltroComparativoDresUes {...mockProps} />);
 
     await act(async () => {
       const select = screen.getByRole("combobox");

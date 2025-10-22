@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+.cabecalho {
+  width: 100%;
+  padding: 0;
+  background: #ededed;
+  z-index: 1000;
+  height: 200px;
+}
+
+.linha-superior {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  position: relative;
+}
+
+.titulo-principal {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #5a94d8;
+  font-size: 24px;
+}
+
+.retornar {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icone-retorno {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #5a94d8;
+}
+
+.texto-retorno {
+  color: #5a94d8;
+  font-size: 14px;
+}
+
+.barra-azul {
+  background: #5a94d8;
+  padding: 20px 20px 20px 35px;
+}
+
+.breadcrumb {
+  color: #fff;
+}
+
+.breadcrumb .ant-breadcrumb-link {
+  color: #fff !important;
+}
+
+.titulo-secundario {
+  color: #fff;
+  margin-top: 10px;
+  font-size: 30px;
+}
+.ant-breadcrumb-separator {
+  color: #fff !important;
+}
