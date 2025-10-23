@@ -1,0 +1,1 @@
+export const VARIACAO_DESCRICAO ="O valor percentual representa a evolução comparando a última PSA do ano selecionado com a PSP do ano anterior.";
