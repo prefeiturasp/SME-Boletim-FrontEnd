@@ -206,8 +206,11 @@ const Probabilidade: React.FC = () => {
 
   const alteraRadio = (valor: string, tipo: TipoFiltro) => {
     if (tipo === "componentesCurriculares") {
+
+      const idcomponentecurricular = filtroCompleto.componentesCurriculares.find(x => x.texto === valor)?.valor ?? filtroCompleto.componentesCurriculares[0]?.valor
+
       setComponentesCurricular(valor);
-      setComponentesCurricularId(valor);
+      setComponentesCurricularId(idcomponentecurricular);
       const item = filtroCompleto.componentesCurriculares.find(
         (item) => item.texto === valor
       );
@@ -353,8 +356,9 @@ const Probabilidade: React.FC = () => {
               variant="borderless"
               placeholder="Selecione"
               onChange={(value) => {
-                setComponentesCurricular(value);
-                setComponentesCurricularId(value);
+                const idcomponentecurricular = filtroCompleto.componentesCurriculares.find(x => x.texto === value)?.valor ?? filtroCompleto.componentesCurriculares[0]?.valor
+                setComponentesCurricular(value);                
+                setComponentesCurricularId(idcomponentecurricular);
                 alteraRadio(value, "componentesCurriculares");
               }}
               value={
