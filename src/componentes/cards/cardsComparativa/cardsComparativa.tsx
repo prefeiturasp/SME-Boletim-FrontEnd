@@ -1,7 +1,7 @@
 import React from "react";
 import "./cardsComparativa.css";
 import Card from "antd/es/card/Card";
-import { Col, Row } from "antd";
+import { Col, Row, Tooltip } from "antd";
 import iconeAlunos from "../../../assets/icon-alunos.svg";
 import iconeUe from "../../../assets/icon-ue.svg";
 import {
@@ -10,6 +10,7 @@ import {
 } from "../../../interfaces/cardsComparativaProps";
 import { CardsComparativaDiretoriaReginalProps } from "../../../interfaces/cardsComparativaSMEProps";
 import BotaoIrParaComparativo from "../../botao/botaoIrParaComparativo/botaoIrParaComparativo";
+import { VARIACAO_DESCRICAO } from "../../../constantes/constantes";
 
 interface CardsComparativaProps {
   dados: CardsComparativaUnidadeEducacionalProps | CardsComparativaDiretoriaReginalProps;
@@ -55,18 +56,20 @@ const CardsComparativa: React.FC<CardsComparativaProps> = ({
         <div className="cards-comparativa-titulo">
           <b>{isSME ? dados.dreNome : isUE ? dados.ueNome : "-"}</b>
         </div>
-        <div className="cards-comparativa-variacao">
-          <span className="cards-comparativa-variacao-label">Variação:</span>
-          <div>
-            <div
-              className={`cards-comparativa-variacao-valor ${getClasseVariacao(
-                dados.variacao
-              )}`}
-            >
-              {formatarVariacao(dados.variacao)}
+        <Tooltip placement="top" title={VARIACAO_DESCRICAO} >
+          <div className="cards-comparativa-variacao">
+            <span className="cards-comparativa-variacao-label">Variação:</span>
+            <div>
+              <div
+                className={`cards-comparativa-variacao-valor ${getClasseVariacao(
+                  dados.variacao
+                )}`}
+              >
+                {formatarVariacao(dados.variacao)}
+              </div>
             </div>
           </div>
-        </div>
+        </Tooltip>
       </div>
 
       <Row gutter={[16, 16]} className="cards-comparativa-blocos">

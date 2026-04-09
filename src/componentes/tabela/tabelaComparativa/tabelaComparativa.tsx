@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import "./tabelaComparativa.css";
-import { Card, Table, Progress } from "antd";
+import { Card, Table, Progress, Tooltip } from "antd";
 import {
     ParametrosTabelaComparativaProps,
     ValueTabelaComparativaProps
 } from "../../../interfaces/tabelaComparativaProps";
 import { getDadosTabela } from "../../../servicos/compararDados/compararDadosService";
+import { VARIACAO_DESCRICAO } from "../../../constantes/constantes";
 
 const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
     dreSelecionada,
@@ -179,12 +180,14 @@ const TabelaComparativa: React.FC<ParametrosTabelaComparativaProps> = ({
             </div>
             <br />
             <Card className="tabela-comparativa-variacao-card">
-                <div className="tabela-comparativa-variacao">
-                    <div className="tabela-comparativa-variacao-label">Variação</div>
-                    <div className={`tabela-comparativa-variacao-valor ${getClasseVariacao(dadosTabela?.variacao ?? 0)}`}>
-                        {formatarVariacao(dadosTabela?.variacao ?? 0)}
+                <Tooltip placement="top" title={VARIACAO_DESCRICAO} >
+                    <div className="tabela-comparativa-variacao">
+                        <div className="tabela-comparativa-variacao-label">Variação</div>
+                        <div className={`tabela-comparativa-variacao-valor ${getClasseVariacao(dadosTabela?.variacao ?? 0)}`}>
+                            {formatarVariacao(dadosTabela?.variacao ?? 0)}
+                        </div>
                     </div>
-                </div>
+                </Tooltip>
                 <Table
                     columns={columns}
                     dataSource={dataSource}

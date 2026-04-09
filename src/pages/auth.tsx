@@ -30,13 +30,14 @@ const Auth: React.FC = () => {
               token: storedToken,
               dataHoraExpiracao: dataHoraExpiracao,
               tipoPerfil: tipoPerfil,
-            })
+            }),
           );
 
           if (
             tipoPerfilNum === 1 ||
             tipoPerfilNum === 2 ||
-            tipoPerfilNum === 3
+            tipoPerfilNum === 3 ||
+            tipoPerfilNum === 6
           ) {
             navigate("/");
           } else if (tipoPerfilNum === 4 || tipoPerfilNum === 5) {
@@ -59,7 +60,12 @@ const Auth: React.FC = () => {
 
           dispatch(setUserLogged({ token, dataHoraExpiracao, tipoPerfil }));
 
-          if (tipoPerfil === 1 || tipoPerfil === 2 || tipoPerfil === 3) {
+          if (
+            tipoPerfil === 1 ||
+            tipoPerfil === 2 ||
+            tipoPerfil === 3 ||
+            tipoPerfil === 6
+          ) {
             navigate("/");
           } else if (tipoPerfil === 4) {
             navigate("/ues");
