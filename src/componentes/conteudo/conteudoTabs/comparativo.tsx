@@ -88,7 +88,7 @@ const Comparativo: React.FC = () => {
       componentesCurricularSelecionadoId &&
       anosEscolarSelecionadoId
     ) {
-      buscarCardsComparacao();      
+      buscarCardsComparacao();
       buscaTodasTurmas();
     }
   }, [
@@ -443,7 +443,9 @@ const Comparativo: React.FC = () => {
                         fontWeight: "700",
                       }}
                     >
-                      {resumoCardsComparacao?.provaSP?.mediaProficiencia ?? "-"}
+                      {resumoCardsComparacao?.provaSP?.mediaProficiencia?.toFixed(
+                        2
+                      ) ?? "-"}
                     </div>
                     <div className="cards-conteudo-valores">
                       <div className="cards-conteudo-valores-label">
@@ -530,7 +532,7 @@ const Comparativo: React.FC = () => {
                             fontWeight: "700",
                           }}
                         >
-                          {comparacao?.mediaProficiencia ?? "-"}
+                          {comparacao?.mediaProficiencia?.toFixed(2) ?? "-"}
                         </div>
                         <div className="cards-conteudo-valores">
                           <div className="cards-conteudo-valores-label">
