@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import Probabilidade from "./probabilidade";
+
 jest.mock("react-redux", () => {
   return {
     useSelector: jest.fn(),
@@ -24,7 +25,12 @@ describe("Probabilidade", () => {
       turmas: [],
       componentesCurricularesRadio: [{ texto: "Matemática", valor: 1 }],
       anosEscolaresRadio: [{ texto: "5", valor: 5 }],
-      niveisAbaPrincipal: [{ valor: 1 }, { valor: 2 }, { valor: 3 }, { valor: 4 }],
+      niveisAbaPrincipal: [
+        { valor: 1 },
+        { valor: 2 },
+        { valor: 3 },
+        { valor: 4 },
+      ],
     },
     filtroCompleto: {
       componentesCurriculares: [
@@ -41,13 +47,10 @@ describe("Probabilidade", () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    
     (useSelector as jest.Mock).mockImplementation((sel: any) => sel(fakeState));
 
-    
     (useDispatch as jest.Mock).mockReturnValue(jest.fn());
 
-    
     (servicos.get as jest.Mock).mockImplementation((url: string) => {
       if (url.includes("/resultado-probabilidade/lista")) {
         return Promise.resolve({
@@ -66,7 +69,7 @@ describe("Probabilidade", () => {
           totalRegistros: 1,
         });
       }
-      
+
       return Promise.resolve(new Uint8Array([1, 2, 3]));
     });
   });
@@ -75,7 +78,9 @@ describe("Probabilidade", () => {
     render(<Probabilidade />);
     await waitFor(() => {
       expect(servicos.get).toHaveBeenCalledWith(
-        expect.stringMatching(/\/resultado-probabilidade\/lista\?Pagina=1&TamanhoPagina=10/),
+        expect.stringMatching(
+          /\/resultado-probabilidade\/lista\?Pagina=1&TamanhoPagina=10/,
+        ),
       );
     });
   });

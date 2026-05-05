@@ -76,34 +76,35 @@ const Probabilidade: React.FC = () => {
     turmas: [],
     nomeEstudante: "",
     eolEstudante: "",
+    variacoes: [],
   });
 
   const [colunas, setColunas] = useState<any[]>(colunasInicial);
 
   const escolaSelecionada = useSelector(
-    (state: RootState) => state.escola.escolaSelecionada
+    (state: RootState) => state.escola.escolaSelecionada,
   );
 
   const filtroCompleto = useSelector(
-    (state: RootState) => state.filtroCompleto
+    (state: RootState) => state.filtroCompleto,
   );
   const [componentesCurricularSelecionado, setComponentesCurricular] = useState(
-    filtroCompleto.componentesCurriculares[0]?.texto
+    filtroCompleto.componentesCurriculares[0]?.texto,
   );
 
   const [componentesCurricularSelecionadoId, setComponentesCurricularId] =
     useState(filtroCompleto.componentesCurriculares[0]?.valor);
 
   const [anosEscolarSelecionado, setAnoEscolar] = useState(
-    filtroCompleto.anosEscolares[0]?.texto
+    filtroCompleto.anosEscolares[0]?.texto,
   );
 
   const [anosEscolarSelecionadoId, setAnoEscolarId] = useState(
-    filtroCompleto.anosEscolares[0]?.valor
+    filtroCompleto.anosEscolares[0]?.valor,
   );
 
   const aplicacaoSelecionada = useSelector(
-    (state: RootState) => state.nomeAplicacao.id
+    (state: RootState) => state.nomeAplicacao.id,
   );
 
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
@@ -127,16 +128,16 @@ const Probabilidade: React.FC = () => {
 
       const idComponentesCurriculares =
         filtroCompleto.componentesCurriculares.find(
-          (item) => item.texto === componentesCurricularSelecionado
+          (item) => item.texto === componentesCurricularSelecionado,
         )?.valor ?? 0;
 
       const idAnosEscolares =
         filtroCompleto.anosEscolares.find(
-          (item) => item.texto === anosEscolarSelecionado
+          (item) => item.texto === anosEscolarSelecionado,
         )?.valor ?? 0;
 
       const resposta = await servicos.get(
-        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade/lista?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`
+        `/api/boletimescolar/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${idComponentesCurriculares}/${idAnosEscolares}/resultado-probabilidade/lista?Pagina=${paginaAtual}&TamanhoPagina=${tamanhoPagina}&${filtros}`,
       );
 
       setDadosFormatados(resposta.resultados);
@@ -176,12 +177,12 @@ const Probabilidade: React.FC = () => {
   const toggleColumnVisibility = (
     columnsSetter: React.Dispatch<React.SetStateAction<any[]>>,
     key: string,
-    value: boolean
+    value: boolean,
   ) => {
     columnsSetter((prevColumns) =>
       prevColumns.map((col) =>
-        col.key === key ? { ...col, hidden: value } : col
-      )
+        col.key === key ? { ...col, hidden: value } : col,
+      ),
     );
   };
 
@@ -197,7 +198,7 @@ const Probabilidade: React.FC = () => {
 
     keys.forEach(({ key, valor }) => {
       const isVisible = filtrosSelecionados.niveisAbaPrincipal.some(
-        (item) => item.valor === valor
+        (item) => item.valor === valor,
       );
 
       toggleColumnVisibility(setColunas, key, !isVisible);
@@ -206,13 +207,14 @@ const Probabilidade: React.FC = () => {
 
   const alteraRadio = (valor: string, tipo: TipoFiltro) => {
     if (tipo === "componentesCurriculares") {
-
-      const idcomponentecurricular = filtroCompleto.componentesCurriculares.find(x => x.texto === valor)?.valor ?? filtroCompleto.componentesCurriculares[0]?.valor
+      const idcomponentecurricular =
+        filtroCompleto.componentesCurriculares.find((x) => x.texto === valor)
+          ?.valor ?? filtroCompleto.componentesCurriculares[0]?.valor;
 
       setComponentesCurricular(valor);
       setComponentesCurricularId(idcomponentecurricular);
       const item = filtroCompleto.componentesCurriculares.find(
-        (item) => item.texto === valor
+        (item) => item.texto === valor,
       );
       const novosFiltros = {
         ...filtrosSelecionados,
@@ -223,7 +225,7 @@ const Probabilidade: React.FC = () => {
       setAnoEscolar(valor);
       setAnoEscolarId(valor);
       const item = filtroCompleto.anosEscolares.find(
-        (item) => item.texto === valor
+        (item) => item.texto === valor,
       );
       const novosFiltros = {
         ...filtrosSelecionados,
@@ -263,13 +265,13 @@ const Probabilidade: React.FC = () => {
 
     const idComponentesCurriculares =
       filtroCompleto.componentesCurriculares.find(
-        (item) => item.texto === componentesCurricularSelecionado
+        (item) => item.texto === componentesCurricularSelecionado,
       )?.valor ?? 0;
 
     try {
       const resposta = await servicos.get(
         `/api/BoletimEscolar/download-probabilidade/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
-        { responseType: "blob" }
+        { responseType: "blob" },
       );
 
       const blob = new Blob([resposta], {
@@ -356,8 +358,11 @@ const Probabilidade: React.FC = () => {
               variant="borderless"
               placeholder="Selecione"
               onChange={(value) => {
-                const idcomponentecurricular = filtroCompleto.componentesCurriculares.find(x => x.texto === value)?.valor ?? filtroCompleto.componentesCurriculares[0]?.valor
-                setComponentesCurricular(value);                
+                const idcomponentecurricular =
+                  filtroCompleto.componentesCurriculares.find(
+                    (x) => x.texto === value,
+                  )?.valor ?? filtroCompleto.componentesCurriculares[0]?.valor;
+                setComponentesCurricular(value);
                 setComponentesCurricularId(idcomponentecurricular);
                 alteraRadio(value, "componentesCurriculares");
               }}
@@ -449,7 +454,7 @@ const Probabilidade: React.FC = () => {
                 .includes(filtroTexto.toLowerCase()) ||
               item.codigoHabilidade
                 .toLowerCase()
-                .includes(filtroTexto.toLowerCase())
+                .includes(filtroTexto.toLowerCase()),
           )}
           locale={{ emptyText: "Não encontramos dados" }}
           pagination={{

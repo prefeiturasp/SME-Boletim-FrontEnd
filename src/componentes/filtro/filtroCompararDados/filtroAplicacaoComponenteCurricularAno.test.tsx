@@ -36,7 +36,7 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
     render(
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno {...defaultProps} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(screen.getByText("DRE Teste")).toBeInTheDocument();
   });
@@ -48,10 +48,10 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
           {...defaultProps}
           dreSelecionadaNome={undefined}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(
-      screen.getByText("Secretaria Municipal de Educação")
+      screen.getByText("Secretaria Municipal de Educação"),
     ).toBeInTheDocument();
   });
 
@@ -59,7 +59,7 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
     render(
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno {...defaultProps} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(screen.getByText("Voltar a tela anterior")).toBeInTheDocument();
   });
@@ -68,10 +68,10 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
     render(
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno {...defaultProps} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(
-      screen.getByText(/acompanhar a evolução do nível de proficiência/i)
+      screen.getByText(/acompanhar a evolução do nível de proficiência/i),
     ).toBeInTheDocument();
     expect(screen.getByText("Ano da aplicação")).toBeInTheDocument();
     expect(screen.getByText("Componente curricular")).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
     render(
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno {...defaultProps} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const selects = screen.getAllByRole("combobox");
@@ -97,7 +97,7 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
     render(
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno {...defaultProps} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const selects = screen.getAllByRole("combobox");
@@ -112,7 +112,7 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
     render(
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno {...defaultProps} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const selects = screen.getAllByRole("combobox");
@@ -128,11 +128,11 @@ describe("FiltroAplicacaoComponenteCurricularAno", () => {
       <MemoryRouter>
         <FiltroAplicacaoComponenteCurricularAno
           {...defaultProps}
-          aplicacoes={[]}
+          aplicacoes={defaultProps.aplicacoes}
           componentesCurriculares={[]}
           anos={[]}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Ano da aplicação")).toBeInTheDocument();

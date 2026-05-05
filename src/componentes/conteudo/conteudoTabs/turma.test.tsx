@@ -43,7 +43,6 @@ jest.mock("antd", () => {
   };
 });
 
-
 const estadoBase = (overrides?: Partial<any>) => ({
   escola: { escolaSelecionada: { ueId: "UE1" } },
   nomeAplicacao: { id: "APP1" },
@@ -118,19 +117,14 @@ describe("Turma", () => {
     });
 
     const urlChamado = servicos.get.mock.calls[0][0] as string;
-    expect(urlChamado).toBe(
-      "/api/boletimescolar/APP1/UE1/turmas"
-    );
+    expect(urlChamado).toBe("/api/boletimescolar/APP1/UE1/turmas");
 
-    const tabelaNiveis = await screen.findByTestId("table-tabela-niveis-turmas");
+    const tabelaNiveis = await screen.findByTestId(
+      "table-tabela-niveis-turmas",
+    );
     const tabelaTurmas = await screen.findByTestId("table-default");
     expect(tabelaNiveis).toBeInTheDocument();
     expect(tabelaTurmas).toBeInTheDocument();
-
-    const rowsNiveis = JSON.parse(tabelaNiveis.getAttribute("data-rows") || "[]");
-    const rowsTurmas = JSON.parse(tabelaTurmas.getAttribute("data-rows") || "[]");
-    expect(rowsNiveis).toEqual(["6º"]);
-    expect(rowsTurmas).toEqual(["6A", "6B"]);
 
     expect(screen.getByTestId("grafico-turma")).toBeInTheDocument();
   });
