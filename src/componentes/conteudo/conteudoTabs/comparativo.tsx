@@ -1,4 +1,4 @@
-import { Card, Col, Row, Select, Spin } from "antd";
+import { Card, Col, Row, Select, Button, notification } from "antd";
 import "./comparativo.css";
 import { useEffect, useState } from "react";
 import iconeDados from "../../../assets/icon-dados.svg";
@@ -9,7 +9,11 @@ import { servicos } from "../../../servicos";
 import ComparativoTabela from "./comparativoTabela";
 import LoadingBox from "../../loadingBox/loadingBox";
 import { useLocation } from "react-router-dom";
-//import { atualizarCampos } from "../../../redux/slices/filtroCompletoSlice";
+import {
+  DownloadOutlined,
+  InfoCircleOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 
 interface Turma {
   ano: number;
@@ -22,8 +26,8 @@ interface Turma {
 const Comparativo: React.FC = () => {
   const dispatch = useDispatch();
   const [estaCarregando, setEstaCarregando] = useState(false);
+  const [estaCarregandoRelatorio, setEstaCarregandoRelatorio] = useState(false);
 
-  //Confirmar como vai ficar
   const [resumoCardsComparacao, setResumoCardsComparacao] = useState<
     any | null
   >(null);
@@ -35,21 +39,20 @@ const Comparativo: React.FC = () => {
   const limite = 10;
 
   const filtroCompleto = useSelector(
-    (state: RootState) => state.filtroCompleto
+    (state: RootState) => state.filtroCompleto,
   );
 
   const filtrosSelecionados = useSelector((state: RootState) => state.filtros);
   const activeTab = useSelector((state: RootState) => state.tab.activeTab);
 
   const escolaSelecionada = useSelector(
-    (state: RootState) => state.escola.escolaSelecionada
+    (state: RootState) => state.escola.escolaSelecionada,
   );
 
   const aplicacaoSelecionada = useSelector(
-    (state: RootState) => state.nomeAplicacao.id
+    (state: RootState) => state.nomeAplicacao.id,
   );
 
-  //Codigo para o valor ficar ordenado.
   const componentesOrdenados =
     filtroCompleto.componentesCurriculares
       ?.slice()
@@ -66,10 +69,10 @@ const Comparativo: React.FC = () => {
     useState<number | null>(primeiroValor);
 
   const [anosEscolarSelecionado, setAnoEscolar] = useState(
-    filtroCompleto.anosEscolares[0]?.texto ?? ""
+    filtroCompleto.anosEscolares[0]?.texto ?? "",
   );
   const [anosEscolarSelecionadoId, setAnoEscolarId] = useState(
-    filtroCompleto.anosEscolares[0]?.valor ?? null
+    filtroCompleto.anosEscolares[0]?.valor ?? null,
   );
 
   const [turmaSelecionada, setTurma] = useState("Todas");
@@ -88,7 +91,7 @@ const Comparativo: React.FC = () => {
       componentesCurricularSelecionadoId &&
       anosEscolarSelecionadoId
     ) {
-      buscarCardsComparacao();      
+      buscarCardsComparacao();
       buscaTodasTurmas();
     }
   }, [
@@ -99,7 +102,6 @@ const Comparativo: React.FC = () => {
     anosEscolarSelecionadoId,
   ]);
 
-  //pega só o componente curricular e o ano
   const location = useLocation();
   useEffect(() => {
     if (location.state?.abrirComparativo) {
@@ -108,8 +110,8 @@ const Comparativo: React.FC = () => {
         setComponentesCurricularId(componenteCurricularId);
         setComponentesCurricular(
           componentesOrdenados.find(
-            (item) => item.valor === componenteCurricularId
-          )?.texto || ""
+            (item) => item.valor === componenteCurricularId,
+          )?.texto || "",
         );
       }
       if (location.state.ano) {
@@ -133,7 +135,7 @@ const Comparativo: React.FC = () => {
         return;
 
       const resposta = await servicos.get(
-        `/api/BoletimEscolar/proficienciaComparativoProvaSp/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`
+        `/api/BoletimEscolar/proficienciaComparativoProvaSp/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
       );
 
       setResumoCardsComparacao(resposta || null);
@@ -149,7 +151,7 @@ const Comparativo: React.FC = () => {
     try {
       setEstaCarregando(true);
       const resultado: Turma[] = await servicos.get(
-        `/api/BoletimEscolar/${aplicacaoSelecionada}/turmas-ue-ano/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`
+        `/api/BoletimEscolar/${aplicacaoSelecionada}/turmas-ue-ano/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}`,
       );
       const registrosPorTabela: number[] = [];
       resultado.map(() => {
@@ -162,6 +164,68 @@ const Comparativo: React.FC = () => {
       setEstaCarregando(false);
     } finally {
       setEstaCarregando(false);
+    }
+  };
+
+  const iniciarDownloadRelatorioComparativo = async () => {
+    setEstaCarregandoRelatorio(true);
+
+    notification.open({
+      key: "relatorioComparativo",
+      message: <b>Os dados estão em processamento</b>,
+      description: `Não atualize a tela! Assim que os dados forem processados, o seu documento "Dados da ${escolaSelecionada?.descricao}" será baixado automaticamente.`,
+      placement: "bottomLeft",
+      icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
+      duration: 8,
+      pauseOnHover: true,
+      closeIcon: false,
+    });
+
+    try {
+      const resposta = await servicos.get(
+        `/api/boletimescolar/download-comparativo/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}/${turmaSelecionadaId}`,
+        { responseType: "blob" },
+      );
+
+      const blob = new Blob([resposta], {
+        type: "application/vnd.ms-excel",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `boletim-comparativo-${escolaSelecionada.descricao}.xls`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+
+      notification.open({
+        key: "relatorioComparativoSuccess",
+        message: <b>Tudo certo por aqui!</b>,
+        description: `Seu documento "${escolaSelecionada.descricao}" foi baixado com sucesso! Verifique a pasta de downloads no seu dispositivo.`,
+        placement: "bottomLeft",
+        icon: <CheckCircleOutlined style={{ color: "#108ee9" }} />,
+        duration: 8,
+        pauseOnHover: true,
+        closeIcon: false,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar os dados da tabela:", error);
+      setEstaCarregandoRelatorio(false);
+
+      notification.open({
+        key: "relatorioComparativoError",
+        message: <b>Não conseguimos baixar seu documento</b>,
+        description: `Ocorreu um erro no download do seu documento “${escolaSelecionada?.descricao}”. Você pode tentar novamente. `,
+        placement: "bottomLeft",
+        icon: <InfoCircleOutlined style={{ color: "#108ee9" }} />,
+        duration: 8,
+        pauseOnHover: true,
+        closeIcon: false,
+      });
+    } finally {
+      setEstaCarregandoRelatorio(false);
     }
   };
 
@@ -183,7 +247,7 @@ const Comparativo: React.FC = () => {
   const buscaUnicaTurma = async (
     ano: string,
     turma: string,
-    limite: number
+    limite: number,
   ) => {
     try {
       const variacoesSelecionadas = filtrosSelecionados?.variacoes || [];
@@ -200,7 +264,7 @@ const Comparativo: React.FC = () => {
         variacao += "&tiposVariacao=3";
 
       const resultado = await servicos.get(
-        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`
+        `/api/BoletimEscolar/comparativo-aluno-ue/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${ano}/${ano}${turma}/${aplicacaoSelecionada}/?nomeAluno=${nomeSelecionado}&pagina=1&itensPorPagina=${limite}${variacao}`,
       );
 
       return resultado;
@@ -223,14 +287,14 @@ const Comparativo: React.FC = () => {
               turmaSelecionada === item.turma
             )
               return buscaUnicaTurma(item.ano, item.turma, limite);
-          })
+          }),
         );
         setDadosTurma(resultados.filter((x) => x != undefined) || []);
       } else {
         const unicaTurma = await buscaUnicaTurma(
           todasTurmas[index].ano,
           todasTurmas[index].turma,
-          tabelasCount[index]
+          tabelasCount[index],
         );
 
         if (!unicaTurma) {
@@ -301,7 +365,7 @@ const Comparativo: React.FC = () => {
               onChange={(value: number) => {
                 setComponentesCurricularId(value);
                 const item = filtroCompleto.componentesCurriculares.find(
-                  (i) => i.valor === value
+                  (i) => i.valor === value,
                 );
                 setComponentesCurricular(item?.texto ?? "");
               }}
@@ -332,7 +396,7 @@ const Comparativo: React.FC = () => {
               onChange={(value) => {
                 setAnoEscolarId(value);
                 const item = filtroCompleto.anosEscolares.find(
-                  (i) => i.valor === value
+                  (i) => i.valor === value,
                 );
                 setAnoEscolar(item?.texto ?? "");
               }}
@@ -427,7 +491,7 @@ const Comparativo: React.FC = () => {
                               borderRadius: "50%",
                               backgroundColor: getNivelColor(
                                 resumoCardsComparacao?.provaSP
-                                  ?.nivelProficiencia ?? ""
+                                  ?.nivelProficiencia ?? "",
                               ),
                             }}
                           ></span>
@@ -515,7 +579,7 @@ const Comparativo: React.FC = () => {
                                   height: "10px",
                                   borderRadius: "50%",
                                   backgroundColor: getNivelColor(
-                                    comparacao?.nivelProficiencia ?? ""
+                                    comparacao?.nivelProficiencia ?? "",
                                   ),
                                 }}
                               ></span>
@@ -614,6 +678,30 @@ const Comparativo: React.FC = () => {
           />
         );
       })}
+
+      <div className="download-section">
+        <Row gutter={16} align="middle" justify="center">
+          <Col>
+            <div className="download-wrapper">
+              <p className="school-text">
+                Você pode baixar os dados da{" "}
+                <b>{escolaSelecionada?.descricao}</b>, clicando no botão ao lado
+              </p>
+
+              <Button
+                type="primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={iniciarDownloadRelatorioComparativo}
+                icon={<DownloadOutlined />}
+                disabled={estaCarregandoRelatorio}
+              >
+                Baixar os dados
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 };
