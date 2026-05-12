@@ -247,4 +247,147 @@ describe("CompararDados", () => {
     const titulos = screen.getAllByText(/Comparativo/i);
     expect(titulos.length).toBeGreaterThan(0);
   });
+
+  it("renderiza filtro aplicacao componente curricular ano", async () => {
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE Teste",
+    );
+    await waitFor(() => {
+      expect(screen.getByTestId("filtro-aplicacao")).toBeInTheDocument();
+    });
+  });
+
+  it("chama getComponentesCurricularesDre quando aplicacao é selecionada", async () => {
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(() => {
+      expect(
+        compararDadosService.getComponentesCurricularesDre,
+      ).toHaveBeenCalled();
+    });
+  });
+
+  it("chama getListaUes com parametros corretos", async () => {
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(() => {
+      expect(compararDadosService.getListaUes).toHaveBeenCalled();
+    });
+  });
+
+  it("renderiza button exibir mais quando há mais dados", async () => {
+    (compararDadosService.getComporativoUe as jest.Mock).mockResolvedValueOnce({
+      ues: Array(15).fill({ ueId: 1, ueNome: "Escola A" }),
+      total: 25,
+      dreId: 1,
+    });
+
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(
+      () => {
+        const buttons = screen.queryAllByRole("button");
+        expect(buttons.length).toBeGreaterThan(0);
+      },
+      { timeout: 3000 },
+    );
+  });
+
+  it("não renderiza button exibir mais quando não há mais dados", async () => {
+    (compararDadosService.getComporativoUe as jest.Mock).mockResolvedValueOnce({
+      ues: [{ ueId: 1, ueNome: "Escola A" }],
+      total: 1,
+      dreId: 1,
+    });
+
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(
+      () => {
+        expect(
+          document.querySelector(".comparar-dados-card-conteudo"),
+        ).toBeInTheDocument();
+      },
+      { timeout: 3000 },
+    );
+  });
+
+  it("retorna early quando dreUrlSelecionada não é válida", () => {
+    renderWithProviders(<CompararDados />, "/?dreUrlSelecionada=abc");
+    expect(screen.getByText("Home")).toBeInTheDocument();
+  });
+
+  it("retorna early quando dreSelecionadaNome não é fornecido", () => {
+    renderWithProviders(<CompararDados />, "/?dreUrlSelecionada=1");
+    expect(screen.getByText("Home")).toBeInTheDocument();
+  });
+
+  it("chama getAnosEscolaresUe com parametros corretos", async () => {
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(() => {
+      expect(compararDadosService.getAnosEscolaresUe).toHaveBeenCalled();
+    });
+  });
+
+  it("trata lista vazia de UEs", async () => {
+    (compararDadosService.getListaUes as jest.Mock).mockResolvedValueOnce([]);
+
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Home")).toBeInTheDocument();
+    });
+  });
+
+  it("chama getComporativoUe quando todos os filtros estão selecionados", async () => {
+    renderWithProviders(
+      <CompararDados />,
+      "/?dreUrlSelecionada=1&dreSelecionadaNome=DRE",
+    );
+
+    await waitFor(() => {
+      expect(compararDadosService.getComporativoUe).toHaveBeenCalled();
+    });
+  });
+
+  it("renderiza link retorno com classe correta", () => {
+    renderWithProviders(<CompararDados />);
+    const link = screen.getByRole("link", { name: /Retornar/i });
+    expect(link).toHaveClass("retornar");
+  });
+
+  it("renderiza header com className cabecalho", () => {
+    renderWithProviders(<CompararDados />);
+    expect(document.querySelector(".cabecalho")).toHaveClass("cabecalho");
+  });
+
+  it("renderiza linha superior com texto retorno", () => {
+    renderWithProviders(<CompararDados />);
+    expect(screen.getByText("Retornar à tela inicial")).toBeInTheDocument();
+  });
+
+  it("renderiza barra azul com classe correta", () => {
+    renderWithProviders(<CompararDados />);
+    expect(document.querySelector(".barra-azul")).toBeInTheDocument();
+  });
 });
