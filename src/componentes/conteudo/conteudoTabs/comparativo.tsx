@@ -6,6 +6,7 @@ import iconeAlunos from "../../../assets/icon-alunos.svg";
 import { RootState } from "../../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { servicos } from "../../../servicos";
+import api from "../../../servicos";
 import ComparativoTabela from "./comparativoTabela";
 import LoadingBox from "../../loadingBox/loadingBox";
 import { useLocation } from "react-router-dom";
@@ -182,18 +183,16 @@ const Comparativo: React.FC = () => {
     });
 
     try {
-      const resposta = await servicos.get(
-        `/api/boletimescolar/download-comparativo/${aplicacaoSelecionada}/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}/${turmaSelecionadaId}`,
-        { responseType: "blob" },
-      );
-
-      const blob = new Blob([resposta], {
-        type: "application/vnd.ms-excel",
-      });
+      let url = `/api/boletimescolar/download-comparativo/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}/${aplicacaoSelecionada}`;
+      if (turmaSelecionada && turmaSelecionada !== "Todas") {
+        url = url.concat(`?turma=${turmaSelecionada}`);
+      }
+      const resposta = await api.get(url, { responseType: "blob" });
+      const blob = resposta.data;
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = `boletim-comparativo-${escolaSelecionada.descricao}.xls`;
+      link.download = `resultado-comparativo-${escolaSelecionada.descricao}.xlsx`;
 
       document.body.appendChild(link);
       link.click();
