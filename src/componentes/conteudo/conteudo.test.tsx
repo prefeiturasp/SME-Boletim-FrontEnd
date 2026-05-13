@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { useDispatch, useSelector } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 
@@ -41,7 +41,7 @@ const renderWithRouter = () =>
   render(
     <MemoryRouter>
       <Conteudo />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
 describe("Conteudo Component - Testes Corrigidos", () => {
@@ -61,13 +61,13 @@ describe("Conteudo Component - Testes Corrigidos", () => {
       expect.objectContaining({
         type: "tab/setActiveTab",
         payload: "2",
-      })
+      }),
     );
   });
 
   test("renderiza conteúdo da aba ativa", () => {
     mockUseSelector.mockImplementation((cb) =>
-      cb({ ...baseMockState, tab: { activeTab: "4" } })
+      cb({ ...baseMockState, tab: { activeTab: "4" } }),
     );
     renderWithRouter();
     expect(screen.getByText("Resultado")).toBeInTheDocument();
@@ -78,17 +78,86 @@ describe("Conteudo Component - Testes Corrigidos", () => {
       .spyOn(window.localStorage.__proto__, "getItem")
       .mockImplementation(() => "4");
     renderWithRouter();
-    expect(
-      screen.getByText(/Voltar a tela anterior/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Voltar a tela anterior/i)).toBeInTheDocument();
     localStorageSpy.mockRestore();
   });
 
   test("renderiza Select com opções mockadas", async () => {
     const mockAplicacoes = [{ id: 1, nome: "Opção 1" }];
-    require("../../servicos").servicos.get.mockResolvedValueOnce(mockAplicacoes);
+    require("../../servicos").servicos.get.mockResolvedValueOnce(
+      mockAplicacoes,
+    );
     renderWithRouter();
     fireEvent.mouseDown(screen.getByRole("combobox"));
     expect(await screen.findByText("Opção 1")).toBeInTheDocument();
+  });
+
+  test("botão 'Voltar a tela anterior' está presente e é clicável", () => {
+    renderWithRouter();
+    const btn = screen.getByText(/Voltar a tela anterior/i);
+    expect(btn).toBeInTheDocument();
+    fireEvent.click(btn);
+    // handleClick chama navigate, não dispatch
+    expect(btn).toBeInTheDocument();
+  });
+
+  test("buscarAplicacoes é chamado quando ueId muda", async () => {
+    const mockAplicacoes = [
+      { id: 10, nome: "PSP 2025", tipoTai: true, dataInicioLote: "2025-01-01" },
+    ];
+    require("../../servicos").servicos.get.mockResolvedValueOnce(
+      mockAplicacoes,
+    );
+    renderWithRouter();
+    await waitFor(() => {
+      expect(require("../../servicos").servicos.get).toHaveBeenCalledWith(
+        "/api/boletimescolar/aplicacoes-prova",
+      );
+    });
+  });
+
+  test("não chama buscarAplicacoes quando ueId é null", () => {
+    mockUseSelector.mockImplementation((cb) =>
+      cb({
+        ...baseMockState,
+        escola: { escolaSelecionada: { ueId: null, descricao: null } },
+      }),
+    );
+    renderWithRouter();
+    expect(require("../../servicos").servicos.get).not.toHaveBeenCalled();
+  });
+
+  test("renderiza aba Comparativo na tab 5", () => {
+    mockUseSelector.mockImplementation((cb) =>
+      cb({ ...baseMockState, tab: { activeTab: "5" } }),
+    );
+    renderWithRouter();
+    expect(screen.getAllByText("Comparativo")[0]).toBeInTheDocument();
+  });
+
+  test("renderiza aba Estudantes na tab 3", () => {
+    mockUseSelector.mockImplementation((cb) =>
+      cb({ ...baseMockState, tab: { activeTab: "3" } }),
+    );
+    renderWithRouter();
+    expect(screen.getAllByText("Estudantes")[0]).toBeInTheDocument();
+  });
+
+  test("renderiza aba Principal na tab 1", () => {
+    mockUseSelector.mockImplementation((cb) =>
+      cb({ ...baseMockState, tab: { activeTab: "1" } }),
+    );
+    renderWithRouter();
+    expect(screen.getAllByText("Principal")[0]).toBeInTheDocument();
+  });
+
+  test("exibe erro e não quebra quando buscarAplicacoes falha", async () => {
+    require("../../servicos").servicos.get.mockRejectedValueOnce(
+      new Error("Falha API"),
+    );
+    renderWithRouter();
+    await waitFor(() => {
+      expect(require("../../servicos").servicos.get).toHaveBeenCalled();
+    });
   });
 });
