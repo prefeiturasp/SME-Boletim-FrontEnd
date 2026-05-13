@@ -4,8 +4,24 @@ import { Provider } from "react-redux";
 import { render, screen, act } from "@testing-library/react";
 import AppRoutes from "./AppRoutes";
 
-jest.mock("./componentes/cabecalho/cabecalho", () => () => <div>Cabecalho</div>);
-jest.mock("./componentes/escolherEscola/escolherEscola", () => () => <div>EscolherEscola</div>);
+jest.mock("./servicos", () => ({
+  servicos: { get: jest.fn(), post: jest.fn() },
+}));
+
+jest.mock("./componentes/cards/cardsComparativa/cardsComparativa", () => () => (
+  <div>Cards Comparativa</div>
+));
+
+jest.mock("./pages/compararDadosSme", () => () => (
+  <div>Comparar Dados SME</div>
+));
+
+jest.mock("./componentes/cabecalho/cabecalho", () => () => (
+  <div>Cabecalho</div>
+));
+jest.mock("./componentes/escolherEscola/escolherEscola", () => () => (
+  <div>EscolherEscola</div>
+));
 jest.mock("./componentes/conteudo/conteudo", () => () => <div>Conteudo</div>);
 jest.mock("./componentes/rodape/rodape", () => () => <div>Rodape</div>);
 jest.mock("./pages/auth", () => () => <div>Auth Page</div>);
@@ -24,13 +40,16 @@ function makeStore(isAuthenticated: boolean) {
 
 function renderWithProviders(
   ui: React.ReactElement,
-  { initialEntries = ["/"], isAuthenticated = false }: { initialEntries?: string[]; isAuthenticated?: boolean } = {}
+  {
+    initialEntries = ["/"],
+    isAuthenticated = false,
+  }: { initialEntries?: string[]; isAuthenticated?: boolean } = {},
 ) {
   const store = makeStore(isAuthenticated);
   return render(
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
-    </Provider>
+    </Provider>,
   );
 }
 
@@ -51,20 +70,29 @@ describe("AppRoutes + PrivateRoute", () => {
   });
 
   test("mostra loader 'Carregando...' inicialmente no PrivateRoute", async () => {
-    renderWithProviders(<AppRoutes />, { initialEntries: ["/"], isAuthenticated: true });
+    renderWithProviders(<AppRoutes />, {
+      initialEntries: ["/"],
+      isAuthenticated: true,
+    });
     expect(screen.getByText("Carregando...")).toBeInTheDocument();
 
     await flushTimers();
   });
 
   test("redireciona para /sem-acesso quando não autenticado (rota /)", async () => {
-    renderWithProviders(<AppRoutes />, { initialEntries: ["/"], isAuthenticated: false });
+    renderWithProviders(<AppRoutes />, {
+      initialEntries: ["/"],
+      isAuthenticated: false,
+    });
     await flushTimers();
     expect(screen.getByText("Sem Acesso Page")).toBeInTheDocument();
   });
 
   test("renderiza AppLayout quando autenticado (rota /)", async () => {
-    renderWithProviders(<AppRoutes />, { initialEntries: ["/"], isAuthenticated: true });
+    renderWithProviders(<AppRoutes />, {
+      initialEntries: ["/"],
+      isAuthenticated: true,
+    });
     await flushTimers();
     expect(screen.getByText("Cabecalho")).toBeInTheDocument();
     expect(screen.getByText("EscolherEscola")).toBeInTheDocument();
@@ -73,12 +101,18 @@ describe("AppRoutes + PrivateRoute", () => {
   });
 
   test("rota pública /validar sempre renderiza Auth", () => {
-    renderWithProviders(<AppRoutes />, { initialEntries: ["/validar"], isAuthenticated: false });
+    renderWithProviders(<AppRoutes />, {
+      initialEntries: ["/validar"],
+      isAuthenticated: false,
+    });
     expect(screen.getByText("Auth Page")).toBeInTheDocument();
   });
 
   test("rota pública /sem-acesso sempre renderiza", () => {
-    renderWithProviders(<AppRoutes />, { initialEntries: ["/sem-acesso"], isAuthenticated: false });
+    renderWithProviders(<AppRoutes />, {
+      initialEntries: ["/sem-acesso"],
+      isAuthenticated: false,
+    });
     expect(screen.getByText("Sem Acesso Page")).toBeInTheDocument();
   });
 
@@ -86,14 +120,23 @@ describe("AppRoutes + PrivateRoute", () => {
     ["/ues", "Ues Page"],
     ["/dres", "Dres Page"],
   ])("rota privada %s renderiza quando autenticado", async (path, expected) => {
-    renderWithProviders(<AppRoutes />, { initialEntries: [path], isAuthenticated: true });
+    renderWithProviders(<AppRoutes />, {
+      initialEntries: [path],
+      isAuthenticated: true,
+    });
     await flushTimers();
     expect(screen.getByText(expected)).toBeInTheDocument();
   });
 
-  test.each([["/ues"], ["/dres"]])("rota privada %s redireciona quando NÃO autenticado", async (path) => {
-    renderWithProviders(<AppRoutes />, { initialEntries: [path], isAuthenticated: false });
-    await flushTimers();
-    expect(screen.getByText("Sem Acesso Page")).toBeInTheDocument();
-  });
+  test.each([["/ues"], ["/dres"]])(
+    "rota privada %s redireciona quando NÃO autenticado",
+    async (path) => {
+      renderWithProviders(<AppRoutes />, {
+        initialEntries: [path],
+        isAuthenticated: false,
+      });
+      await flushTimers();
+      expect(screen.getByText("Sem Acesso Page")).toBeInTheDocument();
+    },
+  );
 });
