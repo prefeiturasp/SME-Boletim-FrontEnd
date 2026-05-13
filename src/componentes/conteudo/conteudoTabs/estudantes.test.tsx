@@ -59,7 +59,7 @@ function setupReduxMocks() {
 describe("Estudantes", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // setupReduxMocks();   
+    // setupReduxMocks();
   });
 
   test("renderiza textos principais e tabela vazia", async () => {
@@ -70,7 +70,7 @@ describe("Estudantes", () => {
         tab: { activeTab: mockActiveTab },
         nomeAplicacao: { id: 1 },
       });
-    });     
+    });
     (servicos.get as jest.Mock).mockResolvedValueOnce({
       estudantes: { itens: [], totalRegistros: 0 },
       disciplinas: [],
@@ -79,10 +79,10 @@ describe("Estudantes", () => {
 
     render(<Estudantes />);
     expect(
-      screen.getByText(/Esta seção apresenta uma tabela/i)
+      screen.getByText(/Esta seção apresenta uma tabela/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Distribuição de estudantes em cada nível por turma/i)
+      screen.getByText(/Distribuição de estudantes em cada nível por turma/i),
     ).toBeInTheDocument();
 
     await waitFor(() => {
@@ -104,28 +104,30 @@ describe("Estudantes", () => {
   });
 
   test("renderiza tabela com estudantes", async () => {
-  (servicos.get as jest.Mock).mockResolvedValueOnce({
-    estudantes: {
-      itens: [{
-        id: 1,
-        nome: "João",
-        eol: "123",
-        turma: "A",
-        componenteCurricular: "Matemática",
-        ano: "2024",
-        proficiencia: 250,
-        nivel: "Avançado"
-      }],
-      totalRegistros: 1
-    },
-    disciplinas: [],
-  });
-  (servicos.get as jest.Mock).mockResolvedValueOnce([]);
+    (servicos.get as jest.Mock).mockResolvedValueOnce({
+      estudantes: {
+        itens: [
+          {
+            id: 1,
+            nome: "João",
+            eol: "123",
+            turma: "A",
+            componenteCurricular: "Matemática",
+            ano: "2024",
+            proficiencia: 250,
+            nivel: "Avançado",
+          },
+        ],
+        totalRegistros: 1,
+      },
+      disciplinas: [],
+    });
+    (servicos.get as jest.Mock).mockResolvedValueOnce([]);
 
     render(<Estudantes />);
     await waitFor(() => {
-      expect(screen.getByText("A")).toBeInTheDocument();      // Turma
-      expect(screen.getByText("250")).toBeInTheDocument();    // Proficiência
+      expect(screen.getByText("A")).toBeInTheDocument(); // Turma
+      expect(screen.getByText("250")).toBeInTheDocument(); // Proficiência
       // Se quiser, pode verificar também a existência da linha:
       // expect(screen.getAllByRole("row").length).toBeGreaterThan(1);
     });
@@ -146,8 +148,8 @@ describe("Estudantes", () => {
 
   test("chama serviço ao alterar filtro de nome", async () => {
     (servicos.get as jest.Mock).mockResolvedValueOnce({
-    estudantes: { itens: [], totalRegistros: 0 },
-    disciplinas: [],
+      estudantes: { itens: [], totalRegistros: 0 },
+      disciplinas: [],
     });
 
     render(<Estudantes />);
@@ -211,11 +213,187 @@ describe("Estudantes", () => {
   });
 
   test("renderiza componente de gráfico mockado diretamente", () => {
-      // Importa o mock diretamente
-      const GraficoMock = require("../../grafico/estudantePorMateria").default;
-      const { getByTestId } = render(<GraficoMock />);
-      expect(getByTestId("grafico-mock")).toBeInTheDocument();
+    // Importa o mock diretamente
+    const GraficoMock = require("../../grafico/estudantePorMateria").default;
+    const { getByTestId } = render(<GraficoMock />);
+    expect(getByTestId("grafico-mock")).toBeInTheDocument();
   });
 
+  test("não busca dados quando activeTab é diferente de '3'", async () => {
+    useSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        escola: { escolaSelecionada: mockEscola },
+        filtros: mockFiltros,
+        tab: { activeTab: "1" },
+        nomeAplicacao: { id: 1 },
+      }),
+    );
+    render(<Estudantes />);
+    // Aguarda um tick para garantir que nenhum efeito assíncrono foi disparado
+    await new Promise((r) => setTimeout(r, 100));
+    expect(servicos.get).not.toHaveBeenCalled();
+  });
 
+  test("busca com filtros preenchidos (nomeEstudante e eolEstudante)", async () => {
+    const filtrosComValores = {
+      ...mockFiltros,
+      nomeEstudante: "Maria",
+      eolEstudante: "12345",
+    };
+    useSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        escola: { escolaSelecionada: mockEscola },
+        filtros: filtrosComValores,
+        tab: { activeTab: "3" },
+        nomeAplicacao: { id: 1 },
+      }),
+    );
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("estudantes-grafico")) return Promise.resolve([]);
+      return Promise.resolve({
+        estudantes: { itens: [], totalRegistros: 0 },
+        disciplinas: [],
+      });
+    });
+
+    render(<Estudantes />);
+    await waitFor(() => {
+      const calls = (servicos.get as jest.Mock).mock.calls;
+      const url = calls.find((c) => c[0]?.includes("NomeEstudante=Maria"));
+      expect(url).toBeDefined();
+    });
+  });
+
+  test("busca com filtros de anosEscolares e componentesCurriculares", async () => {
+    const filtrosComAnos = {
+      ...mockFiltros,
+      anosEscolares: [{ valor: 5, texto: "5" }],
+      componentesCurriculares: [{ valor: 4, texto: "Matemática" }],
+      niveis: [{ valor: 1, texto: "Abaixo do Básico" }],
+    };
+    useSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        escola: { escolaSelecionada: mockEscola },
+        filtros: filtrosComAnos,
+        tab: { activeTab: "3" },
+        nomeAplicacao: { id: 1 },
+      }),
+    );
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("estudantes-grafico")) return Promise.resolve([]);
+      return Promise.resolve({
+        estudantes: { itens: [], totalRegistros: 0 },
+        disciplinas: [],
+      });
+    });
+
+    render(<Estudantes />);
+    await waitFor(() => {
+      const calls = (servicos.get as jest.Mock).mock.calls;
+      const urlEstudantes = calls.find((c) => c[0]?.includes("Ano=5"));
+      expect(urlEstudantes).toBeDefined();
+    });
+  });
+
+  test("busca com filtros de nivelMinimo e nivelMaximo", async () => {
+    const filtrosComNivel = {
+      ...mockFiltros,
+      nivelMinimoEscolhido: 100,
+      nivelMaximoEscolhido: 250,
+    };
+    useSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        escola: { escolaSelecionada: mockEscola },
+        filtros: filtrosComNivel,
+        tab: { activeTab: "3" },
+        nomeAplicacao: { id: 1 },
+      }),
+    );
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("estudantes-grafico")) return Promise.resolve([]);
+      return Promise.resolve({
+        estudantes: { itens: [], totalRegistros: 0 },
+        disciplinas: [],
+      });
+    });
+
+    render(<Estudantes />);
+    await waitFor(() => {
+      const calls = (servicos.get as jest.Mock).mock.calls;
+      const urlComNivel = calls.find((c) => c[0]?.includes("NivelMinimo=100"));
+      expect(urlComNivel).toBeDefined();
+    });
+  });
+
+  test("renderiza gráfico quando buscarDadosGraficos retorna dados", async () => {
+    useSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        escola: { escolaSelecionada: mockEscola },
+        filtros: mockFiltros,
+        tab: { activeTab: "3" },
+        nomeAplicacao: { id: 1 },
+      }),
+    );
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("estudantes-grafico"))
+        return Promise.resolve([{ turma: "A", disciplina: "Matemática" }]);
+      return Promise.resolve({
+        estudantes: { itens: [], totalRegistros: 0 },
+        disciplinas: [],
+      });
+    });
+
+    render(<Estudantes />);
+    await waitFor(() => {
+      expect(screen.getByTestId("grafico-mock")).toBeInTheDocument();
+    });
+  });
+
+  test("buscarDadosGraficos com filtros ativos monta URL com querystring", async () => {
+    const filtrosComValores = {
+      ...mockFiltros,
+      nomeEstudante: "João",
+      anosEscolares: [{ valor: 9, texto: "9" }],
+    };
+    useSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        escola: { escolaSelecionada: mockEscola },
+        filtros: filtrosComValores,
+        tab: { activeTab: "3" },
+        nomeAplicacao: { id: 1 },
+      }),
+    );
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("estudantes-grafico")) return Promise.resolve([]);
+      return Promise.resolve({
+        estudantes: { itens: [], totalRegistros: 0 },
+        disciplinas: [],
+      });
+    });
+
+    render(<Estudantes />);
+    await waitFor(() => {
+      const calls = (servicos.get as jest.Mock).mock.calls;
+      const graficoCall = calls.find((c) =>
+        c[0]?.includes("estudantes-grafico"),
+      );
+      expect(graficoCall).toBeDefined();
+      expect(graficoCall[0]).toContain("NomeEstudante=Jo%C3%A3o");
+    });
+  });
+
+  test("exibe única disciplina sem 'e' quando há apenas uma", async () => {
+    (servicos.get as jest.Mock).mockImplementation((url: string) => {
+      if (url.includes("estudantes-grafico")) return Promise.resolve([]);
+      return Promise.resolve({
+        estudantes: { itens: [], totalRegistros: 0 },
+        disciplinas: ["Matemática"],
+      });
+    });
+
+    render(<Estudantes />);
+    await waitFor(() => {
+      expect(screen.getByText("Matemática")).toBeInTheDocument();
+    });
+  });
 });

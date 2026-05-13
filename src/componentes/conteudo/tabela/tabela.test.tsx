@@ -52,11 +52,11 @@ describe("Tabela", () => {
 
     expect(screen.getByText("Matemática")).toBeInTheDocument();
     expect(screen.getAllByText("Abaixo do básico")[0]).toBeInTheDocument();
-    expect(screen.getByText("Básico")).toBeInTheDocument();
-    expect(screen.getByText("Adequado")).toBeInTheDocument();
-    expect(screen.getByText("Avançado")).toBeInTheDocument();
-    expect(screen.getByText("Total")).toBeInTheDocument();
-    expect(screen.getByText("Média de proficiência")).toBeInTheDocument();
+    expect(screen.getAllByText("Básico")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Adequado")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Avançado")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Total")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Média de proficiência")[0]).toBeInTheDocument();
     expect(screen.getByText("6")).toBeInTheDocument();
     expect(screen.getByText("180")).toBeInTheDocument();
   });
@@ -163,6 +163,80 @@ describe("Tabela", () => {
       <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("oculta colunas quando nível é removido dos filtros (basico ausente)", () => {
+    const mockStateSemBasico = {
+      tab: { activeTab: "1" },
+      filtros: {
+        niveisAbaPrincipal: [
+          { texto: "Abaixo do Básico", valor: 1 },
+          { texto: "Adequado", valor: 3 },
+          { texto: "Avançado", valor: 4 },
+        ],
+      },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateSemBasico),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("oculta colunas quando nível adequado é removido dos filtros", () => {
+    const mockStateSemAdequado = {
+      tab: { activeTab: "1" },
+      filtros: {
+        niveisAbaPrincipal: [
+          { texto: "Abaixo do Básico", valor: 1 },
+          { texto: "Básico", valor: 2 },
+          { texto: "Avançado", valor: 4 },
+        ],
+      },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateSemAdequado),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("oculta colunas quando nível avancado é removido dos filtros", () => {
+    const mockStateSemAvancado = {
+      tab: { activeTab: "1" },
+      filtros: {
+        niveisAbaPrincipal: [
+          { texto: "Abaixo do Básico", valor: 1 },
+          { texto: "Básico", valor: 2 },
+          { texto: "Adequado", valor: 3 },
+        ],
+      },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateSemAvancado),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("renderiza filtros sem nenhum nível selecionado", () => {
+    const mockStateVazio = {
+      tab: { activeTab: "1" },
+      filtros: { niveisAbaPrincipal: [] },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateVazio),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
     expect(screen.getByText("Matemática")).toBeInTheDocument();
   });
 });
