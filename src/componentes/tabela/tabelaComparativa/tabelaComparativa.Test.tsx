@@ -50,10 +50,9 @@ jest.mock("antd", () => ({
 }));
 
 import TabelaComparativa from "./tabelaComparativa";
+import * as compararDadosService from "../../../servicos/compararDados/compararDadosService";
 
-const {
-  getDadosTabela,
-} = require("../../../servicos/compararDados/compararDadosService");
+const { getDadosTabela } = compararDadosService as any;
 
 // Mock store
 const createMockStore = () => {

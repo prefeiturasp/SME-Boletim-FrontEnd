@@ -185,7 +185,9 @@ const Comparativo: React.FC = () => {
     try {
       let url = `/api/boletimescolar/download-comparativo/${escolaSelecionada.ueId}/${componentesCurricularSelecionadoId}/${anosEscolarSelecionadoId}/${aplicacaoSelecionada}`;
       if (turmaSelecionada && turmaSelecionada !== "Todas") {
-        url = url.concat(`?turma=${turmaSelecionada}`);
+        url = url.concat(
+          `?turma=${anosEscolarSelecionadoId}${turmaSelecionada}`,
+        );
       }
       const resposta = await api.get(url, { responseType: "blob" });
       const blob = resposta.data;
@@ -507,7 +509,7 @@ const Comparativo: React.FC = () => {
                       }}
                     >
                       {resumoCardsComparacao?.provaSP?.mediaProficiencia?.toFixed(
-                        2
+                        2,
                       ) ?? "-"}
                     </div>
                     <div className="cards-conteudo-valores">
