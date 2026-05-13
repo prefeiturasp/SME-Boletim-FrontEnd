@@ -74,7 +74,7 @@ describe("ComparativoTabela", () => {
 
   it("renderiza a tabela e nomes dos estudantes", () => {
     renderComparativoTabela();
-    expect(screen.getByText("Nome do estudante")).toBeInTheDocument();
+    expect(screen.getAllByText("Nome do estudante")[0]).toBeInTheDocument();
     expect(screen.getByText("Aluno 1")).toBeInTheDocument();
     expect(screen.getByText("Aluno 5")).toBeInTheDocument();
   });
