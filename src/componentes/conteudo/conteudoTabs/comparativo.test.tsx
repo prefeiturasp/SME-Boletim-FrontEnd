@@ -229,7 +229,7 @@ describe("Comparativo - Cards de Proficiência", () => {
   it("renderiza card PSP com dados corretos", async () => {
     await renderizar();
     await waitFor(() => {
-      expect(screen.getByText("180")).toBeInTheDocument();
+      expect(screen.getByText("180.00")).toBeInTheDocument();
       expect(screen.getByText("Básico")).toBeInTheDocument();
     });
   });
