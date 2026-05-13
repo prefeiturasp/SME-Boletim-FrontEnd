@@ -37,7 +37,7 @@ const mockState = {
 describe("Tabela", () => {
   beforeEach(() => {
     (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
-      cb(mockState)
+      cb(mockState),
     );
   });
 
@@ -47,11 +47,11 @@ describe("Tabela", () => {
 
   it("renderiza tabela com dados corretamente", () => {
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     expect(screen.getByText("Matemática")).toBeInTheDocument();
-    expect(screen.getByText("Abaixo do básico")).toBeInTheDocument();
+    expect(screen.getAllByText("Abaixo do básico")[0]).toBeInTheDocument();
     expect(screen.getByText("Básico")).toBeInTheDocument();
     expect(screen.getByText("Adequado")).toBeInTheDocument();
     expect(screen.getByText("Avançado")).toBeInTheDocument();
@@ -64,7 +64,7 @@ describe("Tabela", () => {
   it("exibe mensagem de vazio quando não há dados", () => {
     render(<Tabela dados={[]} origem="principal" estaCarregando={false} />);
     expect(
-      screen.getByText("Não encontramos dados para a UE selecionada")
+      screen.getByText("Não encontramos dados para a UE selecionada"),
     ).toBeInTheDocument();
   });
 
@@ -76,11 +76,11 @@ describe("Tabela", () => {
 
   it("executa drag and drop entre colunas sem erro", () => {
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     const headers = screen.getAllByText(
-      /Componente curricular|Abaixo do básico|Básico|Adequado|Avançado|Total|Média de proficiência/
+      /Componente curricular|Abaixo do básico|Básico|Adequado|Avançado|Total|Média de proficiência/,
     );
 
     const dataTransfer = {
@@ -106,14 +106,15 @@ describe("Tabela", () => {
       { key: "adequado", hidden: false },
     ];
 
-    jest.spyOn(React, "useState")
+    jest
+      .spyOn(React, "useState")
       // 1° useState - colunas
       .mockReturnValueOnce([colunasMock, mockSetColunas])
       // 2° useState - draggedColumn
       .mockReturnValueOnce([null, jest.fn()]);
 
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     // pegamos o argumento passado ao setColunas e executamos a função
@@ -138,11 +139,11 @@ describe("Tabela", () => {
     };
 
     (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
-      cb(mockState2)
+      cb(mockState2),
     );
 
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     expect(screen.getByText("Matemática")).toBeInTheDocument();
@@ -155,11 +156,11 @@ describe("Tabela", () => {
     };
 
     (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
-      cb(mockState3)
+      cb(mockState3),
     );
 
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     expect(screen.getByText("Matemática")).toBeInTheDocument();

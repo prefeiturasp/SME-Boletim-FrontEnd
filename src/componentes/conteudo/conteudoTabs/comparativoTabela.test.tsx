@@ -10,7 +10,6 @@ beforeAll(() => {
 });
 
 jest.mock("./comparativoTabela.css", () => ({}));
-jest.mock("./../../../assets/icon-mais.svg", () => "iconeMais.svg");
 
 const mockExibirMais = jest.fn();
 const mockDadosTurma = {
