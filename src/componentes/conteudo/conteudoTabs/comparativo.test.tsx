@@ -413,3 +413,26 @@ describe("Comparativo - Persistência de Estado", () => {
     expect(useSelector).toBeDefined();
   });
 });
+
+describe("Comparativo - Filtro de Turma Específica", () => {
+  it("renderiza todas as turmas após busca", async () => {
+    await renderizar();
+
+    await waitFor(() => {
+      const tabelasComparativas = screen.getAllByTestId("comparativo-tabela");
+      expect(tabelasComparativas.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("renderiza tabelas com o nome correto de cada turma", async () => {
+    await renderizar();
+
+    await waitFor(() => {
+      const tabelasComparativas = screen.getAllByTestId("comparativo-tabela");
+      const tabelasTexto = tabelasComparativas.map((t) => t.textContent);
+
+      expect(tabelasTexto.some((t) => t?.includes("Turma 1"))).toBe(true);
+      expect(tabelasTexto.some((t) => t?.includes("Turma 2"))).toBe(true);
+    });
+  });
+});

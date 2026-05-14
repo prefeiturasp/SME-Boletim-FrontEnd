@@ -292,9 +292,24 @@ const Comparativo: React.FC = () => {
         );
         setDadosTurma(resultados.filter((x) => x != undefined) || []);
       } else {
+        let turmaParaBuscar: any;
+
+        if (turmaSelecionada === "Todas") {
+          turmaParaBuscar = todasTurmas[index];
+        } else {
+          turmaParaBuscar = todasTurmas.find(
+            (t: any) => t.turma === turmaSelecionada,
+          );
+        }
+
+        if (!turmaParaBuscar) {
+          setEstaCarregando(false);
+          return;
+        }
+
         const unicaTurma = await buscaUnicaTurma(
-          todasTurmas[index].ano,
-          todasTurmas[index].turma,
+          turmaParaBuscar.ano,
+          turmaParaBuscar.turma,
           tabelasCount[index],
         );
 
