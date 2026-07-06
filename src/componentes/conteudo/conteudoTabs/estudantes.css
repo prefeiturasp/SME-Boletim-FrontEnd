@@ -14,3 +14,22 @@
   font-size: 12px;
   font-weight: bold;
 }
+
+.coluna-nome-estudante {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icones-indicadores {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icone-indicador {
+  flex-shrink: 0;
+  height: 18px;
+  width: auto;
+  display: block;
+}
