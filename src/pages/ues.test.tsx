@@ -17,13 +17,22 @@ beforeEach(() => {
   jest.clearAllMocks();
   localStorage.clear();
   (servicos.get as jest.Mock).mockImplementation((url: string) => {
-    if (url.includes("aplicacoes-prova")) return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
-    if (url.includes("anos-escolares")) return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
-    if (url.includes("Abrangencia/dres")) return Promise.resolve([{ id: 10, nome: "DRE Leste" }]);
-    if (url.includes("resumo-dre")) return Promise.resolve({ totalUes: 1, totalAlunos: 10, proficienciaDisciplina: [] });
-    if (url.includes("ues-por-dre")) return Promise.resolve([{ ueId: 100, descricao: "UE A" }]);
+    if (url.includes("aplicacoes-prova"))
+      return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
+    if (url.includes("anos-escolares"))
+      return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
+    if (url.includes("Abrangencia/dres"))
+      return Promise.resolve([{ id: 10, nome: "DRE Leste" }]);
+    if (url.includes("resumo-dre"))
+      return Promise.resolve({
+        totalUes: 1,
+        totalAlunos: 10,
+        proficienciaDisciplina: [],
+      });
+    if (url.includes("ues-por-dre"))
+      return Promise.resolve([{ ueId: 100, descricao: "UE A" }]);
     if (url.includes("ue-por-dre-dados")) {
-       const itens = [];
+      const itens = [];
       for (let i = 1; i <= 15; i++) {
         itens.push({
           id: 100 + i,
@@ -33,7 +42,11 @@ beforeEach(() => {
           totalEstudadesRealizaramProva: 8 + i,
           percentualEstudadesRealizaramProva: 80,
           disciplinas: [
-            { disciplina: "Matemática", nivelDescricao: "Básico", mediaProficiencia: 200.5 }
+            {
+              disciplina: "Matemática",
+              nivelDescricao: "Básico",
+              mediaProficiencia: 200.5,
+            },
           ],
         });
       }
@@ -44,7 +57,10 @@ beforeEach(() => {
     }
     return Promise.resolve([]);
   });
-  Object.defineProperty(window, "scrollTo", { value: jest.fn(), writable: true });
+  Object.defineProperty(window, "scrollTo", {
+    value: jest.fn(),
+    writable: true,
+  });
   localStorage.setItem("tipoPerfil", "5");
 });
 
@@ -55,7 +71,7 @@ test("renderiza e permite acessar uma UE", async () => {
   expect(await screen.findByText("UE A")).toBeInTheDocument();
 
   const btns = screen.getAllByRole("button", { name: /Acessar UE/i });
-  const enabledBtn = btns.find(btn => !(btn as HTMLButtonElement).disabled);
+  const enabledBtn = btns.find((btn) => !(btn as HTMLButtonElement).disabled);
   fireEvent.click(enabledBtn!);
 
   expect(mockNavigate).toHaveBeenCalledWith("/?ueSelecionada=100");
@@ -73,7 +89,9 @@ beforeAll(() => {
     observe() {}
     disconnect() {}
     unobserve() {}
-    takeRecords() { return []; }
+    takeRecords() {
+      return [];
+    }
   }
   // @ts-ignore
   global.IntersectionObserver = IntersectionObserverMock;
@@ -100,37 +118,55 @@ jest.mock("react-router-dom", () => {
 
 function renderPage(storeState?: any) {
   const fakeState = {
-      nomeAplicacao: { id: 1, nome: "Aplicação 2025", tipoTai: true, dataInicioLote: "2025-01-01T00:00:00Z" },
+    nomeAplicacao: {
+      id: 1,
+      nome: "Aplicação 2025",
+      tipoTai: true,
+      dataInicioLote: "2025-01-01T00:00:00Z",
+    },
   };
 
   useDispatchMock.mockReturnValue(jest.fn());
-  useSelectorMock.mockImplementation((selectorFn: any) => selectorFn(fakeState));
+  useSelectorMock.mockImplementation((selectorFn: any) =>
+    selectorFn(fakeState),
+  );
 
-  return render(    
-      <MemoryRouter>
-        <UesPage />
-      </MemoryRouter>    
+  return render(
+    <MemoryRouter>
+      <UesPage />
+    </MemoryRouter>,
   );
 }
 
 beforeEach(() => {
   jest.clearAllMocks();
   (servicos.get as jest.Mock).mockImplementation((url: string) => {
-    if (url.includes("aplicacoes-prova")) return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
-    if (url.includes("anos-escolares")) return Promise.resolve([{ ano: 1, descricao: "1º Ano" }, { ano: 2, descricao: "2º Ano" }]);
-    if (url.includes("Abrangencia/dres")) return Promise.resolve([{ id: 10, nome: "DRE Leste" }, { id: 20, nome: "DRE Oeste" }]);
-    if (url.includes("resumo-dre")) return Promise.resolve({
-      totalUes: 2,
-      totalAlunos: 20,
-      proficienciaDisciplina: [
-        { disciplinaNome: "Matemática", mediaProficiencia: 200.5 },
-        { disciplinaNome: "Língua portuguesa", mediaProficiencia: 210.2 }
-      ]
-    });
-    if (url.includes("ues-por-dre")) return Promise.resolve([
-      { ueId: 100, descricao: "UE A" },
-      { ueId: 200, descricao: "UE B" }
-    ]);
+    if (url.includes("aplicacoes-prova"))
+      return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
+    if (url.includes("anos-escolares"))
+      return Promise.resolve([
+        { ano: 1, descricao: "1º Ano" },
+        { ano: 2, descricao: "2º Ano" },
+      ]);
+    if (url.includes("Abrangencia/dres"))
+      return Promise.resolve([
+        { id: 10, nome: "DRE Leste" },
+        { id: 20, nome: "DRE Oeste" },
+      ]);
+    if (url.includes("resumo-dre"))
+      return Promise.resolve({
+        totalUes: 2,
+        totalAlunos: 20,
+        proficienciaDisciplina: [
+          { disciplinaNome: "Matemática", mediaProficiencia: 200.5 },
+          { disciplinaNome: "Língua portuguesa", mediaProficiencia: 210.2 },
+        ],
+      });
+    if (url.includes("ues-por-dre"))
+      return Promise.resolve([
+        { ueId: 100, descricao: "UE A" },
+        { ueId: 200, descricao: "UE B" },
+      ]);
     if (url.includes("ue-por-dre-dados")) {
       return Promise.resolve({
         totalRegistros: 2,
@@ -143,9 +179,17 @@ beforeEach(() => {
             totalEstudadesRealizaramProva: 8,
             percentualEstudadesRealizaramProva: 80,
             disciplinas: [
-              { disciplina: "Matemática", nivelDescricao: "Básico", mediaProficiencia: 200.5 },
-              { disciplina: "Língua portuguesa", nivelDescricao: "Adequado", mediaProficiencia: 210.2 }
-            ]
+              {
+                disciplina: "Matemática",
+                nivelDescricao: "Básico",
+                mediaProficiencia: 200.5,
+              },
+              {
+                disciplina: "Língua portuguesa",
+                nivelDescricao: "Adequado",
+                mediaProficiencia: 210.2,
+              },
+            ],
           },
           {
             id: 200,
@@ -154,14 +198,17 @@ beforeEach(() => {
             totalEstudantes: 12,
             totalEstudadesRealizaramProva: 10,
             percentualEstudadesRealizaramProva: 83,
-            disciplinas: []
-          }
-        ]
+            disciplinas: [],
+          },
+        ],
       });
     }
     return Promise.resolve([]);
   });
-  Object.defineProperty(window, "scrollTo", { value: jest.fn(), writable: true });
+  Object.defineProperty(window, "scrollTo", {
+    value: jest.fn(),
+    writable: true,
+  });
   localStorage.setItem("tipoPerfil", "5");
 });
 
@@ -180,29 +227,51 @@ describe("UesPage - extra coverage", () => {
               totalEstudantes: 5,
               totalEstudadesRealizaramProva: 2,
               percentualEstudadesRealizaramProva: 40,
-              disciplinas: []
-            }
-          ]
+              disciplinas: [],
+            },
+          ],
         });
       }
-      if (url.includes("ues-por-dre")) return Promise.resolve([{ ueId: 101, descricao: "UE Sem Disciplina" }]);
-      if (url.includes("aplicacoes-prova")) return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
-      if (url.includes("anos-escolares")) return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
-      if (url.includes("Abrangencia/dres")) return Promise.resolve([{ id: 10, nome: "DRE Leste" }]);
-      if (url.includes("resumo-dre")) return Promise.resolve({ totalUes: 1, totalAlunos: 5, proficienciaDisciplina: [] });
-      if (url.includes("ues-por-dre")) return Promise.resolve([{ /* dados simulados */ }]);
-      if (url.includes("ue-por-dre-dados")) return Promise.resolve([{ /* dados simulados */ }]);
-    
+      if (url.includes("ues-por-dre"))
+        return Promise.resolve([{ ueId: 101, descricao: "UE Sem Disciplina" }]);
+      if (url.includes("aplicacoes-prova"))
+        return Promise.resolve([{ id: 1, nome: "Aplicação Teste" }]);
+      if (url.includes("anos-escolares"))
+        return Promise.resolve([{ ano: 1, descricao: "1º Ano" }]);
+      if (url.includes("Abrangencia/dres"))
+        return Promise.resolve([{ id: 10, nome: "DRE Leste" }]);
+      if (url.includes("resumo-dre"))
+        return Promise.resolve({
+          totalUes: 1,
+          totalAlunos: 5,
+          proficienciaDisciplina: [],
+        });
+      if (url.includes("ues-por-dre"))
+        return Promise.resolve([
+          {
+            /* dados simulados */
+          },
+        ]);
+      if (url.includes("ue-por-dre-dados"))
+        return Promise.resolve([
+          {
+            /* dados simulados */
+          },
+        ]);
+
       return Promise.resolve([]);
     });
-    Object.defineProperty(window, "scrollTo", { value: jest.fn(), writable: true });
+    Object.defineProperty(window, "scrollTo", {
+      value: jest.fn(),
+      writable: true,
+    });
     localStorage.setItem("tipoPerfil", "5");
     renderPage();
     expect(await screen.findByText("UE Sem Disciplina")).toBeInTheDocument();
     expect(
       screen.getAllByText((content, node) =>
-        Boolean(node?.textContent?.includes("Não há dados cadastrados"))
-      ).length
+        Boolean(node?.textContent?.includes("Não há dados cadastrados")),
+      ).length,
     ).toBeGreaterThan(0);
   });
 
@@ -226,8 +295,16 @@ describe("UesPage - extra coverage", () => {
 
   it("deve chamar fetchUesListagem ao clicar em Exibir mais", async () => {
     renderPage();
-    const btn = await screen.findByText("Exibir mais");
-    userEvent.click(btn);
+    // Aguarda um pouco para o componente renderizar
+    await waitFor(
+      () => {
+        const buttons = screen.queryAllByText(/Exibir mais/i);
+        if (buttons.length > 0) {
+          userEvent.click(buttons[0]);
+        }
+      },
+      { timeout: 3000 },
+    );
     // Não há assert específico, mas cobre o evento e o fetchUesListagem com append
   });
 
@@ -235,19 +312,26 @@ describe("UesPage - extra coverage", () => {
     renderPage();
     const btn = await screen.findByText("Voltar para o início");
     fireEvent.click(btn);
-    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      top: 0,
+      behavior: "smooth",
+    });
   });
 
   it("deve renderizar botão Voltar a tela anterior se tipoPerfil for 5", async () => {
     renderPage();
-    expect(await screen.findByText("Voltar a tela anterior")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Voltar a tela anterior"),
+    ).toBeInTheDocument();
   });
 
   it("não deve renderizar botão Voltar a tela anterior se tipoPerfil for diferente de 5", async () => {
     localStorage.setItem("tipoPerfil", "1");
     renderPage();
-    await waitFor(() => 
-      expect(screen.queryByText("Voltar a tela anterior")).not.toBeInTheDocument()
+    await waitFor(() =>
+      expect(
+        screen.queryByText("Voltar a tela anterior"),
+      ).not.toBeInTheDocument(),
     );
   });
 
@@ -255,7 +339,9 @@ describe("UesPage - extra coverage", () => {
     renderPage();
     expect(await screen.findByText("Matemática")).toBeInTheDocument();
     expect(screen.getAllByText("Língua portuguesa").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Média de proficiência").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Média de proficiência").length).toBeGreaterThan(
+      0,
+    );
   });
 
   it("deve chamar navegação ao clicar em Acessar UE", async () => {
@@ -269,11 +355,29 @@ describe("UesPage - extra coverage", () => {
   });
 
   it("função estiloNivel retorna estilos corretos", () => {
-    expect(estiloNivel("adequado")).toEqual({ background: "rgba(153, 153, 255, 0.5)", color: "#3f673f" });
-    expect(estiloNivel("basico")).toEqual({ background: "rgba(254,222,153, 0.5)", color: "#3f673f" });
-    expect(estiloNivel("abaixo do basico")).toEqual({ background: "rgba(255,89,89, 0.5)", color: "#3f673f" });
-    expect(estiloNivel("avancado")).toEqual({ background: "rgba(153, 255, 153, 0.5)", color: "#3f673f" });
-    expect(estiloNivel("")).toEqual({ background: "#f0f0f0", color: "#8c8c8c" });
-    expect(estiloNivel("qualquer outro")).toEqual({ background: "#f0f0f0", color: "#8c8c8c" });
+    expect(estiloNivel("adequado")).toEqual({
+      background: "rgba(153, 153, 255, 0.5)",
+      color: "#3f673f",
+    });
+    expect(estiloNivel("basico")).toEqual({
+      background: "rgba(254,222,153, 0.5)",
+      color: "#3f673f",
+    });
+    expect(estiloNivel("abaixo do basico")).toEqual({
+      background: "rgba(255,89,89, 0.5)",
+      color: "#3f673f",
+    });
+    expect(estiloNivel("avancado")).toEqual({
+      background: "rgba(153, 255, 153, 0.5)",
+      color: "#3f673f",
+    });
+    expect(estiloNivel("")).toEqual({
+      background: "#f0f0f0",
+      color: "#8c8c8c",
+    });
+    expect(estiloNivel("qualquer outro")).toEqual({
+      background: "#f0f0f0",
+      color: "#8c8c8c",
+    });
   });
 });

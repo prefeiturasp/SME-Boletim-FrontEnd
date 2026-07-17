@@ -17,10 +17,9 @@ const TabelaComparativaSME: React.FC<ParametrosTabelaComparativaNovaProps> = ({
     { key: "qtdeEstudante", aplicacao: "Qtde Estudantes" },
   ];
 
-  if(dados === undefined)
-    return <></>
+  if (dados === undefined) return <></>;
 
-  const colunasDinamicas = dados?.aplicacao?.map((item, index) => {
+  const colunasDinamicas = dados?.aplicacao?.map((item: any, index: number) => {
     const colKey = `${item.descricao}-${item.mes}-${index}`;
     return {
       title: item.mes ? `${item.descricao} (${item.mes})` : item.descricao,
@@ -57,7 +56,7 @@ const TabelaComparativaSME: React.FC<ParametrosTabelaComparativaNovaProps> = ({
   const dataSource = linhasFixas.map((linha) => {
     const row: any = { key: linha.key, aplicacao: linha.aplicacao };
 
-    dados?.aplicacao?.forEach((item, index) => {
+    dados?.aplicacao?.forEach((item: any, index: number) => {
       const colKey = `${item.descricao}-${item.mes}-${index}`;
 
       if (linha.key === "proficiencia") {
@@ -153,12 +152,12 @@ const TabelaComparativaSME: React.FC<ParametrosTabelaComparativaNovaProps> = ({
       </div>
       <br />
       <Card className="tabela-comparativa-variacao-card">
-        <Tooltip placement="top" title={VARIACAO_DESCRICAO} >
+        <Tooltip placement="top" title={VARIACAO_DESCRICAO}>
           <div className="tabela-comparativa-variacao">
             <div className="tabela-comparativa-variacao-label">Variação</div>
             <div
               className={`tabela-comparativa-variacao-valor ${getClasseVariacao(
-                dados?.variacao ?? 0
+                dados?.variacao ?? 0,
               )}`}
             >
               {formatarVariacao(dados?.variacao ?? 0)}

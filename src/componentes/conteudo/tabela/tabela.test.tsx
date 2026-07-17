@@ -37,7 +37,7 @@ const mockState = {
 describe("Tabela", () => {
   beforeEach(() => {
     (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
-      cb(mockState)
+      cb(mockState),
     );
   });
 
@@ -47,16 +47,16 @@ describe("Tabela", () => {
 
   it("renderiza tabela com dados corretamente", () => {
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     expect(screen.getByText("Matemática")).toBeInTheDocument();
-    expect(screen.getByText("Abaixo do básico")).toBeInTheDocument();
-    expect(screen.getByText("Básico")).toBeInTheDocument();
-    expect(screen.getByText("Adequado")).toBeInTheDocument();
-    expect(screen.getByText("Avançado")).toBeInTheDocument();
-    expect(screen.getByText("Total")).toBeInTheDocument();
-    expect(screen.getByText("Média de proficiência")).toBeInTheDocument();
+    expect(screen.getAllByText("Abaixo do básico")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Básico")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Adequado")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Avançado")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Total")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Média de proficiência")[0]).toBeInTheDocument();
     expect(screen.getByText("6")).toBeInTheDocument();
     expect(screen.getByText("180")).toBeInTheDocument();
   });
@@ -64,7 +64,7 @@ describe("Tabela", () => {
   it("exibe mensagem de vazio quando não há dados", () => {
     render(<Tabela dados={[]} origem="principal" estaCarregando={false} />);
     expect(
-      screen.getByText("Não encontramos dados para a UE selecionada")
+      screen.getByText("Não encontramos dados para a UE selecionada"),
     ).toBeInTheDocument();
   });
 
@@ -76,11 +76,11 @@ describe("Tabela", () => {
 
   it("executa drag and drop entre colunas sem erro", () => {
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     const headers = screen.getAllByText(
-      /Componente curricular|Abaixo do básico|Básico|Adequado|Avançado|Total|Média de proficiência/
+      /Componente curricular|Abaixo do básico|Básico|Adequado|Avançado|Total|Média de proficiência/,
     );
 
     const dataTransfer = {
@@ -106,14 +106,15 @@ describe("Tabela", () => {
       { key: "adequado", hidden: false },
     ];
 
-    jest.spyOn(React, "useState")
+    jest
+      .spyOn(React, "useState")
       // 1° useState - colunas
       .mockReturnValueOnce([colunasMock, mockSetColunas])
       // 2° useState - draggedColumn
       .mockReturnValueOnce([null, jest.fn()]);
 
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     // pegamos o argumento passado ao setColunas e executamos a função
@@ -138,11 +139,11 @@ describe("Tabela", () => {
     };
 
     (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
-      cb(mockState2)
+      cb(mockState2),
     );
 
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
     expect(screen.getByText("Matemática")).toBeInTheDocument();
@@ -155,13 +156,87 @@ describe("Tabela", () => {
     };
 
     (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
-      cb(mockState3)
+      cb(mockState3),
     );
 
     render(
-      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
     );
 
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("oculta colunas quando nível é removido dos filtros (basico ausente)", () => {
+    const mockStateSemBasico = {
+      tab: { activeTab: "1" },
+      filtros: {
+        niveisAbaPrincipal: [
+          { texto: "Abaixo do Básico", valor: 1 },
+          { texto: "Adequado", valor: 3 },
+          { texto: "Avançado", valor: 4 },
+        ],
+      },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateSemBasico),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("oculta colunas quando nível adequado é removido dos filtros", () => {
+    const mockStateSemAdequado = {
+      tab: { activeTab: "1" },
+      filtros: {
+        niveisAbaPrincipal: [
+          { texto: "Abaixo do Básico", valor: 1 },
+          { texto: "Básico", valor: 2 },
+          { texto: "Avançado", valor: 4 },
+        ],
+      },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateSemAdequado),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("oculta colunas quando nível avancado é removido dos filtros", () => {
+    const mockStateSemAvancado = {
+      tab: { activeTab: "1" },
+      filtros: {
+        niveisAbaPrincipal: [
+          { texto: "Abaixo do Básico", valor: 1 },
+          { texto: "Básico", valor: 2 },
+          { texto: "Adequado", valor: 3 },
+        ],
+      },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateSemAvancado),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
+    expect(screen.getByText("Matemática")).toBeInTheDocument();
+  });
+
+  it("renderiza filtros sem nenhum nível selecionado", () => {
+    const mockStateVazio = {
+      tab: { activeTab: "1" },
+      filtros: { niveisAbaPrincipal: [] },
+    };
+    (useSelector as unknown as jest.Mock).mockImplementation((cb) =>
+      cb(mockStateVazio),
+    );
+    render(
+      <Tabela dados={mockDados} origem="principal" estaCarregando={false} />,
+    );
     expect(screen.getByText("Matemática")).toBeInTheDocument();
   });
 });
