@@ -197,7 +197,7 @@ const CardsComparativa: React.FC<CardsComparativaProps> = ({
                           </div>
                           <div className="cards-comparativa-quantidade-texto">
                             <p>UEs que realizaram a prova:</p>
-                            <span>{comparacao.realizaramProva}</span>
+                            <span>{comparacao.quantidadeUes}</span>
                           </div>
                         </div>
                       )}
