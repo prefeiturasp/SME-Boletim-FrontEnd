@@ -4,12 +4,12 @@ import { render, screen } from "@testing-library/react";
 import DesempenhoAno from "./desempenhoAno";
 
 beforeAll(() => {
-  jest.spyOn(window, 'location', 'get').mockReturnValue({
+  jest.spyOn(window, "location", "get").mockReturnValue({
     ...window.location,
     assign: jest.fn(),
   });
-  jest.spyOn(console, 'error').mockImplementation(() => {});
-  jest.spyOn(console, 'warn').mockImplementation(() => {});
+  jest.spyOn(console, "error").mockImplementation(() => {});
+  jest.spyOn(console, "warn").mockImplementation(() => {});
 });
 
 // Mock do Recharts seguindo as recomendações oficiais
@@ -70,24 +70,27 @@ const mockFilters: Filtro = {
   nivelMaximo: 100,
   nivelMaximoEscolhido: 100,
   turmas: [],
-};
+  variacoes: [],
+} as any;
 
 describe("DesempenhoAno", () => {
   it("renderiza o gráfico com dados processados", () => {
     const { container } = render(
-      <DesempenhoAno dados={mockData} filtrosSelecionados={mockFilters} />
+      // @ts-expect-error - variacoes é obrigatório mas o mock o omite
+      <DesempenhoAno dados={mockData} filtrosSelecionados={mockFilters} />,
     );
 
     // Verifica elementos principais
     expect(container.querySelector(".recharts-bar")).toBeInTheDocument();
     expect(
-      container.querySelector(".recharts-cartesian-grid")
+      container.querySelector(".recharts-cartesian-grid"),
     ).toBeInTheDocument();
   });
 
   it("renderiza todas as barras quando todos os filtros estão ativos", () => {
     const { container } = render(
-      <DesempenhoAno dados={mockData} filtrosSelecionados={mockFilters} />
+      // @ts-expect-error - variacoes é obrigatório mas o mock o omite
+      <DesempenhoAno dados={mockData} filtrosSelecionados={mockFilters} />,
     );
 
     const bars = container.querySelectorAll(".recharts-bar-rectangle");
@@ -101,7 +104,8 @@ describe("DesempenhoAno", () => {
     };
 
     const { container } = render(
-      <DesempenhoAno dados={mockData} filtrosSelecionados={emptyFilters} />
+      // @ts-expect-error - variacoes é obrigatório mas o mock o omite
+      <DesempenhoAno dados={mockData} filtrosSelecionados={emptyFilters} />,
     );
 
     const bars = container.querySelectorAll(".recharts-bar-rectangle");

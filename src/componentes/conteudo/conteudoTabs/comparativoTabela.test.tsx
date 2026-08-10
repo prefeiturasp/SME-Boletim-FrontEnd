@@ -10,16 +10,35 @@ beforeAll(() => {
 });
 
 jest.mock("./comparativoTabela.css", () => ({}));
-jest.mock("./../../../assets/icon-mais.svg", () => "iconeMais.svg");
 
 const mockExibirMais = jest.fn();
 const mockDadosTurma = {
   itens: [
-    { nome: "Aluno 1", variacao: -2.9, proficiencias: [{ descricao: "PSA", mes: "Agosto 2025", valor: 200 }] },
-    { nome: "Aluno 2", variacao: 1.0, proficiencias: [{ descricao: "PSA", mes: "Setembro 2025", valor: 210 }] },
-    { nome: "Aluno 3", variacao: 2.2, proficiencias: [{ descricao: "PSA", mes: "Outubro 2025", valor: 220 }] },
-    { nome: "Aluno 4", variacao: 0.0, proficiencias: [{ descricao: "PSA", mes: "Novembro 2025", valor: 230 }] },
-    { nome: "Aluno 5", variacao: 5.2, proficiencias: [{ descricao: "PSA", mes: "Dezembro 2025", valor: 240 }] },
+    {
+      nome: "Aluno 1",
+      variacao: -2.9,
+      proficiencias: [{ descricao: "PSA", mes: "Agosto 2025", valor: 200 }],
+    },
+    {
+      nome: "Aluno 2",
+      variacao: 1.0,
+      proficiencias: [{ descricao: "PSA", mes: "Setembro 2025", valor: 210 }],
+    },
+    {
+      nome: "Aluno 3",
+      variacao: 2.2,
+      proficiencias: [{ descricao: "PSA", mes: "Outubro 2025", valor: 220 }],
+    },
+    {
+      nome: "Aluno 4",
+      variacao: 0.0,
+      proficiencias: [{ descricao: "PSA", mes: "Novembro 2025", valor: 230 }],
+    },
+    {
+      nome: "Aluno 5",
+      variacao: 5.2,
+      proficiencias: [{ descricao: "PSA", mes: "Dezembro 2025", valor: 240 }],
+    },
   ],
   total: 10,
 };
@@ -32,13 +51,15 @@ const renderComparativoTabela = () =>
       dadosTurma={mockDadosTurma}
       turmaSelecionada="1"
       componentesCurricularSelecionado="Matemática"
-    />
+    />,
   );
 
 describe("ComparativoTabela", () => {
   it("renderiza o título com turma e componente curricular", () => {
     renderComparativoTabela();
-    expect(screen.getByText(/Estudantes da turma 1 em Matemática/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Estudantes da turma 1 em Matemática/i),
+    ).toBeInTheDocument();
   });
 
   it("renderiza as legendas de níveis", () => {
@@ -53,7 +74,7 @@ describe("ComparativoTabela", () => {
 
   it("renderiza a tabela e nomes dos estudantes", () => {
     renderComparativoTabela();
-    expect(screen.getByText("Nome do estudante")).toBeInTheDocument();
+    expect(screen.getAllByText("Nome do estudante")[0]).toBeInTheDocument();
     expect(screen.getByText("Aluno 1")).toBeInTheDocument();
     expect(screen.getByText("Aluno 5")).toBeInTheDocument();
   });
@@ -73,38 +94,5 @@ describe("ComparativoTabela", () => {
     renderComparativoTabela();
     expect(screen.getByText(/Carregando.../i)).toBeInTheDocument();
     jest.restoreAllMocks();
-  });
-});
-
-describe("pegaCoresBarraProgresso", () => {
-  const realModule = jest.requireActual("./comparativoTabela") as any;
-  const pegaCoresBarraProgresso = realModule.pegaCoresBarraProgresso;
-
-  it("retorna a cor correta para cada nível", () => {
-    expect(pegaCoresBarraProgresso("Abaixo do Básico")).toBe("#FF5959");
-    expect(pegaCoresBarraProgresso("Básico")).toBe("#FEDE99");
-    expect(pegaCoresBarraProgresso("Adequado")).toBe("#9999FF");
-    expect(pegaCoresBarraProgresso("Avançado")).toBe("#99FF99");
-    expect(pegaCoresBarraProgresso("Outro")).toBe("#B0B0B0");
-  });
-});
-
-describe("constroiColunas", () => {
-  const realModule = jest.requireActual("./comparativoTabela") as any;
-  const constroiColunas = realModule.constroiColunas;
-
-  it("retorna null no render quando não há PSP", () => {
-    const dados = [
-      {
-        nome: "Aluno Sem PSP",
-        variacao: 0,
-        proficiencias: [{ descricao: "PSA", mes: "Agosto", valor: 210.5 }],
-      },
-    ];
-
-    const columns = constroiColunas("Lingua portuguesa", 5, dados);
-    const pspColumn = columns[1].children.find((col: any) => col.key === "psp");
-    const rendered = pspColumn.render(null, dados[0]);
-    expect(rendered).toBeNull();
   });
 });

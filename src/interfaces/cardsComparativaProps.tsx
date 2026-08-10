@@ -4,6 +4,7 @@ export interface CardsComparativaAplicacaoProps {
   periodo: string;
   mediaProficiencia: number;
   realizaramProva: number;
+  quantidadeUes: number;
   nivelProficiencia: string;
 }
 
