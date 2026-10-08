@@ -10,6 +10,7 @@ import FiltroLateral from "../filtro/filtroLateral";
 import { setFiltroDados } from "../../redux/slices/filtroCompletoSlice";
 import { filtroCarregado } from "../../redux/slices/filtroCarregado";
 import { useLocation } from "react-router-dom";
+import { TIPOS_ESCOLA_REMOVIDOS } from "../../constantes/constantes";
 
 const EscolherEscola = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -52,9 +53,18 @@ const EscolherEscola = () => {
     try {
       const resposta = await servicos.get("/api/abrangencia", {});
 
-      const escolasValidas = resposta.filter(
-        (item: any) => item && item.ueId && item.descricao
-      );
+      const escolasValidas = resposta.filter((item: any) => {
+
+      if (!item || !item.ueId || !item.descricao) {
+        return false;
+      }
+
+      if (TIPOS_ESCOLA_REMOVIDOS.includes(item.ueTipo)) {
+        return false;
+      }
+
+        return true;
+      });
 
       setAbrangencia(escolasValidas);
     } catch (error) {
