@@ -28,6 +28,7 @@ import iconeAlunos from "../assets/icon-alunos.svg";
 import iconeDados from "../assets/icon-dados.svg";
 import iconeMais from "../assets/icon-mais.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { TIPOS_ESCOLA_REMOVIDOS } from "../constantes/constantes";
 
 import { Layout } from "antd";
 const { Header } = Layout;
@@ -323,12 +324,12 @@ const UesPage: React.FC = () => {
       const resposta = await servicos.get(
         `/api/BoletimEscolar/${aplicacaoSelecionada}/${dreSelecionada}/${anoSelecionado}/ues-por-dre`
       );
-      const opcoesUe = (resposta ?? []).map(
-        (item: { ueId: any; descricao: any }) => ({
+      const opcoesUe = (resposta ?? [])
+        .filter((item: any) => !TIPOS_ESCOLA_REMOVIDOS.includes(item.tipoEscola))
+        .map((item: { ueId: any; descricao: any }) => ({
           value: item.ueId,
           label: item.descricao,
-        })
-      );
+        }));
       setUes(opcoesUe);
     } catch (error) {
       setUes([]);
